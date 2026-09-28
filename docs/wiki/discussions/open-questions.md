@@ -2,13 +2,25 @@
 title: Open questions
 section: Discussion
 status: Open
-updated: 2026-09-28
+updated: 2026-09-29
 order: 0
 summary: Remaining design choices and a record of resolved or deferred questions.
 ---
 # Open questions
 
 These questions are a conversation queue, not an implementation checklist. Accepted direction lives in the [decision register](../decisions/index.md).
+
+## Implementation authorization · 28 September 2026
+
+D102 authorizes the complete agreed implementation and delegates safe, lean defaults for unanswered decisions. The earlier question lists below are preserved as history. They no longer block implementation or require another preference round. Current defaults, limitations, and validation work are tracked in [implementation progress](../references/implementation.md).
+
+The four post-spike defaults are practical agent classification of consequential browser actions, exact-origin site grants that last for the chat, separate note-conflict copies, and explicit continuation of interrupted work. Browser classification is not a guaranteed read-only boundary. Account-dependent tests remain engineering validation, not answered preferences. The macOS arm64 bundle has now passed relocation and system-only PATH checks; a separate clean machine and Linux remain untested.
+
+## Delivery follow-up · 29 September 2026
+
+The local build is implemented and its [validation report](../references/implementation.md) is current. The lists below preserve planning history. Calendar editing, local data layout, music engine and source labels, expenses precision, bounded automation input, interrupted chat behavior, and browser grant duration now have lean defaults under D102/D103.
+
+Remaining follow-ups need real usage or account setup: live Spotify/Gmail/X/server compatibility, fresh Codex login/expiry, measured browsing latency, and Linux packaging if requested. External board adapters remain unspecified and are not necessary for app-agent use. No additional feature round is required before using the current macOS app.
 
 ## Product shape
 
@@ -243,7 +255,7 @@ The main new concern is browser enforcement: blocking non-GET requests did not s
 
 ## Post-spike question round · 28 September 2026
 
-**Assistant proposals, awaiting answers.** These questions refine unsettled behavior without reopening the chosen stack, first-version modules, subscription, or the requirement to preserve both versions of a conflicted note.
+**Historical proposals; defaults adopted under D102's delegated implementation authority.** These questions refine unsettled behavior without reopening the chosen stack, first-version modules, subscription, or the requirement to preserve both versions of a conflicted note.
 
 1. **Browser action classification:** is agent judgment acceptable for identifying consequential actions and routing them through confirmation, with ambiguous actions also prompting? Recommend this practical approach for the private app. It keeps the adaptation small, but classification can be mistaken; it is not a guaranteed technical read-only boundary. Stronger guarantees would require restricting supported interaction or introducing more complexity. D97's intended confirmation behavior remains; this asks about its enforcement tradeoff.
 2. **Site authorization lifetime:** should permission to browse a site last for the current chat, including reopening it later? Recommend that scope initially; another chat requests its own authorization. Browser login sessions may remain saved separately, but being signed in does not itself grant an agent permission. Exact origin/redirect handling still needs validation; no cross-site permission is implied.

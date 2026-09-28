@@ -2,15 +2,19 @@
 title: Music
 section: Features
 status: Exploring
-updated: 2026-09-27
+updated: 2026-09-29
 order: 90
 summary: One lean Spotify and Navidrome client with source-labelled browsing and playback.
 ---
 # Music
 
+## Implementation · 28 September 2026
+
+Under D102's implementation authorization, the assistant selected source pills, an All search tab plus the four type tabs, source album lists on artist detail pages, and local recent collection history. Spotify uses a small bundled librespot 0.8.0 helper; Navidrome streams to the in-app audio player. The packaged helper compiles and starts; Navidrome fixture audio and single-song stopping pass in Electron. Spotify account sign-in and actual audio remain unverified. This native helper adds Rust to the build prerequisites for Spotify; the packaged app contains the binary. See [implementation and validation](../references/implementation.md). Earlier engine comparisons below are historical.
+
 ## Cloudflare OS reassessment · 27 September 2026
 
-**Spotify must play audio inside Clarity ([D61](../decisions/index.md#d61-spotify-plays-inside-clarity-27-september-2026)).** Controlling a separate Spotify app/device is not the selected experience. The existing Connect-only integration does not fulfill this requirement by itself. The embedded playback engine and packaged Electron compatibility remain implementation checks; no engine is selected or tested yet.
+**Spotify must play audio inside Clarity ([D61](../decisions/index.md#d61-spotify-plays-inside-clarity-27-september-2026)).** Controlling a separate Spotify app/device is not the selected experience. The existing Connect-only integration does not fulfill this requirement by itself. Native playback and packaged compatibility still require account-level validation; the engine selection above supersedes the earlier undecided implementation state.
 
 **Navidrome uses a simple address-and-sign-in flow ([D62](../decisions/index.md#d62-simple-navidrome-address-connection-27-september-2026)).** Accept a user-provided HTTP or HTTPS server address, use the account credentials, and attempt the connection. Do not ask whether the server is local, on a home network, or public. If it cannot connect or sign in, show the resulting failure so the user can correct the address or credentials and retry. No discovery, hosting wizard, or network-classification step is requested.
 

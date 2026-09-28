@@ -2,7 +2,7 @@
 title: Decision register
 section: Decisions
 status: Accepted
-updated: 2026-09-28
+updated: 2026-09-29
 order: 0
 summary: Direction explicitly stated by the user, with implementation choices left open.
 ---
@@ -14,7 +14,7 @@ summary: Direction explicitly stated by the user, with implementation choices le
 
 | ID | Direction | Source |
 | --- | --- | --- |
-| D01 | Explore and iterate before building the Clarity app. | Initial user brief |
+| D01 | Explore and iterate before building the Clarity app. **Planning-only restriction superseded by [D102](#d102-build-clarity-with-lean-defaults-28-september-2026).** | Initial user brief |
 | D02 | User-selected folders own local application state. **Reopened by [D53](#d53-cloudflare-os-direction-27-september-2026); deployment and file ownership remain unresolved.** | Initial user brief |
 | D03 | Separate personal and development roots. **Superseded by [D64](#d64-one-clarity-data-folder-27-september-2026): one Clarity data folder.** | Initial user brief |
 | D04 | Bring synced files to another machine and open them with another instance. **Superseded for current scope by [D24](#d24-local-state-with-sync-deferred-25-september-2026):** no device sync for now; storage representation is under exploration. | Initial user brief; 25 September revision |
@@ -689,6 +689,24 @@ Source: the user agreed to all four first-version recommendations. See [chat beh
 
 ## D101 — Disposable spikes without starting Clarity · 28 September 2026
 
+**Historical authorization; its implementation restriction is superseded by [D102](#d102-build-clarity-with-lean-defaults-28-september-2026).** The experiment evidence and workspace dependency restrictions remain relevant.
+
 **User authorization:** run throwaway technical experiments to resolve the integration unknowns; the user explicitly does not want application implementation to begin. This extends the previous source-review-only investigation boundary, without superseding D01's planning phase.
 
 Keep spike code, dependencies, fixtures, and packaging experiments outside the Clarity workspace. Preserve findings and limitations in the wiki; no result automatically becomes a production implementation decision. The workspace/wiki prohibition on package manifests, lockfiles, and installed dependencies remains. See [results](../references/technical-spikes.md) and [journal](../journal/2026-09-28-technical-spikes.md).
+
+## D102 — Build Clarity with lean defaults · 28 September 2026
+
+**User authorization:** start a persistent goal and build the entire agreed app, choosing safe and lean defaults for unfinished decisions. This supersedes D01's planning-only phase and D101's prohibition on application implementation. It does not restore terminals, direct local music files, device sync, or other removed scope.
+
+The assistant chose thread-scoped browser site grants, practical agent classification of consequential actions, explicit continuation after interruption, and separate conflict copies for unsaved note drafts. These are implementation defaults under the user's delegated authority, rather than answers individually supplied by the user to the previous question round.
+
+Preserve the repository's package-file and dependency-directory ban: application dependencies, generated manifests, caches, test fixtures, and packaged output live outside the repository. Wiki builds still need Node only. See [implementation progress](../references/implementation.md) and [journal](../journal/2026-09-28-implementation.md).
+
+## D103 — Lean local implementation defaults · 29 September 2026
+
+**Assistant-selected under the user's delegation in D102, not separate user answers:** use Electron/TypeScript with local workerd/SQLite, Pi and maintained module methods. Reuse Cloudflare OS's scheduler and public approval contracts selectively; omit the full upstream hosted/app-generation runtime. Actual Markdown remains authoritative for Notes/Wiki.
+
+Use data-root folders Notes, Wiki, Attachments, Trash and .clarity; thread-scoped exact-origin browser grants; conflict copies; no automatic replay of interrupted actions; daily/weekly wiki schedules with bounded new input and missed runs skipped. Use flat source-labelled music libraries, local recent-collection history, a bundled librespot helper for Spotify, and in-app Navidrome audio. Build/package dependencies stay outside the repository.
+
+These defaults resolve the previously unspecified implementation details, without restoring removed scope or promising live external-account compatibility. See [implementation and validation](../references/implementation.md) and [delivery journal](../journal/2026-09-29-local-build.md).

@@ -2,15 +2,15 @@
 title: Chat and module actions
 section: Foundations
 status: Captured
-updated: 2026-09-28
+updated: 2026-09-29
 order: 40
 summary: Chat can read information and perform actions across all Clarity modules.
 ---
 # Chat and module actions
 
-**Platform mapping remains open:** the requirements below still apply. Cloudflare OS can queue/simulate writes rather than wait before each action, and resources are exposed through explicit bindings. Validate all-chat access to the same enabled module data and persistent wiki grants; do not assume equivalent behavior merely from adopting the platform.
+**Implemented under D102/D103:** Pi calls the shared maintained module methods. Reads return immediately; writes enter a persistent review queue, and the agent is told they have not been applied. Clarity adapts Cloudflare OS's public approval contracts without running the full upstream Gatekeeper platform. Browser navigation uses thread-scoped origin grants. See [current evidence](../references/implementation.md).
 
-**Current direction:** use the local Cloudflare OS backend, its Pi agent, stable module instances, and upstream approvals. Actual Markdown files remain authoritative for notes/wiki. Shared module bindings and the filesystem connection still need implementation validation.
+**Current implementation:** local Worker/SQLite persistence, the Pi agent, stable maintained module instances, queued approvals, and actual Markdown notes/wiki files. A live Codex request also accepted hosted web search, avoiding an interactive browser for ordinary research. The live application test now passes tool approval, restart, and model/effort switching within one thread. Fresh live sign-in/expiry remains unverified. Earlier discussions below are retained as history; the current implementation report governs the delivered behavior.
 
 Chat should be able to act across all modules. It is the opening screen, with recent chats in the sidebar, and provides access to module information and actions through conversation. See [D17](../decisions/index.md#d17-chat-across-all-modules-25-september-2026).
 

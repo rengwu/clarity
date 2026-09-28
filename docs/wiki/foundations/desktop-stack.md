@@ -2,11 +2,15 @@
 title: Desktop stack exploration
 section: Foundations
 status: Exploring
-updated: 2026-09-28
+updated: 2026-09-29
 order: 60
 summary: Local Cloudflare OS, Electron, actual Markdown files, Pi, stable modules, and upstream approvals.
 ---
 # Desktop stack exploration
+
+## Application implementation · 28 September 2026
+
+The user has now authorized implementation and safe lean defaults (D102). The working app selectively adapts Cloudflare OS's scheduler and approval contracts, with Electron/TypeScript, local workerd/SQLite, real Markdown files, and Pi. It does not run the complete upstream application. The macOS arm64 bundle now passes relocation, standalone dependency, signature and persistence checks. The earlier comparisons below remain historical. See [implementation progress](../references/implementation.md) for the exact reuse boundary and application tests; the sections below preserve the earlier architecture investigation.
 
 ## Runtime evidence · 28 September 2026
 
