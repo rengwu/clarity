@@ -890,3 +890,8 @@ The 2 October [large-collection correction](../features/music.md#large-spotify-c
 ## D129 — Linear Music volume scaling · 3 October 2026
 
 **User requirement:** Music volume should feel linear: the 50% slider position must no longer produce the very quiet level caused by the prior logarithmic curve. **Implementation:** use the same direct `volume / 100` amplitude gain for Spotify's Rodio output and Navidrome's HTML audio. This retains D124's shared source behavior and fixed normalization, plus D127's immediate dispatch and output-queue response; it changes neither saved settings nor audio-file data. The [Music contract](../features/music.md#source-volume-and-normalization-3-october-2026) and [verification run](../verification/runs/2026-10-02T165716Z-linear-volume.md) own exact checks and limits.
+
+
+## D130 — Shared feedback with Radix Toast · 3 October 2026
+
+**Accepted from the user:** choose Radix Toast after the requested comparison of global error and information-message methods. **Delegated implementation:** use one shared provider and presentation system, keeping field/form/module failures in context, ongoing workspace failures in a persistent recovery banner, and cross-module action feedback in queued Radix toasts. Timings, placement, deduplication, focus behavior and native-modal/window suspension are implementation defaults. This resolves the earlier pending proposal; it does not add an OS notification service or stored notification history. The [desktop contract](../foundations/desktop-stack.md#global-feedback-standard-3-october-2026) owns the specification and [the journal](../journal/2026-10-03-global-feedback.md) records delivery and limits.

@@ -188,6 +188,12 @@ The user reported that Liked Songs appeared stuck, later clarified that it compl
 
 Renderer entries retain the accumulated prefix and continuation, with one request pending at a time. Failed continuation never discards the prefix or treats it as the complete collection. The native table keeps existing row components when another page arrives, avoiding unnecessary row updates. Loaded rows remain in the DOM; this is incremental fetching, not a virtualized or offline music library. Normalization, source switching, shuffle/repeat context and successful-result caching retain their existing contracts.
 
+### Shared feedback · 3 October 2026
+
+Browse and player errors now use the [shared Notice component](../foundations/desktop-stack.md#global-feedback-standard-3-october-2026), retaining existing source labels, browse retry, partial results, player connection actions and one error owner. No additional toast is emitted for an error already shown locally. The existing compact spacing and dark/light themes remain part of the contract.
+
+The [feedback verification run](../verification/runs/2026-10-02T173355Z-global-feedback.md) records the selected native controls, error/recovery checks and limits.
+
 ### Verification recipe and coverage
 
 **Search-category recipe:** after building, run `node --test tests/music-cache.mjs`. The native driver searches eight songs plus artist/album/playlist fixtures, including a song and album with the same title. Check section order, six-item preview, explicit kind/source labels, keyboard Show all into the complete Songs list, both layouts, source filtering, collection/Back, no extra search request, Songs reset after leaving Music, empty categories and no results. Capture both themes at 1200×800 and 850×600 with `CLARITY_MUSIC_EVIDENCE`; inspect screenshots and overflow measurements. Repeat with `CLARITY_MUSIC_EXECUTABLE`/`CLARITY_MUSIC_MAIN` pointing at the signed package. Existing cache/retry/account scenarios remain in the same driver; fake credentials use Chromium’s mock keychain in an isolated data root. Run the Spotify playlist and Mail/Music navigation recipes below for adjacent entry points. These controlled responses verify presentation/navigation, not live catalogue completeness or provider ranking.

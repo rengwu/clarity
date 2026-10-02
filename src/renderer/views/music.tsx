@@ -3,6 +3,7 @@ import React, { memo, useCallback, useEffect, useRef, useState, useSyncExternalS
 import { invoke, useApp, Source, ListState } from '../api';
 import { updateMusicCache, useMusicResource } from '../music-resource';
 import { Icon } from '../icons';
+import { Notice } from '../feedback';
 import { useViewMotion } from '../motion';
 import { normalizationGain, volumeGain } from '../../shared/music-volume';
 
@@ -192,16 +193,18 @@ export function Music() {
     return () => observer.disconnect();
   }, [resource.data, resource.loading, failure, app.active]);
   const failureNotice = failure && (
-    <div className="music-load-notice" role="alert">
-      <div>
-        <strong>{items.length ? 'Some music couldn’t be loaded.' : 'Couldn’t load music.'}</strong>
-        <p>{failure}</p>
-      </div>
-      <button disabled={resource.loading} onClick={() => void resource.retry()}>
-        <Icon name="refresh" size={14} />
-        {resource.loading ? 'Retrying…' : 'Try again'}
-      </button>
-    </div>
+    <Notice
+      className="music-load-notice"
+      title={items.length ? 'Some music couldn’t be loaded.' : 'Couldn’t load music.'}
+      actions={
+        <button disabled={resource.loading} onClick={() => void resource.retry()}>
+          <Icon name="refresh" size={14} />
+          {resource.loading ? 'Retrying…' : 'Try again'}
+        </button>
+      }
+    >
+      {failure}
+    </Notice>
   );
   function changeTab(name: string) {
     setTab(name);
@@ -680,11 +683,7 @@ export function Player() {
           }
         }}
       />
-      {!item && failure && (
-        <p className="player-error" role="alert">
-          {failure}
-        </p>
-      )}
+      {!item && failure && <Notice className="player-error">{failure}</Notice>}
       {item && (
         <div className="player">
           <div className="player-track">
@@ -804,14 +803,19 @@ export function Player() {
             />
           </div>
           {failure && (
-            <p className="player-error" role="alert">
+            <Notice
+              className="player-error"
+              actions={
+                state.source === 'spotify' &&
+                !app.bootstrap.auth.spotifyPlayback && (
+                  <button onClick={() => app.navigate('settings', { section: 'spotify-playback' })}>
+                    Connect playback
+                  </button>
+                )
+              }
+            >
               {failure}
-              {state.source === 'spotify' && !app.bootstrap.auth.spotifyPlayback && (
-                <button onClick={() => app.navigate('settings', { section: 'spotify-playback' })}>
-                  Connect playback
-                </button>
-              )}
-            </p>
+            </Notice>
           )}
         </div>
       )}

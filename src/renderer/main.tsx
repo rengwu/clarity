@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { AppContext, call, labels } from './api';
+import { AppContext, call, labels, ErrorText } from './api';
+import { FeedbackProvider, FeedbackBanner, useFeedback, errorMessage } from './feedback';
 import { Chat } from './views/chat';
 import { Notes } from './views/notes';
 import { Todos, Expenses, Bookmarks, News, Mail, Board, Automations } from './views/lists';
@@ -16,8 +17,14 @@ import type { ItemTarget } from '../shared/navigation';
 import './style.css';
 import './workspace.css';
 import './settings.css';
+import './feedback.css';
 
-type ScrollPosition = { selector: string; index: number; top: number; left: number };
+type ScrollPosition = {
+  selector: string;
+  index: number;
+  top: number;
+  left: number;
+};
 type Visit = {
   module: string;
   chatId?: string;
@@ -38,6 +45,7 @@ const scrollSelectors = [
 ];
 
 function App() {
+  const feedback = useFeedback();
   useInteractionFeedback();
   const [bootstrap, setBootstrap] = useState<any>();
   const [visit, setVisit] = useState<Visit>({ module: 'chat', scroll: [] });
@@ -61,10 +69,8 @@ function App() {
     `.module-host[data-module="${visit.module}"]`,
     visit.module === 'chat' ? visit.chatId : visit.module,
   );
-  const navigator = useRef<(module: string, target?: Omit<ItemTarget, 'module'>) => void>(
-    () => {},
-  );
-  const showError = (value: any) => setError(value?.message || String(value));
+  const navigator = useRef<(module: string, target?: Omit<ItemTarget, 'module'>) => void>(() => {});
+  const showError = feedback.error;
   const refresh = async () => {
     const data = await call('bootstrap');
     setBootstrap(data);
@@ -77,22 +83,34 @@ function App() {
         setVisit(next);
       }
     }
+    setError('');
+    feedback.dismiss('workspace-refresh');
   };
+  const refreshWorkspace = () =>
+    refresh().catch((failure) => {
+      setError(errorMessage(failure));
+      feedback.error(failure, {
+        id: 'workspace-refresh',
+        title: 'Couldn’t refresh Clarity',
+        placement: 'banner',
+        action: { label: 'Try again', onClick: () => void refreshWorkspace() },
+      });
+    });
   const takeNavigation = async () => {
     const pending = await call<ItemTarget | undefined>('navigation.take');
     if (pending) navigator.current(pending.module, pending);
   };
   useEffect(() => {
-    void refresh().catch(showError);
+    void refreshWorkspace();
     return window.clarity.subscribe((event) => {
       if (event.type === 'navigate') void takeNavigation().catch(showError);
+      if (event.type === 'auth') feedback.clear();
       if (
         event.type === 'auth' ||
         (event.type === 'changed' && ['settings', 'chats'].includes(event.module || ''))
       )
-        void refresh().catch(showError);
-      if (event.type === 'changed' && event.module === 'wiki')
-        setWikiVersion((value) => value + 1);
+        void refreshWorkspace();
+      if (event.type === 'changed' && event.module === 'wiki') setWikiVersion((value) => value + 1);
     });
   }, []);
   useEffect(() => {
@@ -108,9 +126,7 @@ function App() {
   useEffect(() => {
     if (!workspace.current) return;
     const observer = new ResizeObserver(([entry]) =>
-      setPreviewWidth((width) =>
-        Math.max(260, Math.min(width, entry.contentRect.width - 360)),
-      ),
+      setPreviewWidth((width) => Math.max(260, Math.min(width, entry.contentRect.width - 360))),
     );
     observer.observe(workspace.current);
     return () => observer.disconnect();
@@ -266,7 +282,9 @@ function App() {
       }
       const editing =
         event.target instanceof Element &&
-        event.target.closest('input, textarea, select, [contenteditable]:not([contenteditable="false"])');
+        event.target.closest(
+          'input, textarea, select, [contenteditable]:not([contenteditable="false"])',
+        );
       if (name === 'b' && !editing) {
         event.preventDefault();
         setSidebar((value) => !value);
@@ -292,23 +310,36 @@ function App() {
     return () => window.removeEventListener('keydown', key);
   }, [bootstrap, visit]);
 
-  if (!bootstrap) return <div className="startup">{error || 'Opening Clarity…'}</div>;
+  if (!bootstrap)
+    return (
+      <div className="startup">
+        {error ? (
+          <>
+            <ErrorText>{error}</ErrorText>
+            <button onClick={() => void refreshWorkspace()}>Try again</button>
+          </>
+        ) : (
+          'Opening Clarity…'
+        )}
+      </div>
+    );
   if (!bootstrap.root)
     return (
       <main className="setup">
         <h1>Choose your Clarity folder</h1>
         <p>Notes, wiki pages, conversations, and app data live here.</p>
-        <button className="primary" onClick={() => void call('root.pick').catch(showError)}>
+        <button
+          className="primary"
+          onClick={() => void call('root.pick').catch((failure) => setError(errorMessage(failure)))}
+        >
           Choose folder
         </button>
-        {error && <p role="alert">{error}</p>}
+        <ErrorText>{error}</ErrorText>
       </main>
     );
   const views: Record<string, React.ReactNode> = {
     chat: <Chat key={visit.chatId || 'new'} id={visit.chatId} onCreate={() => newChat(true)} />,
-    notes: (
-      <Notes openPath={visit.target?.module === 'notes' ? visit.target.path : undefined} />
-    ),
+    notes: <Notes openPath={visit.target?.module === 'notes' ? visit.target.path : undefined} />,
     todos: <Todos />,
     calendar: <Calendar />,
     expenses: <Expenses />,
@@ -484,6 +515,7 @@ function App() {
               <kbd>⌘K</kbd>
             </button>
           </header>
+          <FeedbackBanner />
           <div className="workspace-body" ref={workspace}>
             <main className="module-container">
               {[...visited]
@@ -513,22 +545,14 @@ function App() {
             )}
           </div>
           <Player />
-          {error && (
-            <div className="toast" role="alert">
-              <span>{error}</span>
-              <button
-                className="icon-button quiet"
-                aria-label="Dismiss error"
-                onClick={() => setError('')}
-              >
-                <Icon name="close" />
-              </button>
-            </div>
-          )}
         </div>
       </div>
       {launcher && <OmniInput onClose={() => setLauncher(false)} onNewChat={newChat} />}
     </AppContext.Provider>
   );
 }
-createRoot(document.getElementById('root')!).render(<App />);
+createRoot(document.getElementById('root')!).render(
+  <FeedbackProvider>
+    <App />
+  </FeedbackProvider>,
+);

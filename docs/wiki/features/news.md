@@ -2,7 +2,7 @@
 title: News
 section: Features
 status: Current
-updated: 2026-10-02
+updated: 2026-10-03
 order: 60
 summary: Headlines from chosen sources, with articles opening in the browser.
 ---
@@ -39,6 +39,12 @@ Headlines use 36px whole-row buttons with 2px gaps: source icon, one-line title,
 ### Adversarial fixes · 2 October 2026
 
 RSS/Atom headlines decode ordinary XML and numeric entities into sanitized plain text (QA10). Markup/scripts are removed and feeds declaring DOCTYPE/ENTITY remain rejected. Refresh repairs a changed existing title using its revision while preserving ID, original creation/published dates and import counts. Mixed source failures remain visible without losing successful headlines. Source removal requires `{id,revision}` and rejects missing/malformed/stale revisions (QA07). Historical encoded article URLs are not separately migrated. The [remediation run](../verification/runs/2026-10-02T101600Z-adversarial-fixes.md) records the checked build; the original failed audit remains historical evidence.
+
+### Shared feedback · 3 October 2026
+
+Explicit refresh completion uses an informational toast from the [shared feedback standard](../foundations/desktop-stack.md#global-feedback-standard-3-october-2026). Individual source failures stay beside the headlines in a shared local notice, while source-edit failures stay inside their dialog. Partial refresh never produces a success toast.
+
+The [feedback verification run](../verification/runs/2026-10-02T173355Z-global-feedback.md) records the selected native controls, error/recovery checks and limits.
 
 ### Verification recipe and coverage
 

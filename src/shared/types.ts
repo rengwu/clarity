@@ -93,7 +93,7 @@ export type Action = RecordValue & {
   before?: any;
 };
 export type AppEvent = {
-  type: 'changed' | 'chat' | 'auth' | 'playback' | 'navigate';
+  type: 'changed' | 'chat' | 'auth' | 'playback' | 'navigate' | 'window';
   module?: string;
   id?: string;
   data?: any;

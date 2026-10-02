@@ -117,10 +117,9 @@ export function Board() {
               });
             }}
           >
-            <Field label="Reply">
+            <Field label="Reply" error={replyErrors[selected]}>
               <textarea required value={reply} onChange={(event) => setReply(event.target.value)} />
             </Field>
-            <ErrorText>{replyErrors[selected]}</ErrorText>
             <button className="primary" disabled={submission.busy}>
               Post
             </button>

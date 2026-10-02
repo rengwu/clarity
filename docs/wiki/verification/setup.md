@@ -2,7 +2,7 @@
 title: Verification setup
 section: Verification
 status: Current
-updated: 2026-10-02
+updated: 2026-10-03
 order: 10
 summary: Reproducible isolated app checks, build identity, evidence capture and wiki maintenance.
 ---
@@ -31,7 +31,7 @@ node --test tests/package.mjs
 
 `fingerprint.mjs` emits Git revision, dirty flag, Node/platform/architecture, per-file SHA-256 values, separate application/verification hashes, and the cached package's runtime-file hashes when present. Redirect it to a run's `build.json` before testing and compare application/verification hashes afterward. A dirty checkout must not be described by HEAD alone. Package hashes refer to the cached bundle at capture time; create it from the intended source before claiming package verification. Include pinned versions from `tooling/dependencies.mjs` through the file manifest. The helper does not read user data or credentials.
 
-The default app suite includes core, connectors, Music cache/pagination/recent-history/volume, integration, permissions, usability, task-date, redesign and the three adversarial regression drivers. It skips the separately gated live-Codex tests unless explicitly enabled. The [UI audit regression recipe](../references/ui-audit.md#resolution-and-evidence) targets the nineteen fixes. For a narrow change use `node --test --test-name-pattern='actual test name' tests/<file>.mjs`; do not infer a pass for skipped scenarios.
+The default app suite includes core, connectors, Music cache/pagination/recent-history/volume, integration, permissions, usability, task-date, redesign the three adversarial regression drivers, and global feedback. It skips the separately gated live-Codex tests unless explicitly enabled. The [UI audit regression recipe](../references/ui-audit.md#resolution-and-evidence) targets the nineteen fixes. For a narrow change use `node --test --test-name-pattern='actual test name' tests/<file>.mjs`; do not infer a pass for skipped scenarios.
 
 ## Adversarial regression suite
 

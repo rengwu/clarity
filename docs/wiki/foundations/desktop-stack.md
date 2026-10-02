@@ -79,9 +79,77 @@ These changes resolve the relevant findings in the [UI audit](../references/ui-a
 
 Global navigation shortcuts leave a native modal and its draft in the active module until the dialog closes (QA02). Global handlers respect already-handled keyboard events; ⌘B belongs to an input or rich editor while it has focus and toggles the sidebar outside those editing contexts (QA03). Malformed source URLs are contained by the Markdown preview (QA01), as specified in [Chat](chat.md). The [remediation run](../verification/runs/2026-10-02T101600Z-adversarial-fixes.md) records the checked build; the original failed audit remains historical evidence.
 
+### Global feedback standard · 3 October 2026
+
+**User selection ([D130](../decisions/index.md#d130-shared-feedback-with-radix-toast-3-october-2026)):** use Radix Toast for the global error/information standard. The implementation follows the researched approach of shared contextual notices plus a global toast host. Timing, placement, queue rules and migration details below are delegated implementation defaults, not separately answered preference questions.
+
+#### Placement and presentation
+
+`Notice` is the shared local component for error, warning, info and success. Existing `ErrorText` uses it throughout forms, Settings, lists, Chat, approvals and attachments. Field-specific errors use `Field.error`, with `aria-invalid` and `aria-describedby`; Board reply validation is the first migrated field. Native form validation remains available. Music browse notices retain their source, safe retry, partial results and 16px artwork gap; player errors retain their single persistent presentation and connection action. Do not also toast a locally presented failure.
+
+Form errors stay inside their dialog and preserve the draft. Module failures stay beside affected content; retry does not discard valid same-account results. An action without a suitable visible local error owner uses a toast, with the operation/source in its title when available. Ongoing workspace-refresh failure uses a persistent banner with Try again. That banner is placed below shell navigation, or inside the active native modal while it is open, so recovery remains reachable. Initial bootstrap failure offers a local retry; existing native startup failure handling remains in main.
+
+Toasts sit at the upper right, 12px from the edge and below the 44px shell header. The host is at most 380px wide and shows three messages at a time, retaining excess messages in order. Repeated identical operation IDs coalesce; changed content replaces that operation's message. Legacy global errors without IDs deduplicate by severity/title/description. Error and warning toasts, and any toast with an action, remain until dismissed, replaced or explicitly resolved. Info and success toasts have six seconds of visible, unpaused reading time. A toast's optional action must be safe to ignore; important required work belongs in a persistent contextual flow.
+
+Timers pause while hovering or focusing the notification region and while the app is inactive. A hidden/minimized window or open modal suspends the toast host, preserving remaining time. Queued messages start their reading time when displayed. Closing a modal resumes its deferred notifications. The native window bridge below is necessary because the inspected Electron fixture kept `document.visibilityState` and `document.hasFocus()` unchanged after the native window hid.
+
+The shared components use the app's theme, SVG icons, text wrapping and reduced-motion setting. Long toast descriptions have a bounded scrollable area so the close control remains visible. Info/success/warning announcements are polite; error toasts use Radix's foreground announcement. F8 focuses the notification region, Tab reaches its controls, and Escape dismisses a focused toast; Escape elsewhere does not consume notifications. Dismissing the final focused toast restores the previous connected focus target. Toasts do not focus themselves on arrival. Native-modal errors stay inside their modal; unrelated toasts remain queued outside it.
+
+#### Interfaces and ownership
+
+Pin `@radix-ui/react-toast` 1.2.23 alongside React 19.2.0 in `tooling/dependencies.mjs`; install/build only through the external cache. `feedback.tsx` owns the provider, queue, shared notices and countdown; `feedback.css` owns appearance. Radix supplies the toast anatomy, announcements, keyboard region, dismissal and swipe behavior. Clarity owns the reading-time clock to preserve it across native window/modal suspension, using `duration={Infinity}` on Radix roots so only one timer controls dismissal. Hover/focus handlers live on the shared React parent of toast roots and viewport: portaled toast events bypass handlers attached only to the viewport. An empty viewport must not intercept clicks on the underlying app.
+
+`useFeedback().notify({id?, severity, title, description?, action?, placement?})` returns the message ID. `dismiss(id)` removes one message, and `clear()` resets the in-memory queue. `error(failure, options?)` formats a failure, defaulting to a persistent error toast; `AppContext.error` delegates to it for existing call sites. `placement: 'banner'` selects ongoing app-wide feedback. The renderer keeps only display state; existing main/preload error codes/details and module-owned persisted action results remain authoritative. Do not include secrets, authenticated URLs or raw credential diagnostics in message text.
+
+Main exposes read-only `window.status` returning `{visible, focused}` and emits `window` events with that same data on native show/hide/focus/blur/minimize/restore. The provider combines these events with document visibility, rejecting an obsolete initial status reply after a newer event. No Node APIs or account access are added to the renderer. Messages survive module navigation, clear on renderer reload, and clear on auth events. Bookmark refresh additionally rejects late completion after connection changes or unmount.
+
+News refresh completion produces an informational toast; source errors remain local. Bookmark refresh completion produces a success toast and retains its result summary; partial refresh produces a persistent warning, and a failed manual refresh produces a local source-labelled retry notice. These are completion signals for explicit refreshes. Routine autosaves, ordinary task toggles and changes already obvious in the UI do not produce success toasts.
+
+#### Verification
+
+Run `node --test --test-concurrency=1 tests/feedback.mjs tests/adversarial-state.mjs tests/adversarial-renderer.mjs tests/music-cache.mjs tests/connectors.mjs tests/usability.mjs` after build. The focused feedback driver uses real Bookmarks, News and Todos controls with controlled IPC failures/delays; it checks queue preservation, timing, keyboard focus, modal recovery, saved-task counts, account invalidation, themes, reduced motion and long text. `CLARITY_FEEDBACK_EVIDENCE` selects retained evidence; `CLARITY_TEST_EXECUTABLE` and `CLARITY_TEST_MAIN` select packaged bytes. Existing suites preserve Board correction, modal shortcuts, Music retry/event ordering and other shared UI behavior.
+
+The [focused run](../verification/runs/2026-10-02T173355Z-global-feedback.md) records actual outcomes and build/package identity. DOM announcement checks are distinct from a VoiceOver walkthrough; live providers and exhaustive accessibility are not certified by this change. An app-level React boundary for unforeseen render exceptions is not implemented; existing native startup handling and the safe Markdown-link fallback remain.
+
+### Verification recipe and coverage
+
+**List-spacing recipe:** build, copy the [retained native driver](../evidence/2026-10-02T163455Z-list-spacing/verify.txt) to an external `.mjs` file, and run it from the checkout with `SPACING_EVIDENCE` pointing to a fresh external directory. It visits all twelve modules and Settings at 1200×800 and 850×600 in both themes; measure 12–16px from the preceding control to each visible list message and reject horizontal overflow. Search Board/Notes/News/Bookmarks/Mail for no matches; hold/fail a Board read, recover, create/open a thread, and verify its first row is 12px below search and persists after reload. Mail uses an empty connected fixture, not a live account. Use `CLARITY_TEST_EXECUTABLE` and `CLARITY_TEST_MAIN` for a packaged repeat. Existing `tests/redesign.mjs` covers populated shared rows and navigation. See the [spacing run](../verification/runs/2026-10-02T163455Z-list-spacing.md) for actual outcomes and limits.
+
+**Adversarial recipe:** Run `tests/adversarial-renderer.mjs`: open New task, press navigation shortcuts, verify the modal stays visible and usable, then Cancel and verify navigation works. Select real rich-editor text and press ⌘B; require bold saved content and an unchanged sidebar, then check sidebar toggling outside the editor. `tests/adversarial-state.mjs` measures nested Bookmark overflow and retained Settings labels at the minimum window. Build with an external cache and use a fresh evidence directory as described in [Verification setup](../verification/setup.md#adversarial-regression-suite).
+
+**Fidelity/motion recipe:** run `node --test tests/redesign.mjs`. The spike-parity case observes real 220ms sidebar/task animations, persistence after task reordering, 36px rows/2px gaps, connected Notes dividers and scroll, straight neighbour-aware separators, keyboard controls/tooltips, and zero animation under reduced motion. Inspect populated native screens against the external spike at normal and 850×600 sizes in both themes; wait for finite animations before recording settled screenshots.
+
+**Experimental browser redesign:** the separately authorized [Cursor Desktop spike](../references/technical-spikes.md#cursor-desktop-design-spike-1-october-2026) owns its visual choices, source location, local-storage boundary, reproduction steps and browser recipe. Its [compactness and controls run](../verification/runs/2026-10-01T083600Z-cursor-density.md) verifies selected disposable UI scenarios, not this production stack. D118–D122 are now implemented in the production port below; the earlier browser evidence remains specific to its external build.
+
+**Entry points and prerequisites:** Record forms, delete dialogs, loading lists and primary hover. Use the isolated fixtures and build/readiness steps in [Verification setup](../verification/setup.md). Intent and expected outcomes are the current specification above, linked to its accepted decisions and delegated defaults; code observations alone do not replace those requirements.
+
+**Redesign recipe:** after building, run `node --test tests/redesign.mjs`, then the shared regression and package checks from Verification setup. This covers local command saves, controlled interpretation/provider boundaries, session history and minimum-window layout.
+
+**Executed recipe:** after building, run `node --test --test-name-pattern='UI audit regressions|Mail and Music' tests/usability.mjs`. Exercise native accessible dialog names, real double-clicks and Cancel, complete paginated lists, and foreground/background colors at both themes and the minimum supported window. Inspect visible outcomes and the underlying persisted effect together. The run owns and closes its temporary app/server; retained screenshots are safe fixtures. Real-account and exhaustive accessibility/conformance limits remain explicitly listed in the run.
+
+### Verification history
+
+- [3 October 2026: shared Radix feedback](../verification/runs/2026-10-02T173355Z-global-feedback.md) — native queues, timing, modal errors, account boundaries and package checks.
+
+- [3 October 2026: search and list spacing](../verification/runs/2026-10-02T163455Z-list-spacing.md) — Board/Notes corrections and shared app layout sweep.
+
+- [2 October 2026: adversarial fixes](../verification/runs/2026-10-02T101600Z-adversarial-fixes.md) — remediation, negative controls, retained Settings guard and combined-build checks.
+
+- [2 October 2026: adversarial application audit](../verification/runs/2026-10-01T181800Z-adversarial-qa.md) — original failures on its frozen build; subsequent remediation is recorded above.
+
+- [1 October 2026: spike fidelity and connection repair](../verification/runs/2026-10-01T154700Z-redesign-repair.md) — actual motion, compact controls and native visual review following user-reported port gaps.
+
+- [1 October 2026: production redesign port](../verification/runs/2026-10-01T142628Z-redesign-port.md) — command boundaries, source/history, compact UI, regression suite and package evidence.
+
+- [1 October 2026: UI fixes and jstack adoption](../verification/runs/2026-09-30T165735Z-ui-fixes-jstack.md) — dirty-build fingerprint, selected scenarios and evidence. This dated pass does not certify later revisions.
+
+## Earlier discussion and research
+
+The material below records earlier states of the discussion. Its proposals and open questions are historical unless explicitly carried into the current specification above or the [current follow-up list](../discussions/open-questions.md).
+
 ### Global feedback research and pending proposal
 
-**2 October 2026 — research only, awaiting the user's selection.** The user requested a global standard for errors and informational toasts and reserved the final method choice. The following recommendations are not accepted requirements or implemented behavior. Existing module contracts remain in force.
+**Historical research from 2 October 2026.** The user selected Radix Toast on 3 October under [D130](../decisions/index.md#d130-shared-feedback-with-radix-toast-3-october-2026). The [current feedback contract](#global-feedback-standard-3-october-2026) supersedes proposal-only statements below; the comparison remains as research provenance.
 
 #### Current implementation observations
 
@@ -133,40 +201,6 @@ The proposed shared layer contains a message with severity, operation identity, 
 #### Verification after selection
 
 Extend the shared UI recipe with real field/form failures, a failed dialog submission, successful correction clearing the Board error once, simultaneous/repeated events, retained partial Music results, and playback failures delivered in either event/reply order. Check timers during hover/focus/window hiding; keyboard dismissal and focus return; modal deferral; light/dark and 850×600 layouts; long text and reduced motion. Manually check VoiceOver announcements and modal reachability before making accessibility claims. Verify stale/account-switched results never reappear through feedback state. Record the chosen dependency, actual build and evidence in a new run. None of these product checks was executed by this research task.
-
-### Verification recipe and coverage
-
-**List-spacing recipe:** build, copy the [retained native driver](../evidence/2026-10-02T163455Z-list-spacing/verify.txt) to an external `.mjs` file, and run it from the checkout with `SPACING_EVIDENCE` pointing to a fresh external directory. It visits all twelve modules and Settings at 1200×800 and 850×600 in both themes; measure 12–16px from the preceding control to each visible list message and reject horizontal overflow. Search Board/Notes/News/Bookmarks/Mail for no matches; hold/fail a Board read, recover, create/open a thread, and verify its first row is 12px below search and persists after reload. Mail uses an empty connected fixture, not a live account. Use `CLARITY_TEST_EXECUTABLE` and `CLARITY_TEST_MAIN` for a packaged repeat. Existing `tests/redesign.mjs` covers populated shared rows and navigation. See the [spacing run](../verification/runs/2026-10-02T163455Z-list-spacing.md) for actual outcomes and limits.
-
-**Adversarial recipe:** Run `tests/adversarial-renderer.mjs`: open New task, press navigation shortcuts, verify the modal stays visible and usable, then Cancel and verify navigation works. Select real rich-editor text and press ⌘B; require bold saved content and an unchanged sidebar, then check sidebar toggling outside the editor. `tests/adversarial-state.mjs` measures nested Bookmark overflow and retained Settings labels at the minimum window. Build with an external cache and use a fresh evidence directory as described in [Verification setup](../verification/setup.md#adversarial-regression-suite).
-
-**Fidelity/motion recipe:** run `node --test tests/redesign.mjs`. The spike-parity case observes real 220ms sidebar/task animations, persistence after task reordering, 36px rows/2px gaps, connected Notes dividers and scroll, straight neighbour-aware separators, keyboard controls/tooltips, and zero animation under reduced motion. Inspect populated native screens against the external spike at normal and 850×600 sizes in both themes; wait for finite animations before recording settled screenshots.
-
-**Experimental browser redesign:** the separately authorized [Cursor Desktop spike](../references/technical-spikes.md#cursor-desktop-design-spike-1-october-2026) owns its visual choices, source location, local-storage boundary, reproduction steps and browser recipe. Its [compactness and controls run](../verification/runs/2026-10-01T083600Z-cursor-density.md) verifies selected disposable UI scenarios, not this production stack. D118–D122 are now implemented in the production port below; the earlier browser evidence remains specific to its external build.
-
-**Entry points and prerequisites:** Record forms, delete dialogs, loading lists and primary hover. Use the isolated fixtures and build/readiness steps in [Verification setup](../verification/setup.md). Intent and expected outcomes are the current specification above, linked to its accepted decisions and delegated defaults; code observations alone do not replace those requirements.
-
-**Redesign recipe:** after building, run `node --test tests/redesign.mjs`, then the shared regression and package checks from Verification setup. This covers local command saves, controlled interpretation/provider boundaries, session history and minimum-window layout.
-
-**Executed recipe:** after building, run `node --test --test-name-pattern='UI audit regressions|Mail and Music' tests/usability.mjs`. Exercise native accessible dialog names, real double-clicks and Cancel, complete paginated lists, and foreground/background colors at both themes and the minimum supported window. Inspect visible outcomes and the underlying persisted effect together. The run owns and closes its temporary app/server; retained screenshots are safe fixtures. Real-account and exhaustive accessibility/conformance limits remain explicitly listed in the run.
-
-### Verification history
-
-- [3 October 2026: search and list spacing](../verification/runs/2026-10-02T163455Z-list-spacing.md) — Board/Notes corrections and shared app layout sweep.
-
-- [2 October 2026: adversarial fixes](../verification/runs/2026-10-02T101600Z-adversarial-fixes.md) — remediation, negative controls, retained Settings guard and combined-build checks.
-
-- [2 October 2026: adversarial application audit](../verification/runs/2026-10-01T181800Z-adversarial-qa.md) — original failures on its frozen build; subsequent remediation is recorded above.
-
-- [1 October 2026: spike fidelity and connection repair](../verification/runs/2026-10-01T154700Z-redesign-repair.md) — actual motion, compact controls and native visual review following user-reported port gaps.
-
-- [1 October 2026: production redesign port](../verification/runs/2026-10-01T142628Z-redesign-port.md) — command boundaries, source/history, compact UI, regression suite and package evidence.
-
-- [1 October 2026: UI fixes and jstack adoption](../verification/runs/2026-09-30T165735Z-ui-fixes-jstack.md) — dirty-build fingerprint, selected scenarios and evidence. This dated pass does not certify later revisions.
-
-## Earlier discussion and research
-
-The material below records earlier states of the discussion. Its proposals and open questions are historical unless explicitly carried into the current specification above or the [current follow-up list](../discussions/open-questions.md).
 
 ### Application implementation · 28 September 2026
 

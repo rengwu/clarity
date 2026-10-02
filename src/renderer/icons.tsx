@@ -1,9 +1,18 @@
 import React from 'react';
 
 const paths: Record<string, React.ReactNode> = {
-  chat: (
-    <path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 9 9 0 0 1-4-.9L3 21l1.6-5A8.5 8.5 0 1 1 21 11.5Z" />
+  info: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 11v6M12 7h.01" />
+    </>
   ),
+  warning: (
+    <>
+      <path d="m12 3 10 18H2ZM12 9v5M12 17h.01" />
+    </>
+  ),
+  chat: <path d="M21 11.5a8.4 8.4 0 0 1-9 8.5 9 9 0 0 1-4-.9L3 21l1.6-5A8.5 8.5 0 1 1 21 11.5Z" />,
   notes: (
     <>
       <path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8Z" />
@@ -136,9 +145,7 @@ const paths: Record<string, React.ReactNode> = {
     </>
   ),
   external: <path d="M14 4h6v6M20 4l-9 9M10 5H5v14h14v-5" />,
-  folder: (
-    <path d="M3 7V5a1 1 0 0 1 1-1h5l2 3h9a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Z" />
-  ),
+  folder: <path d="M3 7V5a1 1 0 0 1 1-1h5l2 3h9a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Z" />,
   send: <path d="M12 20V4m-7 7 7-7 7 7" />,
   stop: <rect x="6" y="6" width="12" height="12" rx="1" />,
   play: <path d="m8 4 12 8-12 8Z" />,

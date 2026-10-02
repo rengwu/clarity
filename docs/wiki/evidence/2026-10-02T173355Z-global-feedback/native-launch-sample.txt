@@ -1,0 +1,61 @@
+Excerpt from macOS sample of the isolated timed-out OAuth Electron fixture.
+Native window-creation wait observed; this does not identify a general root cause.
+
+Analysis of sampling Electron (pid 72522) every 1 millisecond
+Process:         Electron [72522]
+Path:            /Users/USER/Library/Caches/*/Electron.app/Contents/MacOS/Electron
+Load Address:    0x100998000
+Identifier:      com.github.Electron
+Version:         44.4.5 (44.4.5)
+Code Type:       ARM64
+Platform:        macOS
+Parent Process:  node [72504]
+Target Type:     live task
+
+Date/Time:       2026-10-03 1:55:38.880 AM +0800
+Launch Time:     2026-10-03 1:52:43.008 AM +0800
+OS Version:      macOS 27.0 (26A5368g)
+Report Version:  7
+Analysis Tool:   /usr/bin/sample
+
+    776 Thread_62587597   DispatchQueue_1: com.apple.main-thread  (serial)
+    + 776 start  (in dyld) + 6688  [0x19e9a3a24]
+    +   776 ElectronMain  (in Electron Framework) + 388  [0x10e86af80]
+    +     776 node::MemoryRetainer::WrappedObject() const  (in Electron Framework) + 61416  [0x10eaceea8]
+    +       776 node::crypto::X509Certificate::GetTransferMode() const  (in Electron Framework) + 16308  [0x10ea0f864]
+    +         776 node::inspector::protocol::Target::Dispatcher::wire(crdtp::UberDispatcher*, node::inspector::protocol::Target::Backend*)  (in Electron Framework) + 1329784  [0x10fe49258]
+    +           776 node::inspector::protocol::Target::Dispatcher::wire(crdtp::UberDispatcher*, node::inspector::protocol::Target::Backend*)  (in Electron Framework) + 1328388  [0x10fe48ce4]
+    +             776 _v8_internal_Node_Print(void*)  (in Electron Framework) + 4628764  [0x11166e194]
+    +               776 _v8_internal_Node_Print(void*)  (in Electron Framework) + 4637708  [0x111670484]
+    +                 776 v8::internal::OptimizingCompileTaskExecutor::WaitUntilCompilationJobsDoneForIsolate(v8::internal::Isolate*)  (in Electron Framework) + 225172  [0x10e16e584]
+    +                   776 v8::internal::OptimizingCompileTaskExecutor::WaitUntilCompilationJobsDoneForIsolate(v8::internal::Isolate*)  (in Electron Framework) + 226776  [0x10e16ebc8]
+    +                     776 v8::SharedMemoryStatistics::SharedMemoryStatistics()  (in Electron Framework) + 65284  [0x10eb5f484]
+    +                       776 ares_dns_rr_get_ttl  (in Electron Framework) + 3305264  [0x1127d8604]
+    +                         776 -[NSApplication run]  (in AppKit) + 396  [0x1a334b9a0]
+    +                           776 -[NSApplication(NSEventRouting) nextEventMatchingMask:untilDate:inMode:dequeue:]  (in AppKit) + 244  [0x1a3bc38e4]
+    +                             776 -[NSApplication(NSEventRouting) _nextEventMatchingEventMask:untilDate:inMode:dequeue:]  (in AppKit) + 780  [0x1a3bc3dc0]
+    +                               776 _DPSNextEvent  (in AppKit) + 580  [0x1a33587e4]
+    +                                 776 _DPSBlockUntilNextEventMatchingListInMode  (in AppKit) + 292  [0x1a369af28]
+    +                                   776 _BlockUntilNextEventMatchingListInMode  (in HIToolbox) + 48  [0x1ac363e3c]
+    +                                     776 ReceiveNextEventCommon  (in HIToolbox) + 492  [0x1ac1e18d0]
+    +                                       776 RunCurrentEventLoopInMode  (in HIToolbox) + 320  [0x1ac1de544]
+    +                                         776 _CFRunLoopRunSpecificWithOptions  (in CoreFoundation) + 536  [0x19ef13b5c]
+    +                                           776 __CFRunLoopRun  (in CoreFoundation) + 836  [0x19ee39ec0]
+    +                                             776 __CFRunLoopDoSources0  (in CoreFoundation) + 332  [0x19ee3b354]
+    +                                               776 __CFRunLoopDoSource0  (in CoreFoundation) + 224  [0x19ee3b5b8]
+    +                                                 776 __CFRUNLOOP_IS_CALLING_OUT_TO_A_SOURCE0_PERFORM_FUNCTION__  (in CoreFoundation) + 28  [0x19ee3b624]
+    +                                                   776 BSServiceMainRunLoopSourceHandler  (in BoardServices) + 232  [0x1bbbceac8]
+    +                                                     776 __BSSERVICEMAINRUNLOOPQUEUE_IS_CALLING_OUT_TO_A_BLOCK__  (in BoardServices) + 48  [0x1bbbcfca4]
+    +                                                       776 _dispatch_block_invoke_direct  (in libdispatch.dylib) + 284  [0x19ebbd700]
+    +                                                         776 _dispatch_client_callout  (in libdispatch.dylib) + 16  [0x19ebd25f4]
+    +                                                           776 -[FBSWorkspace _calloutQueue_executeCalloutFromSource:withBlock:]  (in FrontBoardServices) + 180  [0x1bbae7bbc]
+    +                                                             776 __92-[FBSWorkspaceScenesClient createSceneWithIdentity:parameters:transitionContext:completion:]_block_invoke.325  (in FrontBoardServices) + 268  [0x1bbb2bf7c]
+    +                                                               776 -[FBSWorkspaceScenesClient _callOutQueue_sendDidCreateForScene:transitionContext:completion:]  (in FrontBoardServices) + 380  [0x1bbb2a784]
+    +                                                                 776 -[BSServiceDispatchQueue performAsyncAndWait:]  (in BoardServices) + 72  [0x1bbbce064]
+    +                                                                   776 _dispatch_async_and_wait_f  (in libdispatch.dylib) + 104  [0x19ebbf04c]
+    +                                                                     776 _dispatch_async_and_wait_f_slow  (in libdispatch.dylib) + 44  [0x19ebc8dac]
+    +                                                                       776 __DISPATCH_WAIT_FOR_QUEUE__  (in libdispatch.dylib) + 432  [0x19ebc8834]
+    +                                                                         776 _dispatch_event_loop_wait_for_ownership  (in libdispatch.dylib) + 384  [0x19ebdc5b0]
+    +                                                                           776 _dispatch_kq_poll  (in libdispatch.dylib) + 220  [0x19ebdbbd4]
+    +                                                                             776 kevent_id  (in libsystem_kernel.dylib) + 8  [0x19ed37a74]
+    776 Thread_62587606: com.apple.NSEventThread

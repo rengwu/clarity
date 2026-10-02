@@ -8,6 +8,7 @@ export const dependencies = {
   prettier: '3.6.2',
   react: '19.2.0',
   'react-dom': '19.2.0',
+  '@radix-ui/react-toast': '1.2.23',
   '@milkdown/crepe': '7.19.1',
   marked: '17.0.1',
   'sanitize-html': '2.17.0',

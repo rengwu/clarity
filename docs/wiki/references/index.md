@@ -2,7 +2,7 @@
 title: Reference register
 section: References
 status: Reference
-updated: 2026-10-02
+updated: 2026-10-03
 order: 0
 summary: Inspiration, inspected sources, and references still to investigate.
 ---
@@ -12,7 +12,7 @@ summary: Inspiration, inspected sources, and references still to investigate.
 
 ## Global feedback research · 2 October 2026
 
-The [2 October global feedback research](../foundations/desktop-stack.md#global-feedback-research-and-pending-proposal) compares contextual errors and toasts using Carbon, W3C, native-dialog guidance, Radix, Sonner and React Aria. It is a pending proposal based on source/documentation inspection, with the final method reserved for the user; no candidate was installed or exercised.
+The [2 October research](../foundations/desktop-stack.md#global-feedback-research-and-pending-proposal) compared contextual errors and toasts using Carbon, W3C, native-dialog guidance, Radix, Sonner and React Aria. The user subsequently selected Radix Toast under D130. See the [current shared contract](../foundations/desktop-stack.md#global-feedback-standard-3-october-2026) and [implementation run](../verification/runs/2026-10-02T173355Z-global-feedback.md); the research itself did not install or exercise a candidate.
 
 ## UI and usability evidence · 1 October 2026
 

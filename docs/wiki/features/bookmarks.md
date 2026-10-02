@@ -62,6 +62,12 @@ The compact list uses two lines: title/tags, then domain/description/import orig
 
 Save and delete completion belong to the editor generation that submitted them (QA04). Cancelling a pending save and opening another form preserves the new fields when the old request succeeds or fails; a failed active save keeps its fields for retry. Cancelling the editor while deletion is pending does not cancel the submitted deletion; its late completion must preserve a later editor draft. Accepted long tag lists are clipped within a bounded share of the row, retain full tags in a tooltip, and leave the title/open control usable without horizontal overflow (QA13). Updates/removals require a positive safe-integer revision (QA07). The [remediation run](../verification/runs/2026-10-02T101600Z-adversarial-fixes.md) records the checked build; the original failed audit remains historical evidence.
 
+### Shared feedback · 3 October 2026
+
+Manual refresh uses the [shared feedback standard](../foundations/desktop-stack.md#global-feedback-standard-3-october-2026). Complete results show a success toast and retain a local summary; partial imports show a persistent warning. A failed refresh presents one source-labelled local notice with Retry. A connection change clears old refresh feedback and invalidates late completion, as does unmounting. External bookmark-opening failures use an operation-specific error toast.
+
+The [feedback verification run](../verification/runs/2026-10-02T173355Z-global-feedback.md) records the selected native controls, error/recovery checks and limits.
+
 ### Verification recipe and coverage
 
 **Default-browser opening:** after building, copy the [retained driver](../evidence/2026-10-02T160132Z-x-default-browser/verify-x.txt) to an external `.mjs` file and run from the repository root. Use Settings → X bookmarks → Open X through real renderer/IPC calls, intercepting only `shell.openExternal` to observe OS dispatch without opening a real account. Require the exact bookmarks URL, no managed-profile creation, local failure/retry and pending submission protection. Check the separate import action still dispatches `browser.login` (stubbed), plus reload and dark/light desktop/minimum layouts. Set `CLARITY_X_PACKAGE=1` to repeat on the cached package. Use a fresh evidence path for subsequent runs. Live OS/browser handling and X authentication remain separate from this fixture.

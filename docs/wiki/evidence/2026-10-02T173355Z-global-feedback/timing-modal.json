@@ -1,0 +1,14 @@
+[
+  "Info toast announces politely and retains six seconds of unpaused reading time.",
+  {
+    "hiddenWindows": [
+      {
+        "visible": false,
+        "destroyed": false,
+        "webContentsDestroyed": false
+      }
+    ]
+  },
+  "Modal success deferred; task draft retained through failure; banner retry reachable in modal; hidden window preserves unread toast time.",
+  "Refresh errors stay local, retry clears them, partial outcomes remain warning notices, late old-account completion is discarded."
+]

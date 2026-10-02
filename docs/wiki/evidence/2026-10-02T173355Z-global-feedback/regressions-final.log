@@ -1,0 +1,159 @@
+TAP version 13
+# Subtest: QA01 malformed Markdown source links stay local and valid links remain navigable
+ok 1 - QA01 malformed Markdown source links stay local and valid links remain navigable
+  ---
+  duration_ms: 4844.965041
+  type: 'test'
+  ...
+# Subtest: QA02 native modals retain their draft and focus when global shortcuts are pressed
+ok 2 - QA02 native modals retain their draft and focus when global shortcuts are pressed
+  ---
+  duration_ms: 4127.287666
+  type: 'test'
+  ...
+# Subtest: QA03 rich-editor Bold remains local and sidebar shortcut works outside editors
+ok 3 - QA03 rich-editor Bold remains local and sidebar shortcut works outside editors
+  ---
+  duration_ms: 4133.155416
+  type: 'test'
+  ...
+# Subtest: QA06 Wiki cross-page heading survives parent synchronization and history return
+ok 4 - QA06 Wiki cross-page heading survives parent synchronization and history return
+  ---
+  duration_ms: 4132.399083
+  type: 'test'
+  ...
+# Subtest: QA12 send acknowledgement preserves newer text attachments context and other conversation drafts
+ok 5 - QA12 send acknowledgement preserves newer text attachments context and other conversation drafts
+  ---
+  duration_ms: 4070.220167
+  type: 'test'
+  ...
+# Subtest: QA12 newer identical text stays unsent and unchanged submissions clear after success
+ok 6 - QA12 newer identical text stays unsent and unchanged submissions clear after success
+  ---
+  duration_ms: 4084.58425
+  type: 'test'
+  ...
+# Subtest: QA12 edits made while creating a conversation follow the created chat without changing outgoing text
+ok 7 - QA12 edits made while creating a conversation follow the created chat without changing outgoing text
+  ---
+  duration_ms: 4170.714667
+  type: 'test'
+  ...
+# Subtest: QA12 new-conversation send failure remains visible and preserves its latest draft
+ok 8 - QA12 new-conversation send failure remains visible and preserves its latest draft
+  ---
+  duration_ms: 2161.685875
+  type: 'test'
+  ...
+# Subtest: QA04 bookmark completion preserves a reopened draft on success and failure, and retry preserves input
+ok 9 - QA04 bookmark completion preserves a reopened draft on success and failure, and retry preserves input
+  ---
+  duration_ms: 5312.963917
+  type: 'test'
+  ...
+# Subtest: QA11 Mail clears previous-account content and ignores late reads while preserving same-account navigation
+ok 10 - QA11 Mail clears previous-account content and ignores late reads while preserving same-account navigation
+  ---
+  duration_ms: 4100.929708
+  type: 'test'
+  ...
+# Subtest: QA13 forty bookmark tags retain a visible clickable title without nested overflow in either theme
+ok 11 - QA13 forty bookmark tags retain a visible clickable title without nested overflow in either theme
+  ---
+  duration_ms: 4153.026
+  type: 'test'
+  ...
+# Subtest: QA14 invalid Board reply has one local error, successful correction clears it and saves once
+ok 12 - QA14 invalid Board reply has one local error, successful correction clears it and saves once
+  ---
+  duration_ms: 4486.178209
+  type: 'test'
+  ...
+# Subtest: QA15 retained Settings navigation fits and opens at both supported sizes and themes
+ok 13 - QA15 retained Settings navigation fits and opens at both supported sizes and themes
+  ---
+  duration_ms: 4159.835709
+  type: 'test'
+  ...
+# Subtest: OAuth state/PKCE, encrypted tokens, refresh and read-only Gmail with controlled responses
+ok 14 - OAuth state/PKCE, encrypted tokens, refresh and read-only Gmail with controlled responses
+  ---
+  duration_ms: 6507.033041
+  type: 'test'
+  ...
+# Subtest: Spotify login survives expiry and restart; renewal preserves and rotates refresh tokens
+ok 15 - Spotify login survives expiry and restart; renewal preserves and rotates refresh tokens
+  ---
+  duration_ms: 4060.14175
+  type: 'test'
+  ...
+# Subtest: Spotify search/playlist compatibility and playback failure presentation
+ok 16 - Spotify search/playlist compatibility and playback failure presentation
+  ---
+  duration_ms: 4345.73875
+  type: 'test'
+  ...
+# Subtest: Navidrome connection errors guide retry and preserve the saved account
+ok 17 - Navidrome connection errors guide retry and preserve the saved account
+  ---
+  duration_ms: 4010.760417
+  type: 'test'
+  ...
+# Subtest: Navidrome HTTP stream plays, seeks through the player bar and ends a single-song queue
+ok 18 - Navidrome HTTP stream plays, seeks through the player bar and ends a single-song queue
+  ---
+  duration_ms: 4079.706875
+  type: 'test'
+  ...
+# Subtest: global feedback: persistent errors, deduplication, queue, keyboard, themes and long text
+ok 19 - global feedback: persistent errors, deduplication, queue, keyboard, themes and long text
+  ---
+  duration_ms: 5258.077916
+  type: 'test'
+  ...
+# Hidden-window diagnostics {
+#   pageClosed: false,
+#   processExit: null,
+#   native: [ { visible: false, destroyed: false, webContentsDestroyed: false } ]
+# }
+# Subtest: global feedback: visible reading time, modal errors, deferred updates, retry and account invalidation
+ok 20 - global feedback: visible reading time, modal errors, deferred updates, retry and account invalidation
+  ---
+  duration_ms: 5076.646125
+  type: 'test'
+  ...
+# Subtest: Music caches navigation reads, shares pending requests and invalidates changed accounts
+ok 21 - Music caches navigation reads, shares pending requests and invalidates changed accounts
+  ---
+  duration_ms: 9645.801125
+  type: 'test'
+  ...
+# Subtest: Linkding reconciles upstream changes, preserves local fields, schedules refresh and stops cleanly
+ok 22 - Linkding reconciles upstream changes, preserves local fields, schedules refresh and stops cleanly
+  ---
+  duration_ms: 182.894833
+  type: 'test'
+  ...
+# Subtest: UI audit regressions: drafts, deletes, submissions, complete lists, themes, context and readable reviews
+ok 23 - UI audit regressions: drafts, deletes, submissions, complete lists, themes, context and readable reviews
+  ---
+  duration_ms: 26842.943334
+  type: 'test'
+  ...
+# Subtest: Mail and Music preserve navigation with controlled results; primary hover keeps contrast at minimum window size
+ok 24 - Mail and Music preserve navigation with controlled results; primary hover keeps contrast at minimum window size
+  ---
+  duration_ms: 5196.319333
+  type: 'test'
+  ...
+1..24
+# tests 24
+# suites 0
+# pass 24
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 130976.947292

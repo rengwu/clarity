@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useId, useRef, useState } 
 import type { ItemTarget } from '../shared/navigation';
 import { useSubmission } from './state';
 import { Icon } from './icons';
+import { Notice, type FeedbackMessage } from './feedback';
 export const call = <T = any,>(method: string, args?: any): Promise<T> =>
   window.clarity.call<T>(method, args);
 export const invoke = (module: string, method: string, args?: any) =>
@@ -14,8 +15,13 @@ export const AppContext = createContext<{
   active?: string;
   inspect?: (target: ItemTarget) => void;
   rememberLocation?: (target: ItemTarget) => void;
-  error: (error: any) => void;
-}>({ bootstrap: null, refresh: async () => {}, navigate: () => {}, error: () => {} });
+  error: (error: unknown, options?: Partial<Omit<FeedbackMessage, 'severity'>>) => void;
+}>({
+  bootstrap: null,
+  refresh: async () => {},
+  navigate: () => {},
+  error: () => {},
+});
 export const useApp = () => useContext(AppContext);
 export function useResource<T>(load: () => Promise<T>, dependencies: any[], module?: string) {
   const [data, setData] = useState<T>();
@@ -71,11 +77,7 @@ export function useResource<T>(load: () => Promise<T>, dependencies: any[], modu
   return { data, error, loading, reload, setData };
 }
 export function ErrorText({ children }: { children: React.ReactNode }) {
-  return children ? (
-    <p className="error" role="alert">
-      {children}
-    </p>
-  ) : null;
+  return <Notice className="error">{children}</Notice>;
 }
 export function Dialog({
   title,
@@ -240,8 +242,17 @@ export function ListState({
     );
   return null;
 }
-export function Field({ label, children }: { label: string; children: React.ReactNode }) {
+export function Field({
+  label,
+  children,
+  error,
+}: {
+  label: string;
+  children: React.ReactNode;
+  error?: string;
+}) {
   const labelId = useId();
+  const errorId = `${labelId}-error`;
   return (
     <label className="field">
       <span id={labelId}>{label}</span>
@@ -250,14 +261,32 @@ export function Field({ label, children }: { label: string; children: React.Reac
             children as React.ReactElement<{
               'aria-label'?: string;
               'aria-labelledby'?: string;
+              'aria-describedby'?: string;
+              'aria-invalid'?: boolean;
             }>,
             {
+              ...(error
+                ? {
+                    'aria-invalid': true,
+                    'aria-describedby': [
+                      (children.props as { 'aria-describedby'?: string })['aria-describedby'],
+                      errorId,
+                    ]
+                      .filter(Boolean)
+                      .join(' '),
+                  }
+                : {}),
               'aria-labelledby': (children.props as { 'aria-label'?: string })['aria-label']
                 ? undefined
                 : labelId,
             },
           )
         : children}
+      {error && (
+        <span id={errorId} className="field-error" role="alert">
+          {error}
+        </span>
+      )}
     </label>
   );
 }

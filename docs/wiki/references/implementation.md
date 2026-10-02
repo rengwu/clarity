@@ -12,7 +12,7 @@ The user authorized building the complete agreed Clarity app under [D102](../dec
 
 The [adversarial remediation run](../verification/runs/2026-10-02T101600Z-adversarial-fixes.md) closes all fourteen open QA01–QA14 findings from the [original audit](../verification/runs/2026-10-01T181800Z-adversarial-qa.md) and retains QA15’s Settings correction. Three GPT-6.1 Sol agents with high reasoning worked in parallel after wiki/jstack briefing; the coordinator reviewed and froze their combined source. Both typechecks pass, the full suite has 65 passes and two gated live-Codex skips, all twenty new regression cases pass against the signed package, and relocation/restart checks pass. The tested bundle is installed at `~/Applications/Clarity.app` with its predecessor preserved; normal Quit/reopen loads it. Earlier failed evidence and live-account/OS-permission limits remain explicit.
 
-The [global feedback research](../foundations/desktop-stack.md#global-feedback-research-and-pending-proposal) is a pending proposal. The user will select the method before implementation; this research changes documentation only and does not add a toast dependency or alter application behavior.
+The user-selected [Radix feedback standard](../foundations/desktop-stack.md#global-feedback-standard-3-october-2026) is implemented under D130: shared contextual notices and field errors, a persistent workspace recovery banner, and one queued toast host with keyboard access and native-window/modal-aware timing. News and Bookmarks expose explicit refresh completion; Music retains one local error owner. [The focused run](../verification/runs/2026-10-02T173355Z-global-feedback.md) records development/package fixtures and limits.
 
 Board and Notes now use consistent search/list feedback spacing under the [shared contract](../foundations/desktop-stack.md#search-and-list-spacing-3-october-2026). The [spacing run](../verification/runs/2026-10-02T163455Z-list-spacing.md) records native layout checks and delivery evidence. Development and packaged layout checks, selected shared UI regressions, both typechecks and package relocation pass. The signed update is installed with its predecessor retained; normal Quit/reopen loads it.
 
@@ -78,7 +78,7 @@ The subsequent Music-pagination package is installed at `~/Applications/Clarity.
 
 The chosen implementation has three main boundaries. The React renderer displays state and captures user actions. Electron main owns filesystem access, secrets, shared modules, chat/agent runs, browser sessions, audio, and scheduling. A local workerd Durable Object persists structured records in SQLite. Start and stop them with Electron; there is no separately managed server or always-running service.
 
-The renderer loads from `clarity://app/` with sandboxing and context isolation enabled and Node integration disabled. Preload exposes `window.clarity.call(method,args)` and event subscription through Electron IPC. Only the trusted app frame may call privileged methods. Return `{ok:true,value}` or `{ok:false,error,code?,details?}`; expose failures in the UI. Events have `{type,module?,id?,data?}`, with types `changed`, `chat`, `auth`, `playback`, and `navigate`. Files/wiki/audio use narrowly scoped custom-protocol handlers rather than exposing the data root as an unrestricted web server. The wiki reader is displayed at `clarity://wiki/index.html`.
+The renderer loads from `clarity://app/` with sandboxing and context isolation enabled and Node integration disabled. Preload exposes `window.clarity.call(method,args)` and event subscription through Electron IPC. Only the trusted app frame may call privileged methods. Return `{ok:true,value}` or `{ok:false,error,code?,details?}`; expose failures in the UI. Events have `{type,module?,id?,data?}`, with types `changed`, `chat`, `auth`, `playback`, `navigate`, and `window`. The read-only `window.status` method and `window` events expose `{visible, focused}` for feedback timing across native show/hide/focus/minimize transitions. Files/wiki/audio use narrowly scoped custom-protocol handlers rather than exposing the data root as an unrestricted web server. The wiki reader is displayed at `clarity://wiki/index.html`.
 
 Pi's agent tool is `module {module,method,args}`. A stable Modules service validates enablement and routes it to the same behavior used by the UI. Methods classified as reads (`list`, `read`, `sources`, `library`, `search`, `collection`, `recent`) run directly. Mutations check `settings.autoApproveActions`: selected exact IDs execute immediately; others are proposed for review. Human UI actions invoke modules directly. Browser origin authorization and consequential browser operations follow the same checklist and queue. A configured automation may write its own wiki topic directly; other writes follow the shared selection. The selected app does not require upstream Cap'nWeb, runtime-generated gadgets, or a public module REST API.
 
@@ -143,7 +143,7 @@ Draft text/attachment metadata/Wiki context and expense form fields persist in t
 
 The workspace must not contain `package.json`, lockfiles, or `node_modules`. The Node launcher generates any needed application manifests and installs dependencies in an **external** cache: `~/Library/Caches/Clarity/build` on macOS, `~/.cache/Clarity/build` on Linux, or `CLARITY_BUILD_CACHE` outside the repository. Use Node.js 22+ with npm to build; internet is needed for initial dependency download. A packaged user needs neither Node nor Rust.
 
-Current pinned application dependencies, audited 29 September 2026:
+Current pinned application dependencies (Radix added 3 October 2026; other pins retained):
 
 | Dependency | Version | Responsibility |
 | --- | --- | --- |
@@ -151,6 +151,7 @@ Current pinned application dependencies, audited 29 September 2026:
 | Miniflare | 5.20260921.1-alpha | Local workerd and persisted SQLite Durable Object. |
 | `@earendil-works/pi-ai`, `@earendil-works/pi-agent-core` | 0.87.1 each | Codex subscription access and agent loop. |
 | React, React DOM | 19.2.0 each | Screens. |
+| `@radix-ui/react-toast` | 1.2.23 | Toast semantics, announcements, keyboard region and dismissal. |
 | `@milkdown/crepe` | 7.19.1 | Rich GFM editor; retain the tested list-attribute/serialization compatibility fixes. |
 | `marked`, `sanitize-html` | 17.0.1 / 2.17.0 | Markdown parsing and safe reader output. |
 | `fast-xml-parser` | 5.3.6 | RSS/Atom parsing. |

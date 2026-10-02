@@ -190,6 +190,12 @@ async function handleProtocol(request: Request): Promise<Response> {
     return new Response(error.message, { status: 400 });
   }
 }
+function windowStatus() {
+  return {
+    visible: !!window && !window.isDestroyed() && window.isVisible() && !window.isMinimized(),
+    focused: !!window && !window.isDestroyed() && window.isFocused(),
+  };
+}
 function openWindow() {
   if (window && !window.isDestroyed()) {
     window.show();
@@ -240,6 +246,13 @@ function openWindow() {
       session: profile,
     },
   });
+  const reportWindowStatus = () => notify({ type: 'window', data: windowStatus() });
+  window.on('show', reportWindowStatus);
+  window.on('hide', reportWindowStatus);
+  window.on('focus', reportWindowStatus);
+  window.on('blur', reportWindowStatus);
+  window.on('minimize', reportWindowStatus);
+  window.on('restore', reportWindowStatus);
   window.webContents.setWindowOpenHandler(({ url }) => {
     if (/^https?:/.test(url)) void shell.openExternal(url);
     return { action: 'deny' };
@@ -291,6 +304,7 @@ function openWindow() {
 }
 
 async function call(method: string, args: any = {}): Promise<any> {
+  if (method === 'window.status') return windowStatus();
   if (method === 'navigation.take') {
     const target = pendingNavigation;
     pendingNavigation = undefined;

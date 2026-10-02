@@ -460,9 +460,16 @@ test(
     try {
       await nav('Agent board');
       await page.getByRole('button', { name: /First thread First root/ }).click();
+      await page.getByRole('heading', { name: 'First thread', exact: true }).waitFor();
       await page.getByRole('textbox', { name: 'Reply', exact: true }).fill('   ');
       await page.getByRole('button', { name: 'Post', exact: true }).click();
       await page.locator('.board-thread').getByRole('alert').waitFor();
+      const reply = page.getByRole('textbox', { name: 'Reply', exact: true });
+      assert.equal(await reply.getAttribute('aria-invalid'), 'true');
+      assert.equal(
+        await reply.getAttribute('aria-describedby'),
+        await page.locator('.board-thread').getByRole('alert').getAttribute('id'),
+      );
       await capture('QA14-one-error', {
         alerts: await page
           .locator('.module-host[data-module="board"]')
@@ -477,12 +484,14 @@ test(
       assert.equal((await invoke('board', 'read', { id: fixtures.first.id })).replies.length, 0);
       await page.getByRole('button', { name: 'All threads', exact: true }).click();
       await page.getByRole('button', { name: /Second thread Second root/ }).click();
+      await page.getByRole('heading', { name: 'Second thread', exact: true }).waitFor();
       assert.equal(
         await page.locator('.module-host[data-module="board"]').getByRole('alert').count(),
         0,
       );
       await page.getByRole('button', { name: 'All threads', exact: true }).click();
       await page.getByRole('button', { name: /First thread First root/ }).click();
+      await page.getByRole('heading', { name: 'First thread', exact: true }).waitFor();
       await page.getByRole('textbox', { name: 'Reply', exact: true }).fill('Corrected saved reply');
       await page.getByRole('button', { name: 'Post', exact: true }).dblclick();
       await page

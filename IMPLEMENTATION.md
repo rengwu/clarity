@@ -4,7 +4,7 @@ A first local build covers all agreed modules, with remaining gaps and live vali
 
 The [adversarial remediation run](docs/wiki/verification/runs/2026-10-02T101600Z-adversarial-fixes.md) closes all fourteen open QA01–QA14 findings from the [original audit](docs/wiki/verification/runs/2026-10-01T181800Z-adversarial-qa.md) and retains QA15’s Settings correction. Three GPT-6.1 Sol agents with high reasoning worked in parallel after wiki/jstack briefing; the coordinator reviewed and froze their combined source. Both typechecks pass, the full suite has 65 passes and two gated live-Codex skips, all twenty new regression cases pass against the signed package, and relocation/restart checks pass. The tested bundle is installed at `~/Applications/Clarity.app` with its predecessor preserved; normal Quit/reopen loads it. Earlier failed evidence and live-account/OS-permission limits remain explicit.
 
-The [global feedback research](docs/wiki/foundations/desktop-stack.md#global-feedback-research-and-pending-proposal) is a pending proposal. The user will select the method before implementation; this research changes documentation only and does not add a toast dependency or alter application behavior.
+The user-selected [Radix feedback standard](docs/wiki/foundations/desktop-stack.md#global-feedback-standard-3-october-2026) is implemented under D130: shared contextual notices and field errors, a persistent workspace recovery banner, and one queued toast host with keyboard access and native-window/modal-aware timing. News and Bookmarks expose explicit refresh completion; Music retains one local error owner. [The focused run](docs/wiki/verification/runs/2026-10-02T173355Z-global-feedback.md) records development/package fixtures and limits.
 
 ## What is included
 

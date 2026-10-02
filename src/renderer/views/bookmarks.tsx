@@ -1,6 +1,7 @@
 import { useSubmission } from '../state';
 import React, { useEffect, useRef, useState } from 'react';
 import { Icon } from '../icons';
+import { Notice, useFeedback, errorMessage } from '../feedback';
 import {
   call,
   invoke,
@@ -17,6 +18,7 @@ import {
 
 export function Bookmarks() {
   const app = useApp();
+  const feedback = useFeedback();
   const submission = useSubmission();
   const [query, setQuery] = useState('');
   useEffect(() => {
@@ -39,19 +41,61 @@ export function Bookmarks() {
   }
   const [error, setError] = useState('');
   const [status, setStatus] = useState('');
+  const [refreshFailure, setRefreshFailure] = useState<{
+    source: 'Linkding' | 'X';
+    message: string;
+  }>();
+  const [partial, setPartial] = useState(false);
   const [busy, setBusy] = useState(false);
+  const refreshGeneration = useRef(0);
+  const refreshing = useRef(false);
+  useEffect(() => {
+    const unsubscribe = window.clarity.subscribe((event) => {
+      if (event.type !== 'auth') return;
+      refreshGeneration.current++;
+      refreshing.current = false;
+      setBusy(false);
+      setStatus('');
+      setPartial(false);
+      setRefreshFailure(undefined);
+      feedback.dismiss('bookmarks-refresh-Linkding');
+      feedback.dismiss('bookmarks-refresh-X');
+    });
+    return () => {
+      refreshGeneration.current++;
+      unsubscribe();
+    };
+  }, [feedback]);
   async function refresh(source: 'Linkding' | 'X') {
+    if (refreshing.current) return;
+    refreshing.current = true;
+    const generation = ++refreshGeneration.current;
     setBusy(true);
-    setStatus(`Refreshing ${source}…`);
+    feedback.dismiss(`bookmarks-refresh-${source}`);
     try {
       const result = await invoke('bookmarks', `refresh${source}`);
-      setStatus(
-        `${result.imported} imported${source === 'Linkding' ? `, ${result.updated} updated, ${result.preserved} with local edits preserved` : ''}${result.truncated || result.complete === false ? '. Older bookmarks may remain beyond this refresh’s limit.' : '.'}`,
-      );
+      if (generation !== refreshGeneration.current) return;
+      const incomplete = !!result.truncated || result.complete === false;
+      const summary = `${result.imported} imported${source === 'Linkding' ? `, ${result.updated} updated, ${result.preserved} with local edits preserved` : ''}${incomplete ? '. Older bookmarks may remain beyond this refresh’s limit.' : '.'}`;
+      setStatus(summary);
+      setPartial(incomplete);
+      setRefreshFailure(undefined);
+      if (!incomplete)
+        feedback.notify({
+          id: `bookmarks-refresh-${source}`,
+          severity: 'success',
+          title: `${source} bookmarks refreshed`,
+          description: summary,
+        });
+      await refreshState.reload();
     } catch (failure: any) {
-      setStatus(failure.message);
+      if (generation === refreshGeneration.current)
+        setRefreshFailure({ source, message: errorMessage(failure) });
     } finally {
-      setBusy(false);
+      if (generation === refreshGeneration.current) {
+        refreshing.current = false;
+        setBusy(false);
+      }
     }
   }
   return (
@@ -87,11 +131,20 @@ export function Bookmarks() {
           onChange={(event) => setQuery(event.target.value)}
         />
       </label>
-      <p role="status" className="muted">
-        {status}
-      </p>
+      {busy && (
+        <p role="status" className="muted">
+          Refreshing bookmarks…
+        </p>
+      )}
+      {partial ? (
+        <Notice severity="warning" title="Some bookmarks weren’t refreshed">
+          {status}
+        </Notice>
+      ) : (
+        status && <p className="muted">{status}</p>
+      )}
       {app.bootstrap.auth.linkding && refreshState.data && (
-        <p className="muted" role="status">
+        <p className="muted">
           {refreshState.data.lastRun
             ? `Last Linkding ${refreshState.data.error ? 'attempt' : 'refresh'}: ${new Date(refreshState.data.lastRun).toLocaleString()}. `
             : ''}
@@ -104,7 +157,18 @@ export function Bookmarks() {
             : ''}
         </p>
       )}
-      <ErrorText>{refreshState.data?.error || refreshState.error}</ErrorText>
+      <Notice
+        title={refreshFailure ? `Couldn’t refresh ${refreshFailure.source}` : undefined}
+        actions={
+          refreshFailure && (
+            <button disabled={busy} onClick={() => void refresh(refreshFailure.source)}>
+              {busy ? 'Retrying…' : 'Try again'}
+            </button>
+          )
+        }
+      >
+        {refreshFailure?.message || refreshState.data?.error || refreshState.error}
+      </Notice>
       <ErrorText>{list.error || focus.error}</ErrorText>
       <ListState
         loading={list.loading}
@@ -128,7 +192,14 @@ export function Bookmarks() {
                 <button
                   className="link bookmark-title"
                   title={item.title}
-                  onClick={() => void call('external.open', { url: item.url }).catch(app.error)}
+                  onClick={() =>
+                    void call('external.open', { url: item.url }).catch((failure) =>
+                      app.error(failure, {
+                        id: `open-bookmark-${item.id}`,
+                        title: `Couldn’t open ${item.title}`,
+                      }),
+                    )
+                  }
                 >
                   {item.title}
                 </button>
@@ -212,9 +283,7 @@ export function Bookmarks() {
             <Field label="Description">
               <textarea
                 value={editing.description}
-                onChange={(event) =>
-                  setEditing({ ...editing, description: event.target.value })
-                }
+                onChange={(event) => setEditing({ ...editing, description: event.target.value })}
               />
             </Field>
             <Field label="Tags (comma separated)">

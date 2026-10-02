@@ -1,0 +1,250 @@
+TAP version 13
+# Subtest: QA01 malformed Markdown source links stay local and valid links remain navigable
+ok 1 - QA01 malformed Markdown source links stay local and valid links remain navigable
+  ---
+  duration_ms: 5290.730667
+  type: 'test'
+  ...
+# Subtest: QA02 native modals retain their draft and focus when global shortcuts are pressed
+ok 2 - QA02 native modals retain their draft and focus when global shortcuts are pressed
+  ---
+  duration_ms: 4194.434833
+  type: 'test'
+  ...
+# Subtest: QA03 rich-editor Bold remains local and sidebar shortcut works outside editors
+ok 3 - QA03 rich-editor Bold remains local and sidebar shortcut works outside editors
+  ---
+  duration_ms: 4096.7095
+  type: 'test'
+  ...
+# Subtest: QA06 Wiki cross-page heading survives parent synchronization and history return
+ok 4 - QA06 Wiki cross-page heading survives parent synchronization and history return
+  ---
+  duration_ms: 4113.105458
+  type: 'test'
+  ...
+# Subtest: QA12 send acknowledgement preserves newer text attachments context and other conversation drafts
+not ok 5 - QA12 send acknowledgement preserves newer text attachments context and other conversation drafts
+  ---
+  duration_ms: 10346.696583
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:254:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    locator.click: Timeout 8000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'Ask in chat', exact: true })
+        - locator resolved to <button class="quiet">…</button>
+      - attempting click action
+        2 × waiting for element to be visible, enabled and stable
+          - element is visible, enabled and stable
+          - scrolling into view if needed
+          - done scrolling
+          - <ol tabindex="-1" class="toast-viewport" title="Notifications · F8"></ol> from <div data-feedback-host="" class="feedback-host">…</div> subtree intercepts pointer events
+        - retrying click action
+        - waiting 20ms
+        2 × waiting for element to be visible, enabled and stable
+          - element is visible, enabled and stable
+          - scrolling into view if needed
+          - done scrolling
+          - <ol tabindex="-1" class="toast-viewport" title="Notifications · F8"></ol> from <div data-feedback-host="" class="feedback-host">…</div> subtree intercepts pointer events
+        - retrying click action
+          - waiting 100ms
+        15 × waiting for element to be visible, enabled and stable
+           - element is visible, enabled and stable
+           - scrolling into view if needed
+           - done scrolling
+           - <ol tabindex="-1" class="toast-viewport" title="Notifications · F8"></ol> from <div data-feedback-host="" class="feedback-host">…</div> subtree intercepts pointer events
+         - retrying click action
+           - waiting 500ms
+
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    TestContext.<anonymous> (/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:274:74)
+  ...
+# Subtest: QA12 newer identical text stays unsent and unchanged submissions clear after success
+ok 6 - QA12 newer identical text stays unsent and unchanged submissions clear after success
+  ---
+  duration_ms: 2063.536875
+  type: 'test'
+  ...
+# Subtest: QA12 edits made while creating a conversation follow the created chat without changing outgoing text
+ok 7 - QA12 edits made while creating a conversation follow the created chat without changing outgoing text
+  ---
+  duration_ms: 4074.315
+  type: 'test'
+  ...
+# Subtest: QA12 new-conversation send failure remains visible and preserves its latest draft
+ok 8 - QA12 new-conversation send failure remains visible and preserves its latest draft
+  ---
+  duration_ms: 2052.410541
+  type: 'test'
+  ...
+# Subtest: QA04 bookmark completion preserves a reopened draft on success and failure, and retry preserves input
+ok 9 - QA04 bookmark completion preserves a reopened draft on success and failure, and retry preserves input
+  ---
+  duration_ms: 4209.961791
+  type: 'test'
+  ...
+# Subtest: QA11 Mail clears previous-account content and ignores late reads while preserving same-account navigation
+ok 10 - QA11 Mail clears previous-account content and ignores late reads while preserving same-account navigation
+  ---
+  duration_ms: 4078.760375
+  type: 'test'
+  ...
+# Subtest: QA13 forty bookmark tags retain a visible clickable title without nested overflow in either theme
+ok 11 - QA13 forty bookmark tags retain a visible clickable title without nested overflow in either theme
+  ---
+  duration_ms: 2102.473958
+  type: 'test'
+  ...
+# Subtest: QA14 invalid Board reply has one local error, successful correction clears it and saves once
+not ok 12 - QA14 invalid Board reply has one local error, successful correction clears it and saves once
+  ---
+  duration_ms: 2108.724458
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-state.mjs:469:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+
+    1 !== 0
+
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 0
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/rengwu/Desktop/Projects/clarity/tests/adversarial-state.mjs:510:14)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: QA15 retained Settings navigation fits and opens at both supported sizes and themes
+ok 13 - QA15 retained Settings navigation fits and opens at both supported sizes and themes
+  ---
+  duration_ms: 4105.937125
+  type: 'test'
+  ...
+# Subtest: OAuth state/PKCE, encrypted tokens, refresh and read-only Gmail with controlled responses
+not ok 14 - OAuth state/PKCE, encrypted tokens, refresh and read-only Gmail with controlled responses
+  ---
+  duration_ms: 60002.340917
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/connectors.mjs:14:1'
+  failureType: 'testTimeoutFailure'
+  error: 'test timed out after 60000ms'
+  code: 'ERR_TEST_FAILURE'
+  ...
+# Subtest: Spotify login survives expiry and restart; renewal preserves and rotates refresh tokens
+ok 15 - Spotify login survives expiry and restart; renewal preserves and rotates refresh tokens
+  ---
+  duration_ms: 4311.097375
+  type: 'test'
+  ...
+# Subtest: Spotify search/playlist compatibility and playback failure presentation
+ok 16 - Spotify search/playlist compatibility and playback failure presentation
+  ---
+  duration_ms: 3995.78825
+  type: 'test'
+  ...
+# Subtest: Navidrome connection errors guide retry and preserve the saved account
+ok 17 - Navidrome connection errors guide retry and preserve the saved account
+  ---
+  duration_ms: 4061.736792
+  type: 'test'
+  ...
+# Subtest: Navidrome HTTP stream plays, seeks through the player bar and ends a single-song queue
+ok 18 - Navidrome HTTP stream plays, seeks through the player bar and ends a single-song queue
+  ---
+  duration_ms: 4026.783167
+  type: 'test'
+  ...
+# Subtest: global feedback: persistent errors, deduplication, queue, keyboard, themes and long text
+ok 19 - global feedback: persistent errors, deduplication, queue, keyboard, themes and long text
+  ---
+  duration_ms: 5588.387041
+  type: 'test'
+  ...
+# Subtest: global feedback: visible reading time, modal errors, deferred updates, retry and account invalidation
+not ok 20 - global feedback: visible reading time, modal errors, deferred updates, retry and account invalidation
+  ---
+  duration_ms: 11563.79325
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/feedback.mjs:236:1'
+  failureType: 'testCodeFailure'
+  error: 'locator.count: Target page, context or browser has been closed'
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    /Users/rengwu/Desktop/Projects/clarity/tests/feedback.mjs:123:70
+    eventually (/Users/rengwu/Desktop/Projects/clarity/tests/feedback.mjs:31:13)
+    async TestContext.<anonymous> (/Users/rengwu/Desktop/Projects/clarity/tests/feedback.mjs:330:7)
+  ...
+# Subtest: Music caches navigation reads, shares pending requests and invalidates changed accounts
+ok 21 - Music caches navigation reads, shares pending requests and invalidates changed accounts
+  ---
+  duration_ms: 9453.729667
+  type: 'test'
+  ...
+# Subtest: Linkding reconciles upstream changes, preserves local fields, schedules refresh and stops cleanly
+ok 22 - Linkding reconciles upstream changes, preserves local fields, schedules refresh and stops cleanly
+  ---
+  duration_ms: 179.978
+  type: 'test'
+  ...
+# Subtest: UI audit regressions: drafts, deletes, submissions, complete lists, themes, context and readable reviews
+not ok 23 - UI audit regressions: drafts, deletes, submissions, complete lists, themes, context and readable reviews
+  ---
+  duration_ms: 35827.655042
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/usability.mjs:130:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    locator.click: Timeout 10000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'Ask in chat', exact: true })
+        - locator resolved to <button class="quiet">…</button>
+      - attempting click action
+        2 × waiting for element to be visible, enabled and stable
+          - element is visible, enabled and stable
+          - scrolling into view if needed
+          - done scrolling
+          - <ol tabindex="-1" class="toast-viewport" title="Notifications · F8"></ol> from <div data-feedback-host="" class="feedback-host">…</div> subtree intercepts pointer events
+        - retrying click action
+        - waiting 20ms
+        2 × waiting for element to be visible, enabled and stable
+          - element is visible, enabled and stable
+          - scrolling into view if needed
+          - done scrolling
+          - <ol tabindex="-1" class="toast-viewport" title="Notifications · F8"></ol> from <div data-feedback-host="" class="feedback-host">…</div> subtree intercepts pointer events
+        - retrying click action
+          - waiting 100ms
+        19 × waiting for element to be visible, enabled and stable
+           - element is visible, enabled and stable
+           - scrolling into view if needed
+           - done scrolling
+           - <ol tabindex="-1" class="toast-viewport" title="Notifications · F8"></ol> from <div data-feedback-host="" class="feedback-host">…</div> subtree intercepts pointer events
+         - retrying click action
+           - waiting 500ms
+
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    TestContext.<anonymous> (/Users/rengwu/Desktop/Projects/clarity/tests/usability.mjs:410:76)
+  ...
+# Subtest: Mail and Music preserve navigation with controlled results; primary hover keeps contrast at minimum window size
+ok 24 - Mail and Music preserve navigation with controlled results; primary hover keeps contrast at minimum window size
+  ---
+  duration_ms: 5189.351834
+  type: 'test'
+  ...
+1..24
+# tests 24
+# suites 0
+# pass 19
+# fail 4
+# cancelled 1
+# skipped 0
+# todo 0
+# duration_ms 332634.961625

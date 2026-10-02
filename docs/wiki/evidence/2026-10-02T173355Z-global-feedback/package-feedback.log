@@ -1,0 +1,22 @@
+TAP version 13
+# Subtest: global feedback: persistent errors, deduplication, queue, keyboard, themes and long text
+ok 1 - global feedback: persistent errors, deduplication, queue, keyboard, themes and long text
+  ---
+  duration_ms: 5479.154958
+  type: 'test'
+  ...
+# Subtest: global feedback: visible reading time, modal errors, deferred updates, retry and account invalidation
+ok 2 - global feedback: visible reading time, modal errors, deferred updates, retry and account invalidation
+  ---
+  duration_ms: 5068.821625
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 10956.455959

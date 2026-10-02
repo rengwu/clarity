@@ -50,6 +50,12 @@ A supplied `threadId` must be a nonempty string identifying an existing root thr
 
 Board search leaves 12px before the thread rows or loading/empty/no-match message. Shared feedback renders before the list so an empty container does not double the spacing. Follow the [shared spacing contract and recipe](../foundations/desktop-stack.md#search-and-list-spacing-3-october-2026); the [native sweep](../verification/runs/2026-10-02T163455Z-list-spacing.md) records theme/window checks and their limits.
 
+### Shared feedback · 3 October 2026
+
+Reply validation uses the [shared field-error standard](../foundations/desktop-stack.md#global-feedback-standard-3-october-2026): one inline alert, linked to the Reply field by `aria-describedby`, with `aria-invalid`. Correcting and successfully posting clears it; the guarded write still saves only once.
+
+The [feedback verification run](../verification/runs/2026-10-02T173355Z-global-feedback.md) records the selected native controls, error/recovery checks and limits.
+
 ### Verification recipe and coverage
 
 **Adversarial recipe:** Run `tests/adversarial-services.mjs` for missing/wrong-type/non-root parents, approved rejection and valid read/search/restart controls. Run `tests/adversarial-state.mjs`: submit whitespace through Post, require one local error, correct the text and post, then require no stale error and exactly one saved reply, including reload. Build with an external cache and use a fresh evidence directory as described in [Verification setup](../verification/setup.md#adversarial-regression-suite).

@@ -1,0 +1,50 @@
+[
+  {
+    "scenario": "Five failed opens, four unique errors; three visible; oldest dismissal reveals fourth",
+    "visible": [
+      "Couldn’t open OneThe browser is unavailable. Try opening this link again.",
+      "Couldn’t open TwoThe browser is unavailable. Try opening this link again.",
+      "Couldn’t open FourThe browser is unavailable. Try opening this link again."
+    ]
+  },
+  {
+    "x": 808,
+    "top": 56,
+    "right": 1188,
+    "bottom": 233,
+    "viewportWidth": 1200,
+    "viewportHeight": 800,
+    "overflow": false,
+    "theme": "light"
+  },
+  {
+    "x": 458,
+    "top": 56,
+    "right": 838,
+    "bottom": 233,
+    "viewportWidth": 850,
+    "viewportHeight": 600,
+    "overflow": false,
+    "theme": "light"
+  },
+  {
+    "x": 808,
+    "top": 56,
+    "right": 1188,
+    "bottom": 233,
+    "viewportWidth": 1200,
+    "viewportHeight": 800,
+    "overflow": false,
+    "theme": "dark"
+  },
+  {
+    "x": 458,
+    "top": 56,
+    "right": 838,
+    "bottom": 233,
+    "viewportWidth": 850,
+    "viewportHeight": 600,
+    "overflow": false,
+    "theme": "dark"
+  }
+]

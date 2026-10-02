@@ -1,6 +1,7 @@
 import { useRememberedState, useSubmission } from '../state';
 import React, { useEffect, useState } from 'react';
 import { Icon } from '../icons';
+import { Notice, useFeedback } from '../feedback';
 import {
   call,
   invoke,
@@ -17,6 +18,7 @@ import {
 
 export function News() {
   const app = useApp();
+  const feedback = useFeedback();
   const list = useResource<any>(() => listAll('news'), [], 'news');
   const focus = useItemFocus('news', list.data?.items, list.loading);
   const submission = useSubmission();
@@ -54,10 +56,15 @@ export function News() {
           disabled={busy}
           onClick={async () => {
             setBusy(true);
-            setStatus('Refreshing…');
             try {
               const result = await invoke('news', 'refresh');
               setStatus(result.errors.length ? result.errors.join('\n') : '');
+              if (!result.errors.length)
+                feedback.notify({
+                  id: 'news-refresh',
+                  severity: 'info',
+                  title: 'News feeds refreshed',
+                });
             } catch (failure: any) {
               setStatus(failure.message);
             } finally {
@@ -101,9 +108,12 @@ export function News() {
         empty="No articles yet. Add a feed in Sources, then refresh."
         error={list.error}
       />
-      <p className="muted" role="status">
-        {status}
-      </p>
+      {busy && (
+        <p className="muted" role="status">
+          Refreshing…
+        </p>
+      )}
+      <Notice title={status ? 'Some news couldn’t be loaded' : undefined}>{status}</Notice>
       <div className="news-list">
         {items.map((item: any) => (
           <article
@@ -167,11 +177,7 @@ export function News() {
             }}
           >
             <Field label="Name">
-              <input
-                required
-                value={title}
-                onChange={(event) => setTitle(event.target.value)}
-              />
+              <input required value={title} onChange={(event) => setTitle(event.target.value)} />
             </Field>
             <Field label="Feed URL">
               <input
