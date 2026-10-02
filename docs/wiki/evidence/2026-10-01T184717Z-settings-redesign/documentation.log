@@ -1,0 +1,94 @@
+TAP version 13
+# Subtest: original Markdown navigation, duplicate anchors, and stale snapshot detection
+ok 1 - original Markdown navigation, duplicate anchors, and stale snapshot detection
+  ---
+  duration_ms: 242.657584
+  type: 'test'
+  ...
+# Subtest: nested report resolves an encoded evidence link relative to the HTML and hashes its contents
+ok 2 - nested report resolves an encoded evidence link relative to the HTML and hashes its contents
+  ---
+  duration_ms: 249.210291
+  type: 'test'
+  ...
+# Subtest: custom metadata renders generically on any page with escaped labels and values
+ok 3 - custom metadata renders generically on any page with escaped labels and values
+  ---
+  duration_ms: 74.691708
+  type: 'test'
+  ...
+# Subtest: missing attachments, invalid dates, and broken Markdown targets fail the build
+ok 4 - missing attachments, invalid dates, and broken Markdown targets fail the build
+  ---
+  duration_ms: 211.702458
+  type: 'test'
+  ...
+# Subtest: attachments cannot escape evidence, follow symlinks, or link executable HTML
+ok 5 - attachments cannot escape evidence, follow symlinks, or link executable HTML
+  ---
+  duration_ms: 434.108166
+  type: 'test'
+  ...
+# Subtest: a duplicate attachment cannot bypass fragment validation
+ok 6 - a duplicate attachment cannot bypass fragment validation
+  ---
+  duration_ms: 73.439542
+  type: 'test'
+  ...
+# Subtest: inline images remain unsupported and HTML injection is sanitized
+ok 7 - inline images remain unsupported and HTML injection is sanitized
+  ---
+  duration_ms: 138.341875
+  type: 'test'
+  ...
+# Subtest: evidence is not treated as wiki content
+ok 8 - evidence is not treated as wiki content
+  ---
+  duration_ms: 128.216917
+  type: 'test'
+  ...
+# Subtest: generic attachments directory works without a planning or verification page
+ok 9 - generic attachments directory works without a planning or verification page
+  ---
+  duration_ms: 148.308917
+  type: 'test'
+  ...
+# Subtest: verification accepts its three outcomes and ignores unrelated page metadata
+ok 10 - verification accepts its three outcomes and ignores unrelated page metadata
+  ---
+  duration_ms: 57.645708
+  type: 'test'
+  ...
+# Subtest: invalid, missing, and duplicate result metadata cannot pass report validation
+ok 11 - invalid, missing, and duplicate result metadata cannot pass report validation
+  ---
+  duration_ms: 48.760875
+  type: 'test'
+  ...
+# Subtest: custom report paths are supported without allowing directory escapes or symlinks
+ok 12 - custom report paths are supported without allowing directory escapes or symlinks
+  ---
+  duration_ms: 130.322667
+  type: 'test'
+  ...
+# Subtest: missing or empty report directories do not produce a misleading success
+ok 13 - missing or empty report directories do not produce a misleading success
+  ---
+  duration_ms: 89.581416
+  type: 'test'
+  ...
+1..13
+# tests 13
+# suites 0
+# pass 13
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1759.539708
+{
+  "reports": 20,
+  "errors": []
+}
+Built /Users/rengwu/Desktop/Projects/clarity/docs/wiki/index.html: 153 pages, 2591 KB.
+Checked 153 pages and internal links; index.html is current.

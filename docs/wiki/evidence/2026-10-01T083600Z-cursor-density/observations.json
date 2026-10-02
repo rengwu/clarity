@@ -1,0 +1,1281 @@
+{
+  "recordedAt": "2026-10-01T08:54:00Z",
+  "scope": "Real browser checks of the compact all-module spike after explicit handoff; later fixes were checked at their affected entry points.",
+  "checks": {
+    "density-news": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": {
+        "rows": [
+          {
+            "headline": "Tools that help us think together",
+            "height": 36,
+            "bottom": 186
+          },
+          {
+            "headline": "A closer look at working with agents",
+            "height": 36,
+            "bottom": 222
+          },
+          {
+            "headline": "Building a more capable web",
+            "height": 36,
+            "bottom": 258
+          },
+          {
+            "headline": "Keeping your work close",
+            "height": 36,
+            "bottom": 294
+          },
+          {
+            "headline": "The small details of interaction",
+            "height": 36,
+            "bottom": 330
+          },
+          {
+            "headline": "Keeping context close to the work",
+            "height": 36,
+            "bottom": 366
+          },
+          {
+            "headline": "A notebook that grows with an idea",
+            "height": 36,
+            "bottom": 402
+          },
+          {
+            "headline": "Making keyboard navigation feel natural",
+            "height": 36,
+            "bottom": 438
+          },
+          {
+            "headline": "Small tools for everyday collaboration",
+            "height": 36,
+            "bottom": 474
+          },
+          {
+            "headline": "From a question to a working change",
+            "height": 36,
+            "bottom": 510
+          },
+          {
+            "headline": "Faster interfaces, fewer distractions",
+            "height": 36,
+            "bottom": 546
+          },
+          {
+            "headline": "The value of plain, portable documents",
+            "height": 36,
+            "bottom": 582
+          },
+          {
+            "headline": "Reviewing changes with confidence",
+            "height": 36,
+            "bottom": 618
+          },
+          {
+            "headline": "Motion that helps you follow the change",
+            "height": 36,
+            "bottom": 654
+          }
+        ],
+        "header": 44,
+        "overflow": false,
+        "stored": 1
+      },
+      "serializedByteCount": 1101
+    },
+    "density-separators-expenses": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": {
+        "news": [
+          {
+            "line": "1",
+            "border": "0px"
+          },
+          {
+            "line": "0",
+            "border": "0px"
+          },
+          {
+            "line": "0",
+            "border": "0px"
+          },
+          {
+            "line": "1",
+            "border": "0px"
+          },
+          {
+            "line": "1",
+            "border": "0px"
+          }
+        ],
+        "expenses": [
+          {
+            "totalRight": 1416,
+            "rows": [
+              {
+                "right": 1416,
+                "height": 44
+              },
+              {
+                "right": 1416,
+                "height": 44
+              },
+              {
+                "right": 1416,
+                "height": 44
+              }
+            ]
+          },
+          {
+            "totalRight": 1416,
+            "rows": [
+              {
+                "right": 1416,
+                "height": 44
+              },
+              {
+                "right": 1416,
+                "height": 44
+              }
+            ]
+          },
+          {
+            "totalRight": 1416,
+            "rows": [
+              {
+                "right": 1416,
+                "height": 44
+              },
+              {
+                "right": 1416,
+                "height": 44
+              }
+            ]
+          },
+          {
+            "totalRight": 1416,
+            "rows": [
+              {
+                "right": 1416,
+                "height": 44
+              }
+            ]
+          }
+        ]
+      },
+      "serializedByteCount": 495
+    },
+    "density-tabs-initial": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": {
+        "header": {
+          "top": 0,
+          "bottom": 44,
+          "left": 232,
+          "right": 1440
+        },
+        "tree": {
+          "top": 44,
+          "bottom": 900,
+          "left": 232,
+          "right": 452
+        },
+        "tabs": [
+          {
+            "label": "A little more room to think.md",
+            "active": true,
+            "radius": "0px",
+            "height": 35,
+            "background": "rgb(24, 24, 24)"
+          },
+          {
+            "label": "Clarity design notes.md",
+            "active": false,
+            "radius": "0px",
+            "height": 35,
+            "background": "rgb(20, 20, 20)"
+          }
+        ],
+        "document": "A little more room to thinkI want this week to feel less reactive. A few things worth making space for.What mattersFinish the Clarity design exploration.Keep two mornings free for focused work.Get outside before opening my inbox.A small experimentStart the day with one intentional task. Messages can wait until after the first focus block.A useful tool should give me attention back.To revisitWhat can I simplify instead of adding another system?",
+        "selected": "A little more room to think.md"
+      },
+      "serializedByteCount": 848
+    },
+    "density-tabs-actions": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": {
+        "switched": {
+          "title": "Clarity design notes",
+          "active": "Clarity design notes.md"
+        },
+        "three": [
+          {
+            "active": false,
+            "closeWidth": 20,
+            "separator": "1"
+          },
+          {
+            "active": false,
+            "closeWidth": 20,
+            "separator": "0"
+          },
+          {
+            "active": true,
+            "closeWidth": 20,
+            "separator": "0"
+          }
+        ],
+        "empty": {
+          "tabs": 0,
+          "empty": "Select a noteNew note",
+          "stored": []
+        },
+        "reopened": 2
+      },
+      "serializedByteCount": 312
+    },
+    "density-focus-verified": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": {
+        "keyboard": {
+          "docFocus": true,
+          "focused": "todo-title",
+          "focusVisible": true,
+          "titleOutline": "rgb(231, 231, 231) none 3px",
+          "rowOutline": "rgb(173, 190, 200) solid 1px"
+        },
+        "pointer": {
+          "input": "pointer",
+          "focused": "todo-title",
+          "outline": "rgb(231, 231, 231) none 3px",
+          "rowOutline": "rgb(231, 231, 231) none 3px"
+        }
+      },
+      "serializedByteCount": 298
+    },
+    "density-bookmarks": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": [
+        {
+          "line": "0",
+          "border": "0px",
+          "hover": false
+        },
+        {
+          "line": "0",
+          "border": "0px",
+          "hover": true
+        },
+        {
+          "line": "1",
+          "border": "0px",
+          "hover": false
+        },
+        {
+          "line": "1",
+          "border": "0px",
+          "hover": false
+        },
+        {
+          "line": "0",
+          "border": "0px",
+          "hover": false
+        }
+      ],
+      "serializedByteCount": 210
+    },
+    "density-automations": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": {
+        "rows": [
+          {
+            "title": "Weekly focus review",
+            "height": 77
+          },
+          {
+            "title": "Keep the reading thread connected",
+            "height": 77
+          },
+          {
+            "title": "A calmer start",
+            "height": 77
+          }
+        ],
+        "toggles": [
+          {
+            "id": "au1",
+            "checked": true
+          },
+          {
+            "id": "au2",
+            "checked": true
+          },
+          {
+            "id": "au3",
+            "checked": false
+          }
+        ]
+      },
+      "serializedByteCount": 248
+    },
+    "density-mail": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": {
+        "messages": 7,
+        "itemHeight": 76,
+        "subject": "Your weekend reading is ready",
+        "selected": 1,
+        "separators": [
+          "0",
+          "0",
+          "1",
+          "1",
+          "1",
+          "1",
+          "0"
+        ]
+      },
+      "serializedByteCount": 128
+    },
+    "density-calendar": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": {
+        "hours": 24,
+        "hourHeight": 44,
+        "scrollTop": 352,
+        "bodyHeight": 1056,
+        "events": [
+          {
+            "title": "A morning for focused work09:00 – 11:00",
+            "top": "396px",
+            "height": "88px"
+          },
+          {
+            "title": "Walk by the lake17:30 – 18:15",
+            "top": "770px",
+            "height": "33px"
+          },
+          {
+            "title": "Clarity design review14:00 – 14:45",
+            "top": "616px",
+            "height": "33px"
+          },
+          {
+            "title": "Coffee with Maya11:00 – 12:00",
+            "top": "484px",
+            "height": "44px"
+          },
+          {
+            "title": "Library & reading10:00 – 11:30",
+            "top": "440px",
+            "height": "66px"
+          }
+        ]
+      },
+      "serializedByteCount": 459
+    },
+    "density-calendar-fit": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": {
+        "outer": {
+          "height": 856,
+          "scrollHeight": 856
+        },
+        "grid": {
+          "height": 641,
+          "scrollHeight": 1056
+        },
+        "heading": "October 2026"
+      },
+      "serializedByteCount": 110
+    },
+    "density-calendar-month-dialog": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": {
+        "month": 42,
+        "dialog": {
+          "date": "2026-10-01",
+          "animation": "dialog-in",
+          "duration": "0.16s"
+        }
+      },
+      "serializedByteCount": 86
+    },
+    "density-board": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": {
+        "rows": [
+          {
+            "title": "Review the quiet states",
+            "height": 77.1953125
+          },
+          {
+            "title": "What makes a morning feel less reactive?",
+            "height": 77.1953125
+          },
+          {
+            "title": "Keep the design review close to the source",
+            "height": 77.1953125
+          },
+          {
+            "title": "A weekly review that takes ten minutes",
+            "height": 77.1953125
+          },
+          {
+            "title": "Reading thread: owning your tools",
+            "height": 77.1953125
+          }
+        ],
+        "width": 1208
+      },
+      "serializedByteCount": 364
+    },
+    "density-wiki": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": {
+        "title": "Making space for focused work",
+        "pages": 2,
+        "readonly": true
+      },
+      "serializedByteCount": 67
+    },
+    "density-chrome": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": {
+        "before": {
+          "sidebar": 232,
+          "transition": "0.22s"
+        },
+        "hidden": {
+          "hidden": true,
+          "inert": true,
+          "animations": [
+            220
+          ]
+        },
+        "palette": "page page-1 http://127.0.0.1:4318/ \"Clarity — Cursor design spike\"\n- complementary \"Main navigation\" [ref=e4]:\n  - button \"Clarity\" [ref=e6]\n  - button \"Toggle sidebar · ⌘B\" [ref=e9]\n  - navigation \"Workspace\" [ref=e13]:\n    - button \"New chat ⇧⌘L\" [ref=e14]\n    - button \"Search ⌘K\" [ref=e18]\n    - button \"Manage modules\" [ref=e24]\n    - button \"Notes\" [ref=e27]\n    - button \"Todos 3\" [ref=e31]\n    - button \"Wiki\" [ref=e36]\n    - button \"Calendar\" [ref=e39]\n    - button \"Expenses\" [ref=e43]\n    - button \"Mail\" [ref=e47]\n    - button \"News\" [ref=e51]\n    - button \"Bookmarks\" [ref=e55]\n    - button \"Music\" [ref=e58]\n    - button \"Agent board\" [ref=e63]\n    - button \"Automations\" [ref=e67]\n  - navigation \"Recent chats\" [ref=e71]:\n    - button \"A little more focus this week\" [ref=e74]\n    - button \"A quieter morning routine\" [ref=e79]\n    - button \"Notes on local-first software\" [ref=e83]\n  - button \"Settings\" [ref=e88]\n- button \"Search workspace\" [ref=e95]: Search anything ⌘K\n- button \"Toggle context panel\" [pressed] [ref=e101]\n- button \"About this prototype\" [ref=e104]\n- main \"Chat\" [ref=e108]:\n  - article [ref=e113]:\n    - group [ref=e118]:\n      - generic \"Read 2 notes · checked 6 tasks\" [ref=e119] [cursor=pointer]\n    - button \"A little more room to think\" [ref=e137]\n    - button \"Clarity design notes\" [ref=e141]\n  - region \"Task proposal\" [ref=e145]:\n    - button \"Dismiss\" [ref=e163]\n    - button \"Apply 2 tasks\" [ref=e164]\n  - textbox \"Message Clarity\" [ref=e169]:\n    - /placeholder: Ask Clarity, or @ add context…\n  - combobox \"Chat mode\" [ref=e174]:\n    - option \"Agent\" [selected]\n    - option \"Ask\"\n  - button \"Add context\" [ref=e176]\n  - button \"Send message\" [disabled] [ref=e179]\n- complementary \"Conversation context\" [ref=e185]:\n  - button \"Close context panel\" [ref=e189]\n  - button \"A little more room to think\" [ref=e195]\n  - button \"Clarity design notes\" [ref=e202]\n  - button \"Shared task list 3\" [ref=e209]\n  - button \"Open in Notes\" [ref=e232]\n- dialog \"Search workspace\" [ref=e235]:\n  - textbox \"Search commands and content\" [active] [ref=e240]:\n    - /placeholder: Search notes, tasks, chats, or jump to…\n  - button \"Reading list Note\" [ref=e243]\n- status"
+      },
+      "serializedByteCount": 2486
+    },
+    "density-palette-settings": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": {
+        "opened": {
+          "view": "Notes",
+          "note": "Reading list"
+        },
+        "settings": "page page-1 http://127.0.0.1:4318/ \"Clarity — Cursor design spike\"\n- complementary \"Main navigation\" [ref=e4]:\n  - button \"Clarity\" [ref=e6]\n  - button \"Toggle sidebar · ⌘B\" [ref=e9]\n  - navigation \"Workspace\" [ref=e13]:\n    - button \"New chat ⇧⌘L\" [ref=e14]\n    - button \"Search ⌘K\" [ref=e18]\n    - button \"Manage modules\" [active] [ref=e24]\n    - button \"Notes\" [ref=e27]\n    - button \"Todos 3\" [ref=e31]\n    - button \"Wiki\" [ref=e36]\n    - button \"Calendar\" [ref=e39]\n    - button \"Expenses\" [ref=e43]\n    - button \"Mail\" [ref=e47]\n    - button \"News\" [ref=e51]\n    - button \"Bookmarks\" [ref=e55]\n    - button \"Music\" [ref=e58]\n    - button \"Agent board\" [ref=e63]\n    - button \"Automations\" [ref=e67]\n  - navigation \"Recent chats\" [ref=e71]:\n    - button \"A little more focus this week\" [ref=e74]\n    - button \"A quieter morning routine\" [ref=e79]\n    - button \"Notes on local-first software\" [ref=e83]\n  - button \"Settings\" [ref=e88]\n- button \"Search workspace\" [ref=e95]: Search anything ⌘K\n- button \"About this prototype\" [ref=e101]\n- main [ref=e104]:\n  - complementary [ref=e105]:\n    - button \"Appearance\" [ref=e106]\n    - button \"Modules\" [ref=e110]\n    - button \"Connections\" [ref=e116]\n    - button \"Keyboard shortcuts\" [ref=e119]\n    - button \"About\" [ref=e122]\n- status"
+      },
+      "serializedByteCount": 1454
+    },
+    "density-reduced-light": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": {
+        "theme": "light",
+        "motion": "reduced",
+        "shellTransition": "0s",
+        "buttonTransition": "0s",
+        "body": "rgb(252, 252, 252)",
+        "text": "rgb(36, 36, 36)"
+      },
+      "serializedByteCount": 136
+    },
+    "density-960": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": [
+        {
+          "view": "Notes",
+          "width": 750,
+          "pageOverflow": false,
+          "empty": false,
+          "heading": "Reading list"
+        },
+        {
+          "view": "Todos",
+          "width": 750,
+          "pageOverflow": false,
+          "empty": false,
+          "heading": "Todos"
+        },
+        {
+          "view": "Wiki",
+          "width": 750,
+          "pageOverflow": false,
+          "empty": false,
+          "heading": "Making space for focused work"
+        },
+        {
+          "view": "Calendar",
+          "width": 750,
+          "pageOverflow": false,
+          "empty": false,
+          "heading": "October 2026"
+        },
+        {
+          "view": "Expenses",
+          "width": 750,
+          "pageOverflow": false,
+          "empty": false,
+          "heading": "Expenses"
+        },
+        {
+          "view": "Mail",
+          "width": 750,
+          "pageOverflow": false,
+          "empty": false,
+          "heading": "Your weekend reading is ready"
+        },
+        {
+          "view": "News",
+          "width": 750,
+          "pageOverflow": false,
+          "empty": false,
+          "heading": "News"
+        },
+        {
+          "view": "Bookmarks",
+          "width": 750,
+          "pageOverflow": false,
+          "empty": false,
+          "heading": "Bookmarks"
+        },
+        {
+          "view": "Music",
+          "width": 750,
+          "pageOverflow": false,
+          "empty": false,
+          "heading": "Music"
+        },
+        {
+          "view": "Agent board",
+          "width": 750,
+          "pageOverflow": false,
+          "empty": false,
+          "heading": "Agent board"
+        },
+        {
+          "view": "Automations",
+          "width": 750,
+          "pageOverflow": false,
+          "empty": false,
+          "heading": "Automations"
+        },
+        {
+          "view": "Settings",
+          "width": 750,
+          "pageOverflow": false,
+          "empty": false,
+          "heading": "Appearance"
+        }
+      ],
+      "serializedByteCount": 1092
+    },
+    "density-glyph-interaction-songgap": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": {
+        "changed": [
+          "Notes",
+          "Todos",
+          "Calendar"
+        ],
+        "frequency": "Daily",
+        "rows": {
+          "count": 24,
+          "height": 44,
+          "gap": 2
+        }
+      },
+      "serializedByteCount": 100
+    },
+    "density-music-motion-gap": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": {
+        "playing": {
+          "playing": true,
+          "track": "al1-2",
+          "queue": 12,
+          "equalizer": "equalize",
+          "playerHeight": 64
+        },
+        "paused": false,
+        "gap": 2
+      },
+      "serializedByteCount": 119
+    },
+    "density-song-states": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": [
+        {
+          "selected": false,
+          "hover": false,
+          "separator": "1",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "selected": false,
+          "hover": false,
+          "separator": "0",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "selected": true,
+          "hover": false,
+          "separator": "0",
+          "background": "rgba(255, 255, 255, 0.07)"
+        },
+        {
+          "selected": false,
+          "hover": true,
+          "separator": "0",
+          "background": "rgba(255, 255, 255, 0.043)"
+        },
+        {
+          "selected": false,
+          "hover": false,
+          "separator": "1",
+          "background": "rgba(0, 0, 0, 0)"
+        },
+        {
+          "selected": false,
+          "hover": false,
+          "separator": "1",
+          "background": "rgba(0, 0, 0, 0)"
+        }
+      ],
+      "serializedByteCount": 504
+    },
+    "density-mobile-player": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": {
+        "closed": {
+          "players": 0,
+          "dismissed": true
+        },
+        "playing": {
+          "players": 1,
+          "playing": true
+        },
+        "stopped": false
+      },
+      "serializedByteCount": 96
+    },
+    "density-mobile-all": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": [
+        {
+          "view": "Notes",
+          "width": 390,
+          "overflow": false,
+          "sidebarOpen": false,
+          "content": 435,
+          "heading": "Reading list"
+        },
+        {
+          "view": "Todos",
+          "width": 390,
+          "overflow": false,
+          "sidebarOpen": false,
+          "content": 292,
+          "heading": "Todos"
+        },
+        {
+          "view": "Wiki",
+          "width": 390,
+          "overflow": false,
+          "sidebarOpen": false,
+          "content": 791,
+          "heading": "Making space for focused work"
+        },
+        {
+          "view": "Calendar",
+          "width": 390,
+          "overflow": false,
+          "sidebarOpen": false,
+          "content": 389,
+          "heading": "October 2026"
+        },
+        {
+          "view": "Expenses",
+          "width": 390,
+          "overflow": false,
+          "sidebarOpen": false,
+          "content": 408,
+          "heading": "Expenses"
+        },
+        {
+          "view": "Mail",
+          "width": 390,
+          "overflow": false,
+          "sidebarOpen": false,
+          "content": 1177,
+          "heading": "Your weekend reading is ready"
+        },
+        {
+          "view": "News",
+          "width": 390,
+          "overflow": false,
+          "sidebarOpen": false,
+          "content": 748,
+          "heading": "News"
+        },
+        {
+          "view": "Bookmarks",
+          "width": 390,
+          "overflow": false,
+          "sidebarOpen": false,
+          "content": 648,
+          "heading": "Bookmarks"
+        },
+        {
+          "view": "Music",
+          "width": 390,
+          "overflow": false,
+          "sidebarOpen": false,
+          "content": 440,
+          "heading": "Music"
+        },
+        {
+          "view": "Agent board",
+          "width": 390,
+          "overflow": false,
+          "sidebarOpen": false,
+          "content": 909,
+          "heading": "Agent board"
+        },
+        {
+          "view": "Automations",
+          "width": 390,
+          "overflow": false,
+          "sidebarOpen": false,
+          "content": 440,
+          "heading": "Weekly focus review"
+        },
+        {
+          "view": "Settings",
+          "width": 390,
+          "overflow": false,
+          "sidebarOpen": false,
+          "content": 199,
+          "heading": "Appearance"
+        }
+      ],
+      "serializedByteCount": 1293
+    },
+    "density-mobile-news-final": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": {
+        "rowHeight": 48,
+        "visible": 13,
+        "theme": "light"
+      },
+      "serializedByteCount": 45
+    },
+    "density-final-desktop": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": {
+        "theme": "dark",
+        "motion": "full",
+        "rows": 14,
+        "height": 36,
+        "visible": 14,
+        "storedCounts": {
+          "notes": 4,
+          "todos": 6,
+          "events": 6,
+          "expenses": 8,
+          "mails": 7,
+          "news": 14,
+          "bookmarks": 5,
+          "albums": 6,
+          "threads": 5,
+          "automations": 3
+        }
+      },
+      "serializedByteCount": 201
+    },
+    "density-glyph-final": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": {
+        "checkbox": {
+          "x": 504,
+          "y": 413.8046875,
+          "width": 15,
+          "height": 15,
+          "top": 413.8046875,
+          "right": 519,
+          "bottom": 428.8046875,
+          "left": 504
+        },
+        "mark": {
+          "width": "11px",
+          "height": "11px"
+        },
+        "heights": [
+          34,
+          34,
+          34,
+          34,
+          34
+        ],
+        "dialogFits": true
+      },
+      "serializedByteCount": 208
+    },
+    "density-news-filter": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": {
+        "sourceCount": 5,
+        "search": [
+          "Making keyboard navigation feel natural"
+        ],
+        "restored": 14
+      },
+      "serializedByteCount": 84
+    },
+    "density-console": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "startedAt": "2026-10-01T07:29:53.811Z",
+      "capturedAt": "2026-10-01T08:52:40.765Z",
+      "entries": [
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T07:29:53.848Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T07:29:53.943Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:36:03.501Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:36:03.657Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:36:04.115Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:36:21.639Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:36:43.932Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:36:52.863Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:37:03.060Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:37:19.893Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:37:48.204Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:37:53.341Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:38:06.527Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:38:22.412Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:38:35.701Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:38:51.297Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:38:53.525Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:39:07.076Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:39:25.722Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:39:26.927Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:39:28.349Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:39:29.829Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:40:02.604Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:40:14.361Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:40:26.216Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:40:34.812Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:41:24.505Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:41:36.739Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:41:37.176Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:41:59.059Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:42:25.501Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:42:48.470Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:43:18.355Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:43:38.410Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:43:51.638Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:43:59.952Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:44:15.421Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:44:40.552Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:44:49.705Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:44:57.952Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:45:12.473Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:45:50.082Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:46:58.478Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:46:58.975Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:47:17.594Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:47:45.671Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:47:56.098Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:48:07.633Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:48:31.060Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:49:27.632Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:49:28.173Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:49:58.163Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:50:32.152Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:51:02.884Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:51:03.399Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:51:19.115Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:51:49.359Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:52:04.286Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        },
+        {
+          "kind": "console",
+          "timestamp": "2026-10-01T08:52:37.498Z",
+          "level": "warn",
+          "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+          "lineNumber": 7
+        }
+      ],
+      "droppedCount": 0,
+      "truncated": false
+    },
+    "density-song-final": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": {
+        "height": 44,
+        "gap": 2,
+        "player": 64
+      },
+      "serializedByteCount": 33
+    },
+    "density-player-desktop-close": {
+      "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+      "value": {
+        "closed": 0,
+        "view": "News"
+      },
+      "serializedByteCount": 26
+    }
+  },
+  "harnessNotes": [
+    "Some immediate screenshot calls captured the preceding frame. These were debug captures, excluded from retained final proof. Final images were inspected after fresh reads.",
+    "Initial focus inspection reported outline width 3px with outline style none. Fresh keyboard checks confirmed a real solid 1px row outline; pointer focus remained style none.",
+    "human.click with clickCount did not open a grid form; two real successive clicks opened New event with 09:00. Month date button independently opened the 2026-10-01 form.",
+    "One browser result could not be stored because it was not plain serializable data. Fresh inspection showed Calendar with no dialog; a subsequent Wiki navigation succeeded. No duplicate mutation was submitted."
+  ]
+}

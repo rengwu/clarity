@@ -1,14 +1,30 @@
 ---
 title: Assistant execution
 section: Foundations
-status: Exploring
-updated: 2026-09-28
+status: Current
+updated: 2026-09-29
 order: 50
 summary: Retain Cloudflare OS’s Pi agent and explain its behavior as we build.
 ---
 # Assistant execution
 
-## Accepted direction
+## Current specification · 29 September 2026
+
+**Selected and implemented:** Pi's agent loop with the user's existing 20× Codex subscription (D58/D72/D77/D103), rather than a new API-billing requirement. There is one app integration, not automatic discovery of Codex, Claude, Kimi, Pi, and arbitrary installed harnesses. Those older requests were superseded by the Codex-first Pi direction. Enabled modules are stable maintained instances shared across chats; runtime module-code customization is outside initial scope. Local models and LangChain are outside this implementation.
+
+Settings can read an installed Codex credential or start the provided ChatGPT OAuth flow. Reading installed credentials does not rewrite the CLI token file. Available Codex models/effort populate the chat picker; current defaults are `gpt-5.5` and `medium`, not immutable product requirements. Changes affect the next message in the same thread and preserve saved history; they do not restart a running response.
+
+Pi receives the current thread, fresh environment context, and a `module` tool with `{module, method, args}`. That tool calls the same maintained module methods used by screens. Reads return immediately; writes selected under Settings → Agent approvals execute immediately, while other writes enter review. The current exact selection is supplied with each model request. The agent calls the tool without an extra conversational confirmation for checked actions and must describe pending work as pending. Review happens through Clarity, not a second assistant framework. See [Chat](chat.md) for browser exceptions and [implementation contracts](../references/implementation.md) for the full flow.
+
+Saved chats contain Pi messages/tool results and survive restart. The model receives a bounded set of recent complete turns (currently a 400,000-character budget); the full saved transcript remains local. Older chats are searched only on request/reference. Standing instructions can be read from `AGENTS.md` at the selected data root, capped at 30,000 characters. The app does not discover every project's instructions or impose board use globally.
+
+Live tests in the actual app verify installed-subscription tool use, approval, restart continuity, and same-thread model/effort changes. Fresh live OAuth and real account expiry are still unverified. Those are validation gaps, not unresolved billing/provider preferences.
+
+## Earlier discussion and research
+
+The material below records earlier states of the discussion. Its proposals and open questions are historical unless explicitly carried into the current specification above or the [current follow-up list](../discussions/open-questions.md).
+
+### Accepted direction
 
 **Retain Cloudflare OS's existing Pi-based agent ([D58](../decisions/index.md#d58-retain-the-pi-agent-27-september-2026)).** This supersedes the LangChain implementation plan. Pi here is the embedded agent machinery already used by Cloudflare OS, not a separately launched CLI harness.
 
@@ -16,17 +32,17 @@ In plain language, the model requests an action, the runtime applies the platfor
 
 Model/effort controls and access to the same enabled modules across chats remain intended. Use the existing 20× Codex subscription (D77); validate that subscription path without substituting separate API billing. Teach unfamiliar concepts incrementally, retaining beginner/intermediate code readability. The LangChain research below is historical.
 
-## Pi and Codex runtime evidence · 28 September 2026
+### Pi and Codex runtime evidence · 28 September 2026
 
 A [disposable live test](../references/technical-spikes.md#codex-and-pi) used Pi 0.87.1's Codex provider with the existing ChatGPT sign-in. Streaming, one fixture tool call, and saved-history restoration with a different model/high effort succeeded. This was not a fresh login or a run through Cloudflare OS itself. Its current model router still needs the Codex provider route; token refresh and the full integration remain open. No replacement agent loop was introduced.
 
-## Screenshot observations
+### Screenshot observations
 
 The user supplied a Synara model-picker screenshot on 25 September 2026. It shows provider/favorites tabs, model search, a model list with favorite controls and keyboard hints, and an effort section with a named level and discrete slider positions. The picker appears above the chat composer.
 
 The requirement is to closely follow this model/effort experience. The screenshot's individual model names, exact number of effort levels, shortcuts, and additional controls are reference observations, not independently accepted requirements or proof of current provider availability.
 
-## Earlier installed-harness reference inspection
+### Earlier installed-harness reference inspection
 
 Read Synara's `apps/marketing/content/docs/getting-started/providers.mdx` and the model-discovery descriptors in `packages/contracts/src/providerDiscovery.ts` under `~/Desktop/Projects/synara` on 25 September 2026.
 
@@ -34,7 +50,7 @@ Synara's documentation describes connecting installed, authenticated runtimes; d
 
 **Earlier assistant proposal:** populate model and effort choices from the connected harness's capabilities. D50 supersedes that execution path. For direct model access, the analogous proposal is to expose only capabilities supported by the chosen provider/model; discovery and picker behavior still need validation.
 
-## LangChain learning fit · 26 September 2026
+### LangChain learning fit · 26 September 2026
 
 **Historical review, before D50 was accepted:** while looking for an existing project idea to rebuild in order to learn LangChain, the user identified Clarity as the similar-to-Lucia project currently being planned and requested a review. At that point this was exploration. The subsequent [D50 decision](../decisions/index.md#d50-langchain-runs-the-assistant-26-september-2026) accepts LangChain; it does not begin app implementation.
 
@@ -46,7 +62,7 @@ The review raised who owns the agent loop and the risk of duplicating conversati
 
 See the [review journal](../journal/2026-09-26-langchain-learning-fit.md).
 
-## To resolve
+### To resolve
 
 - Validate Codex subscription sign-in, token refresh, and supported model/effort controls in the local runtime.
 - Connect every chat to the same stable enabled module instances, including existing chats when modules are enabled later.
@@ -54,7 +70,7 @@ See the [review journal](../journal/2026-09-26-langchain-learning-fit.md).
 
 Use upstream approvals. No second agent loop or installed-harness adapter is needed. No app implementation has begun.
 
-## Codex access · 27 September 2026
+### Codex access · 27 September 2026
 
 **Accepted (D72):** Codex first. Pi remains the agent loop; this answer does not request launching the Codex CLI or choose a specific model. D77 subsequently confirms the existing 20× Codex subscription; separate API billing is not the chosen route.
 

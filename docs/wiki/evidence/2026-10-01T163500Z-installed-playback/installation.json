@@ -1,0 +1,45 @@
+{
+  "installedAt": "2026-10-01T16:36:04.522712+00:00",
+  "backup": "/Users/rengwu/Library/Caches/Clarity/build/Clarity-before-playback-feedback-20261001T163500Z.app",
+  "codesign": "passed",
+  "files": [
+    {
+      "path": "main.mjs",
+      "bytes": 179869,
+      "sha256": "6d65db6c9db065f9e00a00c9c3709921ccc393b6ff30d877fa3246ecc6612316"
+    },
+    {
+      "path": "preload.cjs",
+      "bytes": 685,
+      "sha256": "8f51417738610391aa9ae5cd4bca18cfb43f19998a351244404972880890264a"
+    },
+    {
+      "path": "worker.mjs",
+      "bytes": 2327,
+      "sha256": "ff1dd08710e3df237c3e640e7ebb2bc7a4764617f59f4918c5a2db50668f44a4"
+    },
+    {
+      "path": "app.js",
+      "bytes": 3076709,
+      "sha256": "2b61861c2ca91d5d9f4a74b4c6466259ac4cf6a8bb70a5cc2c190a631b942602"
+    },
+    {
+      "path": "app.css",
+      "bytes": 90058,
+      "sha256": "d170761bec47d45bf24e340ce877ea2b46d2cb53afc774fab6486cfdd6888f7b"
+    },
+    {
+      "path": "index.html",
+      "bytes": 329,
+      "sha256": "bcd785e95fb0ab58fd806a26ac1c8ce7d5cd692c274ad1b014c3f681ae02293b"
+    },
+    {
+      "path": "clarity-player",
+      "bytes": 5274224,
+      "sha256": "607ab1c0a2f5a1f8ff56ffec5e5c1b22de196f51b3f1f79bdb525271d869c180"
+    }
+  ],
+  "applicationSha256": "d9bc5cb4a7a635b021fd1d93b97e19ac45997b2049e9f8e4e8e32b7051def8e3",
+  "verificationSha256": "a2a41499334036b0b2a7f2e8751557525ce3a55b196687d63e7ddd949bb70fe7",
+  "packageRuntimeSha256": "a5ba27f2dee37b19753b505c6e5061aca4b1e8c534c4a27ee5ecf26daf097036"
+}

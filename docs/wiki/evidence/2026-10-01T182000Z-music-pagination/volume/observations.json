@@ -1,0 +1,109 @@
+{
+  "observations": [
+    {
+      "label": "album one",
+      "gain": 0.251188643150958,
+      "playing": true,
+      "source": "clarity://stream/one"
+    },
+    {
+      "label": "album two preserves gain",
+      "gain": 0.251188643150958,
+      "playing": true,
+      "source": "clarity://stream/two"
+    },
+    {
+      "label": "shuffled album uses track gain",
+      "gain": 0.5011872336272722,
+      "playing": true,
+      "source": "clarity://stream/one"
+    },
+    {
+      "label": "playlist uses track gain",
+      "gain": 0.5011872336272722,
+      "playing": true,
+      "source": "clarity://stream/one"
+    },
+    {
+      "label": "slider combines volume and normalization",
+      "gain": 0.06309240921411632,
+      "playing": true,
+      "source": "clarity://stream/one"
+    },
+    {
+      "label": "disabled applies next track",
+      "gain": 0.1258859064655216,
+      "playing": true,
+      "source": "clarity://stream/one"
+    },
+    {
+      "label": "common curve 0",
+      "gain": 0,
+      "playing": true,
+      "source": "clarity://stream/one"
+    },
+    {
+      "label": "common curve 25",
+      "gain": 0.0056229687150852175,
+      "playing": true,
+      "source": "clarity://stream/one"
+    },
+    {
+      "label": "common curve 50",
+      "gain": 0.0316211100369028,
+      "playing": true,
+      "source": "clarity://stream/one"
+    },
+    {
+      "label": "common curve 70",
+      "gain": 0.1258859064655216,
+      "playing": true,
+      "source": "clarity://stream/one"
+    },
+    {
+      "label": "common curve 100",
+      "gain": 1,
+      "playing": true,
+      "source": "clarity://stream/one"
+    },
+    {
+      "label": "Quiet recording",
+      "gain": 1,
+      "playing": true,
+      "source": "clarity://stream/quiet"
+    },
+    {
+      "label": "Untagged recording",
+      "gain": 1,
+      "playing": true,
+      "source": "clarity://stream/untagged"
+    },
+    {
+      "label": "Peak recording",
+      "gain": 0.5,
+      "playing": true,
+      "source": "clarity://stream/peak"
+    }
+  ],
+  "requests": [
+    "ping.view",
+    "getAlbumList2.view",
+    "getAlbum.view",
+    "getAlbum.view",
+    "stream.view",
+    "stream.view",
+    "stream.view",
+    "getPlaylists.view",
+    "getPlaylist.view",
+    "getPlaylist.view",
+    "getPlaylist.view",
+    "getPlaylist.view",
+    "stream.view",
+    "getPlaylist.view",
+    "stream.view",
+    "getPlaylist.view",
+    "stream.view"
+  ],
+  "persisted": true,
+  "errors": []
+}

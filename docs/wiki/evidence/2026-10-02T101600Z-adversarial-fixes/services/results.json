@@ -1,0 +1,62 @@
+[
+  {
+    "name": "QA05 service",
+    "rejectedHiddenDestinations": 13,
+    "visibleMove": "Projects/Visible.md",
+    "contentPreserved": true
+  },
+  {
+    "name": "QA07 revisions",
+    "modules": [
+      "todos",
+      "calendar",
+      "expenses",
+      "bookmarks",
+      "automations"
+    ],
+    "directMalformedRevisions": 80,
+    "pendingAndAutomaticFailuresPreserveHumanEdits": true,
+    "newsSourceDeletionGuarded": true
+  },
+  {
+    "name": "QA08 expense dates",
+    "invalidAddsAndUpdatesRejected": 18,
+    "approvalRejected": true,
+    "validLeapCenturyAndYearBoundsPreserved": true
+  },
+  {
+    "name": "QA08 calendar dates",
+    "originalComponentsChecked": true,
+    "invalidEndAndReversedRangeRejected": true,
+    "validOffsetsLeapAndLocalDateTimesPreserved": true
+  },
+  {
+    "name": "QA09 board parent",
+    "malformedMissingAndReplyParentsRejected": 6,
+    "approvalRejected": true,
+    "readSearchAndRestartPreserved": true
+  },
+  {
+    "name": "QA10 feed text",
+    "titles": [
+      "QA Research & Development — 🚀",
+      "Encoded & safe",
+      "Atom 🚀 & Science",
+      "Readable & safe"
+    ],
+    "errors": [
+      "/failed: HTTP 503",
+      "/entities: Feeds with external entities are not supported"
+    ],
+    "decodedQueryStrings": true,
+    "duplicateRefreshImported": 0,
+    "existingTitleRepairedWithOriginalDates": true
+  },
+  {
+    "name": "QA05/QA10 native Electron",
+    "renameRejectedLocally": true,
+    "originalTabTreeAndFilePreserved": true,
+    "headlinesAndFailureVisible": true,
+    "savedTitlesAndReloadVerified": true
+  }
+]

@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: gain metadata handles absent, invalid, quiet and peak-limited recordings
+ok 1 - gain metadata handles absent, invalid, quiet and peak-limited recordings
+  ---
+  duration_ms: 0.601166
+  type: 'test'
+  ...
+# Subtest: Music chooses album/track normalization and sends volume before native playback
+ok 2 - Music chooses album/track normalization and sends volume before native playback
+  ---
+  duration_ms: 1.445792
+  type: 'test'
+  ...
+# Subtest: Spotify keeps the helper until normalization changes at a new load
+ok 3 - Spotify keeps the helper until normalization changes at a new load
+  ---
+  duration_ms: 132.812416
+  type: 'test'
+  ...
+# Subtest: volume reaches main during a held drag and held key, without stale slider echoes
+ok 4 - volume reaches main during a held drag and held key, without stale slider echoes
+  ---
+  duration_ms: 4775.009292
+  type: 'test'
+  ...
+# Subtest: native Music UI applies normalization, album/shuffle modes, settings and persistence
+ok 5 - native Music UI applies normalization, album/shuffle modes, settings and persistence
+  ---
+  duration_ms: 7203.044792
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 12201.417833

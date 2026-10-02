@@ -1,18 +1,282 @@
 ---
 title: Music
 section: Features
-status: Exploring
-updated: 2026-09-29
+status: Current
+updated: 2026-10-02
 order: 90
 summary: One lean Spotify and Navidrome client with source-labelled browsing and playback.
 ---
 # Music
 
-## Implementation · 28 September 2026
+Stable ID: **FEAT-music**.
+
+## Current specification · 2 October 2026
+
+One simple player combining optional Spotify and Navidrome connections while preserving each source's identity. All supported views include both connected sources where available. Every result has a source label; track tables have a Source column. These visual choices and the combined All search tab are selected defaults under D103, replacing the older unresolved styling proposals.
+
+### Screens and playback
+
+Home shows a grid of up to 30 collection references recently played through Clarity, newest first. Do not import listening history from other clients. Albums and Playlists have simple list/grid views. Spotify playlists are flat and limited to the user's own playlists plus Liked Songs; albums include Spotify's saved albums and Navidrome's library. Navidrome artists appear in its library; Spotify artist discovery searches the whole catalogue, without relying on follows.
+
+Search has All, Playlists, Albums, Artists, and Songs. Keep matches separately identified by source, including two versions of the same artist. An album/playlist page is a compact track list. Artist detail lists albums from that source; it is not a merged artist identity or generated radio. The UI opens artist albums; the agent's artist-play default selects the first returned album. This is an implementation default, not a broader recommendation system.
+
+The Songs search tab defaults to a list, with the existing List/Grid control available in either direction ([D108](../decisions/index.md#d108-songs-default-to-list-view-29-september-2026)). Its layout choice is independent of the other music views, which retain their grid default. As a lean implementation default, remember the choice while Music remains open, including tab changes and new searches; returning to Music after leaving the module starts Songs in list view again. No saved setting is added.
+
+The player bar provides previous/play/pause/next, a seek bar with elapsed/total time, volume, shuffle, and repeat (off/track/context). The seek bar supports clicking, dragging, and keyboard adjustment for either source and preserves the current playing/paused state. Preview the chosen time while dragging and send one seek when released; do not enqueue every intermediate movement. Disable seeking until a duration is known, or after a playback failure. At narrow window widths, give the seek bar its own row. This extends the original player scope under [D106](../decisions/index.md#d106-music-seeking-29-september-2026).
+
+Playing a single search song stops at its end; playing an album/playlist continues within that collection. Source switches stop the current engine before starting the next. No mixed-source playlists, local playlist database/editor, local-file library, downloads, or automatic radio. Local recent items store references, not independent playlists or copies of music.
+
+Agent playback has two independent options under [Settings → Agent approvals](../foundations/chat.md#automatic-approval-checklist): `music.play` starts a song or collection; `music.control` covers pause/resume, previous/next, seek, volume, shuffle, and repeat. Checked methods execute directly and return the actual result; unchecked methods remain in review. Neither option bypasses source connections or enables the module. Direct player controls remain immediate human actions.
+
+### Search result categories · 2 October 2026
+
+**User direction:** make each result's kind clear, using labels or category sections like the supplied Spotify reference. **Delegated presentation under D126:** All groups nonempty results into Songs, Artists, Albums and Playlists, in that order. Each section previews the first six matches after applying the source filter, preserving their existing provider order. When more matches are already loaded, **Show all** selects that type's existing filter and reveals all fetched matches. This is not a new provider pagination or ranking mechanism; no synthetic Top result is chosen. Empty categories have no heading.
+
+Cards show the singular kind beside the existing provider label, for example **Song · Spotify** or **Album · Navidrome**, including single-type filters and Home/library cards. List rows outside collection detail put the kind before the artist; their Source column remains. Known album/playlist track tables retain their compact song metadata. Same-title songs/albums and same-artist results from different providers remain separate identities.
+
+The existing Grid/List control applies to every section. Songs keeps its independent list default and visit-local preference under D108, including entry through Show all. Category/source/layout changes use the fetched All result and do not send new search requests. Opening a collection and returning restores the search and filter; errors, retry, empty states and refresh retain their existing contracts. Implementation stays in the renderer using MusicItem's existing type/source fields; no storage, dependency, provider API or playback change is introduced.
+
+### Recently played metadata and repair · 2 October 2026
+
+Home cards retain the played collection's title, artist and artwork when supplied by its source. Save resolved collection metadata in main, so collection Play and track-row playback work when navigation or an agent supplies only source/type/ID. Artist playback records the artist, even when its queue comes from that artist's first album. Individual song playback and browsing do not add history. A failed Spotify start does not add a record; Navidrome records the accepted queue handoff to its renderer, which precedes confirmation of audible playback.
+
+**Storage and compatibility defaults:** `music-recent` uses the existing record key `<source>-<type>-<provider ID>`, with the provider ID stored separately as `itemId`. Persist source, type, title, optional artist/cover and `playedAt` (epoch milliseconds); never persist the selected track index or queue. Return MusicItem identities using `itemId`, so Home cards call the provider with its own ID. Replaying a collection starts from its beginning. Home sorts by `playedAt`, falling back to legacy `updatedAt`, and selects at most 30 records.
+
+On Home reads, repair legacy records in that selected set. Recover their provider ID by removing the exact source/type prefix from the storage key. If the title is missing, obtain collection metadata from its connected source; Spotify reads one album, playlist or artist metadata endpoint without downloading track pages, while Navidrome uses its existing collection read. Liked Songs supplies its known title locally. Spotify album browsing also fetches and caches the album's own name/artist/cover alongside its track pages. Records with a title need no metadata request merely because optional artwork is absent.
+
+Persist successful repairs with the record's revision and its original playback date. A late repair cannot overwrite a newer play. Connection changes discard pending repair results before they are saved or returned. Complete records need no provider requests on Home reads. Repair updates references/display metadata only; it does not import provider listening history, copy songs, reset history or change credentials.
+
+If a source is disconnected, unreachable or cannot return a title, retain the stored entry and show **Unavailable album**, **Unavailable playlist** or **Unavailable artist**, with its source and the existing retry notice. Do not save that fallback as a repaired title. Successful cards remain available and Try again retries incomplete entries; unavailable records are not deleted. `recent` returns `{items, errors}`; the renderer also accepts the earlier array response for existing fixtures. A first repair may wait for the source's existing request timeout. Live-account recovery, including the separate Navidrome local-network issue, is not established by fixture checks.
+
+### Connections and engines
+
+Spotify library OAuth and native-playback OAuth are separate. Library access uses Spotify's API; audio plays inside Clarity using a bundled Rust librespot 0.8.0 helper and Rodio 0.22.2 audio output (CPAL 0.17.3 in the validated build). Disable librespot's older bundled Rodio backend; a small Sink adapter feeds its decoded samples to the newer output library. It exchanges JSON lines with Electron over standard input/output. It is not a remote-control-only Spotify client or a webview DRM player. The source build needs Rust/Cargo; packaged users do not. Catalogue search, native session connection, advancing playback, pause/resume, and seeking have passed live checks with the existing account on this Mac. A later login5 503 prompted the direct OAuth-token integration below. The installed app now passes real expired-access-token renewal, playback, seeking, and playback after Quit/reopen with the same saved connection. Fresh playback browser authorization also passed in the 2 October follow-up below. Other audio devices, fresh library browser authorization, refresh-token expiry/revocation, and listener-confirmed audibility remain separate validation items.
+
+### Source volume and normalization · 2 October 2026
+
+**Accepted under [D124](../decisions/index.md#d124-music-volume-consistency-and-normalization-2-october-2026):** align the slider across Spotify and Navidrome, add optional metadata-based normalization, and automatically preserve album dynamics using album gain for albums and track gain for playlists/shuffle. The user accepted all three recommendations after the source-volume investigation. No audio-file rewriting or continuous compressor is introduced.
+
+**Shared control:** both engines explicitly use the same 60 dB logarithmic curve. Clamp finite volume values to 0–100; quantize to `floor(volume / 100 * 65535)` to match the native volume mapping. Zero is complete mute; otherwise the amplitude factor is `10 ** (3 * (steps / 65535 - 1))`. Maximum is unity. At the default 70%, both apply approximately 0.1259 (−18 dB). The earlier Navidrome linear mapping applied 0.70 (−3.10 dB), causing a calculated 14.90 dB mismatch. Spotify's level is preserved; Navidrome now follows that curve. Native load applies the current volume before starting a track, including mute, so a restarted helper cannot briefly play at its initial 70%.
+
+**Delegated setting and timing:** Settings → Music appears when Music is enabled and contains one **Normalize volume** checkbox. Store the boolean `musicNormalization` with data-folder settings; default true also fills older records without the field. The setting is independent of connections and agent approvals. Save validation rejects non-booleans. Changing normalization or shuffle affects the next loaded track; keep the current track's gain constant through pause/resume and seeking. This avoids a mid-song level change. A normalization change restarts Spotify's helper only at its next load; an album/track mode change uses the same helper. The UI states the timing and that quiet/untagged tracks stay unchanged.
+
+**Conservative fixed gain:** use attenuation only, capped at unity; do not amplify quiet recordings or use librespot's dynamic limiter. This is a lean delegated default within the accepted normalization feature. Positive gain is never required to reach a target at the expense of headroom. Valid peak metadata can reduce gain further to keep the sample peak at or below full scale. This is not a true-peak analyzer or repair for already clipped material. Unavailable or invalid gain for the selected mode leaves that recording unadjusted; do not invent gain from a provider name or apply a server fallback value.
+
+Spotify uses its stream-supplied track/album gain and peak metadata through librespot 0.8.0's `NormalisationMethod::Basic`, with zero pregain and `NormalisationType::Auto`. Main sends `albumGain` before every load, true for an album (including the first album chosen through Artist play) when shuffle is off; playlists, Liked Songs, individual songs and shuffled albums use track gain. The init JSON includes `normalization`; load includes `volume`, `albumGain`, URI and position. Renewals preserve this configuration. Source switching still stops the previous engine before playback begins.
+
+Navidrome MusicItem retains the optional OpenSubsonic `replayGain` fields `trackGain`, `albumGain`, `trackPeak`, `albumPeak`, and `baseGain`. Keep only finite numeric gains within ±60 dB and finite positive peaks. Gain zero is valid; null/string/invalid values are absent. An ID-only song play retrieves song metadata; already mapped results reuse their metadata. Renderer selects album gain only for a non-shuffled album context, and stores one gain factor for that loaded track. Multiply it by the shared slider factor when setting HTML audio volume. Track or album gain missing for the selected mode leaves the track unchanged, even if the other mode's gain exists.
+
+For conventional ReplayGain 2 metadata, add 4 dB to its −18 LUFS reference to match Spotify's nominal −14 LUFS reference before the unity/peak cap. Account for reported codec `baseGain` already applied during decoding: `factor = 10 ** ((selectedGain + 4 - baseGain) / 20)` and `decodedPeak = selectedPeak * 10 ** (baseGain / 20)`. Missing base gain is zero; missing peak uses unity conservatively. Final normalization is `min(1, factor, 1 / decodedPeak)`. This requires standard, accurate tags: ReplayGain 1, custom target levels, missing tags, differing masters or server processing can still produce audible differences. Actual loudness parity is not inferred from metadata arithmetic.
+
+Sources: [librespot normalization options](https://github.com/librespot-org/librespot/wiki/Options#volume-normalisation), [OpenSubsonic ReplayGain](https://opensubsonic.netlify.app/docs/responses/replaygain/), [Spotify's target and album/track behavior](https://support.spotify.com/us/artists/article/loudness-normalization/), and [ReplayGain 2 reference in rsgain](https://github.com/complexlogic/rsgain). [The focused run](../verification/runs/2026-10-01T171500Z-music-normalization.md) separates native PCM/metadata checks, controlled HTTP/UI checks and packaged behavior from unmeasured real-account loudness and speaker output.
+
+### Live volume response · 2 October 2026
+
+**User requirement under [D127](../decisions/index.md#d127-adjust-volume-while-dragging-2-october-2026):** volume changes must reach both engines continuously while dragging or holding a keyboard adjustment, with no deliberate wait for pointer/key release, debounce or fade. This differs from seeking, which still commits once on release. Navidrome applies its existing slider × fixed normalization gain immediately to HTML audio. Every changed slider value also goes through the existing `music.control` call so main retains the latest level for playback and source changes. Ignore echoed volume events while local volume calls are pending, preventing older feedback from moving the thumb backwards; external volume controls resume updating the slider once those calls settle. Command failures retain the existing player error presentation.
+
+**Output default:** Spotify applies the same quantized 60 dB curve through Rodio's output player volume, after the decoded queue. Pass `NoOpVolume` to librespot so slider gain is not also baked into decoded packets; keep its fixed per-track normalization in the decoder. Main's `volume` command and pre-load volume set the output gain, including mute. Keep the existing bounded audio queue for reliable playback; already queued samples use the latest level as they leave it. Rodio 0.22.2 refreshes this control every 5 ms of rendered audio. This removes the roughly half-second queued-gain lag without promising literally zero wall-clock latency: OS/device buffers and Bluetooth remain outside that software measurement.
+
+[The response run](../verification/runs/2026-10-02T142157Z-volume-response.md) verifies held pointer/key input, delayed feedback, mute/max/error handling and PCM changes on an already populated output queue. The earlier normalization contract, saved preference and source curve are unchanged. Real speaker response and live provider playback are not measured by these controlled checks.
+
+### Persistent sign-in
+
+The user requires a long-lived login, not repeated sign-in for normal use ([D110](../decisions/index.md#d110-long-lived-spotify-sign-in-29-september-2026)). Retain both OAuth connections across app restarts in the existing encrypted credential file. Renew access tokens when their saved expiry is within one minute, and persist replacements atomically. Reuse a refresh token when the provider omits a new one; replace it when one is issued. Concurrent requests share one renewal. Spotify's API `401` triggers one renewal and one replay of the failed request; if another request already replaced that token, use the replacement. Do not retry indefinitely.
+
+A rejected native-session credential also gets one silent token renewal and connection attempt before recommending sign-in. A temporary service/rate-limit/network failure must preserve the saved connection and must not be described as an expired login. An `invalid_grant` renewal response can require reconnecting; `invalid_client` calls for correcting client configuration. Actual revocation or provider-imposed expiry can still end a login, so this is not a promise of permanent credentials. This follows the [Spotify refresh-token flow](https://developer.spotify.com/documentation/web-api/tutorials/refreshing-tokens).
+
+Controlled tests cover expired access, missing/rotated refresh tokens, concurrent renewal, retry limits, restart persistence, service failure, and rejected credentials. Earlier inspection found both existing Spotify connections unexpired with refresh tokens present; diagnosis preserved those credentials. See the [sign-in journal](../journal/2026-09-29-spotify-sign-in.md).
+
+### Playback OAuth token ownership
+
+Electron owns the saved streaming OAuth grant and its refresh token. The Rust helper receives only the current access token and its absolute expiry (`expires`, Unix milliseconds) over its private standard-input pipe. Use that same valid token for native session authentication and the playback service's Bearer requests. Do not require an additional login5 exchange: a live isolated test established that the existing streaming grant plays the track directly while login5 returns 503. Library OAuth remains separate.
+
+While a helper is alive, Electron schedules renewal one minute before the access-token expiry using the shared OAuth renewal code. Send the replacement with a `token` command containing `token` and `expires`; update the in-memory token without restarting audio. Cancel the timer on close, process exit, or helper failure. Discard late renewal results when the owning helper or playback generation changed. A renewal failure uses the existing bounded recovery/error path and preserves encrypted credentials. A restart obtains a current token from the saved grant before starting the helper.
+
+Librespot 0.8.0 lacks an API for supplying that token to its playback HTTP client. The build copies the exact published core crate into the external Cargo cache and applies a small, checked extension from `src/player/login5_oauth.rs`. The extension accepts a nonempty token with more than ten seconds of lifetime, marks it as supplied by the host, and returns an authentication error on expiry instead of falling back to login5. The helper caps the supplied lifetime at one day and never extends the provider's expiry. An invalid replacement does not overwrite the previous valid token. Two expected upstream source anchors must match exactly; otherwise the build stops. Never edit the shared Cargo registry or vendor an entire fork into the workspace. Preserve the upstream license and include the modification notice in the app. Rebuild instructions are on [Implementation](../references/implementation.md).
+
+Controlled checks cover renewal without restarting the helper, expiry without login5/network fallback, invalid replacements, and late renewal after close. Live verification in the installed app started with both saved Spotify access tokens expired; search and playback renewed them without a new sign-in. The replacement expiry values and refresh tokens persisted across Quit/reopen. Playback, pause, seeking while paused, and resuming beyond the sought position pass; another restart plays again with no further renewal. The earlier endpoint diagnosis and Spotifast comparison remain below as history; they did not identify a rate limit or general Spotify outage. See the [resolution journal](../journal/2026-09-29-spotify-oauth-playback.md).
+
+### Navidrome connection and local-network access · 2 October 2026
+
+Navidrome accepts any HTTP(S) server address, username, and password and attempts connection, per D62. It uses Subsonic/OpenSubsonic requests with salted token authentication. Verify `ping` before saving credentials; a failed first connection saves nothing, and a failed replacement preserves the existing account. Streams go through the main process to the in-app audio player. Forward the player's HTTP Range header and preserve the upstream partial-response status, headers, and body so seeking can request the needed bytes. Credentials remain in main.
+
+**Delegated failure handling:** translate fetch transport failures in the shared Navidrome request path, so Settings, browsing and playback receive actionable messages. Distinguish timeout, connection refusal, name resolution and unreachable/permission failures. On macOS, the last category also directs the user to System Settings → Privacy & Security → Local Network → Clarity. This is a troubleshooting check, not proof that every unreachable host was denied by macOS. Other network failures receive general address/connection guidance. Preserve HTTP status and Subsonic authentication errors. Never expose raw authenticated URLs, passwords or transport exception details. The existing 20-second response-header deadline, HTTP support and refusal to forward credentials through redirects remain.
+
+The macOS bundle includes `NSLocalNetworkUsageDescription`, explaining connections to the user's chosen Navidrome and Linkding servers. macOS controls local-network consent independently of provider login; the app does not modify that permission or fall back to a different process to evade a denial. [Apple's local-network privacy guidance](https://developer.apple.com/documentation/technotes/tn3179-understanding-local-network-privacy) owns the platform requirement. A successful terminal or test-process request does not establish permission for a normal installed-app launch.
+
+The [connection run](../verification/runs/2026-10-01T182630Z-navidrome-connection.md) separates direct live authentication from installed-app reachability and controlled error/retry tests. Earlier controlled checks verify fixture audio, seeking, byte-range forwarding, single-song stopping and source handoff. Real-server playback, formats and transcoding remain separate validation items.
+
+Module methods are `search(query,type)`, `library(type)`, `collection(source,id,type)`, `play(source,id,type)`, and `control(action,position?,volume?,shuffle?,repeat?)`. Control actions include pause, resume, next, previous, and seek. Seek positions are finite, non-negative seconds, clamped to the current duration when known. Convert to integer milliseconds only at the Spotify helper boundary; HTML audio uses seconds. Source credentials stay in encrypted connection storage. Private use with friends is the current audience; the earlier public-product policy discussion remains deferred. Preserve upstream licenses when reusing implementation code.
+
+### Connection clarity and independence · 1 October 2026
+
+Spotify library access and native playback are separate OAuth grants. Settings groups both under Spotify, with distinct statuses and Disconnect library / Disconnect playback actions. Disconnecting one must preserve the other grant. Connect/disconnect events refresh mounted Music views and connection guidance. A connected library with no playback grant shows a compact Connect playback action; it must not imply that browsing is broken. Playback failures appear once in the player, not again as a floating toast. Playback events and rejected requests update one shared error state regardless of delivery order; do not match event timing or depend on custom JavaScript Error properties surviving the isolated bridge. A failure before a queue exists appears in a compact footer that leaves the module usable.
+
+The installed-account diagnosis on 1 October found library access present, playback access absent, and a successful live search returning 40 items. It did not establish why the playback grant was missing. The coupled disconnect bug was reproduced with isolated credentials and corrected, but is not proven to have caused that account’s state. After the user unlocked Keychain on 2 October local time, the installed UI completed playback authorization and verified advancing playback, pause, seeking while paused, and resume. That live walkthrough also exposed an event-order race which still duplicated a failure toast. The subsequent shared-state fix passes both delivery orders and pre-queue failure cases; its final installed restart status is recorded in the [follow-up run](../verification/runs/2026-10-01T163500Z-installed-playback.md). Advancing position is not listener-confirmed audibility.
+
+### Native playback and failure contract
+
+Validate and install the supplied OAuth token, connect the native session, and open the OS output device successfully before reporting helper readiness. Readiness does not itself prove that a selected track can load; subsequent load failures remain visible. The earlier login5 preflight is removed. Native authentication/connection initialization has a 45-second deadline; the parent has a 50-second startup deadline. Send decoded stereo 44.1 kHz samples to Rodio, which handles the output device's format/rate. Keep the device stream alive for the player's lifetime and bound queued decoded audio to roughly half a second. Apply live slider gain after that queue as specified in [Live volume response](#live-volume-response-2-october-2026). Normal helper commands are token/load/pause/resume/stop/seek/volume/quit; load optionally accepts a starting position in milliseconds. Events report ready, playback state, position, ended, and error. Position changes, corrections, and completed seeks update the bar, including seeks while paused. HTML audio events from a stopped Navidrome player must not reset Spotify's state.
+
+A helper crash or unexpected exit after readiness is an error, not an ordinary pause. Check native-session health once a second so a dead connection cannot remain an apparently usable process. For a dropped connection, unexpected exit, or unavailable track while playback is wanted, close the failed helper and retry the current track once at its last reported position. Never continue retrying the same play request indefinitely. Pause, a new play request, source switching, explicit Quit, and the end of a single-song queue must prevent stale automatic playback. A renewed play attempt or next track gets its own one-retry allowance.
+
+If recovery fails, keep the error visible in the player until another playback attempt. Preserve useful exit status/signal and service errors; a generic unavailable track must not claim that sign-in expired or Premium is missing. Do not add a duplicate floating error notice over the controls. Initial audio-device errors also report a useful explanation. Manual Play after a Spotify failure closes any failed engine, reconnects, and reloads the selected track from its start. An intentional quit/source switch produces no false crash alert. Do not let events from a closing helper update a replacement source/session.
+
+The 29 September live reproduction crashed with SIGSEGV in CoreAudio device configuration before the song started. The bundled backend pulled CPAL 0.16.0, whose unsafe CoreAudio memory handling has [upstream fixes](https://github.com/RustAudio/cpal/pull/1055). The updated output dependency eliminates that observed crash. Live checks then connected the existing playback credential, played the reported song with advancing position, paused, sought to 2:00, resumed beyond that position, and sought again during playback. These observations verify the native path and controls; they are not a claim that an automated test listened to the speakers. See the [playback journal](../journal/2026-09-29-music-playback.md).
+
+### Spotify API compatibility · 29 September 2026
+
+Search requests all four supported kinds in one call with `limit=10`, the current per-kind maximum for Development Mode. The UI filters that combined result by tab; it does not automatically fetch additional search pages. An earlier `limit=20` request caused the user's 400 error. A read-only comparison using the connected account reproduced `400 Invalid limit` with 20 and successful results with 10. The registered library callback was correct. [Search API](https://developer.spotify.com/documentation/web-api/reference/search).
+
+Playlist contents use `GET /playlists/{id}/items`, accepting the current nested `item` shape. Liked Songs still uses saved-track wrappers; albums return tracks directly. Normalize these forms and skip null/unavailable entries, podcast episodes, and local files before presenting a music queue. Keep collection pagination. This follows Spotify's endpoint/field changes rather than adding new playlist behavior. [Playlist API](https://developer.spotify.com/documentation/web-api/reference/get-playlists-items), [migration guide](https://developer.spotify.com/documentation/web-api/tutorials/february-2026-migration-guide).
+
+On API failure, show HTTP status and Spotify's provided explanation, capped at 300 characters. Non-JSON failures retain the status instead of producing a JSON parser error. A provider failure must not hide successful results from the other source. Controlled Electron checks cover the visible search result, playlist decoding, Liked Songs/album compatibility, and both error formats. Live search proves neither native audio nor unrestricted access to every playlist. See the [fix journal](../journal/2026-09-29-spotify-search.md).
+
+### Spotify playlist details · 2 October 2026
+
+A playlist detail page must show song titles, artists, artwork and durations from Spotify, plus the playlist's own name and cover. Read playlist metadata through `GET /playlists/{id}?fields=id,name,type,images` and paginated contents through `/playlists/{id}/items`. Return collection metadata and songs using Clarity's existing MusicItem shape so the heading and track table have their respective metadata. Liked Songs supplies its known local display name immediately, without a playlist-metadata request. The session cache retains fetched pages; reopening the playlist does not refetch those pages or metadata. The incremental contract below replaces waiting for the complete collection before rendering.
+
+Normalize provider envelopes only at their known boundary. Current playlist rows contain `item`; legacy playlist/saved-song rows can contain a track **object**; album-track responses contain the song directly. Saved-album library entries unwrap their `album` object separately. The common Spotify-to-MusicItem mapper receives the resulting raw object and reads its own ID, name, artists, images, duration and URI. Never treat a boolean `track` flag as a nested song. Apply local-file exclusion to both the envelope and the song; skip nulls, missing IDs/names and podcast episodes, while preserving remaining order and pagination. This requires no per-song metadata lookups.
+
+The reported eight blank rows were reproduced from a live owned playlist: Spotify supplied eight named songs, each with `track: true`, and the previous truthy-field unwrap erased all eight names. The corrected native UI shows all eight titles/artists/durations/artworks and the playlist heading, with no errors or extra requests on revisit. The read-only check kept the existing library token in main-process memory, used an isolated app root and did not change real credentials or start playback. [The focused run](../verification/runs/2026-10-01T164530Z-playlist-details.md) distinguishes that live data check from controlled regressions and package validation. It establishes this owned playlist's metadata, not every playlist/account or fresh authorization.
+
+### Usability fixes · 1 October 2026
+
+Remember the tab, search/filter, and stack of selected collections during module switching. Opening Artist → Album pushes a level; Back returns to Artist, then the original search. A new search or top-level tab resets that stack. Song item links retrieve the song's details without playback; Play remains explicit. Search/library/collection views distinguish loading, failures, empty results, and disconnected guidance.
+
+D108 remains in force: Songs defaults to list on each new Music visit, with its layout toggle separate from other views. Navigation memory does not persist the layout or introduce a saved setting. Controlled fixtures verify the back stack, leaving/returning, the layout reset, and no-result feedback; these checks do not establish new live-provider compatibility.
+
+These changes resolve the relevant findings in the [UI audit](../references/ui-audit.md), under the user’s instruction to fix all findings. Details not individually chosen by the user are delegated lean defaults ([D112](../decisions/index.md#d112-ui-audit-remediation-1-october-2026)).
+
+### Production redesign · 1 October 2026
+
+Collections now participate in shared Back/Forward history while retaining the Music search/library state. The local Back control is one SVG-and-text native button. Transport glyphs use the shared SVG set. Song rows use compact cells and 2px neighbor gaps; source labels, collection playback, saved credentials and streaming engines retain their existing behavior. Connected omni-search runs only after Search Music.
+
+Shared tokens and navigation are specified in the [desktop contract](../foundations/desktop-stack.md#compact-shared-design). Reproduce the selected changes with `node --test tests/redesign.mjs` and this topic’s existing regression recipe; the [port run](../verification/runs/2026-10-01T142628Z-redesign-port.md) records exact scope and limitations.
+
+### Spike fidelity repair · 1 October 2026
+
+The compact Music toolbar combines library tabs, explicit search, source filter and independent List/Grid controls. Artwork grids use 135–190px covers with small titles/source labels; collection pages use a 135px cover. Track rows are 44px with 28px artwork, title/artist stack, a Source column and tabular duration, separated by 2px gaps. The current track has a subtle selected surface and an animated three-bar indicator only while playing. The player uses compact transport SVGs, a thin seek track, volume and an explicit repeat-one indicator. Reduced motion stops the indicator and transitions. Loading and provider errors remain visible, with a retry action for failed list/collection reads.
+
+### Browse result caching · 2 October 2026
+
+The user requires previously fetched Music results to be reused when switching tabs ([D123](../decisions/index.md#d123-reuse-fetched-music-results-2-october-2026)). A successful library, search, recent-history or collection read, including an empty result, must appear immediately on return without another request or a Loading flash. Search type, source and layout controls filter the already fetched data. Opening a collection reads only that collection; it does not reload the underlying library/search. Returning while a read is still pending shares the existing request. A late response may populate its own cache entry but must never replace the currently selected view.
+
+**Delegated implementation defaults:** keep a renderer-memory cache of up to 50 entries, evicting least recently used settled entries first; pending reads remain shared until they settle. Keys include the data root, read method and read arguments: the library tab, submitted trimmed search query, or collection source/type/ID. Results survive module navigation. Renderer reload clears view results; the Spotify page cache described below lasts for the app session. App restart clears both. No disk cache, provider polling, time-based expiry, saved setting or dependency is added. External library changes appear after the explicit **Refresh music** action, which reloads the visible list or collection. An evicted result loads again on its next visit.
+
+Spotify library connect/disconnect/replacement and successful Navidrome configuration/disconnect clear all browse entries, including pending entries, even while another module is visible. A discarded request from the old account cannot repopulate the cache. Main emits the Navidrome connection event after credentials are saved, including replacing an already connected account. Spotify playback sign-in and unrelated providers do not invalidate library data. Music play/control changes invalidate only local Home history, preserving remote lists and collections.
+
+Failures and responses containing provider errors are not retained as successful cache entries. Preserve any successful source's items alongside the error; **Try again** retries the visible read and clears the error on success. Revisiting a failed read can try again. Refresh/Try again are disabled while that read is pending. Existing collection navigation, source labels, separate playback grants and visit-specific Songs layout remain as specified above. The implementation boundary is `src/renderer/music-resource.ts`, driven by the always-mounted player's event subscription; provider fetching and playback remain in main.
+
+### Browse failure presentation · 2 October 2026
+
+The reported partial playlist failure placed a raw `fetch failed` paragraph and a separate retry button immediately against the artwork. As a delegated presentation correction, group the message and retry action in one compact, bordered notice above the results with a 16px gap. Use the existing theme tokens and native button semantics; the message wraps without clipping the action. Show “Some music couldn’t be loaded.” when items remain, otherwise “Couldn’t load music.” Expose one alert for the browse failure; playback errors keep their separate player contract.
+
+Library/search error strings identify the failed source. Translate a generic fetch rejection to “Couldn’t reach Spotify/Navidrome. Check your connection.” Preserve specific provider status/reconnection details without repeating an existing leading source name. This wording identifies which request failed; it does not establish why the user's connection failed.
+
+During an explicit retry, retain the visible items and notice for the same read/account version, show **Retrying…**, and disable both retry and Refresh until completion. A successful retry removes the notice; a failed retry remains actionable. Keeping partial results in the active view does not make them successful cache entries, and account changes must still discard them.
+
+### Large Spotify collections · 2 October 2026
+
+The user reported that Liked Songs appeared stuck, later clarified that it completed after about 30 seconds, and then found only 4,999 songs with no continuation at the bottom. The old implementation fetched up to 100 pages sequentially before returning anything. At 50 entries per page this silently stopped at 5,000 provider entries; unavailable/non-song filtering can make the displayed count smaller. The specific excluded entry in the user's library was not inspected.
+
+**Delegated loading behavior:** Spotify albums/playlists, including Liked Songs, show the first page when it arrives. Fetch the next page when the bottom of the list comes within 300px of the Music viewport, or through the keyboard-accessible **Load more** fallback. Keep existing rows visible and show **Loading more songs…** plus the number of displayed songs; do not replace the list with a full-screen loading state. Pause automatic continuation while Music is hidden or a page has failed. Keep pending requests shared across navigation. A page failure appears beside the continuation controls, and **Try again** retries only that page. Refresh starts again from page zero and replaces that collection's cached pages. At Spotify's final page, remove Load more and show the final song count. There is no local 100-page/5,000-entry cutoff.
+
+**Read/cache boundary:** `music.collection {source,id,type,offset?,refresh?}` accepts a non-negative integer offset for one Spotify album/playlist page and returns `{item,items,nextOffset,total?}`. No offset retains the full-collection result used by the agent and playback. Request at most 50 entries, preserve provider order/duplicates, and apply the existing envelope/type/local/unavailable exclusions. Use Spotify's next-page offset rather than deriving it from the number of playable songs. Require continuation to target the same Spotify endpoint with a strictly increasing safe-integer offset; a malformed/repeating cursor fails visibly instead of spinning or silently truncating. Official [saved-track](https://developer.spotify.com/documentation/web-api/reference/get-users-saved-tracks) and [playlist-item](https://developer.spotify.com/documentation/web-api/reference/get-playlists-items) references document the 50-entry limit and nullable next-page link.
+
+`src/main/spotify-collections.ts` keeps successful and pending pages plus playlist metadata in a bounded in-memory cache of 50 collection identities. Evict settled least-recently-used collections first. Main is scoped to the selected data root; successful Spotify/Navidrome connection changes clear this cache alongside renderer invalidation, and Quit clears it. A failed page is removed independently, retaining earlier successful pages. Metadata and the first page may load concurrently. Whole-collection reads reuse pages already fetched and follow continuation until complete; an account change/refresh during such a read fails instead of mixing versions. Playback therefore avoids fetching already-browsed pages again, but still obtains the remaining collection before starting its existing complete-context queue. Immediate playback while that queue is incomplete is not added by this browsing fix.
+
+Renderer entries retain the accumulated prefix and continuation, with one request pending at a time. Failed continuation never discards the prefix or treats it as the complete collection. The native table keeps existing row components when another page arrives, avoiding unnecessary row updates. Loaded rows remain in the DOM; this is incremental fetching, not a virtualized or offline music library. Normalization, source switching, shuffle/repeat context and successful-result caching retain their existing contracts.
+
+### Verification recipe and coverage
+
+**Search-category recipe:** after building, run `node --test tests/music-cache.mjs`. The native driver searches eight songs plus artist/album/playlist fixtures, including a song and album with the same title. Check section order, six-item preview, explicit kind/source labels, keyboard Show all into the complete Songs list, both layouts, source filtering, collection/Back, no extra search request, Songs reset after leaving Music, empty categories and no results. Capture both themes at 1200×800 and 850×600 with `CLARITY_MUSIC_EVIDENCE`; inspect screenshots and overflow measurements. Repeat with `CLARITY_MUSIC_EXECUTABLE`/`CLARITY_MUSIC_MAIN` pointing at the signed package. Existing cache/retry/account scenarios remain in the same driver; fake credentials use Chromium’s mock keychain in an isolated data root. Run the Spotify playlist and Mail/Music navigation recipes below for adjacent entry points. These controlled responses verify presentation/navigation, not live catalogue completeness or provider ranking.
+
+**Recently played regression:** after building, run `node --test tests/music-recent.mjs`. Exercise Spotify/Navidrome albums, playlists and artists, Liked Songs, failed playback, single-song exclusion, provider IDs through the real SQLite store, replay from the beginning, persistence and the 30-card bound. Seed legacy blank and titled records; verify metadata-only Spotify repair, preserved dates/order, disconnected/failing provider retry, revision conflicts and account changes during pending repair. The native driver seeds real legacy history, connects controlled HTTP fixtures, opens Home cards from both sources, plays a collection's second row and checks its new Home card, retries a provider failure and reloads. Assert titles, successfully loaded artwork, provider request IDs and saved records. `CLARITY_RECENT_EVIDENCE` retains screenshots and observations; `CLARITY_RECENT_EXECUTABLE` selects the signed bundle. Fake credentials use Chromium's mock keychain in an isolated root. These checks establish repair/storage/UI behavior, not live accounts or speaker output.
+
+**Repair checks:** follow the [shared motion/density recipe](../foundations/desktop-stack.md#verification-recipe-and-coverage), then exercise this module’s existing save/cancel/navigation and error workflows through the native UI. Inspect settled frames as well as active transitions; a still screenshot alone does not prove motion.
+
+**Connection/error checks:** after building, run `node --test --test-concurrency=1 tests/connectors.mjs tests/redesign.mjs tests/usability.mjs`. Exercise missing playback authorization through an actual song click, then controlled event-before-reply and reply-before-event failures: one persistent player error and no toast in either order. Repeat before a queue exists; search and module navigation must remain usable. Separately, when a live connection is authorized, use Settings → Spotify → Playback, search a public song, play, pause, seek and resume, then Quit/reopen and verify both grants and another play attempt. Run native UI drivers serially and leave live-app interaction until those drivers finish. Never infer live account success from fixtures.
+
+**Navidrome connection recipe:** run `node --test --test-name-pattern='Navidrome connection' tests/connectors.mjs`. Submit the real Settings form against an isolated salted-auth HTTP fixture; inject transport failures in main and verify the visible guidance, absence of secrets and lack of a saved first connection. Clear the failure and retry successfully, then reject an account replacement with provider authentication/HTTP failures and verify the prior account remains. `CLARITY_NAVIDROME_EVIDENCE` retains the safe screenshot and observations; `CLARITY_CONNECTOR_EXECUTABLE`/`CLARITY_CONNECTOR_MAIN` select the signed bundle. `tests/package.mjs` verifies its usage description. For an authorized live diagnosis compare direct authentication, an isolated test launch and the normally launched installed app; record macOS permission changes separately. Never infer installed consent from a terminal-launched fixture or change OS permissions silently.
+
+**Entry points and prerequisites:** Music → Search → Artist → Album → leave/return → Back → Back. Use the isolated fixtures and build/readiness steps in [Verification setup](../verification/setup.md). Intent and expected outcomes are the current specification above, linked to its accepted decisions and delegated defaults; code observations alone do not replace those requirements.
+
+**Executed recipe:** after building, run `node --test --test-name-pattern='Mail and Music' tests/usability.mjs`. Controlled collection responses verify immediate-parent navigation, retained search, no-result/loading feedback, and D108 Songs layout reset. No playback is triggered by this navigation recipe. Inspect visible outcomes and the underlying persisted effect together. The run owns and closes its temporary app/server; retained screenshots are safe fixtures. Real-account and exhaustive accessibility/conformance limits remain explicitly listed in the run.
+
+**Cache regression recipe:** run `node --test tests/music-cache.mjs tests/connectors.mjs`. The cache driver opens native Music against isolated Spotify/Navidrome HTTP fixtures and records renderer-to-main read counts plus provider request counts. Exercise Home/Playlists/Albums/Artists twice, empty results, leaving/returning, source/layout/search type filters, repeated and different queries, nested Artist → Album → Back, pending tab revisits and out-of-order responses. Expect no extra reads on cached navigation and one shared pending request. Refresh must issue one new visible read; failed collection and partial-provider reads must recover. Simulate a Music change to update Home without refetching libraries; reconnect Spotify and replace Navidrome while Music is hidden, release an old account's pending response, and verify old data cannot return. Equal collection IDs across sources remain distinct; disconnect and renderer reload clear appropriate results. Retain observations and a safe screenshot through `CLARITY_MUSIC_EVIDENCE`. `CLARITY_MUSIC_EXECUTABLE` and `CLARITY_MUSIC_MAIN` can point the same driver at the built macOS bundle. Fixtures establish request/caching behavior, not fresh live-provider compatibility or playback.
+
+**Browse-error layout check:** the same cache driver also rejects Navidrome fetch while returning Spotify playlists, checks the source-labelled notice and retained results, then inspects dark/light layouts at 1200×800 and the minimum 850×600 window. Expect a 16px gap before artwork, no notice overflow and a contained retry action. Hold a failing retry and verify disabled actions, one new read and unchanged card geometry; release it, retry successfully and expect the notice to disappear. Retain the four partial-error screenshots and measured geometry with the request observations. Inspect the screenshots as well as the automated measurements; fixture failures do not diagnose the reported live network problem.
+
+**Large-collection recipe:** after building, run `node --test tests/music-pagination.mjs`. The main-service checks follow all 102 pages of a 5,055-entry fixture, exclude an unavailable track, preserve the final song, reuse pages for playback at the last position, reject malformed cursors and prevent mixed-account full reads. The native UI holds page zero to check the immediate Liked Songs heading, then verifies the first 50 rows with exactly one request. Scroll to hold the second page, leave/return, fail/retry the third page, and continue actual scrolling to song 5,055. Assert all unique fixture rows, no final Load more, no extra requests on playback/reopen, explicit Refresh and late-response exclusion after reauthorization. `CLARITY_PAGINATION_EVIDENCE` retains request/row observations and safe screenshots; `CLARITY_PAGINATION_EXECUTABLE` runs the same scenario against the signed bundle. Use a separate `CLARITY_BUILD_CACHE` when concurrent builds share the workspace. This isolated driver uses Chromium’s mock keychain for fake credentials; it does not test real macOS Keychain authorization. These fixtures establish pagination and cache behavior, not live-account timing or audio output.
+
+**Playlist-details regression:** after building, run `node --test --test-name-pattern='Spotify search/playlist' tests/connectors.mjs`. The shared fixture includes real-shaped `track: true` song metadata inside current `item` and legacy `track` envelopes, a second playlist page, direct album tracks, Liked Songs, null/unavailable entries, episodes, and local flags at either level. Click the playlist and assert the exact title, artist, artwork, duration and playlist heading; Back/reopen must add no requests. Verify normalized Liked Songs and album metadata, existing playback-error behavior and provider failures. `CLARITY_PLAYLIST_EVIDENCE` retains a safe screenshot and request/row observations. Set `CLARITY_CONNECTOR_EXECUTABLE` and `CLARITY_CONNECTOR_MAIN` to the built bundle to repeat this scenario in the package. Live inspection, when needed for this issue, records field types/counts only and must preserve the actual credential file.
+
+**Volume/normalization recipe:** build the app and helper, then run `node --test tests/music-volume.mjs` plus the Music/Spotify cases in `tests/core.mjs` and existing connector/cache regressions. Use the real Music screens and Settings checkbox against controlled Navidrome HTTP audio/metadata: verify matching slider gain at 0/25/50/70/100, album versus shuffled-album/playlist behavior, quiet/untagged tracks, peak limits, fixed current-track gain, next-track changes and Quit/reopen persistence. Main/helper checks verify album/artist/playlist selection, ID-only metadata retrieval, volume-before-load and helper restart only when normalization changes. `CLARITY_VOLUME_EVIDENCE` retains safe observations and a screenshot; `CLARITY_VOLUME_EXECUTABLE` selects the packaged executable.
+
+**Volume response regression:** the same `tests/music-volume.mjs` driver drags through multiple levels while holding the pointer and changes volume before key release, asserting main receives intermediate values. It injects older feedback during pending calls, then verifies settled external controls, mute/max and visible command failure. `CLARITY_VOLUME_MAIN` can select an isolated development entry point for a negative control. The helper transport fixture checks a rapid ordered series of volume commands. Native Rust checks now capture decoded audio through the actual Rodio output gain, ensuring one application of the shared curve; a separate check queues over half a second of PCM, changes gain repeatedly and requires each change within 442 stereo samples (about 5 ms) while most packets remain queued. This measures rendered samples, not wall-clock speaker latency. Repeat the UI scenarios with `CLARITY_VOLUME_EXECUTABLE` pointing at the signed bundle.
+
+Run `cargo test --manifest-path ~/Library/Caches/Clarity/build/spotify-player/Cargo.toml -- --nocapture` for decoded native PCM volume and untagged pass-through, using macOS's `/usr/bin/afconvert` only to create isolated test FLAC audio. This does not add local-file playback to Clarity. Run `node tests/spotify-normalization.mjs` for the pinned engine's actual Spotify Ogg-header reader and fixed-gain calculation using the helper's current configuration builder. That check adds a private test module to an external copy of the pinned library, with the same TLS/vergen prerequisites; it never patches the shipped dependency. Tagged Spotify normalization factors and decoded PCM volume are separate observations, not a recorded live Spotify song. Use read-only metadata coverage and measured live output if later claiming real-account loudness matching.
+
+### Verification history
+
+- [2 October 2026: Live volume response](../verification/runs/2026-10-02T142157Z-volume-response.md) — held drag/key input, stale feedback, queued PCM gain and packaged delivery.
+
+- [2 October 2026: Search result categories](../verification/runs/2026-10-02T141800Z-music-search.md) — grouped previews, kind/source labels, Show all, layouts, cached navigation and packaged delivery.
+
+- [2 October 2026: Recently played cards](../verification/runs/2026-10-02T041300Z-music-recent.md) — collection metadata, provider IDs, legacy repair, retry/order/persistence and native card navigation.
+
+- [2 October 2026: adversarial application audit](../verification/runs/2026-10-01T181800Z-adversarial-qa.md) — controlled connector/cache/page/player regressions and disconnected layouts; a timing repair in an external connector driver passes on unchanged app bytes, with no additional confirmed Music defect.
+
+- [2 October 2026: large Spotify collections](../verification/runs/2026-10-01T182000Z-music-pagination.md) — first-page rendering, continuation beyond 5,000, page retries, cache reuse and packaged delivery.
+
+- [2 October 2026: Navidrome connection diagnosis](../verification/runs/2026-10-01T182630Z-navidrome-connection.md) — live reachability/authentication, actionable transport failures and local-network packaging.
+
+- [2 October 2026: Music browse error layout](../verification/runs/2026-10-01T180000Z-music-error-layout.md) — source-labelled notice, spacing, stable partial results during retry and packaged delivery.
+
+- [2 October 2026: Music volume and normalization](../verification/runs/2026-10-01T171500Z-music-normalization.md) — shared gain curve, fixed metadata gain, automatic album/track mode, settings and package checks.
+
+- [2 October 2026: Spotify playlist details](../verification/runs/2026-10-01T164530Z-playlist-details.md) — live eight-track reproduction/correction, boolean-field normalization, playlist heading, pagination and packaged regression.
+
+- [2 October 2026: installed playback and error-order follow-up](../verification/runs/2026-10-01T163500Z-installed-playback.md) — actual authorization/controls, delivery-order regression and final package evidence.
+
+- [2 October 2026: Music result caching](../verification/runs/2026-10-01T163445Z-music-cache.md) — request counts, pending reads, errors, refresh, account boundaries and packaged behavior.
+
+- [1 October 2026: spike fidelity and connection repair](../verification/runs/2026-10-01T154700Z-redesign-repair.md) — compact presentation, real motion, preserved entry points and explicit provider limits.
+
+- [1 October 2026: production redesign port](../verification/runs/2026-10-01T142628Z-redesign-port.md) — shared presentation and selected native module regressions.
+
+- [1 October 2026: UI fixes and jstack adoption](../verification/runs/2026-09-30T165735Z-ui-fixes-jstack.md) — dirty-build fingerprint, selected scenarios and evidence. This dated pass does not certify later revisions.
+
+## Earlier discussion and research
+
+The material below records earlier states of the discussion. Its proposals and open questions are historical unless explicitly carried into the current specification above or the [current follow-up list](../discussions/open-questions.md).
+
+### Volume investigation before D124 · 2 October 2026
+
+**Reported issue and source observation:** the user hears different levels when switching between Spotify and Navidrome and asks whether normalization is advisable. The current shared slider drives different gain curves: `src/player/main.rs` uses librespot 0.8.0's default software mixer (logarithmic, 60 dB range), while `src/renderer/views/music.tsx` assigns `volume / 100` directly to HTML audio for Navidrome. At the default 70%, the respective amplitude gains are approximately 0.1259 (−18.0 dB) and 0.70 (−3.10 dB), a 14.90 dB difference for an identical input signal. This is calculated from the inspected pinned mixer/config/mapping source, not a recording or listening measurement; different masters and server processing can add further differences. The curve mismatch is an open playback defect.
+
+Clarity currently leaves librespot's `normalisation` disabled and does not carry Navidrome ReplayGain metadata into MusicItem or apply it during playback. Spotify's desktop normalization setting does not configure this separate helper. The bundled engine supports fixed track/album gain with peak-aware reduction and a separate dynamic limiting mode ([librespot options](https://github.com/librespot-org/librespot/wiki/Options#volume-normalisation)). OpenSubsonic exposes optional track/album gain and peak fields, plus base/fallback gain ([ReplayGain response](https://opensubsonic.netlify.app/docs/responses/replaygain/)); usable metadata in the user's Navidrome library has not been checked.
+
+**Recommendation, not an accepted feature or implementation change:** align the slider's gain curve across engines first. If recording-level differences still need smoothing, add optional metadata-based loudness normalization with consistent reference levels across sources, one fixed adjustment per song, album gain for album playback and track gain for playlists/shuffle. Limit positive gain to available peak headroom; avoid a continuously changing compressor as the default. This preserves dynamics within a track and can preserve relative album levels without rewriting source files. Missing metadata should leave a track unadjusted unless a fallback is deliberately selected. Accurate normalization of untagged files would require analysis/tagging and is outside this proposal. Spotify's [normalization explanation](https://support.spotify.com/us/artists/article/loudness-normalization/) describes the same album/track distinction and limited positive gain, but does not establish Clarity's output or exact parity between metadata formats.
+
+No playback code, setting, server configuration or installed bundle changed during this investigation. Before closing the curve defect, verify gain at mute, intermediate settings and maximum through both actual playback paths, including source switching. Before claiming loudness matching, separately measure output with representative tagged/untagged material and check album/shuffle and clipping behavior; existing transport/position tests do not verify level matching.
+
+### Spotify endpoint diagnosis and Spotifast comparison · 29 September 2026
+
+These observations preceded the direct OAuth-token solution above. They are retained as investigation history, not current instructions to wait for login5 or change networks.
+
+**Live diagnosis follow-up:** search, native access-point authentication, and the client-token exchange succeed; `POST https://login5.spotify.com/v3/login` fails with 503, `server: envoy`, and no `Retry-After`. A separate unauthenticated request to that endpoint also returns 503 with `no healthy upstream`. This isolates the observed failure to the playback-token route; it does not establish a Spotify-wide outage, expired account login, or confirmed rate limiting. Spotify documents Web API throttling as 429, normally with `Retry-After`, but that public API contract does not prove the behavior of this internal playback endpoint. Current librespot development source still uses the same URL. Another network comparison is needed to distinguish a route/region problem from a broader endpoint problem; no endpoint substitution or engine replacement is justified by the present evidence. [Spotify rate limits](https://developer.spotify.com/documentation/web-api/concepts/rate-limits), [upstream login5 implementation](https://github.com/librespot-org/librespot/blob/dev/core/src/login5.rs), [diagnosis journal](../journal/2026-09-29-spotify-endpoint.md).
+
+**Spotifast comparison · 29 September:** inspected revision `70d42a560c4204278abfbc28646376792749e869` and its pinned librespot fork `23fc42cff37848e51f0d8eaefad1a93941b71e59`. Spotifast retains a reusable native-session credential in protected storage, uses a stable device ID, and bounds reconnection attempts. Its native credential avoids reacquiring a playback OAuth token on every engine restart, but still goes through login5 to obtain a playback-service token. Clarity currently retains and renews OAuth credentials instead; adopting native credential persistence is a possible hardening change, not an implemented fix or new requirement. [Player/cache setup](https://github.com/crmne/spotifast/blob/70d42a560c4204278abfbc28646376792749e869/src/player.rs), [credential restoration and recovery](https://github.com/crmne/spotifast/blob/70d42a560c4204278abfbc28646376792749e869/src/backend.rs).
+
+A disposable Clarity helper built against that exact fork, using its in-memory credential cache and client-token prefetch order, authenticated and obtained a reusable credential, then failed at login5 with the same 503. The fork's login5 source is identical to the stock 0.8.0 source used by Clarity. Its ARM signature patch applies to Windows, not this Mac. An independent unauthenticated HTTP/2 request from this machine also returned 503 with an upstream connection-timeout message. These checks do not establish full Spotifast app behavior: the probe retained Clarity's native TLS and newer audio backend, and did not test a stored credential across app restarts. No fork patches, additional credential format, or new retries were shipped as a speculative fix. [Pinned patches](https://github.com/crmne/spotifast/blob/70d42a560c4204278abfbc28646376792749e869/Cargo.toml#L259-L276), [fork login5 implementation](https://github.com/crmne/librespot/blob/23fc42cff37848e51f0d8eaefad1a93941b71e59/core/src/login5.rs).
+
+### Implementation · 28 September 2026
 
 Under D102's implementation authorization, the assistant selected source pills, an All search tab plus the four type tabs, source album lists on artist detail pages, and local recent collection history. Spotify uses a small bundled librespot 0.8.0 helper; Navidrome streams to the in-app audio player. The packaged helper compiles and starts; Navidrome fixture audio and single-song stopping pass in Electron. Spotify account sign-in and actual audio remain unverified. This native helper adds Rust to the build prerequisites for Spotify; the packaged app contains the binary. See [implementation and validation](../references/implementation.md). Earlier engine comparisons below are historical.
 
-## Cloudflare OS reassessment · 27 September 2026
+### Cloudflare OS reassessment · 27 September 2026
 
 **Spotify must play audio inside Clarity ([D61](../decisions/index.md#d61-spotify-plays-inside-clarity-27-september-2026)).** Controlling a separate Spotify app/device is not the selected experience. The existing Connect-only integration does not fulfill this requirement by itself. Native playback and packaged compatibility still require account-level validation; the engine selection above supersedes the earlier undecided implementation state.
 
@@ -20,7 +284,7 @@ Under D102's implementation authorization, the assistant selected source pills, 
 
 Keep one active playback source and source-owned playlists as agreed. These decisions settle the user experience, not a new playback implementation or permission to start building.
 
-## Stated intent
+### Stated intent
 
 Combine Spotify and Navidrome in one simple Music client, with optional source connections, shared views, and clear source identification for every item ([D47](../decisions/index.md#d47-combined-music-client-scope-25-september-2026)). The app is currently for private use shared with friends. [D48](../decisions/index.md#d48-lean-music-scope-and-private-use-25-september-2026) removes direct local-file playback, accepts flat playlists, and resolves recent history and source switching. Public-product policy review is deferred at the user's request.
 
@@ -28,7 +292,7 @@ The earlier comparison under D45 is resolved by [D61](../decisions/index.md#d61-
 
 The references are primarily for **copying or emulating the most robust core implementation**, not reproducing an entire client's UI ([D46](../decisions/index.md#d46-music-core-implementation-references-25-september-2026)). Keep Clarity's own Music interface and scope lean. No project has yet been established as the most robust or selected for reuse.
 
-## Current screen scope
+### Current screen scope
 
 **User-stated requirements:**
 
@@ -46,7 +310,7 @@ The user's final clarification that **all views include both sources** supersede
 
 Collections faithfully reflect their sources. No playlist may combine Spotify and Navidrome tracks, and Clarity must not invent hybrid playlists or collapse source-specific artist entries. Playlists are stored on Spotify or Navidrome, not as locally owned Clarity playlists. Their storage location does not itself add a playlist-editing UI to the agreed screens.
 
-### Playback and local state
+#### Playback and local state
 
 **Accepted under D48:** keep one active playback source. Selecting an item from the other source stops the current source and switches the playback context, in either direction. Next/shuffle stay within the selected source collection. This is not a mixed-source playlist or an automatic cross-source queue.
 
@@ -54,7 +318,7 @@ Collections faithfully reflect their sources. No playlist may combine Spotify an
 
 The user delegated recently played to the simplest lean method, accepting the proposed Clarity-only history. Record the source and collection reference when playback starts through Clarity, and show most recently played collections first. Merely browsing a collection does not count as playing it. This local history does not make Clarity the owner of the referenced playlists. No provider-history reconciliation or local playlist persistence is required.
 
-### Feasibility findings for the combined scope
+#### Feasibility findings for the combined scope
 
 Reviewed official sources on 25 September 2026; no account or playback tested.
 
@@ -64,14 +328,14 @@ Reviewed official sources on 25 September 2026; no account or playback tested.
 - **Policy discussion deferred.** The earlier concern and [Developer Policy source](https://developer.spotify.com/policy) are retained as research history. Under D48, the user wants to proceed with private use shared among friends and revisit this discussion only if a public product is considered. It is not an active planning blocker. This records the user's scope and deferral, not a finding about policy applicability.
 - **Playlist visibility and search are distinct.** Spotify's [current-user playlists endpoint](https://developer.spotify.com/documentation/web-api/reference/get-a-list-of-current-users-playlists) returns owned or followed playlists; the user's requested library is their created playlists plus Liked Songs. D49 establishes broader catalogue search without changing that library scope. OpenSubsonic provides [search3](https://opensubsonic.netlify.app/docs/endpoints/search3/) for songs/albums/artists and [getPlaylists](https://opensubsonic.netlify.app/docs/endpoints/getplaylists/) for accessible playlists. Proposed lean handling is to match playlist names from that list, rather than introduce a custom search service.
 
-### Lean proposals, not yet accepted
+#### Lean proposals, not yet accepted
 
 - Use a small text source badge on cards/results and a Source column in tables. Color may reinforce the label, but should not be the only way to identify the source. Border-only styling risks ambiguity with selection/focus.
 - Keep the optional combined search tab to simple sections for the four types if adopted; no AI ranking or recommendation system is implied by “smart.” Catalogue-wide Spotify search is accepted under D49.
 
 The main technical concern is coordinating two playback implementations behind a small bar, especially if Spotify controls another device. Authentication, failed source switches, and state updates need validation; do not hide the cost by promising that reusing a client makes this automatic. Spotify access limits from the earlier research still apply.
 
-## Spotify playback tradeoffs · 25 September 2026
+### Spotify playback tradeoffs · 25 September 2026
 
 Both approaches can keep search, selection, and playback controls in Clarity or chat. The distinction is which process/device produces the audio. The following comparison is an assistant assessment, informed by the sources below; no implementation has been selected or tested.
 
@@ -84,7 +348,7 @@ Both approaches can keep search, selection, and playback controls in Clarity or 
 | Resource use | Audio work runs in Clarity; avoids needing a second player app. | Keeps audio work out of Clarity, but a separate Spotify app still consumes resources. Lower Clarity memory does not imply lower total memory. |
 | Lean fit | Worth considering if self-contained playback is important enough to justify the extra integration. | The smaller initial Spotify integration, especially when the user already runs Spotify. |
 
-### Official approaches and their limits
+#### Official approaches and their limits
 
 Spotify's [Web Playback SDK](https://developer.spotify.com/documentation/web-playback-sdk) creates a Spotify Connect player inside a browser. Its [reference](https://developer.spotify.com/documentation/web-playback-sdk/reference) documents initialization failures when encrypted-media support is missing and possible autoplay restrictions. **Assessment:** support in normal browsers does not establish support in whichever desktop webview Clarity chooses. Validate that runtime before adopting embedded Spotify playback. This is separate from playing ordinary local audio files.
 
@@ -94,17 +358,17 @@ Both official playback routes require Spotify Premium: [SDK setup](https://devel
 
 **Shared distribution constraint:** current [quota documentation](https://developer.spotify.com/documentation/web-api/concepts/quota-modes) limits new development-mode apps to five allowlisted users and requires the app owner to have Premium. Extended quota access has substantial organizational eligibility requirements. A personal app is a plausible initial setup; neither playback choice guarantees a frictionless shared integration for all future Clarity users. Developer-app ownership/onboarding remains undecided.
 
-### What Spotifast does
+#### What Spotifast does
 
 [Spotifast](https://github.com/crmne/spotifast) uses a native Rust audio player through [librespot](https://github.com/librespot-org/librespot), and also supports controlling other Connect devices. Its README distinguishes playback, API, and backend modules. This shows another embedded-player route, not a small official desktop playback component we can assume works in Clarity.
 
 **Assessment:** adopting librespot would introduce an unofficial Spotify client library and its audio/session lifecycle. It may avoid a browser playback engine, but still adds integration, packaging, and maintenance work. Copying Spotifast's complete player would conflict with the current lean scope. No librespot adoption is proposed as an automatic consequence of referencing Spotifast.
 
-### Earlier recommendation — not selected
+#### Earlier recommendation — not selected
 
 The assistant previously proposed Spotify control of an existing player alongside direct local-file playback. D48 removes the local-file portion from scope; D61 now selects playback inside Clarity. The engine remains undecided. The combined client must support the accepted explicit switch between Spotify and Navidrome, with no speculative plugin infrastructure or requirement to implement both Spotify playback modes.
 
-## Navidrome candidate · 25 September 2026
+### Navidrome candidate · 25 September 2026
 
 **Historical inquiry:** consider integrating with a Navidrome server. The later [D47](../decisions/index.md#d47-combined-music-client-scope-25-september-2026) replaces this tentative source status with a desired combined Spotify/Navidrome client, subject to feasibility. Findings below preserve the earlier investigation.
 
@@ -114,7 +378,7 @@ Navidrome's [documented client API](https://www.navidrome.org/docs/developers/su
 
 The standard [Subsonic authentication flow](https://www.subsonic.org/pages/api.jsp) uses a username and password-derived salted token. This avoids Spotify developer-app onboarding. Credential storage remains an app-wide open question; no authentication implementation is selected.
 
-### Fit and tradeoffs
+#### Fit and tradeoffs
 
 **Assessment:** Navidrome looks simpler than embedded Spotify for in-app playback: its [stream endpoint](https://opensubsonic.netlify.app/docs/endpoints/stream/) supplies ordinary media data rather than requiring Spotify's playback SDK. It still requires an audio player and handling connection failures. Actual codec support, seeking, and authenticated streaming must be validated in the eventual desktop runtime.
 
@@ -124,11 +388,11 @@ This fits the optional-integration direction: Clarity's own state can remain loc
 
 **Earlier assistant recommendation:** consider Navidrome for simple playback inside Clarity. The subsequent D47 requests it alongside Spotify; implementation remains undecided. No server was connected and no playback was tested.
 
-## Open-source client survey · 25 September 2026
+### Open-source client survey · 25 September 2026
 
 **User request:** find open-source projects that handle lightweight Spotify or Navidrome playback well, with Spotifast and Yuzic as starting references. Reviewed upstream READMEs, repository/release metadata, and selected dependency manifests. No client was installed, benchmarked, or connected to an account. Rankings below are assistant assessments of relevance, not measured speed or reliability.
 
-### Spotify candidates
+#### Spotify candidates
 
 | Project | Observed approach | Relevance to Clarity and limits |
 | --- | --- | --- |
@@ -139,7 +403,7 @@ This fits the optional-integration direction: Clarity's own state can remain loc
 
 Spotifast's phrase “local playback” means Spotify audio played on this computer; it is not evidence of support for the user's ordinary local music files. Lightweight Spotify clients still carry authentication, API access, connection recovery, and audio lifecycle work. Existing shared client IDs must not be assumed available for a separately distributed Clarity integration.
 
-### Navidrome candidates
+#### Navidrome candidates
 
 | Project | Observed approach | Relevance to Clarity and limits |
 | --- | --- | --- |
@@ -150,7 +414,7 @@ Spotifast's phrase “local playback” means Spotify audio played on this compu
 
 [SonicLair](https://github.com/thelinkin3000/SonicLair) also has a deliberately small, album-centered approach with React/Tauri/Capacitor. Its repository metadata shows the latest push in April 2023 and latest listed release in July 2022; treat it as an older design reference rather than the preferred dependency.
 
-### Activity and reuse notes
+#### Activity and reuse notes
 
 GitHub's current latest-release records were checked on 25 September 2026: Spotifast v0.10.1 (24 September), spotify-player v0.25.1 (9 September), ncspot v1.4.0 (21 August), Supersonic v0.22.1 (9 August), Yuzic 2.11.0 (25 September), EKO v0.4.38 (17 September), and Feishin v1.17.0 (15 September). Psst uses a rolling release; its release creation date alone is not a reliable freshness measure. Release activity is not proof of quality or macOS reliability.
 
@@ -158,7 +422,7 @@ Repository license metadata identifies Spotifast, spotify-player, and Psst as MI
 
 **Earlier assistant recommendation, reframed by D46:** the survey initially emphasized desktop behavior and interaction references. The user clarified that core implementation robustness is the priority. Spotifast, spotify-player, ncspot, Supersonic, Yuzic, EKO, and Feishin remain candidates for inspecting relevant internals; GUI toolkit or mobile focus alone does not disqualify transferable integration logic. No existing player process or complete app fork has been selected.
 
-### Core implementation evaluation
+#### Core implementation evaluation
 
 **Accepted direction:** copy or emulate the strongest relevant core while retaining Clarity's lean scope. The documentation survey is insufficient to name a robustness winner.
 
@@ -166,17 +430,17 @@ Repository license metadata identifies Spotifast, spotify-player, and Psst as MI
 
 For Spotify, distinguish each client's integration logic from its underlying playback library. For Navidrome, distinguish API/authentication handling from audio output. Reusing an appropriate maintained library may be simpler than extracting an application's whole core. Direct copying versus emulation and applicable source licenses must be resolved for the chosen code; no code has been copied. Raise unavoidable complexity before adopting it.
 
-## Open questions
+### Open questions
 
 - What does opening or playing an artist do? Artist search covers both sources without a followed-artists requirement; exact detail-view behavior is still open.
 - Should the optional combined search tab be included? Exact source-label styling and additional playback-order modes remain undecided.
 - Which embedded Spotify implementation meets the agreed behavior in the packaged Electron app? In-app playback is settled; a separate Spotify player is not the selected route.
 - What is the simplest working Spotify account setup for private use shared with friends? Public-product distribution review is deferred.
 
-## Reference notes
+### Reference notes
 
 The earlier message supplied Spotifast as a reference. Reviewed its current README and Spotify's official SDK, Player API, device, and quota documentation on 25 September 2026. No player, account connection, or desktop runtime was tested. The comparison is a design assessment, not a promise of feature parity or an app-stack choice.
 
-## Related pages
+### Related pages
 
 [Feature map](index.md) · [Two folders](../foundations/folders.md) · [Modules and connections](../foundations/integrations.md) · [Reference register](../references/index.md)

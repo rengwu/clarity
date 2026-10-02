@@ -1,0 +1,127 @@
+Services remediation: QA05, QA07, QA08, QA09, QA10
+
+Implemented in src/main/files.ts, src/main/modules.ts, src/main/integrations.ts.
+Added tests/adversarial-services.mjs. No shared wiki topics, shared existing
+tests/tooling, Music or Settings source was edited by this worker. State worker
+updated News source deletion in reading.tsx to supply item.revision.
+
+QA05: list intentionally skips dot-prefixed entries and assets. Creation,
+folder creation and move now reject any dot-prefixed component and case-insensitive
+assets component before filesystem mutation. Existing document reads are unchanged.
+Checks reject hidden nested destinations, Assets aliases and .md as an empty base;
+valid nested moves preserve content and discovery. Native Rename reports its local
+error; Cancel leaves original tab/tree/file, and reload retains the document.
+
+QA07: Store intentionally supports optional revision guards for internal writes,
+but shared mutations previously forwarded absent revisions. Module update/remove
+now require a positive safe integer before Store effects, across todos, calendar,
+expenses, bookmarks and automations. news.removeSource also requires revision.
+Missing/malformed direct, queued and automatic actions cannot overwrite/delete newer
+human records. Queued/automatic failures retain failed action outcomes. Proper
+stale guards still report conflicts and current revisions still succeed.
+No file hash/path contract or internal Store write was changed. Invalid queued
+actions may be proposed; execution rejects them without changing their target.
+
+QA08: one Gregorian date validator now serves Todos, Expenses and Calendar. Dates
+must be YYYY-MM-DD in years 0001-9999 and respect month lengths/century leap rules.
+Calendar accepts ISO date-times with T, required hour/minute, optional seconds/
+fraction and optional Z or colon-separated numeric offset. It validates original
+day/hour/minute/second components, finite parsing, and chronological end after start.
+Date-only event values, 24:00 rollover and impossible dates fail before persistence.
+Valid local values, UTC, fractional offsets and midnight/day crossings remain valid.
+No migration/cleanup of previously invalid records was attempted.
+
+QA09: supplied threadId must be a nonempty string resolving to an existing board
+root (null or absent parent.threadId). Missing parents and replies-as-parents fail
+before insertion, including approval. Existing root/reply reads and reply-only
+thread search survive Store restart. This does not add arbitrary reply nesting.
+
+QA10: parser now decodes standard XML entities for text and URL attributes. Existing
+DOCTYPE/ENTITY declaration rejection remains before parsing. Sanitization strips
+markup/scripts, then only sanitizer HTML escape sequences become plain stored text.
+Both CDATA and XML-encoded markup controls are stripped; decimal/hex numeric entities
+and emoji display correctly. Refresh also updates a differing existing headline
+title with a record revision, preserving its ID/createdAt/published, without counting
+an import or duplicating that existing row. A failed source remains independently
+reported while successful headlines persist; repeated refresh imports none.
+
+Actual executed checks (macOS arm64, Node v22.19.0, external service cache):
+Cache: /Users/rengwu/Library/Caches/Clarity/build/adversarial-fixes-20261002/services
+Evidence: /Users/rengwu/Desktop/Projects/clarity/docs/wiki/evidence/2026-10-02T101600Z-adversarial-fixes/services
+
+CLARITY_BUILD_CACHE=<Cache> node tooling/clarity.mjs build
+Exit 0. build.log. Runtime output hashes retained in runtime.json.
+
+CLARITY_BUILD_CACHE=<Cache> node tooling/clarity.mjs check
+Exit 0. Both application and Worker checks. typecheck.log.
+
+CLARITY_BUILD_CACHE=<Cache> CLARITY_QA_EVIDENCE=<Evidence> node --test tests/adversarial-services.mjs
+Exit 0, 7 passed, no skipped/failed checks. regressions.log/results.json.
+Includes six actual shared-service tests and one real native Notes/News path.
+service-source.json gives exact owned source hashes used by direct-service bundle.
+QA05-rename-rejected.png and QA10-news-entities-and-error.png inspected visually.
+
+CLARITY_BUILD_CACHE=<Cache> CLARITY_QA_SOURCE=/Users/rengwu/Library/Caches/Clarity/build/adversarial-fixes-20261002/baseline-source CLARITY_QA_EVIDENCE=<Evidence>/baseline node --test --test-name-pattern='QA05 rejects|QA07|QA08|QA09|QA10 RSS' tests/adversarial-services.mjs
+Exit 1, all 6 selected checks fail on unchanged baseline code: five missing expected
+validation rejections, one encoded-headline mismatch. baseline-negative-controls.log
+and baseline/service-source.json. No timeout is counted as a negative-control pass.
+
+CLARITY_BUILD_CACHE=<Cache> node --test --test-name-pattern='approval claims|agent action checklist|Linkding preserves|files' tests/core.mjs
+Exit 0, 3 matching existing tests passed: file conflicts/escapes/retention,
+duplicate approval claims/stale revisions, feed/Linkding/Navidrome controls.
+existing-core.log. The checklist phrase did not select a fourth test.
+
+CLARITY_BUILD_CACHE=<Cache> node --test --test-name-pattern='task dates validate' tests/task-dates.mjs
+Exit 0, 1 matching existing task-date/revision/approval/restart test passed.
+existing-task-dates.log.
+
+CLARITY_BUILD_CACHE=<Cache> node tooling/fingerprint.mjs
+Exit 0. build-after.json is the post-check dirty checkout manifest; unrelated
+workers were concurrent, so it is not a frozen whole-app build claim.
+
+Retained earlier attempt: regressions-first-attempt.log has 6 passes and a native
+test harness failure after the visible Rename/News assertions: it incorrectly
+expected window.clarity.call to return an ok/value envelope, whereas preload unwraps
+it. Fixed driver uses the real unwrapped API; expectations remain unchanged.
+
+Test overrides for coordinator: CLARITY_TEST_EXECUTABLE and CLARITY_TEST_MAIN choose
+the packaged Electron/main entry for the native check; CLARITY_QA_EVIDENCE chooses
+outputs; CLARITY_QA_SOURCE selects direct-service source. The native app owns a
+temporary data root and the driver closes its own app/server in finally.
+
+Exact proposed topic/recipe edits for coordinator:
+- Notes usability/file contract: creating/moving a document or creating its folder
+  rejects dot-prefixed components and reserved assets (case-insensitive) before
+  mutation. Failed rename keeps original content/path/tab discoverable. Resolve
+  only QA05 here; renderer worker owns QA01/QA03. Recipe uses native Rename plus
+  current path/content and reload assertions in adversarial-services.mjs.
+- Data folder + implementation structured-record contract: public existing-record
+  mutations require positive safe-integer revisions; missing/invalid guards cannot
+  bypass Store conflicts. Keep internal Store expectedRevision optional.
+- Todos, Calendar, Expenses, Bookmarks, Automations and News: specify required
+  revision for existing record mutations. News removeSource is {id,revision}.
+  Missing/malformed/stale queued/automatic actions fail without target changes.
+  Reference QA07 new real-service regression while preserving original failed run.
+- Calendar: valid original Gregorian date-time components and end-after-start,
+  ISO syntax described above. Expenses: genuine Gregorian YYYY-MM-DD day in years
+  0001-9999; reject invalid additions and edits with unchanged persistence.
+- Board: optional threadId must identify an existing root; reject missing, wrong
+  type and reply parents before persistence. Add positive read/search/restart
+  controls; state worker independently owns QA14 renderer error behavior.
+- News: RSS/Atom ordinary XML/numeric entities decoded; sanitized plain headlines,
+  entity declaration rejection retained. Refresh repairs existing differing titles
+  by revision without changing original published/creation time or duplicating the
+  existing row. Include mixed HTTP503 success, numeric Unicode, encoded markup,
+  CDATA and DOCTYPE rejection controls with native Sources/Refresh plus stored titles.
+- Add native/service recipe: after isolated build,
+  CLARITY_BUILD_CACHE=<external-cache> CLARITY_QA_EVIDENCE=<new-evidence-dir> node --test tests/adversarial-services.mjs.
+- Replace each relevant known-gap paragraph with dated remediation/new-run links;
+  preserve historical adversarial failed run and its recorded fixture limits.
+
+Limits: fixtures and temporary roots only, no live account/model calls, no app
+installation, no OS permission prompts or independent-review claim. Packaging/full
+integration/wiki/shared-fixture checks belong to coordinator. Existing persisted
+invalid dates/orphan records/hidden files are not migrated. Existing legacy encoded
+article URLs are not separately migrated; the exercised existing-title repair uses
+the stable source/article URL identity. General account/News-provider compatibility,
+exhaustive calendars and concurrent arbitrary external file edits are not certified.

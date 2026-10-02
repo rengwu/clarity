@@ -1,0 +1,66 @@
+{
+  "recordedAt": "2026-10-01T16:51:42.157Z",
+  "readOnly": true,
+  "accountSetup": "Isolated dummy grant; existing library token substitutes HTTP Authorization only in memory.",
+  "credentialsChanged": false,
+  "playbackStarted": false,
+  "rows": 8,
+  "namedRows": 8,
+  "artistRows": 8,
+  "durationRows": 8,
+  "artworkRows": 8,
+  "playlistCover": true,
+  "playlistTitlePresent": true,
+  "errors": 0,
+  "cachedRevisitExtraRequests": 0,
+  "requests": [
+    {
+      "kind": "profile",
+      "status": 200
+    },
+    {
+      "kind": "library-playlists",
+      "status": 200
+    },
+    {
+      "kind": "library-playlists",
+      "status": 200
+    },
+    {
+      "kind": "library-playlists",
+      "status": 200
+    },
+    {
+      "kind": "library-playlists",
+      "status": 200
+    },
+    {
+      "kind": "library-playlists",
+      "status": 200
+    },
+    {
+      "kind": "library-playlists",
+      "status": 200
+    },
+    {
+      "kind": "library-playlists",
+      "status": 200
+    },
+    {
+      "kind": "library-playlists",
+      "status": 200
+    },
+    {
+      "kind": "library-playlists",
+      "status": 200
+    },
+    {
+      "kind": "playlist-metadata",
+      "status": 200
+    },
+    {
+      "kind": "playlist-items",
+      "status": 200
+    }
+  ]
+}

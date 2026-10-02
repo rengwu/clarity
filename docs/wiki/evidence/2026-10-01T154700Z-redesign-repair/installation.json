@@ -1,0 +1,60 @@
+{
+  "installed": "/Users/rengwu/Applications/Clarity.app",
+  "backup": "/Users/rengwu/Library/Caches/Clarity/build/Clarity-before-repair-20261001T154700Z.app",
+  "normalQuit": true,
+  "runtimeFilesMatch": {
+    "main.mjs": true,
+    "preload.cjs": true,
+    "worker.mjs": true,
+    "app.js": true,
+    "app.css": true,
+    "index.html": true,
+    "clarity-player": true
+  },
+  "before": {
+    "markdownFiles": 2,
+    "markdownSha256": "c6543203a93e17eb80957af5b2e37ab4c942ef26d772f00c951edbee8c35e6f2",
+    "recordCounts": [
+      [
+        "actions",
+        17
+      ],
+      [
+        "chats",
+        5
+      ],
+      [
+        "expenses",
+        2
+      ],
+      [
+        "todos",
+        1
+      ]
+    ]
+  },
+  "after": {
+    "markdownFiles": 2,
+    "markdownSha256": "c6543203a93e17eb80957af5b2e37ab4c942ef26d772f00c951edbee8c35e6f2",
+    "recordCounts": [
+      [
+        "actions",
+        17
+      ],
+      [
+        "chats",
+        5
+      ],
+      [
+        "expenses",
+        2
+      ],
+      [
+        "todos",
+        1
+      ]
+    ]
+  },
+  "startup": "Waiting for macOS Keychain password dialog: Clarity Safe Storage. No password read or entered by agent.",
+  "reopened": false
+}

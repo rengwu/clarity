@@ -1,0 +1,1 @@
+Passed: 16 layout scenarios; Mail landing, Tab focus, wheel scrolling, uniform fields, and saved refresh selection after reload (packaged).

@@ -1,0 +1,59 @@
+{
+  "installed": "/Users/rengwu/Applications/Clarity.app",
+  "backup": "/Users/rengwu/Library/Caches/Clarity/build/Clarity-before-redesign-20261001T142628Z.app",
+  "normalQuit": true,
+  "reopened": true,
+  "before": {
+    "markdownFiles": 2,
+    "markdownSha256": "86dd03cf0bc655ccd82247386abbfc134b7e73fae91c5cb8afba742bd8fc09dc",
+    "recordCounts": [
+      [
+        "actions",
+        17
+      ],
+      [
+        "chats",
+        4
+      ],
+      [
+        "expenses",
+        2
+      ],
+      [
+        "todos",
+        1
+      ]
+    ]
+  },
+  "after": {
+    "markdownFiles": 2,
+    "markdownSha256": "86dd03cf0bc655ccd82247386abbfc134b7e73fae91c5cb8afba742bd8fc09dc",
+    "recordCounts": [
+      [
+        "actions",
+        17
+      ],
+      [
+        "chats",
+        4
+      ],
+      [
+        "expenses",
+        2
+      ],
+      [
+        "todos",
+        1
+      ]
+    ]
+  },
+  "runtimeFilesMatch": {
+    "main.mjs": true,
+    "preload.cjs": true,
+    "worker.mjs": true,
+    "app.js": true,
+    "app.css": true,
+    "index.html": true,
+    "clarity-player": true
+  }
+}

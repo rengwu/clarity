@@ -1,0 +1,39 @@
+{
+  "recordedAt": "2026-10-01T18:06:00.682Z",
+  "installed": "/Users/rengwu/Applications/Clarity.app",
+  "backup": "/Users/rengwu/Library/Caches/Clarity/build/Clarity-before-music-error-layout-20261001T180000Z.app",
+  "applicationSha256": "1d0b6918e37356a494399193414bd0526fbfb81c922e64b5108d8065d59ca205",
+  "packageRuntimeSha256": "dfc138dd2baecf19f0b3bd0a8e37acec0741fb8977ab938863d98bd312a9f195",
+  "signatureVerified": true,
+  "runtimeFiles": [
+    {
+      "path": "main.mjs",
+      "sha256": "8e50b7a84982aeacf1077b8bc6f2c9a5a543e07858bec235f88d5ccddc50c598"
+    },
+    {
+      "path": "preload.cjs",
+      "sha256": "8f51417738610391aa9ae5cd4bca18cfb43f19998a351244404972880890264a"
+    },
+    {
+      "path": "worker.mjs",
+      "sha256": "ff1dd08710e3df237c3e640e7ebb2bc7a4764617f59f4918c5a2db50668f44a4"
+    },
+    {
+      "path": "app.js",
+      "sha256": "dca226b6a659ca96dfd3f53698ac0ec2c33d36eb4ef2daae61e021f8c2abee16"
+    },
+    {
+      "path": "app.css",
+      "sha256": "5d3180ca05c5694e76aba00ac9c9d811f40ee7632f439f8679295fce691eed73"
+    },
+    {
+      "path": "index.html",
+      "sha256": "bcd785e95fb0ab58fd806a26ac1c8ce7d5cd692c274ad1b014c3f681ae02293b"
+    },
+    {
+      "path": "clarity-player",
+      "sha256": "6a95f5f7442f68e8aae92c1aa754a666317c094a259ff25e96ebb3d98be38131"
+    }
+  ],
+  "userAppRestarted": false
+}

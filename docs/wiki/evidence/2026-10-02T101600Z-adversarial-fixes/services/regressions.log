@@ -1,0 +1,52 @@
+TAP version 13
+# Subtest: QA05 rejects undiscoverable create, folder and move destinations without touching documents
+ok 1 - QA05 rejects undiscoverable create, folder and move destinations without touching documents
+  ---
+  duration_ms: 166.08125
+  type: 'test'
+  ...
+# Subtest: QA07 every structured update and delete requires a valid revision and preserves newer edits
+ok 2 - QA07 every structured update and delete requires a valid revision and preserves newer edits
+  ---
+  duration_ms: 839.84425
+  type: 'test'
+  ...
+# Subtest: QA08 Expenses rejects impossible dates on add/update and approved execution
+ok 3 - QA08 Expenses rejects impossible dates on add/update and approved execution
+  ---
+  duration_ms: 186.47225
+  type: 'test'
+  ...
+# Subtest: QA08 Calendar validates original date and time components before timezone conversion
+ok 4 - QA08 Calendar validates original date and time components before timezone conversion
+  ---
+  duration_ms: 174.52525
+  type: 'test'
+  ...
+# Subtest: QA09 replies require an existing root and valid IDs, with approval and restart checks
+ok 5 - QA09 replies require an existing root and valid IDs, with approval and restart checks
+  ---
+  duration_ms: 189.88225
+  type: 'test'
+  ...
+# Subtest: QA10 RSS and Atom decode text and URLs, sanitize markup and reject entity declarations
+ok 6 - QA10 RSS and Atom decode text and URLs, sanitize markup and reject entity declarations
+  ---
+  duration_ms: 150.441084
+  type: 'test'
+  ...
+# Subtest: QA05 and QA10 native Rename and News Sources preserve visible and saved outcomes
+ok 7 - QA05 and QA10 native Rename and News Sources preserve visible and saved outcomes
+  ---
+  duration_ms: 4252.575917
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6367.421667

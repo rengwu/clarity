@@ -1,0 +1,81 @@
+TAP version 13
+# Subtest: QA01 malformed Markdown source links stay local and valid links remain navigable
+not ok 1 - QA01 malformed Markdown source links stay local and valid links remain navigable
+  ---
+  duration_ms: 9733.943917
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:132:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    locator.click: Timeout 8000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('option', { name: 'Malformed Notes · Malformed.md', exact: true })[22m
+    
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    TestContext.<anonymous> (/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:139:93)
+  ...
+# Subtest: QA02 native modals retain their draft and focus when global shortcuts are pressed
+ok 2 - QA02 native modals retain their draft and focus when global shortcuts are pressed
+  ---
+  duration_ms: 4165.670708
+  type: 'test'
+  ...
+# Subtest: QA03 rich-editor Bold remains local and sidebar shortcut works outside editors
+ok 3 - QA03 rich-editor Bold remains local and sidebar shortcut works outside editors
+  ---
+  duration_ms: 3995.650042
+  type: 'test'
+  ...
+# Subtest: QA06 Wiki cross-page heading survives parent synchronization and history return
+not ok 4 - QA06 Wiki cross-page heading survives parent synchronization and history return
+  ---
+  duration_ms: 11349.112416
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:208:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(geometry.headingY >= 0 && geometry.headingY < geometry.viewport)
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    file:///Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:229:14
+    async eventually (file:///Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:26:18)
+    async TestContext.<anonymous> (file:///Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:227:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: QA12 send acknowledgement preserves newer text attachments context and other conversation drafts
+not ok 5 - QA12 send acknowledgement preserves newer text attachments context and other conversation drafts
+  ---
+  duration_ms: 9800.945959
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:235:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    locator.waitFor: Timeout 8000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: 'submitted.txt', exact: true }) to be visible[22m
+    
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    pick (/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:243:72)
+    async TestContext.<anonymous> (/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:248:5)
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 2
+# fail 3
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 39489.663625

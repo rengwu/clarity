@@ -1,0 +1,19 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+electron.launch: Failed to launch: Error: spawn /Users/rengwu/Library/Caches/Clarity/build/Clarity.app/Contents/MacOS/Clarity ENOENT
+Call log:
+[2m  - <launching> /Users/rengwu/Library/Caches/Clarity/build/Clarity.app/Contents/MacOS/Clarity --inspect=0 --remote-debugging-port=0[22m
+[2m  - [pid=N/A] starting temporary directories cleanup[22m
+[2m  - [pid=N/A] finished temporary directories cleanup[22m
+
+    at async file:///Users/rengwu/Desktop/Projects/clarity/docs/wiki/evidence/2026-10-01T184717Z-settings-redesign/verify-settings.mjs:14:13 {
+  log: [
+    '  - <launching> /Users/rengwu/Library/Caches/Clarity/build/Clarity.app/Contents/MacOS/Clarity --inspect=0 --remote-debugging-port=0',
+    '  - [pid=N/A] starting temporary directories cleanup',
+    '  - [pid=N/A] finished temporary directories cleanup'
+  ]
+}
+
+Node.js v22.19.0

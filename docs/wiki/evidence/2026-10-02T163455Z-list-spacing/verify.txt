@@ -1,0 +1,95 @@
+import assert from 'node:assert/strict';
+import {createRequire} from 'node:module';
+import {mkdtemp,mkdir,writeFile} from 'node:fs/promises';
+import {join} from 'node:path';
+import {tmpdir,homedir} from 'node:os';
+const cache=join(homedir(),'Library/Caches/Clarity/build');
+const dest=process.env.SPACING_EVIDENCE || join(homedir(),'Library/Caches/Clarity/spacing-20261003/verified');
+await mkdir(dest,{recursive:true});
+const require=createRequire(join(cache,'loader.cjs'));
+await require('esbuild').build({stdin:{contents:"export {Store} from './src/main/store'; export {Files} from './src/main/files';",resolveDir:process.cwd()},outfile:join(cache,'spacing-fixture.mjs'),bundle:true,packages:'external',platform:'node',format:'esm'});
+const {Store,Files}=await import(join(cache,'spacing-fixture.mjs'));
+const root=await mkdtemp(join(tmpdir(),'clarity-spacing-'));
+await new Files(root).initialize();
+const store=new Store(root,join(cache,'output/worker.mjs')); await store.start();
+await store.put('settings','default',{enabled:['chat','notes','todos','wiki','calendar','expenses','mail','news','bookmarks','music','board','automations'],theme:'dark',useDeviceLocation:false,locationRequested:true});
+await store.close();
+const app=await require('playwright-core')._electron.launch({executablePath:process.env.CLARITY_TEST_EXECUTABLE || require('electron'),args:[process.env.CLARITY_TEST_MAIN || join(cache,'output/main.mjs')],env:{...process.env,CLARITY_TEST_ROOT:root}});
+const observations=[];
+const page=await app.firstWindow(); page.setDefaultTimeout(8000);
+const errors=[];page.on('pageerror',error=>errors.push(error.message));
+const nav=name=>name==='New chat' ? page.locator('.sidebar').getByLabel('New chat',{exact:true}).click() : page.locator('.sidebar').getByRole('button',{name,exact:true}).click();
+const call=(method,args)=>page.evaluate(({method,args})=>window.clarity.call(method,args),{method,args});
+async function measure(name,theme,width,state='empty') {
+ const result=await page.locator('.list-state:visible').evaluateAll(elements=>elements.map(e=>{
+  let previous=e.previousElementSibling;
+  while(previous && !previous.getBoundingClientRect().height) previous=previous.previousElementSibling;
+  const r=e.getBoundingClientRect();
+  return {text:e.textContent,gap:previous ? r.top-previous.getBoundingClientRect().bottom : null,overflow:e.scrollWidth>e.clientWidth+1};
+ }));
+ for(const item of result) {assert.ok(item.gap>=11.99 && item.gap<=16.01,`${name}/${theme}/${width}/${state}: gap ${item.gap}`);assert.equal(item.overflow,false);}
+ assert.equal(await page.locator('.workspace-body').evaluate(e=>e.scrollWidth>e.clientWidth+1),false,`${name} workspace overflow`);
+ observations.push({name,theme,width,state,result});
+}
+try {
+ await page.locator('.sidebar').waitFor();
+ await app.evaluate(({ipcMain})=>{
+  const original=ipcMain._invokeHandlers.get('clarity:call');
+  ipcMain.removeHandler('clarity:call');
+  ipcMain.handle('clarity:call',async(event,method,args)=>{
+   if(method==='bootstrap'){const result=await original(event,method,args);result.value.auth.google=true;return result;}
+   if(method==='module' && args.module==='mail') return {ok:true,value:{messages:[],nextPage:null}};
+   if(method==='module' && args.module==='board' && args.method==='list'){
+    if(args.args?.query==='fixture-loading')await new Promise(resolve=>setTimeout(resolve,1500));
+    if(args.args?.query==='fixture-error')return {ok:false,error:'Fixture list unavailable'};
+   }
+   return original(event,method,args);
+  });
+ });
+ await page.reload(); await page.locator('.sidebar').waitFor();
+ for(const width of [1200,850]) {
+  await app.evaluate(({BrowserWindow},width)=>BrowserWindow.getAllWindows()[0].setSize(width,width===850?600:800),width);
+  for(const theme of ['dark','light']) {
+   await call('settings.save',{theme});
+   for(const name of ['Agent board','Notes','Todos','News','Bookmarks','Mail','Music','Automations','Calendar','Expenses','Wiki','New chat','Settings']) {
+    await nav(name);await page.waitForTimeout(250);
+    await measure(name,theme,width);
+    await page.screenshot({path:join(dest,`${theme}-${width}-${name.replaceAll(' ','-')}.png`)});
+   }
+   for(const [name,label] of [['Agent board','Search board'],['Notes','Search notes'],['News','Search headlines'],['Bookmarks','Search bookmarks'],['Mail','Search mail']]) {
+    await nav(name);await page.getByRole('searchbox',{name:label}).fill('no-match-fixture');
+    if(name==='Mail')await page.getByRole('searchbox',{name:label}).press('Enter');
+    await page.locator('.list-state:visible').filter({hasText:'No results'}).waitFor();
+    await measure(name,theme,width,'no matches');
+    await page.getByRole('searchbox',{name:label}).fill('');
+    if(name==='Mail')await page.getByRole('searchbox',{name:label}).press('Enter');
+   }
+  }
+ }
+ await nav('Agent board');
+ await page.getByRole('searchbox',{name:'Search board'}).fill('fixture-loading');
+ await page.locator('.list-state:visible').filter({hasText:'Loading'}).waitFor();
+ await measure('Agent board','light',850,'loading');
+ await page.locator('.list-state:visible').filter({hasText:'No results'}).waitFor();
+ await page.getByRole('searchbox',{name:'Search board'}).fill('fixture-error');
+ await page.getByRole('alert').filter({hasText:'Fixture list unavailable'}).waitFor();
+ assert.equal(await page.locator('.list-state:visible').count(),0);
+ await page.getByRole('searchbox',{name:'Search board'}).fill('');
+ await page.getByRole('button',{name:'New thread',exact:true}).click();
+ const dialog=page.getByRole('dialog',{name:'New thread'});
+ await dialog.getByRole('textbox',{name:'Topic',exact:true}).fill('Spacing check');
+ await dialog.getByRole('textbox',{name:'Post',exact:true}).fill('A short fixture post.');
+ await dialog.getByRole('button',{name:'Post',exact:true}).click();
+ await page.getByRole('heading',{name:'Spacing check'}).waitFor();
+ await page.getByRole('button',{name:'All threads',exact:true}).click();
+ const row=page.locator('.thread-list > button').first();await row.waitFor();
+ assert.equal(await page.locator('.list-state:visible').count(),0);
+ const gap=await row.evaluate(e=>e.getBoundingClientRect().top-document.querySelector('.module-host:not([hidden]) .module-search').getBoundingClientRect().bottom);
+ assert.ok(Math.abs(gap-12)<0.01); observations.push({name:'Agent board',state:'populated',gap});
+ await page.screenshot({path:join(dest,'board-populated.png')});
+ await row.click();await page.getByRole('heading',{name:'Spacing check'}).waitFor();
+ await page.reload();await page.locator('.sidebar').waitFor();await nav('Agent board');
+ assert.equal((await call('module',{module:'board',method:'list',args:{threads:true}})).items.length,1);
+ assert.deepEqual(errors,[]);
+ console.log(`Passed ${observations.length} layout observations, loading/error recovery, post/open/reload and no renderer errors.`);
+} finally {await writeFile(join(dest,'observations.json'),JSON.stringify({observations,errors},null,2));await app.close();}

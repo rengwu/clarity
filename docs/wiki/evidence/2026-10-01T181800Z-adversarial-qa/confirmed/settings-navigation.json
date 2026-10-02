@@ -1,0 +1,66 @@
+{
+  "id": "QA15",
+  "expected": "Settings labels fit their navigation column without horizontal scrolling at the supported minimum size.",
+  "results": [
+    {
+      "theme": "light",
+      "width": 850,
+      "height": 600,
+      "geometry": {
+        "clientWidth": 159,
+        "scrollWidth": 167,
+        "navRight": 370,
+        "labelRight": 377,
+        "buttonWidth": 143,
+        "label": "Search and commands"
+      },
+      "sectionVisible": true,
+      "outcome": "Failed"
+    },
+    {
+      "theme": "dark",
+      "width": 850,
+      "height": 600,
+      "geometry": {
+        "clientWidth": 159,
+        "scrollWidth": 167,
+        "navRight": 370,
+        "labelRight": 377,
+        "buttonWidth": 143,
+        "label": "Search and commands"
+      },
+      "sectionVisible": true,
+      "outcome": "Failed"
+    },
+    {
+      "theme": "light",
+      "width": 1200,
+      "height": 800,
+      "geometry": {
+        "clientWidth": 181,
+        "scrollWidth": 181,
+        "navRight": 414,
+        "labelRight": 399,
+        "buttonWidth": 165,
+        "label": "Search and commands"
+      },
+      "sectionVisible": true,
+      "outcome": "Passed"
+    },
+    {
+      "theme": "dark",
+      "width": 1200,
+      "height": 800,
+      "geometry": {
+        "clientWidth": 181,
+        "scrollWidth": 181,
+        "navRight": 414,
+        "labelRight": 399,
+        "buttonWidth": 165,
+        "label": "Search and commands"
+      },
+      "sectionVisible": true,
+      "outcome": "Passed"
+    }
+  ]
+}

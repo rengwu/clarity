@@ -1,0 +1,172 @@
+TAP version 13
+# Subtest: QA01 malformed Markdown source links stay local and valid links remain navigable
+not ok 1 - QA01 malformed Markdown source links stay local and valid links remain navigable
+  ---
+  duration_ms: 10152.821625
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:134:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    locator.waitFor: Timeout 8000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('complementary', { name: 'Source preview' }).getByRole('heading', { name: 'Malformed', exact: true }) to be visible[22m
+    
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    TestContext.<anonymous> (/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:143:76)
+  ...
+# Subtest: QA02 native modals retain their draft and focus when global shortcuts are pressed
+not ok 2 - QA02 native modals retain their draft and focus when global shortcuts are pressed
+  ---
+  duration_ms: 2037.47875
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:156:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    false !== true
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:167:14)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: QA03 rich-editor Bold remains local and sidebar shortcut works outside editors
+not ok 3 - QA03 rich-editor Bold remains local and sidebar shortcut works outside editors
+  ---
+  duration_ms: 4016.823125
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:185:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    true !== false
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: false
+  actual: true
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:197:12)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: QA06 Wiki cross-page heading survives parent synchronization and history return
+not ok 4 - QA06 Wiki cross-page heading survives parent synchronization and history return
+  ---
+  duration_ms: 10938.399333
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:210:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + '#Deep.md'
+    - '#Deep.md#details'
+               ^
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: '#Deep.md#details'
+  actual: '#Deep.md'
+  operator: 'strictEqual'
+  stack: |-
+    file:///Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:220:14
+    async eventually (file:///Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:26:18)
+    async TestContext.<anonymous> (file:///Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:218:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: QA12 send acknowledgement preserves newer text attachments context and other conversation drafts
+not ok 5 - QA12 send acknowledgement preserves newer text attachments context and other conversation drafts
+  ---
+  duration_ms: 10823.534625
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:237:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + ''
+    - 'NEW UNSENT DRAFT'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'NEW UNSENT DRAFT'
+  actual: ''
+  operator: 'strictEqual'
+  stack: |-
+    file:///Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:260:41
+    async eventually (file:///Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:26:18)
+    async TestContext.<anonymous> (file:///Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:260:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: QA12 newer identical text stays unsent and unchanged submissions clear after success
+not ok 6 - QA12 newer identical text stays unsent and unchanged submissions clear after success
+  ---
+  duration_ms: 2059.485084
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:300:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + ''
+    - 'Repeated draft text'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'Repeated draft text'
+  actual: ''
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:312:12)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: QA12 edits made while creating a conversation follow the created chat without changing outgoing text
+not ok 7 - QA12 edits made while creating a conversation follow the created chat without changing outgoing text
+  ---
+  duration_ms: 1981.916583
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:324:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + 'Original new-chat request'
+    - 'New draft while chat is being created'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'New draft while chat is being created'
+  actual: 'Original new-chat request'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/rengwu/Desktop/Projects/clarity/tests/adversarial-renderer.mjs:337:12)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 0
+# fail 7
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 42370.899458

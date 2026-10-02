@@ -1,0 +1,39 @@
+{
+  "installedAt": "2026-10-01T18:36:42.530Z",
+  "installation": "~/Applications/Clarity.app",
+  "backup": "~/Library/Caches/Clarity/build/Clarity-before-navidrome-20261001T182630Z.app",
+  "signatureVerified": true,
+  "usageDescription": "Clarity connects to Navidrome and Linkding servers you choose on your local network.",
+  "infoPlistSha256": "ba409dee35ed7d6dcac2ff54d5a99d17f9cea2d8a7c0d3ec75f130b60b7c0946",
+  "runtimeMatchesPackage": true,
+  "files": [
+    {
+      "path": "main.mjs",
+      "sha256": "e57245db1d2f1b763c2ca01c3d4a0af0d8d41b0fcfc4d027067d0ddb8ba6b242"
+    },
+    {
+      "path": "preload.cjs",
+      "sha256": "8f51417738610391aa9ae5cd4bca18cfb43f19998a351244404972880890264a"
+    },
+    {
+      "path": "worker.mjs",
+      "sha256": "ff1dd08710e3df237c3e640e7ebb2bc7a4764617f59f4918c5a2db50668f44a4"
+    },
+    {
+      "path": "app.js",
+      "sha256": "c8be02682298040f86abd84f25924e50ebdb4cf56c83b05b53e6c43abd4f0855"
+    },
+    {
+      "path": "app.css",
+      "sha256": "adea7b22796b7e998638bbc5e0d7937bb9688dec32d47f8ca9e05423067203e7"
+    },
+    {
+      "path": "index.html",
+      "sha256": "bcd785e95fb0ab58fd806a26ac1c8ce7d5cd692c274ad1b014c3f681ae02293b"
+    },
+    {
+      "path": "clarity-player",
+      "sha256": "6a95f5f7442f68e8aae92c1aa754a666317c094a259ff25e96ebb3d98be38131"
+    }
+  ]
+}

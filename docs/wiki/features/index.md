@@ -1,43 +1,57 @@
 ---
 title: Feature map
 section: Features
-status: Captured
-updated: 2026-09-27
+status: Current
+updated: 2026-10-01
 order: 0
-summary: Chat, notes, todo, and wiki first; eleven modules remain in the broader direction.
+summary: Current module behavior, shared agent access, and scope boundaries.
 ---
 # Feature map
 
-**Current platform direction:** Cloudflare OS with Electron/TypeScript. Terminal sessions are removed; their [page](terminals.md) preserves earlier research. Backend execution is local; notes/wiki are actual Markdown files. Use stable module instances, Pi, and upstream approvals. Runtime packaging and exact directories remain open.
+All modules below have a local implementation under D102/D103. Chat, Notes, Todos, and Wiki start enabled and remain the first validation priority; optional modules are enabled in Settings. Implementation does not mean every accepted behavior or live integration has been verified. Each topic puts its current contract and gaps before historical discussion.
 
-All eleven modules below are part of the idea. **First-version priorities are chat, notes, todo, and wiki (D71).** The table order is organizational; the other modules remain in the broader direction. Each page separates stated intent from candidate scope and unanswered questions.
-
-| Module | Starting point |
+| Module | Current scope |
 | --- | --- |
-| [Calendar](calendar.md) | macOS-style Week and Month views, with seamless month scrolling; Notion Calendar is an additional reference. |
-| [Expenses](expenses.md) | Expensif daily view and new-expense form; preserve amount and suggestion inputs. |
-| [Notes](notes.md) | Human-maintained Markdown in a folder tree and tabbed rich-text editor; New note creates a file in the active folder. |
-| [Todo list](todos.md) | One simple task list; add items and mark them done. |
-| [Mail](mail.md) | Google-connected inbox and message reader with chat summaries. No composing or replying. |
-| [News](news.md) | Headlines from user-chosen sources; open articles in the browser. |
-| [Bookmarks](bookmarks.md) | Searchable local list with title, URL, description, tags, and created date; optional X and linkding integrations. |
-| [Wiki / knowledge base](wiki.md) | One topic-organized knowledge base in an HTML webview; request edits through AI. |
-| [Music](music.md) | One Spotify/Navidrome client with source-labelled collections, flat source-owned playlists, search, Clarity-only recent items, and one active playback source. No direct local files. |
-| [Agent message board](agent-board.md) | Topic threads and concise agent posts, browsable by humans; available through module methods, with reads/posts governed by project opt-in instructions. |
-| [Automations](automations.md) | Local workflows, including scheduled wiki updates from new relevant app state; Lucia remains a reference. |
+| [Chat](../foundations/chat.md) | Last-thread reopening, recent chats, Codex model/effort selection, shared module tools, action review, hosted search, page reading, interactive browsing, and attachments. |
+| [Notes](notes.md) | Actual Markdown, folder tree, tabs, rich GFM/source editing, immediate New note, autosave, preserved conflicts, local images, search, and Trash. |
+| [Todo list](todos.md) | One list; add/edit/delete tasks with optional dates and check/uncheck completion. Completed tasks remain below unfinished ones. Dated tasks appear in Calendar. |
+| [Wiki](wiki.md) | One topic-organized file-based knowledge base; AI edits, generated HTML webview/offline reader, text search, ordinary source references. Canonical item URLs resolve local source references. |
+| [Calendar](calendar.md) | Week and seamless Month views, Today/previous/next, title/start/end event creation, editing, and deletion; dated Todos appear on their chosen day. |
+| [Expenses](expenses.md) | Daily list and one entry/edit form; Expensif digit-buffer amount input and category/description suggestions. |
+| [Mail](mail.md) | Google-connected inbox/search and plain-text message reader; chat summaries. No compose/reply or Gmail deep link. |
+| [News](news.md) | User-selected RSS/Atom feeds, explicit refresh, compact searchable/source-filtered headlines, external article opening. |
+| [Bookmarks](bookmarks.md) | Owned local title/URL/description/tags/date, search and edits, optional Linkding/X read-only imports. Linkding refresh reconciles upstream changes and supports optional hourly/daily intervals. |
+| [Music](music.md) | In-app Spotify/Navidrome playback, source-labelled library/search, simple collections, recent collection references, one active source. No hybrid playlists or direct local files. |
+| [Agent board](agent-board.md) | Opt-in topic threads, concise posts/replies, item links, shared module methods, human browsing. External-agent adapters remain unspecified. |
+| [Automations](automations.md) | Daily/weekly wiki-topic maintenance from new local input; skipped missed runs; results and review stay on Automations. |
 
 ## Module definition
 
-**Accepted direction:** define the modules before choosing technology ([D25](../decisions/index.md#d25-define-modules-before-choosing-technology-25-september-2026)). Storage research remains background; the named technologies are not a closed shortlist.
+All chats access the same enabled module instances, rather than creating a task list or wiki per conversation. Direct human actions apply through the module; agent reads return immediately and mutations enter review, with the documented browser and scheduled-topic exceptions. Disabled modules retain data. Connections are optional and separate from enablement.
 
-**Assistant proposal for the discussion:** for each module, describe its main screen, the information users keep there, direct UI and chat actions, and what can wait. Notes and wiki now have distinct maintenance roles under [D26](../decisions/index.md#d26-notes-and-wiki-maintenance-25-september-2026); continue with their behavior and screens, then work through the remaining modules. This order and template are suggestions, not accepted feature requirements.
+Every module uses the [single data root](../foundations/folders.md). Actual Notes/Wiki Markdown is required; structured records use local SQLite. The [implementation report](../references/implementation.md) documents schemas and shared interfaces; the [follow-up list](../discussions/open-questions.md) identifies missing work and unverified real accounts.
 
-## Chat access
+Do not restore [terminal sessions](terminals.md), two-root storage, device sync, local music, extra task-management features, or a background service from historical references. Define a concrete behavior and explain its complexity before adding scope.
 
-Chat should be able to act across all eleven modules. The [chat and module actions](../foundations/chat.md) page records the user-specified operations and distinguishes them from actions still to define. Module enablement and required account connections remain applicable.
 
-## Cross-cutting questions
+## Verification map
 
-Which modules create a useful first version together? How much shared navigation is useful? Where should cross-links connect tasks, notes, calendar events, bookmarks, and projects?
+Stable IDs live on the existing topic pages, with entry points, expected outcomes, executable recipes, coverage limits and dated histories. Shared [setup](../verification/setup.md) and [run reports](../verification/index.md) follow jstack conventions; each result is tied to its recorded build. Module specifications are not copied into a second map.
 
-See [open questions](../discussions/open-questions.md).
+| Stable ID | Authoritative feature record |
+| --- | --- |
+| FEAT-notes | [Notes](notes.md) |
+| FEAT-todos | [Todos](todos.md) |
+| FEAT-calendar | [Calendar](calendar.md) |
+| FEAT-expenses | [Expenses](expenses.md) |
+| FEAT-bookmarks | [Bookmarks](bookmarks.md) |
+| FEAT-news | [News](news.md) |
+| FEAT-mail | [Mail](mail.md) |
+| FEAT-music | [Music](music.md) |
+| FEAT-agent-board | [Agent Board](agent-board.md) |
+| FEAT-automations | [Automations](automations.md) |
+| FEAT-wiki | [Wiki](wiki.md) |
+| FEAT-chat | [Chat](../foundations/chat.md) |
+| FEAT-settings | [Settings](../foundations/integrations.md) |
+| FEAT-shared-ui | [Shared Ui](../foundations/desktop-stack.md) |
+| FEAT-verification-workflow | [Verification and wiki maintenance](verification-workflow.md) |

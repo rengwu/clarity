@@ -1,0 +1,13 @@
+{
+  "recordedAt": "2026-10-01T12:31:54.890975+00:00",
+  "source": "/Users/rengwu/Desktop/Projects/clarity-spikes/2026-10-01-navigation-review",
+  "node": "v22.19.0",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "sourceSha256": "59f1306573d4daa198cb221d89c6565b5a15f76493e432dc4b2bc7663dbca496",
+  "files": {
+    "app.js": "d42ff21623701042bb92a5ef556970fcd29c5197be9dd9e38ada269c12f927fa",
+    "index.html": "8a268f8284f89429f9c9d20984fb8540cff5252a058748073b322f433e7aa041",
+    "server.mjs": "33baa4e808d8f4cc8f6f99b0c51b085a2de5762cb9afcf051d54fbe8abf71c6d",
+    "style.css": "b5da9d280978952b1ffad79f4eb2e60048d18a69b8cc35b0093fea68a94b4eb6"
+  }
+}

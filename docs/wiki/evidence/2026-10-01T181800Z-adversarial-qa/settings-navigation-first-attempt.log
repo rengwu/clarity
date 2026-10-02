@@ -1,0 +1,18 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+locator.click: Error: strict mode violation: getByRole('button', { name: 'Search and commands', exact: true }) resolved to 2 elements:
+    1) <button class="quiet header-search" aria-label="Search and commands" title="Search and commands · ⌘K">…</button> aka getByRole('button', { name: 'Search and commands', description: 'Search and commands · ⌘K' })
+    2) <button class="">…</button> aka getByRole('navigation', { name: 'Settings sections' }).getByRole('button', { name: 'Search and commands' })
+
+Call log:
+[2m  - waiting for getByRole('button', { name: 'Search and commands', exact: true })[22m
+
+    at /Users/rengwu/Library/Caches/Clarity/build/adversarial-qa-20261002/settings-nav-check.mjs:35:100 {
+  log: [
+    "  - waiting for getByRole('button', { name: 'Search and commands', exact: true })"
+  ]
+}
+
+Node.js v22.19.0

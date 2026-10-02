@@ -1,0 +1,2661 @@
+{
+  "observations": [
+    {
+      "size": {
+        "width": 1440,
+        "height": 1000
+      },
+      "theme": "dark",
+      "section": "google",
+      "header": {
+        "x": 220,
+        "y": 27,
+        "width": 1220,
+        "height": 75.5,
+        "right": 1440,
+        "bottom": 102.5
+      },
+      "scroller": {
+        "x": 220,
+        "y": 102.5,
+        "width": 1220,
+        "height": 897.5,
+        "right": 1440,
+        "bottom": 1000
+      },
+      "workspace": {
+        "x": 220,
+        "y": 0,
+        "width": 1220,
+        "height": 1000,
+        "right": 1440,
+        "bottom": 1000
+      },
+      "target": {
+        "x": 423.5,
+        "y": 118.4375,
+        "width": 802,
+        "height": 311.296875,
+        "right": 1225.5,
+        "bottom": 429.734375
+      },
+      "heading": {
+        "x": 443.5,
+        "y": 143.4375,
+        "width": 762,
+        "height": 20,
+        "right": 1205.5,
+        "bottom": 163.4375
+      },
+      "padding": "20px",
+      "outline": "rgb(146, 186, 160)",
+      "accent": "#92baa0",
+      "scrollbarWidth": "thin",
+      "scrollWidth": 1209,
+      "clientWidth": 1209,
+      "scrollTop": 2569.5,
+      "maxScrollTop": 3485,
+      "fields": [
+        {
+          "label": "ThemeSystemLightDark",
+          "x": 443.5,
+          "y": -2028.671875,
+          "width": 560,
+          "height": 38.5,
+          "right": 1003.5,
+          "bottom": -1990.171875
+        },
+        {
+          "label": "Manual location (optional)",
+          "x": 443.5,
+          "y": -1651.96875,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": -1615.46875
+        },
+        {
+          "label": "Google OAuth client ID",
+          "x": 443.5,
+          "y": 206.9375,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 243.4375
+        },
+        {
+          "label": "Client secret (if required)",
+          "x": 443.5,
+          "y": 284.9375,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 321.4375
+        },
+        {
+          "label": "Spotify client ID",
+          "x": 443.5,
+          "y": 518.234375,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 554.734375
+        },
+        {
+          "label": "Server address",
+          "x": 443.5,
+          "y": 903.5390625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 940.0390625
+        },
+        {
+          "label": "Username",
+          "x": 443.5,
+          "y": 981.5390625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 1018.0390625
+        },
+        {
+          "label": "Password",
+          "x": 443.5,
+          "y": 1059.5390625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 1096.0390625
+        },
+        {
+          "label": "Refresh bookmarksManuallyEvery hourEvery day",
+          "x": 443.5,
+          "y": 1253.1484375,
+          "width": 560,
+          "height": 38.5,
+          "right": 1003.5,
+          "bottom": 1291.6484375
+        },
+        {
+          "label": "Server address",
+          "x": 443.5,
+          "y": 1373.9453125,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 1410.4453125
+        },
+        {
+          "label": "API token",
+          "x": 443.5,
+          "y": 1451.9453125,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 1488.4453125
+        },
+        {
+          "label": "Currency symbol",
+          "x": 443.5,
+          "y": 1797.5625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 1834.0625
+        }
+      ]
+    },
+    {
+      "size": {
+        "width": 1440,
+        "height": 1000
+      },
+      "theme": "dark",
+      "section": "permissions",
+      "header": {
+        "x": 220,
+        "y": 27,
+        "width": 1220,
+        "height": 75.5,
+        "right": 1440,
+        "bottom": 102.5
+      },
+      "scroller": {
+        "x": 220,
+        "y": 102.5,
+        "width": 1220,
+        "height": 897.5,
+        "right": 1440,
+        "bottom": 1000
+      },
+      "workspace": {
+        "x": 220,
+        "y": 0,
+        "width": 1220,
+        "height": 1000,
+        "right": 1440,
+        "bottom": 1000
+      },
+      "target": {
+        "x": 423.5,
+        "y": 118.328125,
+        "width": 802,
+        "height": 553.6953125,
+        "right": 1225.5,
+        "bottom": 672.0234375
+      },
+      "heading": {
+        "x": 443.5,
+        "y": 143.328125,
+        "width": 762,
+        "height": 20,
+        "right": 1205.5,
+        "bottom": 163.328125
+      },
+      "padding": "20px",
+      "outline": "rgb(146, 186, 160)",
+      "accent": "#92baa0",
+      "scrollbarWidth": "thin",
+      "scrollWidth": 1209,
+      "clientWidth": 1209,
+      "scrollTop": 503,
+      "maxScrollTop": 3485,
+      "fields": [
+        {
+          "label": "ThemeSystemLightDark",
+          "x": 443.5,
+          "y": 37.828125,
+          "width": 560,
+          "height": 38.5,
+          "right": 1003.5,
+          "bottom": 76.328125
+        },
+        {
+          "label": "Manual location (optional)",
+          "x": 443.5,
+          "y": 414.53125,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 451.03125
+        },
+        {
+          "label": "Google OAuth client ID",
+          "x": 443.5,
+          "y": 2273.4375,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 2309.9375
+        },
+        {
+          "label": "Client secret (if required)",
+          "x": 443.5,
+          "y": 2351.4375,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 2387.9375
+        },
+        {
+          "label": "Spotify client ID",
+          "x": 443.5,
+          "y": 2584.734375,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 2621.234375
+        },
+        {
+          "label": "Server address",
+          "x": 443.5,
+          "y": 2970.0390625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 3006.5390625
+        },
+        {
+          "label": "Username",
+          "x": 443.5,
+          "y": 3048.0390625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 3084.5390625
+        },
+        {
+          "label": "Password",
+          "x": 443.5,
+          "y": 3126.0390625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 3162.5390625
+        },
+        {
+          "label": "Refresh bookmarksManuallyEvery hourEvery day",
+          "x": 443.5,
+          "y": 3319.6484375,
+          "width": 560,
+          "height": 38.5,
+          "right": 1003.5,
+          "bottom": 3358.1484375
+        },
+        {
+          "label": "Server address",
+          "x": 443.5,
+          "y": 3440.4453125,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 3476.9453125
+        },
+        {
+          "label": "API token",
+          "x": 443.5,
+          "y": 3518.4453125,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 3554.9453125
+        },
+        {
+          "label": "Currency symbol",
+          "x": 443.5,
+          "y": 3864.0625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 3900.5625
+        }
+      ]
+    },
+    {
+      "size": {
+        "width": 1440,
+        "height": 1000
+      },
+      "theme": "dark",
+      "section": "linkding",
+      "header": {
+        "x": 220,
+        "y": 27,
+        "width": 1220,
+        "height": 75.5,
+        "right": 1440,
+        "bottom": 102.5
+      },
+      "scroller": {
+        "x": 220,
+        "y": 102.5,
+        "width": 1220,
+        "height": 897.5,
+        "right": 1440,
+        "bottom": 1000
+      },
+      "workspace": {
+        "x": 220,
+        "y": 0,
+        "width": 1220,
+        "height": 1000,
+        "right": 1440,
+        "bottom": 1000
+      },
+      "target": {
+        "x": 423.5,
+        "y": 254.5390625,
+        "width": 802,
+        "height": 392.40625,
+        "right": 1225.5,
+        "bottom": 646.9453125
+      },
+      "heading": {
+        "x": 443.5,
+        "y": 279.5390625,
+        "width": 762,
+        "height": 20,
+        "right": 1205.5,
+        "bottom": 299.5390625
+      },
+      "padding": "20px",
+      "outline": "rgb(146, 186, 160)",
+      "accent": "#92baa0",
+      "scrollbarWidth": "thin",
+      "scrollWidth": 1209,
+      "clientWidth": 1209,
+      "scrollTop": 3485.5,
+      "maxScrollTop": 3485,
+      "fields": [
+        {
+          "label": "ThemeSystemLightDark",
+          "x": 443.5,
+          "y": -2944.671875,
+          "width": 560,
+          "height": 38.5,
+          "right": 1003.5,
+          "bottom": -2906.171875
+        },
+        {
+          "label": "Manual location (optional)",
+          "x": 443.5,
+          "y": -2567.96875,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": -2531.46875
+        },
+        {
+          "label": "Google OAuth client ID",
+          "x": 443.5,
+          "y": -709.0625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": -672.5625
+        },
+        {
+          "label": "Client secret (if required)",
+          "x": 443.5,
+          "y": -631.0625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": -594.5625
+        },
+        {
+          "label": "Spotify client ID",
+          "x": 443.5,
+          "y": -397.765625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": -361.265625
+        },
+        {
+          "label": "Server address",
+          "x": 443.5,
+          "y": -12.4609375,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 24.0390625
+        },
+        {
+          "label": "Username",
+          "x": 443.5,
+          "y": 65.5390625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 102.0390625
+        },
+        {
+          "label": "Password",
+          "x": 443.5,
+          "y": 143.5390625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 180.0390625
+        },
+        {
+          "label": "Refresh bookmarksManuallyEvery hourEvery day",
+          "x": 443.5,
+          "y": 337.1484375,
+          "width": 560,
+          "height": 38.5,
+          "right": 1003.5,
+          "bottom": 375.6484375
+        },
+        {
+          "label": "Server address",
+          "x": 443.5,
+          "y": 457.9453125,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 494.4453125
+        },
+        {
+          "label": "API token",
+          "x": 443.5,
+          "y": 535.9453125,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 572.4453125
+        },
+        {
+          "label": "Currency symbol",
+          "x": 443.5,
+          "y": 881.5625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 918.0625
+        }
+      ]
+    },
+    {
+      "size": {
+        "width": 1440,
+        "height": 1000
+      },
+      "theme": "dark",
+      "section": "agent-approvals",
+      "header": {
+        "x": 220,
+        "y": 27,
+        "width": 1220,
+        "height": 75.5,
+        "right": 1440,
+        "bottom": 102.5
+      },
+      "scroller": {
+        "x": 220,
+        "y": 102.5,
+        "width": 1220,
+        "height": 897.5,
+        "right": 1440,
+        "bottom": 1000
+      },
+      "workspace": {
+        "x": 220,
+        "y": 0,
+        "width": 1220,
+        "height": 1000,
+        "right": 1440,
+        "bottom": 1000
+      },
+      "target": {
+        "x": 423.5,
+        "y": 118.5234375,
+        "width": 802,
+        "height": 1360.90625,
+        "right": 1225.5,
+        "bottom": 1479.4296875
+      },
+      "heading": {
+        "x": 443.5,
+        "y": 143.5234375,
+        "width": 762,
+        "height": 20,
+        "right": 1205.5,
+        "bottom": 163.5234375
+      },
+      "padding": "20px",
+      "outline": "rgb(146, 186, 160)",
+      "accent": "#92baa0",
+      "scrollbarWidth": "thin",
+      "scrollWidth": 1209,
+      "clientWidth": 1209,
+      "scrollTop": 1056.5,
+      "maxScrollTop": 3485,
+      "fields": [
+        {
+          "label": "ThemeSystemLightDark",
+          "x": 443.5,
+          "y": -515.671875,
+          "width": 560,
+          "height": 38.5,
+          "right": 1003.5,
+          "bottom": -477.171875
+        },
+        {
+          "label": "Manual location (optional)",
+          "x": 443.5,
+          "y": -138.96875,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": -102.46875
+        },
+        {
+          "label": "Google OAuth client ID",
+          "x": 443.5,
+          "y": 1719.9375,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 1756.4375
+        },
+        {
+          "label": "Client secret (if required)",
+          "x": 443.5,
+          "y": 1797.9375,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 1834.4375
+        },
+        {
+          "label": "Spotify client ID",
+          "x": 443.5,
+          "y": 2031.234375,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 2067.734375
+        },
+        {
+          "label": "Server address",
+          "x": 443.5,
+          "y": 2416.5390625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 2453.0390625
+        },
+        {
+          "label": "Username",
+          "x": 443.5,
+          "y": 2494.5390625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 2531.0390625
+        },
+        {
+          "label": "Password",
+          "x": 443.5,
+          "y": 2572.5390625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 2609.0390625
+        },
+        {
+          "label": "Refresh bookmarksManuallyEvery hourEvery day",
+          "x": 443.5,
+          "y": 2766.1484375,
+          "width": 560,
+          "height": 38.5,
+          "right": 1003.5,
+          "bottom": 2804.6484375
+        },
+        {
+          "label": "Server address",
+          "x": 443.5,
+          "y": 2886.9453125,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 2923.4453125
+        },
+        {
+          "label": "API token",
+          "x": 443.5,
+          "y": 2964.9453125,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 3001.4453125
+        },
+        {
+          "label": "Currency symbol",
+          "x": 443.5,
+          "y": 3310.5625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 3347.0625
+        }
+      ]
+    },
+    {
+      "size": {
+        "width": 1440,
+        "height": 1000
+      },
+      "theme": "light",
+      "section": "google",
+      "header": {
+        "x": 220,
+        "y": 27,
+        "width": 1220,
+        "height": 75.5,
+        "right": 1440,
+        "bottom": 102.5
+      },
+      "scroller": {
+        "x": 220,
+        "y": 102.5,
+        "width": 1220,
+        "height": 897.5,
+        "right": 1440,
+        "bottom": 1000
+      },
+      "workspace": {
+        "x": 220,
+        "y": 0,
+        "width": 1220,
+        "height": 1000,
+        "right": 1440,
+        "bottom": 1000
+      },
+      "target": {
+        "x": 423.5,
+        "y": 118.4375,
+        "width": 802,
+        "height": 311.296875,
+        "right": 1225.5,
+        "bottom": 429.734375
+      },
+      "heading": {
+        "x": 443.5,
+        "y": 143.4375,
+        "width": 762,
+        "height": 20,
+        "right": 1205.5,
+        "bottom": 163.4375
+      },
+      "padding": "20px",
+      "outline": "rgb(66, 105, 85)",
+      "accent": "#426955",
+      "scrollbarWidth": "thin",
+      "scrollWidth": 1209,
+      "clientWidth": 1209,
+      "scrollTop": 2569.5,
+      "maxScrollTop": 3485,
+      "fields": [
+        {
+          "label": "ThemeSystemLightDark",
+          "x": 443.5,
+          "y": -2028.671875,
+          "width": 560,
+          "height": 38.5,
+          "right": 1003.5,
+          "bottom": -1990.171875
+        },
+        {
+          "label": "Manual location (optional)",
+          "x": 443.5,
+          "y": -1651.96875,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": -1615.46875
+        },
+        {
+          "label": "Google OAuth client ID",
+          "x": 443.5,
+          "y": 206.9375,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 243.4375
+        },
+        {
+          "label": "Client secret (if required)",
+          "x": 443.5,
+          "y": 284.9375,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 321.4375
+        },
+        {
+          "label": "Spotify client ID",
+          "x": 443.5,
+          "y": 518.234375,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 554.734375
+        },
+        {
+          "label": "Server address",
+          "x": 443.5,
+          "y": 903.5390625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 940.0390625
+        },
+        {
+          "label": "Username",
+          "x": 443.5,
+          "y": 981.5390625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 1018.0390625
+        },
+        {
+          "label": "Password",
+          "x": 443.5,
+          "y": 1059.5390625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 1096.0390625
+        },
+        {
+          "label": "Refresh bookmarksManuallyEvery hourEvery day",
+          "x": 443.5,
+          "y": 1253.1484375,
+          "width": 560,
+          "height": 38.5,
+          "right": 1003.5,
+          "bottom": 1291.6484375
+        },
+        {
+          "label": "Server address",
+          "x": 443.5,
+          "y": 1373.9453125,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 1410.4453125
+        },
+        {
+          "label": "API token",
+          "x": 443.5,
+          "y": 1451.9453125,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 1488.4453125
+        },
+        {
+          "label": "Currency symbol",
+          "x": 443.5,
+          "y": 1797.5625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 1834.0625
+        }
+      ]
+    },
+    {
+      "size": {
+        "width": 1440,
+        "height": 1000
+      },
+      "theme": "light",
+      "section": "permissions",
+      "header": {
+        "x": 220,
+        "y": 27,
+        "width": 1220,
+        "height": 75.5,
+        "right": 1440,
+        "bottom": 102.5
+      },
+      "scroller": {
+        "x": 220,
+        "y": 102.5,
+        "width": 1220,
+        "height": 897.5,
+        "right": 1440,
+        "bottom": 1000
+      },
+      "workspace": {
+        "x": 220,
+        "y": 0,
+        "width": 1220,
+        "height": 1000,
+        "right": 1440,
+        "bottom": 1000
+      },
+      "target": {
+        "x": 423.5,
+        "y": 118.328125,
+        "width": 802,
+        "height": 553.6953125,
+        "right": 1225.5,
+        "bottom": 672.0234375
+      },
+      "heading": {
+        "x": 443.5,
+        "y": 143.328125,
+        "width": 762,
+        "height": 20,
+        "right": 1205.5,
+        "bottom": 163.328125
+      },
+      "padding": "20px",
+      "outline": "rgb(66, 105, 85)",
+      "accent": "#426955",
+      "scrollbarWidth": "thin",
+      "scrollWidth": 1209,
+      "clientWidth": 1209,
+      "scrollTop": 503,
+      "maxScrollTop": 3485,
+      "fields": [
+        {
+          "label": "ThemeSystemLightDark",
+          "x": 443.5,
+          "y": 37.828125,
+          "width": 560,
+          "height": 38.5,
+          "right": 1003.5,
+          "bottom": 76.328125
+        },
+        {
+          "label": "Manual location (optional)",
+          "x": 443.5,
+          "y": 414.53125,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 451.03125
+        },
+        {
+          "label": "Google OAuth client ID",
+          "x": 443.5,
+          "y": 2273.4375,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 2309.9375
+        },
+        {
+          "label": "Client secret (if required)",
+          "x": 443.5,
+          "y": 2351.4375,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 2387.9375
+        },
+        {
+          "label": "Spotify client ID",
+          "x": 443.5,
+          "y": 2584.734375,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 2621.234375
+        },
+        {
+          "label": "Server address",
+          "x": 443.5,
+          "y": 2970.0390625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 3006.5390625
+        },
+        {
+          "label": "Username",
+          "x": 443.5,
+          "y": 3048.0390625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 3084.5390625
+        },
+        {
+          "label": "Password",
+          "x": 443.5,
+          "y": 3126.0390625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 3162.5390625
+        },
+        {
+          "label": "Refresh bookmarksManuallyEvery hourEvery day",
+          "x": 443.5,
+          "y": 3319.6484375,
+          "width": 560,
+          "height": 38.5,
+          "right": 1003.5,
+          "bottom": 3358.1484375
+        },
+        {
+          "label": "Server address",
+          "x": 443.5,
+          "y": 3440.4453125,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 3476.9453125
+        },
+        {
+          "label": "API token",
+          "x": 443.5,
+          "y": 3518.4453125,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 3554.9453125
+        },
+        {
+          "label": "Currency symbol",
+          "x": 443.5,
+          "y": 3864.0625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 3900.5625
+        }
+      ]
+    },
+    {
+      "size": {
+        "width": 1440,
+        "height": 1000
+      },
+      "theme": "light",
+      "section": "linkding",
+      "header": {
+        "x": 220,
+        "y": 27,
+        "width": 1220,
+        "height": 75.5,
+        "right": 1440,
+        "bottom": 102.5
+      },
+      "scroller": {
+        "x": 220,
+        "y": 102.5,
+        "width": 1220,
+        "height": 897.5,
+        "right": 1440,
+        "bottom": 1000
+      },
+      "workspace": {
+        "x": 220,
+        "y": 0,
+        "width": 1220,
+        "height": 1000,
+        "right": 1440,
+        "bottom": 1000
+      },
+      "target": {
+        "x": 423.5,
+        "y": 254.5390625,
+        "width": 802,
+        "height": 392.40625,
+        "right": 1225.5,
+        "bottom": 646.9453125
+      },
+      "heading": {
+        "x": 443.5,
+        "y": 279.5390625,
+        "width": 762,
+        "height": 20,
+        "right": 1205.5,
+        "bottom": 299.5390625
+      },
+      "padding": "20px",
+      "outline": "rgb(66, 105, 85)",
+      "accent": "#426955",
+      "scrollbarWidth": "thin",
+      "scrollWidth": 1209,
+      "clientWidth": 1209,
+      "scrollTop": 3485.5,
+      "maxScrollTop": 3485,
+      "fields": [
+        {
+          "label": "ThemeSystemLightDark",
+          "x": 443.5,
+          "y": -2944.671875,
+          "width": 560,
+          "height": 38.5,
+          "right": 1003.5,
+          "bottom": -2906.171875
+        },
+        {
+          "label": "Manual location (optional)",
+          "x": 443.5,
+          "y": -2567.96875,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": -2531.46875
+        },
+        {
+          "label": "Google OAuth client ID",
+          "x": 443.5,
+          "y": -709.0625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": -672.5625
+        },
+        {
+          "label": "Client secret (if required)",
+          "x": 443.5,
+          "y": -631.0625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": -594.5625
+        },
+        {
+          "label": "Spotify client ID",
+          "x": 443.5,
+          "y": -397.765625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": -361.265625
+        },
+        {
+          "label": "Server address",
+          "x": 443.5,
+          "y": -12.4609375,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 24.0390625
+        },
+        {
+          "label": "Username",
+          "x": 443.5,
+          "y": 65.5390625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 102.0390625
+        },
+        {
+          "label": "Password",
+          "x": 443.5,
+          "y": 143.5390625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 180.0390625
+        },
+        {
+          "label": "Refresh bookmarksManuallyEvery hourEvery day",
+          "x": 443.5,
+          "y": 337.1484375,
+          "width": 560,
+          "height": 38.5,
+          "right": 1003.5,
+          "bottom": 375.6484375
+        },
+        {
+          "label": "Server address",
+          "x": 443.5,
+          "y": 457.9453125,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 494.4453125
+        },
+        {
+          "label": "API token",
+          "x": 443.5,
+          "y": 535.9453125,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 572.4453125
+        },
+        {
+          "label": "Currency symbol",
+          "x": 443.5,
+          "y": 881.5625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 918.0625
+        }
+      ]
+    },
+    {
+      "size": {
+        "width": 1440,
+        "height": 1000
+      },
+      "theme": "light",
+      "section": "agent-approvals",
+      "header": {
+        "x": 220,
+        "y": 27,
+        "width": 1220,
+        "height": 75.5,
+        "right": 1440,
+        "bottom": 102.5
+      },
+      "scroller": {
+        "x": 220,
+        "y": 102.5,
+        "width": 1220,
+        "height": 897.5,
+        "right": 1440,
+        "bottom": 1000
+      },
+      "workspace": {
+        "x": 220,
+        "y": 0,
+        "width": 1220,
+        "height": 1000,
+        "right": 1440,
+        "bottom": 1000
+      },
+      "target": {
+        "x": 423.5,
+        "y": 118.5234375,
+        "width": 802,
+        "height": 1360.90625,
+        "right": 1225.5,
+        "bottom": 1479.4296875
+      },
+      "heading": {
+        "x": 443.5,
+        "y": 143.5234375,
+        "width": 762,
+        "height": 20,
+        "right": 1205.5,
+        "bottom": 163.5234375
+      },
+      "padding": "20px",
+      "outline": "rgb(66, 105, 85)",
+      "accent": "#426955",
+      "scrollbarWidth": "thin",
+      "scrollWidth": 1209,
+      "clientWidth": 1209,
+      "scrollTop": 1056.5,
+      "maxScrollTop": 3485,
+      "fields": [
+        {
+          "label": "ThemeSystemLightDark",
+          "x": 443.5,
+          "y": -515.671875,
+          "width": 560,
+          "height": 38.5,
+          "right": 1003.5,
+          "bottom": -477.171875
+        },
+        {
+          "label": "Manual location (optional)",
+          "x": 443.5,
+          "y": -138.96875,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": -102.46875
+        },
+        {
+          "label": "Google OAuth client ID",
+          "x": 443.5,
+          "y": 1719.9375,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 1756.4375
+        },
+        {
+          "label": "Client secret (if required)",
+          "x": 443.5,
+          "y": 1797.9375,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 1834.4375
+        },
+        {
+          "label": "Spotify client ID",
+          "x": 443.5,
+          "y": 2031.234375,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 2067.734375
+        },
+        {
+          "label": "Server address",
+          "x": 443.5,
+          "y": 2416.5390625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 2453.0390625
+        },
+        {
+          "label": "Username",
+          "x": 443.5,
+          "y": 2494.5390625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 2531.0390625
+        },
+        {
+          "label": "Password",
+          "x": 443.5,
+          "y": 2572.5390625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 2609.0390625
+        },
+        {
+          "label": "Refresh bookmarksManuallyEvery hourEvery day",
+          "x": 443.5,
+          "y": 2766.1484375,
+          "width": 560,
+          "height": 38.5,
+          "right": 1003.5,
+          "bottom": 2804.6484375
+        },
+        {
+          "label": "Server address",
+          "x": 443.5,
+          "y": 2886.9453125,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 2923.4453125
+        },
+        {
+          "label": "API token",
+          "x": 443.5,
+          "y": 2964.9453125,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 3001.4453125
+        },
+        {
+          "label": "Currency symbol",
+          "x": 443.5,
+          "y": 3310.5625,
+          "width": 560,
+          "height": 36.5,
+          "right": 1003.5,
+          "bottom": 3347.0625
+        }
+      ]
+    },
+    {
+      "size": {
+        "width": 850,
+        "height": 600
+      },
+      "theme": "dark",
+      "section": "google",
+      "header": {
+        "x": 185,
+        "y": 27,
+        "width": 665,
+        "height": 71.5,
+        "right": 850,
+        "bottom": 98.5
+      },
+      "scroller": {
+        "x": 185,
+        "y": 98.5,
+        "width": 665,
+        "height": 501.5,
+        "right": 850,
+        "bottom": 600
+      },
+      "workspace": {
+        "x": 185,
+        "y": 0,
+        "width": 665,
+        "height": 600,
+        "right": 850,
+        "bottom": 600
+      },
+      "target": {
+        "x": 201,
+        "y": 114.734375,
+        "width": 622,
+        "height": 303.296875,
+        "right": 823,
+        "bottom": 418.03125
+      },
+      "heading": {
+        "x": 217,
+        "y": 135.734375,
+        "width": 590,
+        "height": 20,
+        "right": 807,
+        "bottom": 155.734375
+      },
+      "padding": "16px",
+      "outline": "rgb(146, 186, 160)",
+      "accent": "#92baa0",
+      "scrollbarWidth": "thin",
+      "scrollWidth": 654,
+      "clientWidth": 654,
+      "scrollTop": 2576,
+      "maxScrollTop": 3824,
+      "fields": [
+        {
+          "label": "ThemeSystemLightDark",
+          "x": 217,
+          "y": -2025.171875,
+          "width": 560,
+          "height": 38.5,
+          "right": 777,
+          "bottom": -1986.671875
+        },
+        {
+          "label": "Manual location (optional)",
+          "x": 217,
+          "y": -1635.671875,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": -1599.171875
+        },
+        {
+          "label": "Google OAuth client ID",
+          "x": 217,
+          "y": 199.234375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 235.734375
+        },
+        {
+          "label": "Client secret (if required)",
+          "x": 217,
+          "y": 277.234375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 313.734375
+        },
+        {
+          "label": "Spotify client ID",
+          "x": 217,
+          "y": 502.53125,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 539.03125
+        },
+        {
+          "label": "Server address",
+          "x": 217,
+          "y": 871.8359375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 908.3359375
+        },
+        {
+          "label": "Username",
+          "x": 217,
+          "y": 949.8359375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 986.3359375
+        },
+        {
+          "label": "Password",
+          "x": 217,
+          "y": 1027.8359375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 1064.3359375
+        },
+        {
+          "label": "Refresh bookmarksManuallyEvery hourEvery day",
+          "x": 217,
+          "y": 1213.4453125,
+          "width": 560,
+          "height": 38.5,
+          "right": 777,
+          "bottom": 1251.9453125
+        },
+        {
+          "label": "Server address",
+          "x": 217,
+          "y": 1334.2421875,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 1370.7421875
+        },
+        {
+          "label": "API token",
+          "x": 217,
+          "y": 1412.2421875,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 1448.7421875
+        },
+        {
+          "label": "Currency symbol",
+          "x": 217,
+          "y": 1741.859375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 1778.359375
+        }
+      ]
+    },
+    {
+      "size": {
+        "width": 850,
+        "height": 600
+      },
+      "theme": "dark",
+      "section": "permissions",
+      "header": {
+        "x": 185,
+        "y": 27,
+        "width": 665,
+        "height": 71.5,
+        "right": 850,
+        "bottom": 98.5
+      },
+      "scroller": {
+        "x": 185,
+        "y": 98.5,
+        "width": 665,
+        "height": 501.5,
+        "right": 850,
+        "bottom": 600
+      },
+      "workspace": {
+        "x": 185,
+        "y": 0,
+        "width": 665,
+        "height": 600,
+        "right": 850,
+        "bottom": 600
+      },
+      "target": {
+        "x": 201,
+        "y": 114.328125,
+        "width": 622,
+        "height": 566.4921875,
+        "right": 823,
+        "bottom": 680.8203125
+      },
+      "heading": {
+        "x": 217,
+        "y": 135.328125,
+        "width": 590,
+        "height": 20,
+        "right": 807,
+        "bottom": 155.328125
+      },
+      "padding": "16px",
+      "outline": "rgb(146, 186, 160)",
+      "accent": "#92baa0",
+      "scrollbarWidth": "thin",
+      "scrollWidth": 654,
+      "clientWidth": 654,
+      "scrollTop": 513,
+      "maxScrollTop": 3824,
+      "fields": [
+        {
+          "label": "ThemeSystemLightDark",
+          "x": 217,
+          "y": 37.828125,
+          "width": 560,
+          "height": 38.5,
+          "right": 777,
+          "bottom": 76.328125
+        },
+        {
+          "label": "Manual location (optional)",
+          "x": 217,
+          "y": 427.328125,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 463.828125
+        },
+        {
+          "label": "Google OAuth client ID",
+          "x": 217,
+          "y": 2262.234375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 2298.734375
+        },
+        {
+          "label": "Client secret (if required)",
+          "x": 217,
+          "y": 2340.234375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 2376.734375
+        },
+        {
+          "label": "Spotify client ID",
+          "x": 217,
+          "y": 2565.53125,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 2602.03125
+        },
+        {
+          "label": "Server address",
+          "x": 217,
+          "y": 2934.8359375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 2971.3359375
+        },
+        {
+          "label": "Username",
+          "x": 217,
+          "y": 3012.8359375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 3049.3359375
+        },
+        {
+          "label": "Password",
+          "x": 217,
+          "y": 3090.8359375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 3127.3359375
+        },
+        {
+          "label": "Refresh bookmarksManuallyEvery hourEvery day",
+          "x": 217,
+          "y": 3276.4453125,
+          "width": 560,
+          "height": 38.5,
+          "right": 777,
+          "bottom": 3314.9453125
+        },
+        {
+          "label": "Server address",
+          "x": 217,
+          "y": 3397.2421875,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 3433.7421875
+        },
+        {
+          "label": "API token",
+          "x": 217,
+          "y": 3475.2421875,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 3511.7421875
+        },
+        {
+          "label": "Currency symbol",
+          "x": 217,
+          "y": 3804.859375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 3841.359375
+        }
+      ]
+    },
+    {
+      "size": {
+        "width": 850,
+        "height": 600
+      },
+      "theme": "dark",
+      "section": "linkding",
+      "header": {
+        "x": 185,
+        "y": 27,
+        "width": 665,
+        "height": 71.5,
+        "right": 850,
+        "bottom": 98.5
+      },
+      "scroller": {
+        "x": 185,
+        "y": 98.5,
+        "width": 665,
+        "height": 501.5,
+        "right": 850,
+        "bottom": 600
+      },
+      "workspace": {
+        "x": 185,
+        "y": 0,
+        "width": 665,
+        "height": 600,
+        "right": 850,
+        "bottom": 600
+      },
+      "target": {
+        "x": 201,
+        "y": 114.3359375,
+        "width": 622,
+        "height": 384.40625,
+        "right": 823,
+        "bottom": 498.7421875
+      },
+      "heading": {
+        "x": 217,
+        "y": 135.3359375,
+        "width": 590,
+        "height": 20,
+        "right": 807,
+        "bottom": 155.3359375
+      },
+      "padding": "16px",
+      "outline": "rgb(146, 186, 160)",
+      "accent": "#92baa0",
+      "scrollbarWidth": "thin",
+      "scrollWidth": 654,
+      "clientWidth": 654,
+      "scrollTop": 3596.5,
+      "maxScrollTop": 3824,
+      "fields": [
+        {
+          "label": "ThemeSystemLightDark",
+          "x": 217,
+          "y": -3045.671875,
+          "width": 560,
+          "height": 38.5,
+          "right": 777,
+          "bottom": -3007.171875
+        },
+        {
+          "label": "Manual location (optional)",
+          "x": 217,
+          "y": -2656.171875,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": -2619.671875
+        },
+        {
+          "label": "Google OAuth client ID",
+          "x": 217,
+          "y": -821.265625,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": -784.765625
+        },
+        {
+          "label": "Client secret (if required)",
+          "x": 217,
+          "y": -743.265625,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": -706.765625
+        },
+        {
+          "label": "Spotify client ID",
+          "x": 217,
+          "y": -517.96875,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": -481.46875
+        },
+        {
+          "label": "Server address",
+          "x": 217,
+          "y": -148.6640625,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": -112.1640625
+        },
+        {
+          "label": "Username",
+          "x": 217,
+          "y": -70.6640625,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": -34.1640625
+        },
+        {
+          "label": "Password",
+          "x": 217,
+          "y": 7.3359375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 43.8359375
+        },
+        {
+          "label": "Refresh bookmarksManuallyEvery hourEvery day",
+          "x": 217,
+          "y": 192.9453125,
+          "width": 560,
+          "height": 38.5,
+          "right": 777,
+          "bottom": 231.4453125
+        },
+        {
+          "label": "Server address",
+          "x": 217,
+          "y": 313.7421875,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 350.2421875
+        },
+        {
+          "label": "API token",
+          "x": 217,
+          "y": 391.7421875,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 428.2421875
+        },
+        {
+          "label": "Currency symbol",
+          "x": 217,
+          "y": 721.359375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 757.859375
+        }
+      ]
+    },
+    {
+      "size": {
+        "width": 850,
+        "height": 600
+      },
+      "theme": "dark",
+      "section": "agent-approvals",
+      "header": {
+        "x": 185,
+        "y": 27,
+        "width": 665,
+        "height": 71.5,
+        "right": 850,
+        "bottom": 98.5
+      },
+      "scroller": {
+        "x": 185,
+        "y": 98.5,
+        "width": 665,
+        "height": 501.5,
+        "right": 850,
+        "bottom": 600
+      },
+      "workspace": {
+        "x": 185,
+        "y": 0,
+        "width": 665,
+        "height": 600,
+        "right": 850,
+        "bottom": 600
+      },
+      "target": {
+        "x": 201,
+        "y": 114.3203125,
+        "width": 622,
+        "height": 1352.90625,
+        "right": 823,
+        "bottom": 1467.2265625
+      },
+      "heading": {
+        "x": 217,
+        "y": 135.3203125,
+        "width": 590,
+        "height": 20,
+        "right": 807,
+        "bottom": 155.3203125
+      },
+      "padding": "16px",
+      "outline": "rgb(146, 186, 160)",
+      "accent": "#92baa0",
+      "scrollbarWidth": "thin",
+      "scrollWidth": 654,
+      "clientWidth": 654,
+      "scrollTop": 1079.5,
+      "maxScrollTop": 3824,
+      "fields": [
+        {
+          "label": "ThemeSystemLightDark",
+          "x": 217,
+          "y": -528.671875,
+          "width": 560,
+          "height": 38.5,
+          "right": 777,
+          "bottom": -490.171875
+        },
+        {
+          "label": "Manual location (optional)",
+          "x": 217,
+          "y": -139.171875,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": -102.671875
+        },
+        {
+          "label": "Google OAuth client ID",
+          "x": 217,
+          "y": 1695.734375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 1732.234375
+        },
+        {
+          "label": "Client secret (if required)",
+          "x": 217,
+          "y": 1773.734375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 1810.234375
+        },
+        {
+          "label": "Spotify client ID",
+          "x": 217,
+          "y": 1999.03125,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 2035.53125
+        },
+        {
+          "label": "Server address",
+          "x": 217,
+          "y": 2368.3359375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 2404.8359375
+        },
+        {
+          "label": "Username",
+          "x": 217,
+          "y": 2446.3359375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 2482.8359375
+        },
+        {
+          "label": "Password",
+          "x": 217,
+          "y": 2524.3359375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 2560.8359375
+        },
+        {
+          "label": "Refresh bookmarksManuallyEvery hourEvery day",
+          "x": 217,
+          "y": 2709.9453125,
+          "width": 560,
+          "height": 38.5,
+          "right": 777,
+          "bottom": 2748.4453125
+        },
+        {
+          "label": "Server address",
+          "x": 217,
+          "y": 2830.7421875,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 2867.2421875
+        },
+        {
+          "label": "API token",
+          "x": 217,
+          "y": 2908.7421875,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 2945.2421875
+        },
+        {
+          "label": "Currency symbol",
+          "x": 217,
+          "y": 3238.359375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 3274.859375
+        }
+      ]
+    },
+    {
+      "size": {
+        "width": 850,
+        "height": 600
+      },
+      "theme": "light",
+      "section": "google",
+      "header": {
+        "x": 185,
+        "y": 27,
+        "width": 665,
+        "height": 71.5,
+        "right": 850,
+        "bottom": 98.5
+      },
+      "scroller": {
+        "x": 185,
+        "y": 98.5,
+        "width": 665,
+        "height": 501.5,
+        "right": 850,
+        "bottom": 600
+      },
+      "workspace": {
+        "x": 185,
+        "y": 0,
+        "width": 665,
+        "height": 600,
+        "right": 850,
+        "bottom": 600
+      },
+      "target": {
+        "x": 201,
+        "y": 114.734375,
+        "width": 622,
+        "height": 303.296875,
+        "right": 823,
+        "bottom": 418.03125
+      },
+      "heading": {
+        "x": 217,
+        "y": 135.734375,
+        "width": 590,
+        "height": 20,
+        "right": 807,
+        "bottom": 155.734375
+      },
+      "padding": "16px",
+      "outline": "rgb(66, 105, 85)",
+      "accent": "#426955",
+      "scrollbarWidth": "thin",
+      "scrollWidth": 654,
+      "clientWidth": 654,
+      "scrollTop": 2576,
+      "maxScrollTop": 3824,
+      "fields": [
+        {
+          "label": "ThemeSystemLightDark",
+          "x": 217,
+          "y": -2025.171875,
+          "width": 560,
+          "height": 38.5,
+          "right": 777,
+          "bottom": -1986.671875
+        },
+        {
+          "label": "Manual location (optional)",
+          "x": 217,
+          "y": -1635.671875,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": -1599.171875
+        },
+        {
+          "label": "Google OAuth client ID",
+          "x": 217,
+          "y": 199.234375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 235.734375
+        },
+        {
+          "label": "Client secret (if required)",
+          "x": 217,
+          "y": 277.234375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 313.734375
+        },
+        {
+          "label": "Spotify client ID",
+          "x": 217,
+          "y": 502.53125,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 539.03125
+        },
+        {
+          "label": "Server address",
+          "x": 217,
+          "y": 871.8359375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 908.3359375
+        },
+        {
+          "label": "Username",
+          "x": 217,
+          "y": 949.8359375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 986.3359375
+        },
+        {
+          "label": "Password",
+          "x": 217,
+          "y": 1027.8359375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 1064.3359375
+        },
+        {
+          "label": "Refresh bookmarksManuallyEvery hourEvery day",
+          "x": 217,
+          "y": 1213.4453125,
+          "width": 560,
+          "height": 38.5,
+          "right": 777,
+          "bottom": 1251.9453125
+        },
+        {
+          "label": "Server address",
+          "x": 217,
+          "y": 1334.2421875,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 1370.7421875
+        },
+        {
+          "label": "API token",
+          "x": 217,
+          "y": 1412.2421875,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 1448.7421875
+        },
+        {
+          "label": "Currency symbol",
+          "x": 217,
+          "y": 1741.859375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 1778.359375
+        }
+      ]
+    },
+    {
+      "size": {
+        "width": 850,
+        "height": 600
+      },
+      "theme": "light",
+      "section": "permissions",
+      "header": {
+        "x": 185,
+        "y": 27,
+        "width": 665,
+        "height": 71.5,
+        "right": 850,
+        "bottom": 98.5
+      },
+      "scroller": {
+        "x": 185,
+        "y": 98.5,
+        "width": 665,
+        "height": 501.5,
+        "right": 850,
+        "bottom": 600
+      },
+      "workspace": {
+        "x": 185,
+        "y": 0,
+        "width": 665,
+        "height": 600,
+        "right": 850,
+        "bottom": 600
+      },
+      "target": {
+        "x": 201,
+        "y": 114.328125,
+        "width": 622,
+        "height": 566.4921875,
+        "right": 823,
+        "bottom": 680.8203125
+      },
+      "heading": {
+        "x": 217,
+        "y": 135.328125,
+        "width": 590,
+        "height": 20,
+        "right": 807,
+        "bottom": 155.328125
+      },
+      "padding": "16px",
+      "outline": "rgb(66, 105, 85)",
+      "accent": "#426955",
+      "scrollbarWidth": "thin",
+      "scrollWidth": 654,
+      "clientWidth": 654,
+      "scrollTop": 513,
+      "maxScrollTop": 3824,
+      "fields": [
+        {
+          "label": "ThemeSystemLightDark",
+          "x": 217,
+          "y": 37.828125,
+          "width": 560,
+          "height": 38.5,
+          "right": 777,
+          "bottom": 76.328125
+        },
+        {
+          "label": "Manual location (optional)",
+          "x": 217,
+          "y": 427.328125,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 463.828125
+        },
+        {
+          "label": "Google OAuth client ID",
+          "x": 217,
+          "y": 2262.234375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 2298.734375
+        },
+        {
+          "label": "Client secret (if required)",
+          "x": 217,
+          "y": 2340.234375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 2376.734375
+        },
+        {
+          "label": "Spotify client ID",
+          "x": 217,
+          "y": 2565.53125,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 2602.03125
+        },
+        {
+          "label": "Server address",
+          "x": 217,
+          "y": 2934.8359375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 2971.3359375
+        },
+        {
+          "label": "Username",
+          "x": 217,
+          "y": 3012.8359375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 3049.3359375
+        },
+        {
+          "label": "Password",
+          "x": 217,
+          "y": 3090.8359375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 3127.3359375
+        },
+        {
+          "label": "Refresh bookmarksManuallyEvery hourEvery day",
+          "x": 217,
+          "y": 3276.4453125,
+          "width": 560,
+          "height": 38.5,
+          "right": 777,
+          "bottom": 3314.9453125
+        },
+        {
+          "label": "Server address",
+          "x": 217,
+          "y": 3397.2421875,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 3433.7421875
+        },
+        {
+          "label": "API token",
+          "x": 217,
+          "y": 3475.2421875,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 3511.7421875
+        },
+        {
+          "label": "Currency symbol",
+          "x": 217,
+          "y": 3804.859375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 3841.359375
+        }
+      ]
+    },
+    {
+      "size": {
+        "width": 850,
+        "height": 600
+      },
+      "theme": "light",
+      "section": "linkding",
+      "header": {
+        "x": 185,
+        "y": 27,
+        "width": 665,
+        "height": 71.5,
+        "right": 850,
+        "bottom": 98.5
+      },
+      "scroller": {
+        "x": 185,
+        "y": 98.5,
+        "width": 665,
+        "height": 501.5,
+        "right": 850,
+        "bottom": 600
+      },
+      "workspace": {
+        "x": 185,
+        "y": 0,
+        "width": 665,
+        "height": 600,
+        "right": 850,
+        "bottom": 600
+      },
+      "target": {
+        "x": 201,
+        "y": 114.3359375,
+        "width": 622,
+        "height": 384.40625,
+        "right": 823,
+        "bottom": 498.7421875
+      },
+      "heading": {
+        "x": 217,
+        "y": 135.3359375,
+        "width": 590,
+        "height": 20,
+        "right": 807,
+        "bottom": 155.3359375
+      },
+      "padding": "16px",
+      "outline": "rgb(66, 105, 85)",
+      "accent": "#426955",
+      "scrollbarWidth": "thin",
+      "scrollWidth": 654,
+      "clientWidth": 654,
+      "scrollTop": 3596.5,
+      "maxScrollTop": 3824,
+      "fields": [
+        {
+          "label": "ThemeSystemLightDark",
+          "x": 217,
+          "y": -3045.671875,
+          "width": 560,
+          "height": 38.5,
+          "right": 777,
+          "bottom": -3007.171875
+        },
+        {
+          "label": "Manual location (optional)",
+          "x": 217,
+          "y": -2656.171875,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": -2619.671875
+        },
+        {
+          "label": "Google OAuth client ID",
+          "x": 217,
+          "y": -821.265625,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": -784.765625
+        },
+        {
+          "label": "Client secret (if required)",
+          "x": 217,
+          "y": -743.265625,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": -706.765625
+        },
+        {
+          "label": "Spotify client ID",
+          "x": 217,
+          "y": -517.96875,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": -481.46875
+        },
+        {
+          "label": "Server address",
+          "x": 217,
+          "y": -148.6640625,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": -112.1640625
+        },
+        {
+          "label": "Username",
+          "x": 217,
+          "y": -70.6640625,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": -34.1640625
+        },
+        {
+          "label": "Password",
+          "x": 217,
+          "y": 7.3359375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 43.8359375
+        },
+        {
+          "label": "Refresh bookmarksManuallyEvery hourEvery day",
+          "x": 217,
+          "y": 192.9453125,
+          "width": 560,
+          "height": 38.5,
+          "right": 777,
+          "bottom": 231.4453125
+        },
+        {
+          "label": "Server address",
+          "x": 217,
+          "y": 313.7421875,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 350.2421875
+        },
+        {
+          "label": "API token",
+          "x": 217,
+          "y": 391.7421875,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 428.2421875
+        },
+        {
+          "label": "Currency symbol",
+          "x": 217,
+          "y": 721.359375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 757.859375
+        }
+      ]
+    },
+    {
+      "size": {
+        "width": 850,
+        "height": 600
+      },
+      "theme": "light",
+      "section": "agent-approvals",
+      "header": {
+        "x": 185,
+        "y": 27,
+        "width": 665,
+        "height": 71.5,
+        "right": 850,
+        "bottom": 98.5
+      },
+      "scroller": {
+        "x": 185,
+        "y": 98.5,
+        "width": 665,
+        "height": 501.5,
+        "right": 850,
+        "bottom": 600
+      },
+      "workspace": {
+        "x": 185,
+        "y": 0,
+        "width": 665,
+        "height": 600,
+        "right": 850,
+        "bottom": 600
+      },
+      "target": {
+        "x": 201,
+        "y": 114.3203125,
+        "width": 622,
+        "height": 1352.90625,
+        "right": 823,
+        "bottom": 1467.2265625
+      },
+      "heading": {
+        "x": 217,
+        "y": 135.3203125,
+        "width": 590,
+        "height": 20,
+        "right": 807,
+        "bottom": 155.3203125
+      },
+      "padding": "16px",
+      "outline": "rgb(66, 105, 85)",
+      "accent": "#426955",
+      "scrollbarWidth": "thin",
+      "scrollWidth": 654,
+      "clientWidth": 654,
+      "scrollTop": 1079.5,
+      "maxScrollTop": 3824,
+      "fields": [
+        {
+          "label": "ThemeSystemLightDark",
+          "x": 217,
+          "y": -528.671875,
+          "width": 560,
+          "height": 38.5,
+          "right": 777,
+          "bottom": -490.171875
+        },
+        {
+          "label": "Manual location (optional)",
+          "x": 217,
+          "y": -139.171875,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": -102.671875
+        },
+        {
+          "label": "Google OAuth client ID",
+          "x": 217,
+          "y": 1695.734375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 1732.234375
+        },
+        {
+          "label": "Client secret (if required)",
+          "x": 217,
+          "y": 1773.734375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 1810.234375
+        },
+        {
+          "label": "Spotify client ID",
+          "x": 217,
+          "y": 1999.03125,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 2035.53125
+        },
+        {
+          "label": "Server address",
+          "x": 217,
+          "y": 2368.3359375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 2404.8359375
+        },
+        {
+          "label": "Username",
+          "x": 217,
+          "y": 2446.3359375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 2482.8359375
+        },
+        {
+          "label": "Password",
+          "x": 217,
+          "y": 2524.3359375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 2560.8359375
+        },
+        {
+          "label": "Refresh bookmarksManuallyEvery hourEvery day",
+          "x": 217,
+          "y": 2709.9453125,
+          "width": 560,
+          "height": 38.5,
+          "right": 777,
+          "bottom": 2748.4453125
+        },
+        {
+          "label": "Server address",
+          "x": 217,
+          "y": 2830.7421875,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 2867.2421875
+        },
+        {
+          "label": "API token",
+          "x": 217,
+          "y": 2908.7421875,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 2945.2421875
+        },
+        {
+          "label": "Currency symbol",
+          "x": 217,
+          "y": 3238.359375,
+          "width": 560,
+          "height": 36.5,
+          "right": 777,
+          "bottom": 3274.859375
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

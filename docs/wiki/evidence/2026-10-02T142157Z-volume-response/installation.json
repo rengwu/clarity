@@ -1,0 +1,28 @@
+{
+  "recordedAt": "2026-10-02T14:31:39.552390+00:00",
+  "installed": "/Users/rengwu/Applications/Clarity.app",
+  "testedBundle": "/Users/rengwu/Library/Caches/Clarity/volume-response-20261002T142157Z/Clarity.app",
+  "backup": null,
+  "alreadyMatched": true,
+  "priorHashes": {
+    "main.mjs": "2c1107dbe722ff3e6bfb0b6e82434aa6dfa7e95efcda8733b5791c873591d53c",
+    "preload.cjs": "8f51417738610391aa9ae5cd4bca18cfb43f19998a351244404972880890264a",
+    "worker.mjs": "ff1dd08710e3df237c3e640e7ebb2bc7a4764617f59f4918c5a2db50668f44a4",
+    "app.js": "6b3ce47594d1e33c4b7e4e183ba51674c8a42459728614312720962da0e4fdf0",
+    "app.css": "e83422110f9c0ec34d3b325a5d3483fb103bfc84dddc9c923d915373d337ed34",
+    "index.html": "bcd785e95fb0ab58fd806a26ac1c8ce7d5cd692c274ad1b014c3f681ae02293b",
+    "clarity-player": "a542af188b51e398434dcd075f3860a42af7c93c602e08ca68392e2a00598b91"
+  },
+  "installedHashes": {
+    "main.mjs": "2c1107dbe722ff3e6bfb0b6e82434aa6dfa7e95efcda8733b5791c873591d53c",
+    "preload.cjs": "8f51417738610391aa9ae5cd4bca18cfb43f19998a351244404972880890264a",
+    "worker.mjs": "ff1dd08710e3df237c3e640e7ebb2bc7a4764617f59f4918c5a2db50668f44a4",
+    "app.js": "6b3ce47594d1e33c4b7e4e183ba51674c8a42459728614312720962da0e4fdf0",
+    "app.css": "e83422110f9c0ec34d3b325a5d3483fb103bfc84dddc9c923d915373d337ed34",
+    "index.html": "bcd785e95fb0ab58fd806a26ac1c8ce7d5cd692c274ad1b014c3f681ae02293b",
+    "clarity-player": "a542af188b51e398434dcd075f3860a42af7c93c602e08ca68392e2a00598b91"
+  },
+  "allSevenMatch": true,
+  "signatureVerified": true,
+  "runningSessionRestarted": false
+}

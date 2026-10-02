@@ -1,0 +1,9 @@
+{
+  "recordedAt": "2026-10-01",
+  "scope": "External Cursor-inspired browser spike; synthetic data only",
+  "checks": {},
+  "notes": [
+    "Earlier intermediate 390px check found a zero-width content grid; fixed by explicit workspace column; all eleven navigation modules then measured 390px.",
+    "Final tab/focus restudy changes require a new visual check; browser handoff requested after BrowserInterruptedByHuman."
+  ]
+}

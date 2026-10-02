@@ -1,0 +1,175 @@
+TAP version 13
+# Subtest: OAuth state/PKCE, encrypted tokens, refresh and read-only Gmail with controlled responses
+ok 1 - OAuth state/PKCE, encrypted tokens, refresh and read-only Gmail with controlled responses
+  ---
+  duration_ms: 9103.604792
+  type: 'test'
+  ...
+# Subtest: Spotify login survives expiry and restart; renewal preserves and rotates refresh tokens
+ok 2 - Spotify login survives expiry and restart; renewal preserves and rotates refresh tokens
+  ---
+  duration_ms: 4191.983209
+  type: 'test'
+  ...
+# Subtest: Spotify search/playlist compatibility and playback failure presentation
+not ok 3 - Spotify search/playlist compatibility and playback failure presentation
+  ---
+  duration_ms: 32805.573541
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/connectors.mjs:367:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    locator.click: Timeout 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: 'Search', exact: true })[22m
+    [2m    - locator resolved to <button type="submit" aria-label="Search" class="icon-button quiet" data-tooltip="Search music">…</button>[22m
+    [2m  - attempting click action[22m
+    [2m    - waiting for element to be visible, enabled and stable[22m
+    [2m    - element is visible, enabled and stable[22m
+    [2m    - scrolling into view if needed[22m
+    [2m    - done scrolling[22m
+    [2m    - <p role="alert" class="player-error">Playback reconnect fixture</p> intercepts pointer events[22m
+    [2m  - retrying click action[22m
+    [2m    - waiting for element to be visible, enabled and stable[22m
+    [2m    - element is visible, enabled and stable[22m
+    [2m    - scrolling into view if needed[22m
+    [2m    - done scrolling[22m
+    [2m    - <header class="workspace-header">…</header> intercepts pointer events[22m
+    [2m  - retrying click action[22m
+    [2m    - waiting 20ms[22m
+    [2m    2 × waiting for element to be visible, enabled and stable[22m
+    [2m      - element is visible, enabled and stable[22m
+    [2m      - scrolling into view if needed[22m
+    [2m      - done scrolling[22m
+    [2m      - <p role="alert" class="player-error">Playback reconnect fixture</p> intercepts pointer events[22m
+    [2m    - retrying click action[22m
+    [2m      - waiting 100ms[22m
+    [2m    14 × waiting for element to be visible, enabled and stable[22m
+    [2m       - element is visible, enabled and stable[22m
+    [2m       - scrolling into view if needed[22m
+    [2m       - done scrolling[22m
+    [2m       - <p role="alert" class="player-error">Playback reconnect fixture</p> intercepts pointer events[22m
+    [2m     - retrying click action[22m
+    [2m       - waiting 500ms[22m
+    [2m       - waiting for element to be visible, enabled and stable[22m
+    [2m       - element is visible, enabled and stable[22m
+    [2m       - scrolling into view if needed[22m
+    [2m       - done scrolling[22m
+    [2m       - <header class="workspace-header">…</header> intercepts pointer events[22m
+    [2m     - retrying click action[22m
+    [2m       - waiting 500ms[22m
+    [2m       - waiting for element to be visible, enabled and stable[22m
+    [2m       - element is visible, enabled and stable[22m
+    [2m       - scrolling into view if needed[22m
+    [2m       - done scrolling[22m
+    [2m       - <p role="alert" class="player-error">Playback reconnect fixture</p> intercepts pointer events[22m
+    [2m     - retrying click action[22m
+    [2m       - waiting 500ms[22m
+    [2m       - waiting for element to be visible, enabled and stable[22m
+    [2m       - element is visible, enabled and stable[22m
+    [2m       - scrolling into view if needed[22m
+    [2m       - done scrolling[22m
+    [2m       - <p role="alert" class="player-error">Playback reconnect fixture</p> intercepts pointer events[22m
+    [2m     - retrying click action[22m
+    [2m       - waiting 500ms[22m
+    [2m    - waiting for element to be visible, enabled and stable[22m
+    [2m    - element is visible, enabled and stable[22m
+    [2m    - scrolling into view if needed[22m
+    [2m    - done scrolling[22m
+    [2m    - <p role="alert" class="player-error">Playback reconnect fixture</p> intercepts pointer events[22m
+    [2m  - retrying click action[22m
+    [2m    - waiting 500ms[22m
+    [2m    - waiting for element to be visible, enabled and stable[22m
+    [2m    - element is visible, enabled and stable[22m
+    [2m    - scrolling into view if needed[22m
+    [2m    - done scrolling[22m
+    [2m    - <header class="workspace-header">…</header> intercepts pointer events[22m
+    [2m  - retrying click action[22m
+    [2m    - waiting 500ms[22m
+    
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    TestContext.<anonymous> (/Users/rengwu/Desktop/Projects/clarity/tests/connectors.mjs:567:73)
+  ...
+# Subtest: Navidrome HTTP stream plays, seeks through the player bar and ends a single-song queue
+ok 4 - Navidrome HTTP stream plays, seeks through the player bar and ends a single-song queue
+  ---
+  duration_ms: 4033.835334
+  type: 'test'
+  ...
+# Subtest: command parsing proposes bounded editable fields and local search never calls providers
+ok 5 - command parsing proposes bounded editable fields and local search never calls providers
+  ---
+  duration_ms: 4.680375
+  type: 'test'
+  ...
+# Subtest: native redesign preserves source context, history, drafts, commands and compact controls
+not ok 6 - native redesign preserves source context, history, drafts, commands and compact controls
+  ---
+  duration_ms: 2887.804292
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/redesign.mjs:213:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    + actual - expected
+    
+    + ' Keep this draft'
+    - 'Keep this draft'
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 'Keep this draft'
+  actual: ' Keep this draft'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/rengwu/Desktop/Projects/clarity/tests/redesign.mjs:264:14)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: omni interpretation is opt-in, discards stale proposals and requires explicit provider queries
+ok 7 - omni interpretation is opt-in, discards stale proposals and requires explicit provider queries
+  ---
+  duration_ms: 8187.39
+  type: 'test'
+  ...
+# Subtest: model interpretation uses the existing model with no tools and rejects cancelled or invalid output
+ok 8 - model interpretation uses the existing model with no tools and rejects cancelled or invalid output
+  ---
+  duration_ms: 2330.270167
+  type: 'test'
+  ...
+# Subtest: spike parity: real motion, compact rows, connected tabs and reduced-motion keyboard controls
+ok 9 - spike parity: real motion, compact rows, connected tabs and reduced-motion keyboard controls
+  ---
+  duration_ms: 6538.312667
+  type: 'test'
+  ...
+# Subtest: Linkding reconciles upstream changes, preserves local fields, schedules refresh and stops cleanly
+ok 10 - Linkding reconciles upstream changes, preserves local fields, schedules refresh and stops cleanly
+  ---
+  duration_ms: 353.796291
+  type: 'test'
+  ...
+# Subtest: UI audit regressions: drafts, deletes, submissions, complete lists, themes, context and readable reviews
+ok 11 - UI audit regressions: drafts, deletes, submissions, complete lists, themes, context and readable reviews
+  ---
+  duration_ms: 31658.191333
+  type: 'test'
+  ...
+# Subtest: Mail and Music preserve navigation with controlled results; primary hover keeps contrast at minimum window size
+ok 12 - Mail and Music preserve navigation with controlled results; primary hover keeps contrast at minimum window size
+  ---
+  duration_ms: 5217.409583
+  type: 'test'
+  ...
+1..12
+# tests 12
+# suites 0
+# pass 10
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 50394.419875

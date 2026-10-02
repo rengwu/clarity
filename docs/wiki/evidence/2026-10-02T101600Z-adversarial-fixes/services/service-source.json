@@ -1,0 +1,8 @@
+{
+  "source": "/Users/rengwu/Desktop/Projects/clarity",
+  "hashes": {
+    "src/main/files.ts": "6adcc70850ffdec4fd71cca4b323f270d4df5f25c8621868cd08b54a947ff84f",
+    "src/main/modules.ts": "78a189633e7c40043767b89251737ca26a84bd77c60635089dfcea90654ec7d3",
+    "src/main/integrations.ts": "ea6f7359e385aafcd43682b38c1361754a3a9229e42c33e34c34c7a3202c5c29"
+  }
+}

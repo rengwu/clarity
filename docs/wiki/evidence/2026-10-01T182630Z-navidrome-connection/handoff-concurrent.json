@@ -1,0 +1,15 @@
+{
+  "recordedAt": "2026-10-01T18:47:12.950Z",
+  "changedSinceVerified": [
+    "src/renderer/main.tsx",
+    "src/renderer/settings.css",
+    "src/renderer/views/agent-approvals.tsx",
+    "src/renderer/views/permissions.tsx",
+    "src/renderer/views/settings-controls.tsx",
+    "src/renderer/views/settings.tsx",
+    "src/renderer/workspace.css",
+    "tests/music-pagination.mjs"
+  ],
+  "installedFilesDifferentFromVerified": [],
+  "currentApplication": "75ce6962fa7669b9ee5f0e487b56e1e0b873738b3cb6540cd41972b02ca9fc55"
+}

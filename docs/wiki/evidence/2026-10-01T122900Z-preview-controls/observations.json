@@ -1,0 +1,326 @@
+{
+  "initial": {
+    "tabId": "f964fe71-bf0e-497f-8962-7af568e16471",
+    "value": {
+      "viewport": {
+        "width": 1100,
+        "height": 760
+      },
+      "width": 344,
+      "button": {
+        "width": 120.5625,
+        "height": 28
+      },
+      "handle": {
+        "x": 752,
+        "width": 8,
+        "now": "344"
+      },
+      "chatVisible": true,
+      "backDisabled": true,
+      "draft": "Keep these two mornings clear.",
+      "overflow": false
+    },
+    "serializedByteCount": 230
+  },
+  "drag": {
+    "tabId": "f964fe71-bf0e-497f-8962-7af568e16471",
+    "value": {
+      "panelWidth": 450,
+      "ariaWidth": "450",
+      "resizing": false,
+      "chatVisible": true,
+      "draft": "Keep these two mornings clear.",
+      "overflow": false
+    },
+    "serializedByteCount": 130
+  },
+  "keyboard": {
+    "tabId": "f964fe71-bf0e-497f-8962-7af568e16471",
+    "value": {
+      "focused": {
+        "id": "source-resizer",
+        "focusVisible": true
+      },
+      "values": [
+        {
+          "key": "ArrowLeft",
+          "width": "466"
+        },
+        {
+          "key": "ArrowRight",
+          "width": "450"
+        },
+        {
+          "key": "Home",
+          "width": "280"
+        },
+        {
+          "key": "ArrowRight",
+          "width": "280"
+        },
+        {
+          "key": "End",
+          "width": "640"
+        },
+        {
+          "key": "ArrowLeft",
+          "width": "640"
+        },
+        {
+          "key": "Shift+ArrowRight",
+          "width": "600"
+        }
+      ],
+      "final": {
+        "width": 600,
+        "chatWidth": 500,
+        "overflow": false
+      }
+    },
+    "serializedByteCount": 357
+  },
+  "retention": {
+    "tabId": "f964fe71-bf0e-497f-8962-7af568e16471",
+    "value": {
+      "widths": [
+        {
+          "targetX": 100,
+          "width": "640"
+        },
+        {
+          "targetX": 1000,
+          "width": "280"
+        },
+        {
+          "targetX": 690,
+          "width": "410"
+        }
+      ],
+      "closed": {
+        "chat": true,
+        "inert": true,
+        "handleHidden": true,
+        "triggerFocused": true
+      },
+      "before": {
+        "width": 410,
+        "scroll": 219,
+        "draft": "Keep these two mornings clear.",
+        "backDisabled": true
+      },
+      "module": {
+        "location": "Notes",
+        "handleHidden": true
+      },
+      "after": {
+        "width": 410,
+        "scroll": 219,
+        "draft": "Keep these two mornings clear.",
+        "location": "Chat"
+      },
+      "forward": "Notes"
+    },
+    "serializedByteCount": 440
+  },
+  "narrow": {
+    "tabId": "f964fe71-bf0e-497f-8962-7af568e16471",
+    "value": {
+      "viewport": 390,
+      "width": 310,
+      "max": "358",
+      "handleX": 76,
+      "buttonWidth": 120.5625,
+      "overflow": false
+    },
+    "serializedByteCount": 93
+  },
+  "proof": {
+    "tabId": "f964fe71-bf0e-497f-8962-7af568e16471",
+    "url": "http://127.0.0.1:4319/",
+    "capturedAt": "2026-10-01T12:28:43.280Z",
+    "mode": "viewport",
+    "clipped": false,
+    "image": {
+      "mimeType": "image/png",
+      "width": 2200,
+      "height": 1520,
+      "byteLength": 260504
+    },
+    "artifactPath": "/Users/rengwu/.synara/codex-home-overlay/generated_images/browser-proof/b01e8a085dc53e5d5415dd93/59ea09e8-29b9-42d4-bfb7-d8a02f9458f4.png"
+  },
+  "console": {
+    "tabId": "f964fe71-bf0e-497f-8962-7af568e16471",
+    "startedAt": "2026-10-01T12:08:51.752Z",
+    "capturedAt": "2026-10-01T12:29:11.092Z",
+    "entries": [
+      {
+        "kind": "console",
+        "timestamp": "2026-10-01T12:08:51.798Z",
+        "level": "warn",
+        "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+        "lineNumber": 7
+      },
+      {
+        "kind": "console",
+        "timestamp": "2026-10-01T12:08:51.803Z",
+        "level": "error",
+        "text": "Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-A16GcAaBan0Z+VCtmLKvPijbZ03UuoYUpujnYWQ+Wgo='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.",
+        "url": "invalid:[redacted]",
+        "lineNumber": 2152
+      },
+      {
+        "kind": "console",
+        "timestamp": "2026-10-01T12:09:17.002Z",
+        "level": "warn",
+        "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+        "lineNumber": 7
+      },
+      {
+        "kind": "console",
+        "timestamp": "2026-10-01T12:09:17.002Z",
+        "level": "error",
+        "text": "Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-A16GcAaBan0Z+VCtmLKvPijbZ03UuoYUpujnYWQ+Wgo='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.",
+        "url": "invalid:[redacted]",
+        "lineNumber": 2152
+      },
+      {
+        "kind": "console",
+        "timestamp": "2026-10-01T12:09:40.862Z",
+        "level": "warn",
+        "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+        "lineNumber": 7
+      },
+      {
+        "kind": "console",
+        "timestamp": "2026-10-01T12:09:40.863Z",
+        "level": "error",
+        "text": "Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-A16GcAaBan0Z+VCtmLKvPijbZ03UuoYUpujnYWQ+Wgo='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.",
+        "url": "invalid:[redacted]",
+        "lineNumber": 2152
+      },
+      {
+        "kind": "console",
+        "timestamp": "2026-10-01T12:10:33.993Z",
+        "level": "warn",
+        "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+        "lineNumber": 7
+      },
+      {
+        "kind": "console",
+        "timestamp": "2026-10-01T12:10:33.994Z",
+        "level": "error",
+        "text": "Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-A16GcAaBan0Z+VCtmLKvPijbZ03UuoYUpujnYWQ+Wgo='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.",
+        "url": "invalid:[redacted]",
+        "lineNumber": 2152
+      },
+      {
+        "kind": "console",
+        "timestamp": "2026-10-01T12:26:50.530Z",
+        "level": "warn",
+        "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+        "lineNumber": 7
+      },
+      {
+        "kind": "console",
+        "timestamp": "2026-10-01T12:26:50.540Z",
+        "level": "error",
+        "text": "Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-A16GcAaBan0Z+VCtmLKvPijbZ03UuoYUpujnYWQ+Wgo='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.",
+        "url": "invalid:[redacted]",
+        "lineNumber": 2152
+      },
+      {
+        "kind": "console",
+        "timestamp": "2026-10-01T12:27:08.394Z",
+        "level": "warn",
+        "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+        "lineNumber": 7
+      },
+      {
+        "kind": "console",
+        "timestamp": "2026-10-01T12:27:08.394Z",
+        "level": "error",
+        "text": "Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-A16GcAaBan0Z+VCtmLKvPijbZ03UuoYUpujnYWQ+Wgo='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.",
+        "url": "invalid:[redacted]",
+        "lineNumber": 2152
+      },
+      {
+        "kind": "console",
+        "timestamp": "2026-10-01T12:27:25.279Z",
+        "level": "warn",
+        "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+        "lineNumber": 7
+      },
+      {
+        "kind": "console",
+        "timestamp": "2026-10-01T12:27:25.280Z",
+        "level": "error",
+        "text": "Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-A16GcAaBan0Z+VCtmLKvPijbZ03UuoYUpujnYWQ+Wgo='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.",
+        "url": "invalid:[redacted]",
+        "lineNumber": 2152
+      },
+      {
+        "kind": "console",
+        "timestamp": "2026-10-01T12:27:45.617Z",
+        "level": "warn",
+        "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+        "lineNumber": 7
+      },
+      {
+        "kind": "console",
+        "timestamp": "2026-10-01T12:27:45.618Z",
+        "level": "error",
+        "text": "Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-A16GcAaBan0Z+VCtmLKvPijbZ03UuoYUpujnYWQ+Wgo='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.",
+        "url": "invalid:[redacted]",
+        "lineNumber": 2152
+      },
+      {
+        "kind": "console",
+        "timestamp": "2026-10-01T12:28:11.157Z",
+        "level": "warn",
+        "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+        "lineNumber": 7
+      },
+      {
+        "kind": "console",
+        "timestamp": "2026-10-01T12:28:11.158Z",
+        "level": "error",
+        "text": "Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-A16GcAaBan0Z+VCtmLKvPijbZ03UuoYUpujnYWQ+Wgo='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.",
+        "url": "invalid:[redacted]",
+        "lineNumber": 2152
+      },
+      {
+        "kind": "console",
+        "timestamp": "2026-10-01T12:28:42.355Z",
+        "level": "warn",
+        "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+        "lineNumber": 7
+      },
+      {
+        "kind": "console",
+        "timestamp": "2026-10-01T12:28:42.355Z",
+        "level": "error",
+        "text": "Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-A16GcAaBan0Z+VCtmLKvPijbZ03UuoYUpujnYWQ+Wgo='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.",
+        "url": "invalid:[redacted]",
+        "lineNumber": 2152
+      },
+      {
+        "kind": "console",
+        "timestamp": "2026-10-01T12:28:43.031Z",
+        "level": "warn",
+        "text": "navigator.modelContext is deprecated. Please use document.modelContext instead.",
+        "lineNumber": 7
+      },
+      {
+        "kind": "console",
+        "timestamp": "2026-10-01T12:28:43.031Z",
+        "level": "error",
+        "text": "Applying inline style violates the following Content Security Policy directive 'style-src 'self''. Either the 'unsafe-inline' keyword, a hash ('sha256-A16GcAaBan0Z+VCtmLKvPijbZ03UuoYUpujnYWQ+Wgo='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.",
+        "url": "invalid:[redacted]",
+        "lineNumber": 2152
+      }
+    ],
+    "droppedCount": 0,
+    "truncated": false
+  }
+}

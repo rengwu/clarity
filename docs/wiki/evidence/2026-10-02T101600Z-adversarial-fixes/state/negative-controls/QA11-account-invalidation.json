@@ -1,0 +1,80 @@
+{
+  "requests": [
+    {
+      "method": "list",
+      "account": "Previous",
+      "args": {
+        "pageToken": "",
+        "query": ""
+      }
+    },
+    {
+      "method": "read",
+      "account": "Previous",
+      "args": {
+        "id": "Previous-message"
+      }
+    },
+    {
+      "method": "list",
+      "account": "Previous",
+      "args": {
+        "pageToken": "",
+        "query": ""
+      }
+    },
+    {
+      "method": "read",
+      "account": "Previous",
+      "args": {
+        "id": "Previous-message"
+      }
+    },
+    {
+      "method": "list",
+      "account": "Previous",
+      "args": {
+        "pageToken": "",
+        "query": ""
+      }
+    },
+    {
+      "method": "read",
+      "account": "Previous",
+      "args": {
+        "id": "Previous-message"
+      }
+    },
+    {
+      "method": "list",
+      "account": "Previous",
+      "args": {
+        "pageToken": "",
+        "query": ""
+      }
+    },
+    {
+      "method": "read",
+      "account": "Previous",
+      "args": {
+        "id": "Previous-message"
+      }
+    },
+    {
+      "method": "read",
+      "account": "Current",
+      "args": {
+        "id": "Previous-message"
+      }
+    },
+    {
+      "method": "list",
+      "account": "Current",
+      "args": {
+        "pageToken": "",
+        "query": ""
+      }
+    }
+  ],
+  "reader": "Fixture current mailbox unavailable\n\nPrevious subject\nPrevious@example.invalid\n10/1/2026, 12:00:00 PM\nPrevious private fixture body"
+}

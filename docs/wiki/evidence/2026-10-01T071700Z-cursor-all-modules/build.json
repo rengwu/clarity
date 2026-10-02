@@ -1,0 +1,21 @@
+{
+  "recordedAt": "2026-10-01T07:46:29.702996+00:00",
+  "source": "/Users/rengwu/Desktop/Projects/clarity-spikes/2026-10-01-cursor",
+  "node": "v22.19.0",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "sourceSha256": "a1032f509c0a372bd92e1c21c12d4569ac0dfe9c76c1bfc36405bddc751b1c27",
+  "files": {
+    "index.html": "ec7922bb772709c49f021076dc9e1c3e5bba8d76278b01c4fbad8adb269f1979",
+    "style.css": "35acd1ff962bae6a6e74e5256ad17782cfaf55d6cd3992397a9b09b0f791fb03",
+    "design.css": "13853f8f039e6b28f64ecc0a0730f532e3aa1364cff63544ac1d5437e5d54a49",
+    "app.js": "ddf5c76c23dc002f22e5b57e51bcdf1d4df1327e9dd721db8ae99a9dfe882336",
+    "data.js": "5ce5515f8993001f89cb58d6d1f293216b11924003a9679bfb9bacbfa29e4993",
+    "ui.js": "69f20b0b78c3f9a7e36c289477ef1eacaa92576a40f5e72fcb187e08fe9d9bcc",
+    "fixtures.js": "059420a9556122326428532e25397dbba74eced4a340bb86bef6710955601d2d",
+    "modules.js": "b6421fdba142760104a39a7de018ca2e0510887359b6663283c6eef1b6e3576b",
+    "music.js": "df1e84b1b0ce7220876fbf64371a99f1ddc1dfad0f467a86af65b2e73cc77f0a",
+    "motion.js": "08f87161621d1416f00f1e005dfb847e4147e73d4012ca65ee67a0c8a8c9922c",
+    "server.mjs": "1104c3abe98d383ca9474974a132bfbb9ae84e1134a9177c9f5373798f8e47fd"
+  },
+  "browserVerification": "Latest compact layout pending human browser handoff; earlier functional observations refer to intermediate expanded builds."
+}

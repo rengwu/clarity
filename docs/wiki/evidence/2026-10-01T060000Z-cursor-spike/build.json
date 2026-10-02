@@ -1,0 +1,22 @@
+{
+  "recordedAt": "2026-10-01T06:06:57.370718+00:00",
+  "source": "/Users/rengwu/Desktop/Projects/clarity-spikes/2026-10-01-cursor",
+  "node": "v22.19.0",
+  "platform": "macOS-27.0-arm64-arm-64bit-Mach-O",
+  "sourceSha256": "369dd12821a5ca93738bd2b68ac250ed7e97a72b465c7fc5cbaa201df72fd025",
+  "files": {
+    "index.html": "ef63382f60b8007772c2715cff5e15147a9f9ca582142e50f05725e3b08b1724",
+    "style.css": "35acd1ff962bae6a6e74e5256ad17782cfaf55d6cd3992397a9b09b0f791fb03",
+    "app.js": "45fddd451540351f0339e0c105c217b127bdb9257bef96442b053a15260ffe69",
+    "data.js": "d6caaa9e627efbd0358d796f13aaae5dea05508a0afc5d1f19b395c5a76a4c42",
+    "ui.js": "feef41fa742a602bb54a21eb6f20bf0674f86428db5149c5d4b619d08e051adb",
+    "server.mjs": "a66ebd06612f6228d0128769e6f1de580b5067cdac54d91c780bd777a1c07d3c"
+  },
+  "reference": {
+    "app": "Cursor Desktop / Cursor Agents",
+    "version": "3.20.21",
+    "darkTheme": "/Applications/Cursor.app/Contents/Resources/app/extensions/theme-cursor/themes/cursor-dark-color-theme.json",
+    "lightTheme": "/Applications/Cursor.app/Contents/Resources/app/extensions/theme-cursor/themes/cursor-light-color-theme.json",
+    "nativeExploration": "Window captured; automated navigation unavailable because macOS Accessibility was not granted."
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "recordedAt": "2026-10-01T06:07:04Z",
+  "url": "http://127.0.0.1:4318/",
+  "driver": "Synara integrated browser; real named controls and keyboard events; storage read only for observation",
+  "scope": "Disposable browser spike only; no production runtime or live accounts",
+  "results": [
+    {
+      "scenario": "Chat proposal apply and item link",
+      "result": "Passed",
+      "actual": "Applied the seeded two-task proposal; total task count changed from 6 to 8; card became Applied; Open Todos opened the shared list."
+    },
+    {
+      "scenario": "Task add, date, completion, edit cancellation and delete cancellation",
+      "result": "Passed",
+      "actual": {
+        "task": {
+          "id": "84c209cf-33ad-4271-89e5-565ee8fb629d",
+          "title": "Browser verification task",
+          "date": "2026-10-09",
+          "done": true
+        },
+        "cancelledEditAbsent": true,
+        "dialogClosed": true
+      }
+    },
+    {
+      "scenario": "Note creation, Markdown editing, rename and preview",
+      "result": "Passed",
+      "actual": {
+        "note": {
+          "id": "85ab5190-093e-4dc2-b971-48ce3e16f40d",
+          "title": "Verification note",
+          "folder": "Personal",
+          "text": "# Verification note\n\nThis edit should survive a reload."
+        },
+        "rendered": "Verification noteThis edit should survive a reload.",
+        "overflow": false
+      }
+    },
+    {
+      "scenario": "Browser reload persistence",
+      "result": "Passed",
+      "actual": {
+        "draft": "An unsent draft for verification",
+        "context": "Making space for focused work",
+        "note": {
+          "id": "85ab5190-093e-4dc2-b971-48ce3e16f40d",
+          "title": "Verification note",
+          "folder": "Personal",
+          "text": "# Verification note\n\nThis edit should survive a reload."
+        },
+        "task": {
+          "id": "84c209cf-33ad-4271-89e5-565ee8fb629d",
+          "title": "Browser verification task",
+          "date": "2026-10-09",
+          "done": true
+        },
+        "proposal": "applied",
+        "chatScroll": 156
+      }
+    },
+    {
+      "scenario": "Optional calendar projection",
+      "result": "Passed",
+      "actual": "Enabled Calendar; completed task dated 2026-10-09 was visible; clicking it focused task-84c209cf-33ad-4271-89e5-565ee8fb629d in Todos."
+    },
+    {
+      "scenario": "Wiki draft handoff",
+      "result": "Passed",
+      "actual": "Ask in chat kept the unsent draft, attached Making space for focused work, and left the seeded chat message count at 3."
+    },
+    {
+      "scenario": "Scripted chat dismissal and stop",
+      "result": "Passed",
+      "actual": "Sent Add a task to check the browser prototype; dismissed the resulting proposal; no task created. Sent Summarize my notes; Stop response saved a stopped result without another response."
+    },
+    {
+      "scenario": "Command palette and context shortcut",
+      "result": "Passed",
+      "actual": "Cmd+K searched Verification note; Enter opened the note; Escape closed the palette. Typing @ in the composer opened Add context."
+    },
+    {
+      "scenario": "Delete confirmation and reset",
+      "result": "Passed",
+      "actual": "Confirmed deletion removed the verification task. Reset restored 6 original tasks, default dark appearance and default modules."
+    },
+    {
+      "scenario": "Responsive layout and themes",
+      "result": "Passed",
+      "actual": {
+        "sizes": [
+          [
+            1280,
+            800
+          ],
+          [
+            850,
+            600
+          ],
+          [
+            1440,
+            900
+          ]
+        ],
+        "horizontalDocumentOverflow": false,
+        "smallChatComposer": {
+          "x": 227,
+          "y": 408.5,
+          "width": 601,
+          "height": 135,
+          "bottom": 543.5
+        },
+        "smallContextHidden": true,
+        "lightColors": {
+          "foreground": "rgb(38, 38, 38)",
+          "background": "rgb(252, 252, 252)"
+        },
+        "finalProposalButtonVisibleAboveComposer": true
+      }
+    },
+    {
+      "scenario": "Runtime and serving",
+      "result": "Passed",
+      "actual": "All source requests returned HTTP 200. No page exceptions observed. The browser helper emitted its own navigator.modelContext deprecation warnings. Node syntax checks passed."
+    }
+  ],
+  "harnessNotes": [
+    "Date input cannot be entered through human.type in this browser. That attempt left the dialog open. Native segmented keyboard entry produced and saved 2026-10-09.",
+    "A screenshot captured immediately after navigation contained the preceding Notes frame despite Chat DOM being ready. A later screenshot was inspected and confirmed the actual Chat view."
+  ],
+  "limits": [
+    "Scripted responses, browser localStorage, limited Markdown preview/source editing, no real files or providers.",
+    "Cursor native window and installed themes inspected; interactive navigation was gated by macOS Accessibility.",
+    "No production Electron/package regression pass or VoiceOver/mobile-browser claim."
+  ]
+}

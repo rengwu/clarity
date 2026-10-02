@@ -1,0 +1,48 @@
+{
+  "checks": {
+    "applicationTests": {
+      "passed": 32,
+      "failed": 0,
+      "skipped": 2
+    },
+    "packageTests": {
+      "passed": 1,
+      "failed": 0
+    },
+    "wikiTests": {
+      "passed": 13,
+      "failed": 0
+    }
+  },
+  "installedStartup": "Pending user unlock of macOS Clarity Safe Storage prompt",
+  "livePlayback": "Pending separate playback sign-in",
+  "evidenceHashes": {
+    "automation-dialog-final.png": "5b561115f4c89ff69533a2209acad7cf80972220ed21b6f6cd1bada977f525ab",
+    "before-build.json": "78b2de0dfd8d5bb757f9d854a2d410edad2a4c9bad5c391cd1431dae8faf7191",
+    "compact-light-verified.png": "076f743a6014820620afcfd74b1c937dc2dbcf4f52d52ff5e42a61c1b39c398a",
+    "expenses-final.png": "b3e9140f02448c78d972c93abc51a96a6ce6e7c00790919e76d7e0f7328adbbf",
+    "final-build.json": "d5e718f892e0202dd1a6906bfb33f6be29e8e7ad772b3aac830582fb95077ef9",
+    "final-check.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "final-tests-3.log": "162f83e1b44313677e44a18c1fa81184c33d354957c0364dc16c2f47ef176dcf",
+    "final-tests.log": "9ce2b3b976d141a22d5d2825fc90f9bf9a375f4a24de445c3021ee0d6b91e54a",
+    "installation.json": "3e1c069da4d380e938f137cc7c0eb3ecfb15dc6c75c099e3ba565d8ec4a0526f",
+    "interpretation-observations.json": "593b9bfa07a6cde26daf96f7d9f2431efd69ee5f0fe96e3907bc5fae4c288b39",
+    "live-spotify-diagnosis.json": "8cdd6b390f98446c9388f655ef1b926edac728b618e5428fa6a89cda6b2b4d8b",
+    "mail-final.png": "35f0b2667984af963120613ff973af137081a8e4a6d29aab67ed24347d6cf751",
+    "motion-observations.json": "9bdba93753608c2e39116e3e7aff320387eb12bcfd2cfd63d00ac215c6eb68c9",
+    "music-final.png": "ae7612ecfbf070b4aae1b78bddb9beb7ee7836ce2c567a4b3816c82792d87217",
+    "music-light-minimum-final.png": "14fe8a9826ead27309005e4668be9e2bcf847aa472a08f215e39fd354c891342",
+    "music-playing.png": "140c2e3e499b98ce233eb324b625a68af4fa7f1b0f772d0559e4e8c83b09c507",
+    "news-minimum-final.png": "45bfd6ecae0de4a70cfe5eac8295eb503105d93583b8b842403e26494a4798cb",
+    "notes-final.png": "2d3f40df672d2ddc7a659d40b347a20d175508c10275da6daa1d1ec7f76c53bc",
+    "package-build.log": "b1b33697986ddbe4cf5c9e185f33297eb7c9c03d780c08330329e60614c355fa",
+    "package-tests.log": "1a4b3742acebb072f5fca91f224fb3535d84eadeb6ae0b05e23813b2cb65d606",
+    "preview-verified.png": "02089ab1793e70936d4850530335a88f47e9851218b30ae093afda011572dbb3",
+    "redesign-observations.json": "7808eae8ed27ed0a3335333844670651fe5ebab9d60d61c1461038ab2ace033f",
+    "request-observations.json": "76f1d45e03b5ee04e1228725ea4bb6d3f88a26e5722c67c8272f64e36b4816bc",
+    "test-build.json": "7a1f303d5513854546c63c24d249fac32dad81232de4e58b2ac9738ac491338d",
+    "visual-observations.json": "067b1eb1c552399f4fd9e352ab2dfaae5356ccaaad964a747d319bd57f993614",
+    "wiki-final.png": "5d2fa4fe16bdbccf64931e28892ec66cbf86d75abd09b3e0986fecd5f379075e",
+    "wiki-tests.log": "3b62ac1f7cd75bbafe2fb213019df946285d6d0a002fb8eac51ca8bda035b9cf"
+  }
+}

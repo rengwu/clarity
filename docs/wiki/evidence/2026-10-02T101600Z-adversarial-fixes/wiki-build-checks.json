@@ -1,0 +1,19 @@
+[
+  {
+    "command": [
+      "node",
+      "docs/wiki/_build.mjs"
+    ],
+    "exitCode": 0,
+    "completedAt": "2026-10-02T10:50:36.504060+00:00"
+  },
+  {
+    "command": [
+      "node",
+      "docs/wiki/_build.mjs",
+      "--check"
+    ],
+    "exitCode": 0,
+    "completedAt": "2026-10-02T10:50:36.926699+00:00"
+  }
+]

@@ -1,0 +1,64 @@
+TAP version 13
+# Subtest: OAuth state/PKCE, encrypted tokens, refresh and read-only Gmail with controlled responses
+ok 1 - OAuth state/PKCE, encrypted tokens, refresh and read-only Gmail with controlled responses
+  ---
+  duration_ms: 6447.414084
+  type: 'test'
+  ...
+# Subtest: Spotify login survives expiry and restart; renewal preserves and rotates refresh tokens
+ok 2 - Spotify login survives expiry and restart; renewal preserves and rotates refresh tokens
+  ---
+  duration_ms: 3121.5345
+  type: 'test'
+  ...
+# Subtest: Spotify search/playlist compatibility and playback failure presentation
+ok 3 - Spotify search/playlist compatibility and playback failure presentation
+  ---
+  duration_ms: 2820.754709
+  type: 'test'
+  ...
+# Subtest: Navidrome HTTP stream plays, seeks through the player bar and ends a single-song queue
+ok 4 - Navidrome HTTP stream plays, seeks through the player bar and ends a single-song queue
+  ---
+  duration_ms: 2430.190541
+  type: 'test'
+  ...
+# Subtest: Music caches navigation reads, shares pending requests and invalidates changed accounts
+ok 5 - Music caches navigation reads, shares pending requests and invalidates changed accounts
+  ---
+  duration_ms: 6781.645125
+  type: 'test'
+  ...
+# Subtest: gain metadata handles absent, invalid, quiet and peak-limited recordings
+ok 6 - gain metadata handles absent, invalid, quiet and peak-limited recordings
+  ---
+  duration_ms: 0.616792
+  type: 'test'
+  ...
+# Subtest: Music chooses album/track normalization and sends volume before native playback
+ok 7 - Music chooses album/track normalization and sends volume before native playback
+  ---
+  duration_ms: 1.601875
+  type: 'test'
+  ...
+# Subtest: Spotify keeps the helper until normalization changes at a new load
+ok 8 - Spotify keeps the helper until normalization changes at a new load
+  ---
+  duration_ms: 122.303292
+  type: 'test'
+  ...
+# Subtest: native Music UI applies normalization, album/shuffle modes, settings and persistence
+ok 9 - native Music UI applies normalization, album/shuffle modes, settings and persistence
+  ---
+  duration_ms: 6130.678084
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 28238.577791

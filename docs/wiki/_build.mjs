@@ -1,4 +1,4 @@
-// Wiki builder v1.0.0. Node.js 22+. No package installation or network access.
+// Wiki builder v1.2.0. Node.js 22+. No package installation or network access.
 // This script scans Markdown beside itself and writes index.html in that directory.
 // Copy it into another wiki folder to reuse it. Templates and dependencies are embedded below.
 // Usage: node path/to/_build.mjs [--check | --help]
@@ -6,6 +6,8 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
+import { createHash } from 'node:crypto';
+import { createReadStream } from 'node:fs';
 const require = createRequire(import.meta.url);
 
 /*
@@ -495,6 +497,17 @@ const template = `<!doctype html>
   <meta name="description" content="Offline Markdown wiki.">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; font-src 'none'; base-uri 'none'; form-action 'none'">
   <title>/* WIKI_NAME */</title>
+  <script>
+    // Apply the saved preference before painting, including when opened as a local file.
+    (() => {
+      let preference = 'automatic';
+      try { preference = localStorage.getItem('planning-wiki-color') || preference; } catch {}
+      if (!['automatic', 'light', 'dark'].includes(preference)) preference = 'automatic';
+      document.documentElement.dataset.colorPreference = preference;
+      document.documentElement.dataset.theme = preference === 'automatic'
+        ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : preference;
+    })();
+  </script>
   <style>/* WIKI_STYLE */</style>
 </head>
 <body>
@@ -502,6 +515,14 @@ const template = `<!doctype html>
 <header class="site-header">
   <a href="#/index" class="brand" aria-label="Wiki home">/* WIKI_NAME */</a>
   <form id="search-form" role="search"><label class="sr-only" for="search">Search the wiki</label><input id="search" type="search" autocomplete="off" aria-keyshortcuts="/"><button type="submit">Search</button></form>
+  <details id="appearance" class="appearance">
+    <summary><svg aria-hidden="true" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10 2a8 8 0 0 1 0 16Z" fill="currentColor"/></svg>Appearance</summary>
+    <fieldset><legend>Color</legend>
+      <label><input type="radio" name="color" value="automatic" checked>Automatic</label>
+      <label><input type="radio" name="color" value="light">Light</label>
+      <label><input type="radio" name="color" value="dark">Dark</label>
+    </fieldset>
+  </details>
 </header>
 <div class="workspace">
   <aside class="navigation" aria-label="Wiki navigation"><details id="navigation-details" open><summary>Pages</summary><nav id="navigation"></nav></details></aside>
@@ -511,7 +532,7 @@ const template = `<!doctype html>
     <section id="search-results" aria-label="Search results" hidden><p id="result-count" role="status"></p><div id="results"></div></section>
     <div id="article-view"><article id="article" tabindex="-1"></article><section id="backlinks"><h2>Linked from</h2><div id="backlink-list"></div></section></div>
     <div id="source-view" hidden><p class="source-note">Source: <code id="source-path"></code> · Edit the Markdown file, then rebuild this reader.</p><pre id="source-text"></pre></div>
-    <footer id="page-meta"><span id="status"></span><span id="updated"></span></footer>
+    <footer id="page-meta"></footer>
   </main>
   <aside id="contents" class="contents" aria-label="Article contents"><div class="contents-title">Contents</div><nav id="toc"></nav></aside>
 </div>
@@ -521,22 +542,50 @@ const template = `<!doctype html>
 </body>
 </html>
 `;
-const css = `:root{color-scheme:light;--ink:#202122;--muted:#626970;--line:#d9dce1;--blue:#365fa5;--paper:#fff;--soft:#f8f9fa}
-*{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--paper);font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}button,input{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--blue);outline-offset:4px}button{color:var(--ink)}[hidden]{display:none!important}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}.skip{position:fixed;top:-80px;left:20px;background:#fff;padding:12px;z-index:10}.skip:focus{top:8px}
-.site-header{max-width:1600px;margin:auto;padding:28px 42px 24px;display:flex;align-items:center;gap:52px;border-bottom:1px solid #eaecf0}.brand{color:var(--ink);min-width:204px;font:26px/1.2 Georgia,serif}.brand:hover{text-decoration:none}#search-form{display:flex;align-items:center;border:1px solid #a2a9b1;max-width:510px;flex:1;height:36px}#search{width:100%;min-width:0;border:0;outline:none;font-size:13px;background:transparent;padding:0 10px}#search-form:focus-within{outline:2px solid #36c;outline-offset:-1px}#search-form button{height:100%;border:0;border-left:1px solid #a2a9b1;background:var(--soft);font-size:12px;font-weight:600;padding:0 15px}
-.workspace{max-width:1500px;margin:auto;padding:32px 42px 50px;display:grid;grid-template-columns:190px minmax(0,1fr) 164px;gap:42px}.navigation{font-size:13px}.navigation>details>summary{font-weight:600;padding:0 0 12px;border-bottom:1px solid var(--line);cursor:pointer}.nav-group{margin-top:22px}.nav-group-label{font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px}.nav-group a{display:block;padding:3px 9px;margin-left:-9px;line-height:1.65;border-left:2px solid transparent}.nav-group a[aria-current=page]{color:#202122;border-color:#365fa5;background:#f1f4f8;font-weight:600}
-main{min-width:0}h1{font:normal 38px/1.18 Georgia,"Times New Roman",serif;margin:0 0 14px;overflow-wrap:anywhere}.toolbar{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);margin-bottom:22px;font-size:12px}.toolbar>div{display:flex;gap:18px}.toolbar button{padding:0 0 9px;border:0;border-bottom:2px solid transparent;background:none;color:var(--blue);font-size:12px}.toolbar button.selected{color:var(--ink);border-bottom-color:var(--ink)}article{overflow-wrap:anywhere}h2{font:normal 24px/1.3 Georgia,"Times New Roman",serif;border-bottom:1px solid var(--line);padding-bottom:6px;margin:30px 0 14px;scroll-margin-top:24px}h3{font-size:16px;margin-top:24px}p{margin:12px 0}ul,ol{padding-left:24px}li{margin:6px 0}table{border-collapse:collapse;margin:20px 0;width:100%;font-size:13px;line-height:1.6}th,td{border:1px solid #c8ccd1;padding:10px 13px;text-align:left;vertical-align:top}th{background:#eaecf0;font-weight:600}tr:nth-child(even) td{background:#fafbfc}td:first-child{min-width:100px}code{font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;background:#f3f4f5;padding:2px 4px;border-radius:2px}pre{white-space:pre-wrap;overflow-wrap:anywhere;padding:18px;background:var(--soft);border:1px solid var(--line);font:12px/1.8 ui-monospace,SFMono-Regular,Menlo,monospace}pre code{background:transparent;padding:0}.source-note{font-size:12px;color:var(--muted)}blockquote{border-left:3px solid #c8ccd1;margin-left:0;padding-left:18px;color:var(--muted)}#backlinks{margin-top:38px}#backlinks h2{font:600 12px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--muted);border-top:1px solid var(--line);border-bottom:0;padding:14px 0 0}#backlink-list{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12px}footer{display:flex;justify-content:space-between;gap:15px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);margin-top:32px;padding-top:15px}
-.contents{align-self:start;position:sticky;top:26px;font-size:12px;padding-top:1px}.contents-title{font-weight:600;padding-bottom:12px;border-bottom:1px solid var(--line)}#toc a{display:block;margin-top:12px;line-height:1.5}#toc a.nested{padding-left:12px}.result{border-bottom:1px solid var(--line);padding:17px 0}.result h2{font-size:23px;margin:0 0 5px;border:none;padding:0}.result p{font-size:13px;color:var(--muted);margin:4px 0}.result small{font-size:12px;color:var(--muted)}#result-count{font-size:13px;color:var(--muted)}mark{background:#fff0ba;color:inherit}
+const css = `:root{color-scheme:light;--ink:#202122;--muted:#54595d;--line:#c8ccd1;--blue:#36c;--paper:#fff;--soft:#f8f9fa;--border:#a2a9b1;--header-line:#eaecf0;--selected:#eaf3ff;--table-head:#eaecf0;--stripe:#f8f9fa;--code:#f8f9fa;--highlight:#fff0ba}
+:root[data-theme=dark]{color-scheme:dark;--ink:#eaecf0;--muted:#a2a9b1;--line:#404244;--blue:#88a3e8;--paper:#101418;--soft:#202122;--border:#72777d;--header-line:#27292d;--selected:#233566;--table-head:#27292d;--stripe:#202122;--code:#202122;--highlight:#574600}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--paper);font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}button,input{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{outline:2px solid var(--blue);outline-offset:4px}button,input{color:var(--ink)}[hidden]{display:none!important}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}.skip{position:fixed;top:-80px;left:20px;background:var(--paper);padding:12px;z-index:10}.skip:focus{top:8px}
+.site-header{max-width:1600px;margin:auto;padding:28px 42px 24px;display:flex;align-items:center;gap:52px;border-bottom:1px solid var(--header-line)}.brand{color:var(--ink);min-width:204px;font:26px/1.2 Georgia,serif}.brand:hover{text-decoration:none}#search-form{display:flex;align-items:center;border:1px solid var(--border);max-width:510px;flex:1;height:36px}#search{width:100%;min-width:0;border:0;outline:none;font-size:13px;background:transparent;padding:0 10px}#search-form:focus-within{outline:2px solid var(--blue);outline-offset:-1px}#search-form button{height:100%;border:0;border-left:1px solid var(--border);background:var(--soft);font-size:12px;font-weight:600;padding:0 15px}
+.appearance{position:relative;margin-left:auto;flex:none;font-size:13px}.appearance summary{display:flex;align-items:center;gap:8px;list-style:none;cursor:pointer;padding:7px 8px;border-radius:2px}.appearance summary::-webkit-details-marker{display:none}.appearance summary:hover,.appearance[open] summary{background:var(--soft)}.appearance fieldset{position:absolute;right:0;top:100%;z-index:5;width:184px;margin:8px 0 0;padding:14px 16px;background:var(--paper);border:1px solid var(--border);box-shadow:0 2px 6px #0003}.appearance legend{float:left;width:100%;font-weight:600;border-bottom:1px solid var(--line);padding:0 0 8px;margin-bottom:6px}.appearance label{clear:both;display:flex;align-items:center;gap:8px;min-height:36px;cursor:pointer}.appearance input{margin:0;width:18px;height:18px;accent-color:var(--blue);flex:none}
+.workspace{max-width:1500px;margin:auto;padding:32px 42px 50px;display:grid;grid-template-columns:190px minmax(0,1fr) 164px;gap:42px}.navigation{font-size:13px}.navigation>details>summary{font-weight:600;padding:0 0 12px;border-bottom:1px solid var(--line);cursor:pointer}.nav-group{margin-top:22px}.nav-group-label{font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px}.nav-group a{display:block;padding:3px 9px;margin-left:-9px;line-height:1.65;border-left:2px solid transparent}.nav-group a[aria-current=page]{color:var(--ink);border-color:var(--blue);background:var(--selected);font-weight:600}
+main{min-width:0}h1{font:normal 38px/1.18 Georgia,"Times New Roman",serif;margin:0 0 14px;overflow-wrap:anywhere}.toolbar{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);margin-bottom:22px;font-size:12px}.toolbar>div{display:flex;gap:18px}.toolbar button{padding:0 0 9px;border:0;border-bottom:2px solid transparent;background:none;color:var(--blue);font-size:12px}.toolbar button.selected{color:var(--ink);border-bottom-color:var(--ink)}article{overflow-wrap:anywhere}h2{font:normal 24px/1.3 Georgia,"Times New Roman",serif;border-bottom:1px solid var(--line);padding-bottom:6px;margin:30px 0 14px;scroll-margin-top:24px}h3{font-size:16px;margin-top:24px}p{margin:12px 0}ul,ol{padding-left:24px}li{margin:6px 0}table{border-collapse:collapse;margin:20px 0;width:100%;font-size:13px;line-height:1.6}th,td{border:1px solid var(--line);padding:10px 13px;text-align:left;vertical-align:top}th{background:var(--table-head);font-weight:600}tr:nth-child(even) td{background:var(--stripe)}td:first-child{min-width:100px}code{font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--code);padding:2px 4px;border-radius:2px}pre{white-space:pre-wrap;overflow-wrap:anywhere;padding:18px;background:var(--soft);border:1px solid var(--line);font:12px/1.8 ui-monospace,SFMono-Regular,Menlo,monospace}pre code{background:transparent;padding:0}.source-note{font-size:12px;color:var(--muted)}blockquote{border-left:3px solid var(--line);margin-left:0;padding-left:18px;color:var(--muted)}#backlinks{margin-top:38px}#backlinks h2{font:600 12px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--muted);border-top:1px solid var(--line);border-bottom:0;padding:14px 0 0}#backlink-list{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12px}footer{display:flex;justify-content:space-between;gap:15px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);margin-top:32px;padding-top:15px}
+.contents{align-self:start;position:sticky;top:26px;font-size:12px;padding-top:1px}.contents-title{font-weight:600;padding-bottom:12px;border-bottom:1px solid var(--line)}#toc a{display:block;margin-top:12px;line-height:1.5}#toc a.nested{padding-left:12px}.result{border-bottom:1px solid var(--line);padding:17px 0}.result h2{font-size:23px;margin:0 0 5px;border:none;padding:0}.result p{font-size:13px;color:var(--muted);margin:4px 0}.result small{font-size:12px;color:var(--muted)}#result-count{font-size:13px;color:var(--muted)}mark{background:var(--highlight);color:inherit}
 @media(min-width:1600px){.workspace{gap:52px}}
 @media(max-width:1100px){.site-header{padding:24px;gap:28px}.workspace{padding:28px 24px;grid-template-columns:165px minmax(0,1fr);gap:30px}.contents{display:none}}
-@media(max-width:700px){.site-header{padding:18px 20px;flex-wrap:wrap;gap:18px}.brand{min-width:0}#search-form{flex-basis:100%;max-width:none}.workspace{display:block;padding:20px}.navigation{margin-bottom:24px}#navigation{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 20px}.nav-group{margin-top:15px}h1{font-size:31px}.toolbar{gap:6px}.toolbar>div{gap:12px}.toolbar button{font-size:11px}th,td{padding:8px;font-size:12px}td:first-child{min-width:0}footer{flex-direction:column;gap:4px}}
-@media print{.site-header,.navigation,.contents,.toolbar,.skip,#backlinks{display:none}.workspace{display:block;padding:0}body{font-size:11pt;color:#000}h1{font-size:28pt}h2{break-after:avoid}tr{break-inside:avoid}a{color:#000;text-decoration:underline}footer{font-size:8pt}}
+@media(max-width:700px){.site-header{padding:18px 20px;flex-wrap:wrap;gap:18px}.brand{min-width:0;flex:1;overflow-wrap:anywhere}#search-form{order:1;flex-basis:100%;max-width:none}.workspace{display:block;padding:20px}.navigation{margin-bottom:24px}#navigation{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 20px}.nav-group{margin-top:15px}h1{font-size:31px}.toolbar{gap:6px}.toolbar>div{gap:12px}.toolbar button{font-size:11px}th,td{padding:8px;font-size:12px}td:first-child{min-width:0}footer{flex-direction:column;gap:4px}}
+@media print{:root,:root[data-theme]{color-scheme:light;--ink:#202122;--muted:#54595d;--line:#c8ccd1;--blue:#36c;--paper:#fff;--soft:#f8f9fa;--border:#a2a9b1;--header-line:#eaecf0;--selected:#eaf3ff;--table-head:#eaecf0;--stripe:#f8f9fa;--code:#f8f9fa;--highlight:#fff0ba}.site-header,.navigation,.contents,.toolbar,.skip,#backlinks{display:none}.workspace{display:block;padding:0}body{font-size:11pt;color:#000}h1{font-size:28pt}h2{break-after:avoid}tr{break-inside:avoid}a{color:#000;text-decoration:underline}footer{font-size:8pt}}
 `;
 const js = `(() => {
   'use strict';
   const {title:wikiTitle,pages,sections} = JSON.parse(document.getElementById('wiki-data').textContent);
   const byId = new Map(pages.map(p=>[p.id,p]));
   const $ = id => document.getElementById(id);
+  const colorScheme = matchMedia('(prefers-color-scheme: dark)');
+  const colorInputs = document.querySelectorAll('input[name="color"]');
+  function setColor(preference) {
+    if (!['automatic', 'light', 'dark'].includes(preference)) preference = 'automatic';
+    document.documentElement.dataset.colorPreference = preference;
+    document.documentElement.dataset.theme = preference === 'automatic' ? (colorScheme.matches ? 'dark' : 'light') : preference;
+    colorInputs.forEach(input => { input.checked = input.value === preference; });
+  }
+  setColor(document.documentElement.dataset.colorPreference);
+  colorInputs.forEach(input => input.addEventListener('change', () => {
+    setColor(input.value);
+    try { localStorage.setItem('planning-wiki-color', input.value); } catch {}
+  }));
+  colorScheme.addEventListener('change', () => setColor(document.documentElement.dataset.colorPreference));
+  window.addEventListener('storage', event => {
+    if (event.key === 'planning-wiki-color' || event.key === null) setColor(event.newValue);
+  });
+  document.addEventListener('click', event => {
+    if (!$('appearance').contains(event.target)) $('appearance').open = false;
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && $('appearance').open) {
+      $('appearance').open = false;
+      $('appearance').querySelector('summary').focus();
+    }
+  });
   let current = null;
   const link = (label,href) => { const a=document.createElement('a'); a.textContent=label; a.href=href; return a; };
   const route = id => '#/'+id.split('/').map(s=>encodeURIComponent(s).replace(/~/g,'%7E')).join('/');
@@ -604,15 +653,13 @@ const js = `(() => {
     current=p||null;mode(false);
     if(!p){
       $('page-title').textContent='Page not found';
-      $('article').replaceChildren(link('Return to the main page',route('index')));$('toc').replaceChildren();$('backlinks').hidden=true;$('updated').textContent='';document.title='Page not found — '+wikiTitle;return;
+      $('article').replaceChildren(link('Return to the main page',route('index')));$('toc').replaceChildren();$('backlinks').hidden=true;document.title='Page not found — '+wikiTitle;return;
     }
     $('search').value='';$('page-title').textContent=p.title;
-    $('status').textContent='Status: '+p.status;
-    $('status').hidden=!['Exploring','Open','Accepted','Superseded'].includes(p.status);
+    $('page-meta').innerHTML=p.metadataHtml;
+    $('page-meta').hidden=!p.metadataHtml;
     $('article').innerHTML=p.html;
     $('source-text').textContent=p.source;$('source-path').textContent=p.id+'.md';
-    $('updated').textContent=p.updated?'Last updated '+new Date(p.updated+'T12:00:00Z').toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric',timeZone:'UTC'}):'';
-    $('page-meta').hidden=$('status').hidden&&!p.updated;
     $('toc').replaceChildren();
     p.toc.forEach(h=>{const a=link(h.title,route(p.id)+'~'+h.id);if(h.depth>2)a.className='nested';$('toc').append(a);});
     $('backlink-list').replaceChildren();$('backlinks').hidden=!p.backlinks.length;
@@ -648,7 +695,7 @@ async function markdownFiles(dir) {
   const result = [];
   for (const entry of entries.sort((a,b)=>compare(a.name,b.name))) {
     // Don't follow symlinks or scan hidden directories/dependency folders.
-    if (entry.name.startsWith('.') || entry.name === 'node_modules') continue;
+    if (entry.name.startsWith('.') || entry.name === 'node_modules' || (dir === root && ['attachments','evidence'].includes(entry.name))) continue;
     const file = path.join(dir,entry.name);
     if (entry.isDirectory()) result.push(...await markdownFiles(file));
     else if (entry.isFile() && /\.md$/i.test(entry.name)) result.push(file);
@@ -681,6 +728,9 @@ function readPage(source, id) {
   const order = meta.order ? Number(meta.order) : 0;
   if (!Number.isFinite(order)) throw new Error(`Invalid order: ${id}.md`);
   if (meta.updated && (!/^\d{4}-\d{2}-\d{2}$/.test(meta.updated) || !Number.isFinite(Date.parse(meta.updated)) || new Date(meta.updated).toISOString().slice(0,10)!==meta.updated)) throw new Error(`Invalid updated date: ${id}.md`);
+  const presentationKeys=new Set(['title','section','order','updated','summary']);
+  const metadata=Object.fromEntries(Object.entries(meta).filter(([key])=>!presentationKeys.has(key)));
+  const metadataHtml=Object.entries(metadata).filter(([,value])=>value).map(([key,value])=>`<span>${escape(label(key))}: ${escape(value)}</span>`).concat(meta.updated?[`<span>Last updated: ${escape(meta.updated)}</span>`]:[]).join(' ');
   const toc = [], anchors = [], counts = new Map();
   new Marked().walkTokens(tokens, token => {
     if (token.type === 'heading') {
@@ -692,7 +742,44 @@ function readPage(source, id) {
       if (!token.isTitle) toc.push({id:token.anchor,title:token.text,depth:token.depth});
     }
   });
-  return {id,title,section,order,status:meta.status||'',updated:meta.updated||'',summary:meta.summary||'',source,tokens,toc,anchors,titleAnchor:titleHeading?.anchor||'',links:[]};
+  return {id,title,section,order,metadata,metadataHtml,updated:meta.updated||'',summary:meta.summary||'',source,tokens,toc,anchors,titleAnchor:titleHeading?.anchor||'',links:[],attachments:[]};
+}
+
+const attachmentExtensions = new Set(['.png','.jpg','.jpeg','.gif','.webp','.mp4','.webm','.pdf','.txt','.log','.json','.csv']);
+
+function localLink(page, href) {
+  if (/^[a-z][a-z\d+.-]*:/i.test(href) || href.startsWith('//')) throw new Error(`Unsupported link in ${page.id}.md: ${href}`);
+  const hash=href.indexOf('#');
+  const file=decodeURIComponent(hash===-1?href:href.slice(0,hash));
+  const anchor=hash===-1?'':decodeURIComponent(href.slice(hash+1));
+  if (file.startsWith('/') || file.includes('\\') || /[\u0000-\u001f\u007f]/.test(file)) throw new Error(`Use a relative link in ${page.id}.md: ${href}`);
+  const target=file?path.posix.normalize(path.posix.join(path.posix.dirname(page.id),file)):page.id+'.md';
+  return {file,anchor,target,attachment:!!file&&!/\.md$/i.test(file)};
+}
+
+async function collectAttachments(page) {
+  const pending=[];
+  new Marked().walkTokens(page.tokens, token => {
+    if (token.type === 'link' && !/^https?:\/\//i.test(token.href)) {
+      const link=localLink(page,token.href);
+      if (link.attachment) pending.push(link);
+    }
+  });
+  for (const {target,anchor} of pending) {
+    if (!['attachments/','evidence/'].some(prefix=>target.startsWith(prefix)) || !attachmentExtensions.has(path.posix.extname(target).toLowerCase()) || anchor) throw new Error(`Unsupported attachment link in ${page.id}.md: ${target}`);
+    if (page.attachments.some(item=>item.path===target)) continue;
+    let absolute=root;
+    for (const segment of target.split('/')) {
+      if (segment.startsWith('.')) throw new Error(`Hidden attachment path in ${page.id}.md: ${target}`);
+      absolute=path.join(absolute,segment);
+      const info=await fs.lstat(absolute).catch(()=>null);
+      if (!info || info.isSymbolicLink()) throw new Error(`Missing or symlinked attachment in ${page.id}.md: ${target}`);
+    }
+    if (!(await fs.stat(absolute)).isFile()) throw new Error(`Attachment is not a file in ${page.id}.md: ${target}`);
+    const digest=createHash('sha256');
+    for await (const chunk of createReadStream(absolute)) digest.update(chunk);
+    page.attachments.push({path:target,sha256:digest.digest('hex')});
+  }
 }
 
 async function main() {
@@ -712,6 +799,7 @@ async function main() {
   if (byId.size!==pages.length) throw new Error('Duplicate page paths after removing the .md extension');
   if (!byId.has('index')) throw new Error('Add index.md next to _build.mjs. Its title names the wiki.');
   for (const page of pages) {
+    await collectAttachments(page);
     const md = new Marked({renderer:{
       heading(token) {
         return token.isTitle ? '' : `<h${token.depth} id="${escape(token.anchor)}">${this.parser.parseInline(token.tokens)}</h${token.depth}>\n`;
@@ -720,13 +808,15 @@ async function main() {
       link(token) {
         const text=this.parser.parseInline(token.tokens);
         if (/^https?:\/\//i.test(token.href)) return `<a href="${escape(token.href)}" rel="noreferrer">${text}</a>`;
-        if (/^[a-z][a-z\d+.-]*:/i.test(token.href) || token.href.startsWith('//')) throw new Error(`Unsupported link in ${page.id}.md: ${token.href}`);
-        const hash=token.href.indexOf('#');
-        const rawFile=hash===-1?token.href:token.href.slice(0,hash);
-        const anchor=hash===-1?'':decodeURIComponent(token.href.slice(hash+1));
-        const file=decodeURIComponent(rawFile);
-        if (file.startsWith('/') || file.includes('\\') || (file && !/\.md$/i.test(file))) throw new Error(`Use a relative .md link in ${page.id}.md: ${token.href}`);
-        const id=file?path.posix.normalize(path.posix.join(path.posix.dirname(page.id),file)).replace(/\.md$/i,''):page.id;
+        const resolved=localLink(page,token.href);
+        const {anchor}=resolved;
+        if (resolved.attachment) {
+          const attachment=page.attachments.find(item=>item.path===resolved.target);
+          if (!attachment) throw new Error(`Unvalidated attachment link in ${page.id}.md: ${token.href}`);
+          const href=attachment.path.split('/').map(encodeURIComponent).join('/');
+          return `<a href="${escape(href)}" target="_blank" rel="noreferrer" title="SHA-256: ${attachment.sha256}">${text}</a>`;
+        }
+        const id=resolved.target.replace(/\.md$/i,'');
         const target=byId.get(id);
         if (!target) throw new Error(`Broken link in ${page.id}.md: ${token.href}`);
         if (anchor && !target.anchors.includes(anchor)) throw new Error(`Broken anchor in ${page.id}.md: ${token.href}`);
@@ -736,7 +826,7 @@ async function main() {
     }});
     page.html=sanitizeHtml(md.parser(page.tokens),{
       allowedTags:sanitizeHtml.defaults.allowedTags,
-      allowedAttributes:{...sanitizeHtml.defaults.allowedAttributes,h1:['id'],h2:['id'],h3:['id'],h4:['id'],h5:['id'],h6:['id'],code:['class'],a:['href','rel']},
+      allowedAttributes:{...sanitizeHtml.defaults.allowedAttributes,h1:['id'],h2:['id'],h3:['id'],h4:['id'],h5:['id'],h6:['id'],code:['class'],a:['href','rel','target','title']},
       allowedSchemes:['http','https'],allowProtocolRelative:false
     });
   }

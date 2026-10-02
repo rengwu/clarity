@@ -1,0 +1,292 @@
+{
+  "root": "/var/folders/00/h_k67s0j5dq0qvg6ylqysk2w0000gn/T/clarity-qa-confirmed-9ixBAt",
+  "source": "/Users/rengwu/Library/Caches/Clarity/build/adversarial-qa-20261002/frozen-source",
+  "cache": "/Users/rengwu/Library/Caches/Clarity/build/adversarial-qa-20261002/frozen-cache",
+  "results": [
+    {
+      "id": "QA07",
+      "expected": "Agent mutations require a revision; an older queued edit must not overwrite a newer edit.",
+      "outcome": "Failed",
+      "actual": {
+        "queued": {
+          "status": "pending-approval",
+          "actionId": "2f74244e-2ad6-408e-9fc0-0c8931479eb8",
+          "message": "Queued for review. It has NOT been applied. Do not claim it is completed or submit duplicates."
+        },
+        "current": {
+          "title": "QA NEWER HUMAN TITLE",
+          "done": false,
+          "date": null,
+          "id": "f7b011ea-dd6f-4be6-ae7d-7ab73fc53d98",
+          "createdAt": 1790879820451,
+          "updatedAt": 1790879820463,
+          "revision": 2
+        },
+        "final": {
+          "title": "QA stale queued title",
+          "done": false,
+          "date": null,
+          "id": "f7b011ea-dd6f-4be6-ae7d-7ab73fc53d98",
+          "createdAt": 1790879820451,
+          "updatedAt": 1790879820473,
+          "revision": 3
+        },
+        "error": "",
+        "deleteRejected": false,
+        "deleted": true
+      }
+    },
+    {
+      "id": "QA02",
+      "expected": "Navigation shortcuts must leave the destination interactive when a modal is open.",
+      "outcome": "Failed",
+      "actual": {
+        "blocked": true,
+        "pointerError": "locator.click: Timeout 1600ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Message', exact: true })\u001b[22m\n\u001b[2m    - locator resolved to <textarea aria-label=\"Message\" placeholder=\"Message Clarity\"></textarea>\u001b[22m\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <html lang=\"en\" data-theme=\"light\" data-input=\"pointer\" data-motion=\"system\">…</html> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <html lang=\"en\" data-theme=\"light\" data-input=\"pointer\" data-motion=\"system\">…</html> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    3 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is visible, enabled and stable\u001b[22m\n\u001b[2m      - scrolling into view if needed\u001b[22m\n\u001b[2m      - done scrolling\u001b[22m\n\u001b[2m      - <html lang=\"en\" data-theme=\"light\" data-input=\"pointer\" data-motion=\"system\">…</html> intercepts pointer events\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 500ms\u001b[22m\n",
+        "dialogs": [
+          {
+            "title": "New task",
+            "visible": false,
+            "hiddenHost": true
+          }
+        ],
+        "escapeRecovers": true
+      }
+    },
+    {
+      "id": "QA03",
+      "expected": "Bold in the rich editor must not also toggle the global sidebar.",
+      "outcome": "Failed",
+      "actual": {
+        "collapsed": true,
+        "bold": 2
+      }
+    },
+    {
+      "id": "QA05",
+      "expected": "Saving or renaming a note must keep it discoverable, or reject unsupported hidden names.",
+      "outcome": "Failed",
+      "actual": {
+        "matches": [],
+        "diskContent": "# **QA welcome**\n\n**Keep this original note.**\n"
+      }
+    },
+    {
+      "id": "QA04",
+      "expected": "A late save completion must not dismiss or discard a different newly opened bookmark draft.",
+      "outcome": "Failed",
+      "actual": {
+        "newDraftDismissed": true,
+        "savedTitles": [
+          "QA delayed first bookmark",
+          "QA long bookmark title",
+          "QA ordinary bookmark"
+        ]
+      }
+    },
+    {
+      "id": "QA13",
+      "expected": "Supported bookmark tags must not collapse the title or overflow the workspace.",
+      "outcome": "Failed",
+      "actual": {
+        "geometry": {
+          "titleWidth": 0,
+          "rowWidth": 596,
+          "scrollWidth": 2513,
+          "tagsWidth": 2467
+        },
+        "tags": 40,
+        "viewport": {
+          "width": 850,
+          "height": 600
+        }
+      }
+    },
+    {
+      "id": "QA06",
+      "expected": "A relative Wiki page-and-heading link must retain its fragment and scroll to the heading.",
+      "outcome": "Failed",
+      "actual": {
+        "geometry": {
+          "hash": "#Deep.md",
+          "scroll": 0,
+          "headingY": 2681.32666015625,
+          "viewport": 521
+        }
+      }
+    },
+    {
+      "id": "QA08",
+      "expected": "Expenses and Calendar reject impossible Gregorian dates before storing records.",
+      "outcome": "Failed",
+      "actual": {
+        "accepted": [
+          {
+            "amountCents": 100,
+            "category": "QA date validation",
+            "description": "QA date 2026-02-30",
+            "date": "2026-02-30",
+            "id": "9dfce82c-0933-41c8-b73a-1e14358d7db2",
+            "createdAt": 1790879828032,
+            "updatedAt": 1790879828032,
+            "revision": 1
+          },
+          {
+            "amountCents": 100,
+            "category": "QA date validation",
+            "description": "QA date 2026-13-40",
+            "date": "2026-13-40",
+            "id": "9789ad22-b094-4670-aefb-9f694eb524ae",
+            "createdAt": 1790879828036,
+            "updatedAt": 1790879828036,
+            "revision": 1
+          },
+          {
+            "amountCents": 100,
+            "category": "QA date validation",
+            "description": "QA date 0000-00-00",
+            "date": "0000-00-00",
+            "id": "70972d39-61fb-4dda-b145-dfbdad5043fd",
+            "createdAt": 1790879828041,
+            "updatedAt": 1790879828041,
+            "revision": 1
+          }
+        ],
+        "event": {
+          "title": "QA impossible February date",
+          "start": "2026-02-30T09:00:00+08:00",
+          "end": "2026-02-30T10:00:00+08:00",
+          "id": "c8d8cfb0-50f2-45e2-9680-ad9453b019d7",
+          "createdAt": 1790879828045,
+          "updatedAt": 1790879828045,
+          "revision": 1
+        },
+        "invalidLabels": 2,
+        "normalizedCalendarDate": "2026-03-02T01:00:00.000Z"
+      }
+    },
+    {
+      "id": "QA09",
+      "expected": "A board reply must validate that its parent thread exists before reporting success.",
+      "outcome": "Failed",
+      "actual": {
+        "post": {
+          "topic": "QA orphan reply",
+          "text": "QA orphan content",
+          "threadId": "nonexistent-parent",
+          "links": [],
+          "id": "1c771701-4341-45fa-962b-0bba684d9cab",
+          "createdAt": 1790879828273,
+          "updatedAt": 1790879828273,
+          "revision": 1
+        },
+        "read": {
+          "thread": null,
+          "replies": []
+        },
+        "search": {
+          "items": [],
+          "truncated": false,
+          "total": 0
+        }
+      }
+    },
+    {
+      "id": "QA14",
+      "expected": "Correcting a failed board reply clears its error and shows one error while invalid.",
+      "outcome": "Failed",
+      "actual": {
+        "before": [
+          "Post is required (maximum 20000 characters).",
+          "Post is required (maximum 20000 characters)."
+        ],
+        "after": [
+          "Post is required (maximum 20000 characters).",
+          "Post is required (maximum 20000 characters)."
+        ],
+        "savedReply": {
+          "topic": "QA thread",
+          "text": "QA corrected reply",
+          "threadId": "b1cb78ac-9aa5-4c54-b449-88a14d25bbae",
+          "links": [],
+          "id": "2ef7d33a-92ab-4f38-81b0-910f2472d357",
+          "createdAt": 1790879828618,
+          "updatedAt": 1790879828618,
+          "revision": 1
+        }
+      }
+    },
+    {
+      "id": "QA10",
+      "expected": "RSS character entities display as normal characters, with separate source failures visible.",
+      "outcome": "Failed",
+      "actual": {
+        "titles": [
+          "QA Research &amp; Development"
+        ],
+        "feedRequests": [
+          "/bad",
+          "/good"
+        ],
+        "status": [
+          "QA failing feed: HTTP 503"
+        ]
+      }
+    },
+    {
+      "id": "QA11",
+      "expected": "Mail clears prior-account message contents on disconnect/reconnect, including failed new reads.",
+      "outcome": "Failed",
+      "actual": {
+        "text": "QA mailbox unavailable after reconnect\n\nQA first account message\nqa@example.invalid\n10/1/2026, 12:00:00 PM\nQA first account private text",
+        "fixture": "Controlled auth events and read-only Mail responses; no real account"
+      }
+    },
+    {
+      "id": "QA12",
+      "expected": "Typing a new Chat draft while send is preparing preserves that unsent draft when the original send is acknowledged.",
+      "outcome": "Failed",
+      "actual": {
+        "actual": "",
+        "stored": "\"\"",
+        "sent": "QA original outgoing text",
+        "fixture": "Controlled delayed send acknowledgement; no model call"
+      }
+    },
+    {
+      "id": "PASS-note-recovery",
+      "expected": "A failed note save prevents module disablement and permits preserving a recovery copy.",
+      "outcome": "Passed",
+      "actual": {
+        "prevented": true,
+        "copy": "# QA unsaved recovery text"
+      }
+    },
+    {
+      "id": "PASS-automation-failure",
+      "expected": "A disconnected automation preserves its input cursor and creates no chat.",
+      "outcome": "Passed",
+      "actual": {
+        "status": "failed",
+        "error": "Connect Codex in Settings.",
+        "cursorUnchanged": true,
+        "chatCount": 1
+      }
+    },
+    {
+      "id": "QA01",
+      "expected": "Malformed document links must not crash the application while opening a source preview.",
+      "outcome": "Failed",
+      "actual": {
+        "rootChildren": 0,
+        "errors": [
+          "URI malformed"
+        ],
+        "recoveredDraft": "QA draft survives renderer recovery"
+      }
+    }
+  ],
+  "errors": [
+    "URI malformed"
+  ]
+}

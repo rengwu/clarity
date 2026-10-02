@@ -1,0 +1,22 @@
+TAP version 13
+# Subtest: native redesign preserves source context, history, drafts, commands and compact controls
+ok 1 - native redesign preserves source context, history, drafts, commands and compact controls
+  ---
+  duration_ms: 8500.118709
+  type: 'test'
+  ...
+# Subtest: spike parity: real motion, compact rows, connected tabs and reduced-motion keyboard controls
+ok 2 - spike parity: real motion, compact rows, connected tabs and reduced-motion keyboard controls
+  ---
+  duration_ms: 5285.389834
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 14173.723167

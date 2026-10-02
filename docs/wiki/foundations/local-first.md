@@ -1,12 +1,24 @@
 ---
 title: Local-first storage exploration
 section: Foundations
-status: Exploring
-updated: 2026-09-27
+status: Current
+updated: 2026-09-29
 order: 25
 summary: Compare local storage approaches while keeping device sync out of current scope.
 ---
 # Local-first storage exploration
+
+## Current specification · 29 September 2026
+
+Storage is selected under D103: actual Markdown and relative assets for Notes/Wiki, Miniflare/workerd SQLite for structured records, and OS-encrypted credentials under one user-chosen root. See [Data folder](folders.md) and [implementation contracts](../references/implementation.md).
+
+The local-first requirement currently means local ownership and local backend execution. Connected services and Codex still need network access. No synchronization engine, CRDT, Electric SQL, WatermelonDB, Jazz, Automerge, or cloud backend is selected or needed for the present implementation.
+
+Earlier research below explains the initial exploration; its technology list is neither exhaustive nor an active selection queue. Revisit it only when an actual synchronization requirement returns, after defining conflict/ownership behavior. Do not add replication machinery to reproduce the current single-machine app.
+
+## Earlier discussion and research
+
+The material below records earlier states of the discussion. Its proposals and open questions are historical unless explicitly carried into the current specification above or the [current follow-up list](../discussions/open-questions.md).
 
 **27 September status:** this is background research from the earlier local-first exploration. The Cloudflare OS/Electron direction reopens D24; we are not currently choosing a greenfield CRDT/database stack. First resolve backend location and notes/wiki file ownership in the [architecture reassessment](desktop-stack.md#current-direction-27-september-2026).
 
@@ -18,7 +30,7 @@ The original Obsidian-like idea was to represent all state as local files and le
 
 **Planning order ([D25](../decisions/index.md#d25-define-modules-before-choosing-technology-25-september-2026)):** define what the modules look like and do before choosing technology. The tools named here are examples, not an exhaustive list or a closed shortlist. Research other approaches when the module requirements provide useful evaluation criteria.
 
-## Research observations · 25 September 2026
+### Research observations · 25 September 2026
 
 [LoFi](https://lofi.so/) is a community and resource directory for local-first software, useful for discovery rather than a storage engine. [Ink & Switch's essay](https://www.inkandswitch.com/essay/local-first/) emphasizes local ownership, working without a network, longevity, and eventual collaboration. Those goals do not require every record to be a plain-text file.
 
@@ -31,7 +43,7 @@ The original Obsidian-like idea was to represent all state as local files and le
 
 CRDTs are a family of data structures and merge rules, not a synonym for all local-first databases. Automerge's docs explicitly identify it as a CRDT. Convergent data still needs product rules: merging edits does not determine which calendar time the user intended or whether an automation should execute twice. This is a design implication, not a tested Clarity implementation.
 
-## The storage choice to resolve
+### The storage choice to resolve
 
 **Assistant framing, not an accepted architecture:** compare three approaches:
 
@@ -43,6 +55,6 @@ For the third approach, define one authority for each datum and explicit import/
 
 Evaluate each option against external editing, local ownership, backup/restore, query needs, action history, macOS support with a Linux route, and the cost of adding sync later. A merge engine alone is not evidence that Dropbox can safely synchronize an active database; that compatibility would need separate design and validation.
 
-## Revisit after module definition
+### Revisit after module definition
 
 Use the module requirements to revisit external editing, ownership, and representation. The three approaches above remain proposals; the user has not accepted a hybrid file/database architecture. The next discussion is about [module behavior](../features/index.md#module-definition), not choosing a storage engine.

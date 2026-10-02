@@ -1,0 +1,39 @@
+{
+  "proposal": {
+    "command": "task",
+    "fields": {
+      "title": "Review",
+      "date": "2026-10-02"
+    }
+  },
+  "bad": "Could not interpret this command. Choose a command or edit your wording.",
+  "unsupported": "No supported command found. Choose a command or edit your wording.",
+  "cancelled": "Interpretation cancelled.",
+  "closed": "Clarity is closing.",
+  "seen": [
+    {
+      "query": "task tomorrow",
+      "tools": 0,
+      "model": "gpt-5.5",
+      "effort": "medium"
+    },
+    {
+      "query": "bad",
+      "tools": 0,
+      "model": "gpt-5.5",
+      "effort": "medium"
+    },
+    {
+      "query": "unsupported",
+      "tools": 0,
+      "model": "gpt-5.5",
+      "effort": "medium"
+    },
+    {
+      "query": "slow",
+      "tools": 0,
+      "model": "gpt-5.5",
+      "effort": "medium"
+    }
+  ]
+}

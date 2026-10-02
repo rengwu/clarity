@@ -1,0 +1,52 @@
+{
+  "sent": [
+    {
+      "id": "chat-a",
+      "text": "Original outgoing text",
+      "attachments": [
+        {
+          "id": "submitted",
+          "name": "submitted.txt",
+          "size": 20,
+          "mime": "text/plain",
+          "createdAt": 1790937599819,
+          "supported": true
+        }
+      ],
+      "model": "gpt-5.5",
+      "effort": "medium"
+    },
+    {
+      "id": "chat-a",
+      "text": "NEW UNSENT DRAFT",
+      "attachments": [],
+      "model": "gpt-5.5",
+      "effort": "medium"
+    },
+    {
+      "id": "chat-a",
+      "text": "First conversation later draft",
+      "attachments": [],
+      "model": "gpt-5.5",
+      "effort": "medium"
+    }
+  ],
+  "newDraft": {
+    "text": "NEW UNSENT DRAFT",
+    "attachments": [
+      {
+        "id": "new-attachment",
+        "name": "new-attachment.txt",
+        "size": 20,
+        "mime": "text/plain",
+        "createdAt": 1790937600076,
+        "supported": true
+      }
+    ],
+    "context": "Overview.md"
+  },
+  "crossConversationDraftsPreserved": true,
+  "failurePreserved": true,
+  "rendererErrors": [],
+  "finalText": "Clarity\nNew chat\n⇧⌘L\nSearch\n⌘K\nWorkspace\nNotes\nTodos\nWiki\nRecent chats\nSecond conversation\nFirst conversation\nSettings\nFirst conversation\n⌘K\nNew chat\n\nFixture send preparation failed\n\nGPT-5.5\nLow\nMedium\nHigh\nMax"
+}

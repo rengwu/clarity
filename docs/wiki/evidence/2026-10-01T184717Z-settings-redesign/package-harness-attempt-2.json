@@ -1,0 +1,11 @@
+{
+  "mode": "package",
+  "layouts": [],
+  "checks": [
+    "Module switches save, hide/show navigation, preserve files and roll back failed saves.",
+    "Theme arrow keys, section-to-input Tab, preference rollback/persistence, retained unsaved form, guarded local error and no credential draft persistence."
+  ],
+  "errors": [],
+  "result": "Failed",
+  "failure": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n"
+}

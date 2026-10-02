@@ -2,22 +2,22 @@
 title: Decision register
 section: Decisions
 status: Accepted
-updated: 2026-09-29
+updated: 2026-10-03
 order: 0
-summary: Direction explicitly stated by the user, with implementation choices left open.
+summary: User decisions, delegated implementation defaults, and their replacements.
 ---
 # Decision register
 
-“Accepted” here means explicitly stated by the user. It does not mean the full feature set is scheduled for a release.
+User decisions and assistant-selected defaults are identified separately below. D102 delegates lean implementation choices; D103 records those choices. Each entry is dated: old validation/open-question wording describes that moment, not the current app. Read the topic specifications and [current follow-up](../discussions/open-questions.md) for present status. A later decision supersedes earlier conflicting scope; retain the earlier entry with its replacement link.
 
 ## Initial direction · 24 September 2026
 
 | ID | Direction | Source |
 | --- | --- | --- |
 | D01 | Explore and iterate before building the Clarity app. **Planning-only restriction superseded by [D102](#d102-build-clarity-with-lean-defaults-28-september-2026).** | Initial user brief |
-| D02 | User-selected folders own local application state. **Reopened by [D53](#d53-cloudflare-os-direction-27-september-2026); deployment and file ownership remain unresolved.** | Initial user brief |
+| D02 | User-selected folders own local application state. **Refined by D56/D57 and [D64](#d64-one-clarity-data-folder-27-september-2026): local backend, actual Markdown, one chosen root; concrete layout selected under D103.** | Initial user brief |
 | D03 | Separate personal and development roots. **Superseded by [D64](#d64-one-clarity-data-folder-27-september-2026): one Clarity data folder.** | Initial user brief |
-| D04 | Bring synced files to another machine and open them with another instance. **Superseded for current scope by [D24](#d24-local-state-with-sync-deferred-25-september-2026):** no device sync for now; storage representation is under exploration. | Initial user brief; 25 September revision |
+| D04 | Bring synced files to another machine and open them with another instance. **Superseded for current scope by [D24](#d24-local-state-with-sync-deferred-25-september-2026):** no device sync for now; the later D103 selects local SQLite plus actual Markdown. | Initial user brief; 25 September revision |
 | D05 | Let users choose modules and authenticate optional accounts. | Initial user brief |
 | D06 | Mail requires a connected Google account. | Initial user brief |
 | D07 | Music supports local files or Spotify authentication. **Superseded in source scope by [D47](#d47-combined-music-client-scope-25-september-2026) and [D48](#d48-lean-music-scope-and-private-use-25-september-2026):** Spotify and Navidrome; direct local files are out of scope. | Initial user brief; 25 September revisions |
@@ -414,7 +414,7 @@ Agents operate on module content through the supported interface. Per-user runti
 
 ## D60 — Adopt upstream approvals · 27 September 2026
 
-**Partially superseded by [D97](#d97-browser-navigation-without-per-click-confirmation-28-september-2026):** routine browser navigation/search/reading proceeds after site authorization, with confirmation for consequential actions. Upstream approval behavior remains the default for other modules. The original decision below is preserved.
+**Partially superseded by [D97](#d97-browser-navigation-without-per-click-confirmation-28-september-2026) and [D109](#d109-agent-action-approval-checklist-29-september-2026):** routine browsing proceeds after site authorization; D109 adds exact per-action automatic approval choices in Settings. The review queue remains the default for unchecked actions. The original decision below is preserved.
 
 **Accepted from the user:** “ignore our requirement for now, go with adopting cloudflare OS's behavior”, responding to the approval-model tension. Use upstream approval behavior, including its queued actions and simulation where supported, rather than implementing D20's custom blocking Proceed/Cancel and unrestricted Auto modes.
 
@@ -705,8 +705,184 @@ Preserve the repository's package-file and dependency-directory ban: application
 
 ## D103 — Lean local implementation defaults · 29 September 2026
 
+**Approval follow-up:** [D109](#d109-agent-action-approval-checklist-29-september-2026) adds a Settings checklist for automatic execution of selected actions, retaining the same queue for unchecked actions.
+
 **Assistant-selected under the user's delegation in D102, not separate user answers:** use Electron/TypeScript with local workerd/SQLite, Pi and maintained module methods. Reuse Cloudflare OS's scheduler and public approval contracts selectively; omit the full upstream hosted/app-generation runtime. Actual Markdown remains authoritative for Notes/Wiki.
 
 Use data-root folders Notes, Wiki, Attachments, Trash and .clarity; thread-scoped exact-origin browser grants; conflict copies; no automatic replay of interrupted actions; daily/weekly wiki schedules with bounded new input and missed runs skipped. Use flat source-labelled music libraries, local recent-collection history, a bundled librespot helper for Spotify, and in-app Navidrome audio. Build/package dependencies stay outside the repository.
 
 These defaults resolve the previously unspecified implementation details, without restoring removed scope or promising live external-account compatibility. See [implementation and validation](../references/implementation.md) and [delivery journal](../journal/2026-09-29-local-build.md).
+
+## D104 — Device location and permissions · 29 September 2026
+
+**User requirement:** Clarity should immediately request location from the device and have a Settings section managing its permissions. This follows a reported chat response that defaulted to UTC/U.S. time and guessed the user's country.
+
+**Assistant implementation defaults under D102:** read the system clock and IANA timezone automatically for every model request; ask macOS for location on first opening the chosen data folder. Save only approximate coordinates with precision and measurement time. Refresh on later launches after a successful grant, or explicitly in Settings; do not repeatedly prompt after refusal or an unsuccessful first lookup. No continuous tracking, reverse-geocoding service, or new native helper. Offer manual city/country as fallback and never infer physical location from timezone.
+
+Settings → Permissions controls device-location use, clearing and refresh, opens macOS Location Settings, and lists/revokes existing per-chat website grants. This exposes current permissions, without replacing the module approval system. Turning location off clears the stored device reading; historical chat/model requests may already contain previously shared information. See [chat context](../foundations/chat.md#time-location-and-permissions) and [journal](../journal/2026-09-29-location-permissions.md).
+
+## D105 — Wiki as rebuild specification · 29 September 2026
+
+**User requirement:** keep Clarity's wiki always up to date; a future version may be rebuilt entirely from it.
+
+**Maintenance practice implementing that requirement:** a meaningful product or implementation change is not complete until its topic specification, current gaps/validation, and dated journal are updated. Update the decision register when choices change and keep `IMPLEMENTATION.md` consistent. Rebuild/check `index.html` in the same work. Record observable behavior, data ownership/formats, important interfaces, dependencies/setup, failure paths, and acceptance checks in the wiki itself; code references alone are insufficient.
+
+Put current specifications before clearly labelled historical discussion. Preserve user requirements, delegated defaults, evidence, and gaps as separate categories. Do not let a current implementation omission silently supersede an accepted behavior. This extends D09's brainstorming wiki into the maintained rebuild specification without changing app scope or the separate in-app Wiki module.
+
+The [audit journal](../journal/2026-09-29-wiki-rebuild-spec.md) records the reconciliation and newly visible gaps. Start from the [rebuild reading order](../index.md#rebuild-reading-order).
+
+## D106 — Music seeking · 29 September 2026
+
+**User requirement:** fix silent Spotify playback and provide the missing seek bar. This extends the player controls in D47 without changing source ownership or queue behavior.
+
+**Implementation default under D102:** one seek bar with elapsed/total time for Spotify and Navidrome, mouse/keyboard interaction, and unchanged pause/play state after seeking. Show playback failures persistently in the player and allow retry with Play. The existing native Spotify engine remains; a small adapter uses an updated audio output library to fix the reproduced macOS crash. See [Music](../features/music.md#screens-and-playback) and the [fix journal](../journal/2026-09-29-music-playback.md).
+
+## D107 — Wiki-led agent onboarding · 29 September 2026
+
+**User requirement:** shorten AGENTS.md, move the bulk of its information into the wiki, and direct freshly onboarded agents to use the wiki as the more complete resource. Avoid maintaining the same detailed instructions and product specification in both places.
+
+AGENTS.md now provides a short mandatory reading path and immediate workspace guardrails. The [wiki home](../index.md#agent-onboarding) owns onboarding, [Working principles](../vision/principles.md) owns detailed collaboration and maintenance rules, and existing feature/foundation pages own product contracts. Reuse existing coverage and migrate missing details rather than append a duplicate copy of the old file. This extends D105's wiki-as-specification decision without changing product scope, implementation authorization, or tooling restrictions.
+
+See the [migration journal](../journal/2026-09-29-agent-onboarding.md).
+
+## D108 — Songs default to list view · 29 September 2026
+
+**User requirement:** the Songs search tab opens as a list and can switch to grid. Keep the existing toggle. Its layout is independent of the other music views; retaining the choice only during the current Music visit is the lean implementation default. See [Music](../features/music.md#screens-and-playback) and the [journal](../journal/2026-09-29-songs-list-view.md).
+
+## D109 — Agent action approval checklist · 29 September 2026
+
+**User requirement:** add a Settings list of all agent action approvals with checkboxes. Checked actions execute without asking; `music.play` is the motivating example. A top-level Select all supports unchecked, indeterminate, and checked states. The user asked to map all possible actions and raise concerns.
+
+**Delegated lean defaults:** expose the 37 existing mutation methods, start unchecked, and save exact selections per data folder for all chats and automations. Browser website authorization and consequential batches are separate rows, included in Select all. Reads and an automation's configured wiki-topic writes keep their existing direct behavior. The choices do not enable modules, connect accounts, bypass validation, change board opt-in, or apply already-pending work. Newly introduced methods are unchecked rather than inherited through a wildcard. Automatic actions reuse the existing applying/applied/failed records and return actual results.
+
+This extends D60/D103 and the browser approval defaults without restoring the earlier per-thread wiki permission design. The [Chat topic](../foundations/chat.md#automatic-approval-checklist) owns the complete action map, behavior, persistence, and acceptance checks. See the [journal](../journal/2026-09-29-agent-approvals.md).
+
+## D110 — Long-lived Spotify sign-in · 29 September 2026
+
+**User requirement:** repeated login is a problem; a login should last long-term. The immediate report concerns Spotify playback.
+
+Persist and renew both Spotify connections automatically through normal access-token expiry and app restarts. Preserve credentials during temporary failures. A generic playback error is not evidence that authentication expired. The lean implementation adds one retry for a rejected token and one recovery attempt for interrupted playback, with cancellation when the user pauses or changes context. Provider revocation and rejected renewal credentials can still require sign-in; no permanent-login guarantee or new login UI is introduced. See [Music](../features/music.md#persistent-sign-in) and the [journal](../journal/2026-09-29-spotify-sign-in.md).
+
+## D111 — Chronological chat approvals · 30 September 2026
+
+**User requirement:** approval messages must appear chronologically with the conversation. Grouping accumulated action cards at the bottom hides newer responses above them and forces unnecessary scrolling.
+
+Use original creation time for each card and update it in place as its status changes. Include automatically approved actions and completed/failed/rejected outcomes in the same timeline. Existing controls and approval rules remain. The lean implementation merges existing message/action timestamps in the renderer, with no new record type or migration. See [Chat](../foundations/chat.md#chronological-action-cards) and the [journal](../journal/2026-09-30-chat-timeline.md).
+
+
+## D112 — UI audit remediation · 1 October 2026
+
+**User instruction:** fix all nineteen findings in the [UI audit](../references/ui-audit.md). This authorizes implementation and verification, beyond the earlier request for an audit list.
+
+**Delegated lean defaults:** persistent Chat/Expense drafts inside the existing data profile; confirmation for permanent record deletion; shared immediate submission guards; complete paginated local lists; readable action previews with optional prior snapshots; canonical item URLs that only navigate; explicit theme propagation to Wiki; temporary Mail/Music navigation memory; attachment text/image inspection plus Finder reveal; and named dialogs/local feedback. Existing approval policy, module scope, chronology, and D108 layout reset remain settled.
+
+D41's existing Linkding requirement is completed with Manual/hourly/daily intervals while Clarity runs, source snapshots and per-field local-edit preservation, single-flight requests and explicit outcomes. No daemon, write-back, upstream deletion mirroring, or new general automation type is added. Relevant [topic contracts](../features/index.md), [Chat](../foundations/chat.md#usability-fixes-1-october-2026), and the [remediation journal](../journal/2026-10-01-ui-fixes.md) own the implementation and evidence.
+
+
+## D113 — jstack verification and wiki maintenance · 1 October 2026
+
+**User instruction:** apply the practices available in local `~/Desktop/Projects/jstack` to Clarity, especially verification and wiki maintenance, during the UI fixes.
+
+**Applied defaults:** preserve existing topic paths and decision IDs; add stable feature IDs and executable recipes, shared verification setup, dated build-specific reports, local safe evidence, conservative Passed/Failed/Untested outcomes and drift classification. Use actual entry points and persisted effects, not screenshots or source inspection alone. Keep product authorization separate from verification while honoring the already authorized fixes.
+
+Upgrade the uncustomized offline builder from v1.0.0 to jstack v1.2.0 after comparison, retain licenses, adopt its generic metadata/hashed attachments/appearance controls, and include local report/reader checks. No package install is needed for wiki tooling. The source is jstack revision `cdda753adc7ed81d3eb3abf0283b29e7c226670c`; jstack itself and its preserved examples are unchanged. [Setup](../verification/setup.md) owns reproducible commands and provenance; [the feature record](../features/verification-workflow.md) owns outcomes and verification history. Planning/grilling remains contextual, without reopening settled decisions or imposing another approval gate.
+
+## D115 — Optional task dates in Calendar · 1 October 2026
+
+**User requirement:** Todos can have an optional date; dated Todos appear in Calendar. This supersedes the historical Todo exclusion of dates while retaining the simple single list.
+
+**Delegated lean defaults:** a date-only optional picker on creation/edit, nullable `YYYY-MM-DD` storage, Clear date and Cancel, and no migration for old undated records. Week shows tasks above its time grid; Month includes them in their day cells. Clicking a task focuses the same Todo. Completed tasks remain visible and struck through. Read directly from Todos without duplicating event records; respect optional-module settings and existing add/update/remove approvals. No reminders, times, recurrence or task hierarchy is added. [Todos](../features/todos.md) and [Calendar](../features/calendar.md) own the full contracts; the [journal](../journal/2026-10-01-task-dates.md) records implementation and verification.
+
+## D114 — Settings layout polish · 1 October 2026
+
+**User report:** Settings has an intrusive scrollbar, overlapping sticky navigation, a highlighted section without padding, and inconsistent form-control widths.
+
+**Delegated implementation:** retain section navigation in a stationary title/header above a separate full-width scrolling body; keep the content centered, use a thin scrollbar at the workspace edge, pad all sections consistently, retain accessible section/control focus using the theme accent, and give labelled form controls the same responsive maximum width. This replaces the sticky-selector layout introduced with D112 without changing connection or approval behavior. [Settings](../foundations/integrations.md#usability-fixes-1-october-2026) owns the rebuild contract and verification recipe.
+
+## D116 — Cursor Desktop design spike · 1 October 2026
+
+**User request:** build a redesigned Clarity spike based on Cursor Desktop's UI and UX language, explore the already-open app where possible, and continue until the prototype is visible in a browser.
+
+**Delegated implementation:** an external dependency-free browser prototype with synthetic data, local persistence, compact navigation, contextual chat, tabbed notes, simple tasks, read-only Wiki and Light/Dark appearance. Optional Calendar illustrates dated-task navigation. The [spike record](../references/technical-spikes.md#cursor-desktop-design-spike-1-october-2026) owns observed reference details, interactions, limits, reproduction and verification. This authorizes design exploration; it does not supersede production UI decisions, the Electron stack, real-file ownership, full GFM or live module contracts.
+
+
+## D117 — All-module Cursor prototype and interaction polish · 1 October 2026
+
+**User requirement:** expand the Cursor Desktop browser spike to every agreed Clarity module with sample populated content, studied and consistent design language, micro-interactions, and animations. Continue until the reviewable browser UI is available. Apply the non-exhaustive screenshot feedback throughout the system, including tabs, pane dividers, and hover/active/focus treatments.
+
+**Further user direction:** remove wasteful space system-wide. Use compact lists and controls; align expense totals with individual amounts; show more News headlines without scrolling. Separators must remain straight and disappear beside hovered/active rows, following the supplied Helium examples. Study useful patterns from ChatGPT and Visual Studio Code as secondary references.
+
+**Control and spacing follow-up:** correct misaligned checkbox marks and dropdown selection icons, and separate adjacent selected/hovered Music rows. Apply equivalent corrections throughout the shared system. Delegated defaults use centered SVG glyphs and a 2px row gap; native input behavior remains. The [compactness and controls run](../verification/runs/2026-10-01T083600Z-cursor-density.md) records verification after the user's explicit browser handoff.
+
+**Delegated implementation:** preserve the external disposable boundary and existing local edits; enable all sample modules once; centralize surfaces, spacing, control states, input modality and reduced-motion handling; use deterministic simulated integrations with their limits in About. Restudy the actual Cursor editor before translating its flat connected tabs. Remove pointer-triggered action focus rings while retaining deliberate keyboard focus. The [spike topic](../references/technical-spikes.md#cursor-desktop-design-spike-1-october-2026) owns the full reference, behavior, recipe, evidence and limitations. Production feature scopes and default module enablement remain unchanged.
+
+## D118 — Agent and effort selection in the redesign · 1 October 2026
+
+**User correction during the requested jstack interview:** use an agent selector and effort selector, with the supplied model-picker screenshot as the reference, instead of the spike's Ask/Agent mode switch. The screenshot depicts searchable named models and an effort control; the user did not request a second permission mode. Preserve the current action-approval contract. The available model list and supported effort values come from the connected runtime; the reference's model names are not a hardcoded product catalog.
+
+**Accepted direction, not implemented by this interview:** the [Chat adoption specification](../foundations/chat.md#redesign-agent-and-effort-picker) owns the control behavior and reference. Favorites, provider tabs, numeric shortcuts and fast-mode controls visible in the reference are not separately accepted capabilities. [The interview journal](../journal/2026-10-01-redesign-adoption.md) records the answer and interpretation.
+
+**Explicit follow-up:** there will be no Ask/Agent modes going forward. Use one general mode for everything, with the agent/model and effort selectors. This is a settled requirement, not a first-port omission or a deferred mode feature. It does not remove per-action approval settings.
+
+## D119 — Omni-input and search direction · 1 October 2026
+
+**User requirement during the requested jstack interview:** the global entry point should be an omni-input/search in the language of Raycast, Alfred or Spotlight. This replaces the earlier assistant proposal of treating it simply as a command/content search box; it does not by itself select every capability of those apps.
+
+**Follow-up accepted in Q6/Q7:** restrict the omni-input to Clarity's harness; exclude other Mac applications and files outside Clarity's workspace. Quick-entry commands show a compact prefilled form in the launcher with an explicit submission action, rather than immediately mutating a record or automatically sending the instruction to Chat.
+
+**Accepted follow-up:** the user delegates intent detection to the recommended command catalog, aliases/candidate matching, small field parsers and existing-agent interpretation, explicitly requiring a lean implementation and removal of unjustified complexity. Q9 selects explicit Interpret by default, with optional automatic interpretation enabled in Settings. Both produce an editable form; only explicit Add/Save performs the operation. No new agent mode or approval policy is introduced.
+
+**Q12A settles provider search:** show local Clarity content/commands first, with explicit Search Mail/Search Music actions for connected-provider queries. Typing alone does not query those providers; enabling automatic interpretation does not change this boundary. Reuse existing module services and connection requirements. The [closing journal](../journal/2026-10-01-redesign-decisions.md) records the acceptance.
+
+The [shared UI topic](../foundations/desktop-stack.md#redesign-omni-input-and-search) owns the planned mechanism and failure boundaries; [Settings](../foundations/integrations.md#redesign-settings-navigation) owns the off-by-default preference. The [round-two journal](../journal/2026-10-01-command-navigation.md) preserves the earlier open discussion, and the [follow-up journal](../journal/2026-10-01-preview-controls.md) records its resolution. No production parser implementation or acceptance test is claimed.
+
+## D120 — Section-based Settings in the redesign · 1 October 2026
+
+**User acceptance during the requested jstack interview:** use the spike's Settings navigation, showing one selected section at a time. This selects the proposed replacement for the long scrolling page and Go to selector in D114 when the redesign is adopted. The existing production layout remains the implemented version until that port is delivered.
+
+Carry current connection, module, data-folder, permission and agent-approval behavior into the chosen navigation. Existing destination links must select the corresponding section. The [Settings adoption specification](../foundations/integrations.md#redesign-settings-navigation) owns the planned contract; [the journal](../journal/2026-10-01-redesign-adoption.md) records the answer. This is a navigation decision, not approval to remove settings.
+
+## D121 — Source inspection preserves Chat · 1 October 2026
+
+**User requirement:** do not implicitly navigate the user away from Chat; source/result inspection must stay in the conversation. Opening another module from those surfaces requires an explicit “Open in <module>” action. This strengthens D18's stay-in-chat direction for the redesign's source interactions.
+
+The user first selected Q8C to review a concrete example, then accepted it in Q8 with two corrections: the source pane must resize by dragging its divider, and “Open in <module>” must use a compact shared-system button rather than spanning the footer. Q10A accepts Back/Forward for actual conversation/module/item navigation, restoring the user's place. Preview selections and filter changes do not create history entries; history never undoes data changes.
+
+The [Chat contract](../foundations/chat.md#source-inspection-and-navigation) owns the planned behavior and delegated sizing/accessibility defaults. The [external source-preview example](../references/technical-spikes.md#source-preview-and-navigation-example-1-october-2026) now demonstrates the accepted interaction and corrected controls with fictional data. Browser evidence applies to that example only, not production delivery. The [initial journal](../journal/2026-10-01-command-navigation.md) and [accepted follow-up](../journal/2026-10-01-preview-controls.md) preserve the progression.
+
+## D122 — Preserve automation inputs for the first redesign port · 1 October 2026
+
+**User acceptance in Q11:** keep the current automatic input behavior for the first port, choosing the lean recommendation over per-automation source checklists. This resolves Q2's earlier “no opinion yet.” Candidate sources remain Notes, chats, Todos, Calendar, Expenses, News and Bookmarks under the existing module enablement, change cursor and relevance rules. Do not port the spike's source checklist or extend automatic collection to Mail, board, Wiki or automation output.
+
+The [Automations specification](../features/automations.md#redesign-adoption-scope-accepted) owns the runtime boundary, planned screen and regression expectations. Existing scheduled-topic writes and other-action approvals retain their contract. Together with Q12A, this closes the consequential product choices in the [redesign interview](../journal/2026-10-01-redesign-decisions.md); production UI adoption and its verification remain implementation work.
+
+## D123 — Reuse fetched Music results · 2 October 2026
+
+**User requirement:** switching Music tabs should reuse fetched results instead of sending the requests every time. This extends navigation retention to the fetched data. The [Music cache contract](../features/music.md#browse-result-caching-2-october-2026) specifies session memory, bounded retention, shared pending requests, explicit refresh and account/error handling as delegated lean defaults under D102/D103. It does not add offline playback, persistent provider copies or a dependency. The [journal](../journal/2026-10-02-music-cache.md) records the cause, implementation and validation limits.
+
+The 2 October [large-collection correction](../features/music.md#large-spotify-collections-2-october-2026) refines the delegated cache lifetime: fetched Spotify pages also remain in main for the app session so playback can reuse them. Renderer reload clears view state; Refresh and music-account changes invalidate the relevant pages, and Quit clears both caches. Incremental scrolling replaces the silent 100-page cutoff; it does not change source scope or queue semantics.
+
+## D124 — Music volume consistency and normalization · 2 October 2026
+
+**User acceptance:** “go with all 3 steps” accepts fixing the shared slider mismatch, optional metadata-based normalization for Spotify/Navidrome, and automatic album gain for albums versus track gain for playlists/shuffle. Preserve dynamics, leave unsuitable/missing metadata unadjusted and avoid an always-changing compressor.
+
+**Delegated lean defaults:** the existing Spotify 60 dB curve for both engines; a saved Settings → Music checkbox enabled by default; conservative gain reduction without amplifying quiet tracks; consistent nominal reference levels; and changes at the next track. The [Music contract](../features/music.md#source-volume-and-normalization-2-october-2026) owns calculation, metadata, timing, interfaces and limits. This supersedes the earlier proposal-only status recorded in the [investigation journal](../journal/2026-10-02-music-volume.md), without adding file rewriting, library analysis or manual per-source offsets.
+
+
+## D125 — Settings desktop design correction · 2 October 2026
+
+**User request:** the production Settings UI looks poor; refer to Cursor Desktop, the earlier Cursor-based prototype and optionally Codex Desktop. Preserve D120’s one-section navigation and the existing settings capabilities.
+
+**Delegated defaults:** grouped section navigation, Appearance on first entry, a centered readable column, subdued grouped rows, right-aligned switches, responsive label/control alignment, module-grouped approval checkboxes and consistent connection/permission presentation. Keep all current controls, data-folder settings, connection targets and independent grants. Reuse native keyboard/input semantics, shared icons, themes and reduced-motion behavior. [Settings](../foundations/integrations.md#settings-visual-system-2-october-2026) owns the dimensions, behavior, reference provenance and verification recipe; [the journal](../journal/2026-10-02-settings-redesign.md) records implementation and limits. This refines the production presentation; it does not import reference-app features.
+
+## D126 — Identify and group Music search results · 2 October 2026
+
+**User direction:** distinguish songs, playlists, albums and artists in search, through type labels or grouped categories, using the supplied Spotify screenshot as a reference. **Delegated choice:** use both explicit type labels and nonempty category sections in All, with six-item previews and Show all selecting the existing type filter. Preserve provider identity, existing layout choices, cached results and playback behavior. The [Music contract](../features/music.md#search-result-categories-2-october-2026) owns ordering, metadata, navigation and validation. This refines the earlier flat All presentation under D103; it does not add Spotify's ranking, recommendations or other result types.
+
+## D127 — Adjust volume while dragging · 2 October 2026
+
+**User requirement:** Music volume must respond immediately while the slider is still being dragged. **Delegated implementation:** send every changed value immediately, preserve local input against delayed echoes, and apply Spotify gain at the final output so queued decoded audio follows the new level. Preserve D124's volume curve, fixed normalization and next-track setting timing. The [Music contract](../features/music.md#live-volume-response-2-october-2026) owns input/output behavior and the boundary between software responsiveness and audio-device latency.
+
+## D128 — Open X in the default browser · 3 October 2026
+
+**User direction:** launch whichever installed browser the user has selected as the default. **Delegated implementation:** Settings → X bookmarks exposes Open X through the existing OS external-link launcher. Label it as opening X rather than claiming to connect bookmark import. Retain Sign in for import separately because the existing headless importer needs its own persistent profile; explain that limitation in the UI. This changes the primary opening action while preserving D42/D44's read-only import contract. Importing from the default browser's session remains unsupported; no extension, paid API or browser debugging setup is selected. [Bookmarks](../features/bookmarks.md#x) owns behavior and validation; the [journal](../journal/2026-10-03-x-default-browser.md) records the distinction.

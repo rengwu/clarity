@@ -1,0 +1,130 @@
+TAP version 13
+# Subtest: QA01 malformed Markdown source links stay local and valid links remain navigable
+ok 1 - QA01 malformed Markdown source links stay local and valid links remain navigable
+  ---
+  duration_ms: 4368.452334
+  type: 'test'
+  ...
+# Subtest: QA02 native modals retain their draft and focus when global shortcuts are pressed
+ok 2 - QA02 native modals retain their draft and focus when global shortcuts are pressed
+  ---
+  duration_ms: 4183.716458
+  type: 'test'
+  ...
+# Subtest: QA03 rich-editor Bold remains local and sidebar shortcut works outside editors
+ok 3 - QA03 rich-editor Bold remains local and sidebar shortcut works outside editors
+  ---
+  duration_ms: 4247.734959
+  type: 'test'
+  ...
+# Subtest: QA06 Wiki cross-page heading survives parent synchronization and history return
+ok 4 - QA06 Wiki cross-page heading survives parent synchronization and history return
+  ---
+  duration_ms: 4039.285208
+  type: 'test'
+  ...
+# Subtest: QA12 send acknowledgement preserves newer text attachments context and other conversation drafts
+ok 5 - QA12 send acknowledgement preserves newer text attachments context and other conversation drafts
+  ---
+  duration_ms: 4179.667208
+  type: 'test'
+  ...
+# Subtest: QA12 newer identical text stays unsent and unchanged submissions clear after success
+ok 6 - QA12 newer identical text stays unsent and unchanged submissions clear after success
+  ---
+  duration_ms: 2162.769417
+  type: 'test'
+  ...
+# Subtest: QA12 edits made while creating a conversation follow the created chat without changing outgoing text
+ok 7 - QA12 edits made while creating a conversation follow the created chat without changing outgoing text
+  ---
+  duration_ms: 4190.178125
+  type: 'test'
+  ...
+# Subtest: QA12 new-conversation send failure remains visible and preserves its latest draft
+ok 8 - QA12 new-conversation send failure remains visible and preserves its latest draft
+  ---
+  duration_ms: 2032.443708
+  type: 'test'
+  ...
+# Subtest: QA05 rejects undiscoverable create, folder and move destinations without touching documents
+ok 9 - QA05 rejects undiscoverable create, folder and move destinations without touching documents
+  ---
+  duration_ms: 174.212416
+  type: 'test'
+  ...
+# Subtest: QA07 every structured update and delete requires a valid revision and preserves newer edits
+ok 10 - QA07 every structured update and delete requires a valid revision and preserves newer edits
+  ---
+  duration_ms: 809.364417
+  type: 'test'
+  ...
+# Subtest: QA08 Expenses rejects impossible dates on add/update and approved execution
+ok 11 - QA08 Expenses rejects impossible dates on add/update and approved execution
+  ---
+  duration_ms: 151.451792
+  type: 'test'
+  ...
+# Subtest: QA08 Calendar validates original date and time components before timezone conversion
+ok 12 - QA08 Calendar validates original date and time components before timezone conversion
+  ---
+  duration_ms: 164.545458
+  type: 'test'
+  ...
+# Subtest: QA09 replies require an existing root and valid IDs, with approval and restart checks
+ok 13 - QA09 replies require an existing root and valid IDs, with approval and restart checks
+  ---
+  duration_ms: 198.288292
+  type: 'test'
+  ...
+# Subtest: QA10 RSS and Atom decode text and URLs, sanitize markup and reject entity declarations
+ok 14 - QA10 RSS and Atom decode text and URLs, sanitize markup and reject entity declarations
+  ---
+  duration_ms: 159.024875
+  type: 'test'
+  ...
+# Subtest: QA05 and QA10 native Rename and News Sources preserve visible and saved outcomes
+ok 15 - QA05 and QA10 native Rename and News Sources preserve visible and saved outcomes
+  ---
+  duration_ms: 4244.098083
+  type: 'test'
+  ...
+# Subtest: QA04 bookmark completion preserves a reopened draft on success and failure, and retry preserves input
+ok 16 - QA04 bookmark completion preserves a reopened draft on success and failure, and retry preserves input
+  ---
+  duration_ms: 4469.126334
+  type: 'test'
+  ...
+# Subtest: QA11 Mail clears previous-account content and ignores late reads while preserving same-account navigation
+ok 17 - QA11 Mail clears previous-account content and ignores late reads while preserving same-account navigation
+  ---
+  duration_ms: 4356.440042
+  type: 'test'
+  ...
+# Subtest: QA13 forty bookmark tags retain a visible clickable title without nested overflow in either theme
+ok 18 - QA13 forty bookmark tags retain a visible clickable title without nested overflow in either theme
+  ---
+  duration_ms: 4240.760791
+  type: 'test'
+  ...
+# Subtest: QA14 invalid Board reply has one local error, successful correction clears it and saves once
+ok 19 - QA14 invalid Board reply has one local error, successful correction clears it and saves once
+  ---
+  duration_ms: 4009.669333
+  type: 'test'
+  ...
+# Subtest: QA15 retained Settings navigation fits and opens at both supported sizes and themes
+ok 20 - QA15 retained Settings navigation fits and opens at both supported sizes and themes
+  ---
+  duration_ms: 4070.381792
+  type: 'test'
+  ...
+1..20
+# tests 20
+# suites 0
+# pass 20
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 57727.058083

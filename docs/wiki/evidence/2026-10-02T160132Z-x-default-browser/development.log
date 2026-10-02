@@ -1,0 +1,9 @@
+{
+  "packaged": false,
+  "checks": [
+    "Open X reaches real external.open IPC and shell.openExternal once; no managed login or profile",
+    "Failure stays in X section; retry clears error; pending launch blocks duplicate and fallback submissions",
+    "Separate import button retains browser.login dispatch (login stubbed; no live X access)",
+    "Both actions remain available after reload; dark desktop and light minimum size fit"
+  ]
+}

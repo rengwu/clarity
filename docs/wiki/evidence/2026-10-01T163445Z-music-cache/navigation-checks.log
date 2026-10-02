@@ -1,0 +1,16 @@
+TAP version 13
+# Subtest: Mail and Music preserve navigation with controlled results; primary hover keeps contrast at minimum window size
+ok 1 - Mail and Music preserve navigation with controlled results; primary hover keeps contrast at minimum window size
+  ---
+  duration_ms: 6285.042416
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6759.935417

@@ -1,0 +1,23 @@
+{
+  "at": "2026-10-01T16:21:04.134Z",
+  "auth": {
+    "spotify": true,
+    "spotifyPlayback": false,
+    "credentialWarning": null
+  },
+  "visibleSongs": 10,
+  "sidebarAnimations": [
+    {
+      "duration": 220,
+      "property": "grid-template-columns"
+    },
+    {
+      "duration": 160,
+      "property": "opacity"
+    }
+  ],
+  "playerErrors": 1,
+  "toasts": 1,
+  "playbackError": "Connect Spotify playback in Settings.Connect playback",
+  "rendererErrors": []
+}

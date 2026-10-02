@@ -1,0 +1,150 @@
+TAP version 13
+# Subtest: recent playback preserves collection metadata and provider IDs through real storage and restart
+ok 1 - recent playback preserves collection metadata and provider IDs through real storage and restart
+  ---
+  duration_ms: 457.332833
+  type: 'test'
+  ...
+# Subtest: legacy recents repair IDs and metadata without changing play order; failures retain history for retry
+not ok 2 - legacy recents repair IDs and metadata without changing play order; failures retain history for retry
+  ---
+  duration_ms: 261.155375
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/music-recent.mjs:190:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+      [
+        {
+          artist: 'Fixture artist',
+          cover: 'clarity://cover/cover',
+    -     duration: undefined,
+          id: 'offline',
+    -     replayGain: undefined,
+          source: 'navidrome',
+          title: 'Navidrome album offline',
+          type: 'album'
+        },
+        {
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0:
+      source: 'navidrome'
+      id: 'offline'
+      type: 'album'
+      title: 'Navidrome album offline'
+      artist: 'Fixture artist'
+      cover: 'clarity://cover/cover'
+    1:
+      id: 'complete'
+      source: 'spotify'
+      type: 'album'
+      title: 'Already complete'
+    2:
+      id: 'liked'
+      source: 'spotify'
+      type: 'playlist'
+      title: 'Liked Songs'
+    3:
+      id: 'artist'
+      source: 'spotify'
+      type: 'artist'
+      title: 'Spotify artists artist'
+      artist: 'Fixture artist'
+      cover: 'https://fixture/cover.png'
+    4:
+      id: 'hyphen-id'
+      source: 'navidrome'
+      type: 'playlist'
+      title: 'Navidrome playlist hyphen-id'
+      artist: 'Fixture artist'
+      cover: 'clarity://cover/cover'
+    5:
+      id: 'hyphen-id'
+      source: 'spotify'
+      type: 'album'
+      title: 'Spotify albums hyphen-id'
+      artist: 'Fixture artist'
+      cover: 'https://fixture/cover.png'
+  actual:
+    0:
+      id: 'offline'
+      source: 'navidrome'
+      type: 'album'
+      title: 'Navidrome album offline'
+      artist: 'Fixture artist'
+      cover: 'clarity://cover/cover'
+    1:
+      id: 'complete'
+      source: 'spotify'
+      type: 'album'
+      title: 'Already complete'
+    2:
+      id: 'liked'
+      source: 'spotify'
+      type: 'playlist'
+      title: 'Liked Songs'
+    3:
+      id: 'artist'
+      source: 'spotify'
+      type: 'artist'
+      title: 'Spotify artists artist'
+      artist: 'Fixture artist'
+      cover: 'https://fixture/cover.png'
+    4:
+      id: 'hyphen-id'
+      source: 'navidrome'
+      type: 'playlist'
+      title: 'Navidrome playlist hyphen-id'
+      artist: 'Fixture artist'
+      cover: 'clarity://cover/cover'
+    5:
+      id: 'hyphen-id'
+      source: 'spotify'
+      type: 'album'
+      title: 'Spotify albums hyphen-id'
+      artist: 'Fixture artist'
+      cover: 'https://fixture/cover.png'
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/rengwu/Desktop/Projects/clarity/tests/music-recent.mjs:251:12)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: late history repairs preserve a newer play and cannot persist an old-account response
+ok 3 - late history repairs preserve a newer play and cannot persist an old-account response
+  ---
+  duration_ms: 415.410333
+  type: 'test'
+  ...
+# Subtest: native Home repairs old cards, retries missing metadata and records collection-row playback
+not ok 4 - native Home repairs old cards, retries missing metadata and records collection-row playback
+  ---
+  duration_ms: 13883.74325
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/music-recent.mjs:312:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    locator.waitFor: Timeout 10000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: /Navidrome album fresh/ }) to be visible[22m
+    
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    TestContext.<anonymous> (/Users/rengwu/Desktop/Projects/clarity/tests/music-recent.mjs:546:73)
+  ...
+1..4
+# tests 4
+# suites 0
+# pass 2
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 15720.699833

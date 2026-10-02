@@ -1,0 +1,528 @@
+[
+  {
+    "name": "launch",
+    "at": "2026-10-01T18:20:56.017Z",
+    "root": "/var/folders/00/h_k67s0j5dq0qvg6ylqysk2w0000gn/T/clarity-adversarial-scUmne",
+    "window": "Clarity",
+    "modules": [
+      "Notes",
+      "Todos",
+      "Wiki",
+      "Calendar",
+      "Expenses",
+      "Mail",
+      "News",
+      "Bookmarks",
+      "Music",
+      "Agent board",
+      "Automations"
+    ]
+  },
+  {
+    "name": "long-todo-layout",
+    "at": "2026-10-01T18:21:22.902Z",
+    "viewport": {
+      "w": 850,
+      "h": 600,
+      "bodyWidth": 850
+    },
+    "rows": [
+      {
+        "width": 612,
+        "scrollWidth": 612,
+        "height": 36,
+        "titleWidth": 464,
+        "titleScrollWidth": 464
+      },
+      {
+        "width": 612,
+        "scrollWidth": 612,
+        "height": 176,
+        "titleWidth": 464,
+        "titleScrollWidth": 464
+      }
+    ]
+  },
+  {
+    "name": "shortcut-during-dialog",
+    "at": "2026-10-01T18:21:22.969Z",
+    "heading": "QA conversation",
+    "dialogs": [
+      {
+        "title": "New task",
+        "open": true,
+        "visible": false,
+        "hiddenHost": true
+      }
+    ],
+    "active": "<body>\n    <div id=\"root\"><div class=\"shell\"><aside class=\"sidebar\" aria-label=\"Workspace navigation\" aria-hidden=\"false\"><div class=\"sidebar-brand\">Clarity<button class=\"icon-butt"
+  },
+  {
+    "name": "hidden-modal-blocks-workspace",
+    "at": "2026-10-01T18:21:40.844Z",
+    "blocked": true,
+    "error": "locator.click: Timeout 900ms exceeded.\nCall log:\n  - waiting for getByRole('textbox', { name: 'Message', exact: true })\n    - locator resolved to <textarea aria-label=\"Message\" placeholder=\"Message Clarity\"></textarea>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is not stable\n    - retrying click action\n    - waiting 20ms\n    - waiting for element to be visible, enabled and stable",
+    "modalCount": 1
+  },
+  {
+    "name": "rich-editor-bold-shortcut",
+    "at": "2026-10-01T18:21:41.185Z",
+    "sidebarCollapsed": true,
+    "boldCount": 3
+  },
+  {
+    "name": "notes-disable-save-failure",
+    "at": "2026-10-01T18:23:16.162Z",
+    "prevented": true,
+    "persisted": "# QA welcome\n\nKeep this original text.\n",
+    "error": "Save a copy of Welcome.md before closing. Your draft is still in the editor."
+  },
+  {
+    "name": "notes-recover-copy",
+    "at": "2026-10-01T18:23:16.403Z",
+    "copy": "# QA IMPORTANT UNSAVED DRAFT\n\nThis must survive a failed save.\n"
+  },
+  {
+    "name": "cancel-save-destroys-next-draft",
+    "at": "2026-10-01T18:23:48.388Z",
+    "secondDialogClosed": true,
+    "bookmarks": [
+      {
+        "title": "QA first delayed bookmark",
+        "url": "https://example.com/first"
+      },
+      {
+        "title": "QA bookmark",
+        "url": "https://example.com/qa"
+      }
+    ]
+  },
+  {
+    "name": "expense-create-another",
+    "at": "2026-10-01T18:23:48.751Z",
+    "amount": "123.70",
+    "category": "QA food",
+    "description": "",
+    "stored": [
+      {
+        "amountCents": 12370,
+        "category": "QA food",
+        "description": "QA lunch",
+        "date": "2026-10-02",
+        "id": "71b87c24-908a-4d44-a32f-63eedf6196c1",
+        "createdAt": 1790879028737,
+        "updatedAt": 1790879028737,
+        "revision": 1
+      }
+    ]
+  },
+  {
+    "name": "expense-create-another-settled",
+    "at": "2026-10-01T18:24:45.406Z",
+    "amount": "",
+    "category": "QA food",
+    "description": ""
+  },
+  {
+    "name": "automation-create-new-nested-topic",
+    "at": "2026-10-01T18:25:12.925Z",
+    "created": true,
+    "config": {
+      "title": "QA valid job",
+      "instruction": "Maintain safe fixture information.",
+      "topicPath": "QA/New Topic.md",
+      "hour": 9,
+      "minute": 0,
+      "frequency": "daily",
+      "weekdays": [
+        "MO"
+      ],
+      "enabled": true,
+      "schedule": {
+        "kind": "calendar",
+        "timeZone": "Asia/Kuala_Lumpur",
+        "rule": {
+          "freq": "daily",
+          "interval": 1,
+          "hour": 9,
+          "minute": 0,
+          "anchorMs": 1790879112881
+        }
+      },
+      "nextRun": 1790902800000,
+      "since": 1790879112888,
+      "id": "567f9fb3-c534-4fc2-950b-e937e997a00f",
+      "createdAt": 1790879112890,
+      "updatedAt": 1790879112890,
+      "revision": 1
+    }
+  },
+  {
+    "name": "calendar-invalid-end",
+    "at": "2026-10-01T18:25:13.458Z",
+    "error": "End must be after the start.",
+    "persisted": 0
+  },
+  {
+    "name": "calendar-cross-midnight",
+    "at": "2026-10-01T18:25:13.534Z",
+    "visibleSegments": 2,
+    "records": 1
+  },
+  {
+    "name": "hidden-note-rename",
+    "at": "2026-10-01T18:25:44.134Z",
+    "openTab": true,
+    "noteFiles": "Projects\nSecond\nWelcome (recovered)",
+    "saved": "# QA welcome\n\nKeep this original text.\n"
+  },
+  {
+    "name": "hidden-note-search",
+    "at": "2026-10-01T18:25:49.241Z",
+    "results": "",
+    "text": "Files\nNotes\n\nNo results for “hidden-draft”.\n\nSelect a note or create one."
+  },
+  {
+    "name": "wiki-cross-page-anchor",
+    "at": "2026-10-01T18:26:33.465Z",
+    "frameURL": "clarity://wiki/index.html?v=0&theme=light&motion=system#Other.md",
+    "geometry": {
+      "hash": "#Other.md",
+      "scroll": 0,
+      "headingY": 82.26947784423828,
+      "viewport": 647
+    }
+  },
+  {
+    "name": "malformed-markdown-preview",
+    "at": "2026-10-01T18:26:55.986Z",
+    "pageErrors": [
+      "URI malformed"
+    ],
+    "bodyText": "",
+    "rootChildren": 0,
+    "persistedDraft": "\"QA draft survives a malformed preview\""
+  },
+  {
+    "name": "malformed-preview-recovery",
+    "at": "2026-10-01T18:26:56.256Z",
+    "draft": "QA draft survives a malformed preview",
+    "recovered": true
+  },
+  {
+    "name": "wiki-cross-page-anchor-confirmed",
+    "at": "2026-10-01T18:26:56.849Z",
+    "frameURL": "clarity://wiki/index.html?v=0&theme=light&motion=system#Other.md",
+    "geometry": {
+      "hash": "#Other.md",
+      "scroll": 0,
+      "headingY": 3240.822509765625,
+      "viewport": 647
+    }
+  },
+  {
+    "name": "module-validation-boundaries",
+    "at": "2026-10-01T18:27:33.733Z",
+    "cases": [
+      {
+        "case": "missing update revision",
+        "beforeRevision": 2,
+        "after": {
+          "title": "QA stale agent edit without revision",
+          "done": false,
+          "date": null,
+          "id": "91b05214-4775-4b7c-8bea-afc387306ca1",
+          "createdAt": 1790879253635,
+          "updatedAt": 1790879253659,
+          "revision": 3
+        }
+      },
+      {
+        "case": "missing delete revision",
+        "result": {
+          "deleted": true
+        }
+      },
+      {
+        "case": "expense date",
+        "date": "2026-02-30",
+        "accepted": true,
+        "id": "3d3fbf5d-c95d-4596-9ab5-ffd84719f63a"
+      },
+      {
+        "case": "expense date",
+        "date": "2026-13-40",
+        "accepted": true,
+        "id": "894f7b33-ba69-4c05-9e0b-6655b5446b01"
+      },
+      {
+        "case": "expense date",
+        "date": "0000-00-00",
+        "accepted": true,
+        "id": "1def34c4-8b67-4108-ae76-168016cffe3e"
+      },
+      {
+        "case": "calendar impossible date",
+        "accepted": true,
+        "record": {
+          "title": "QA impossible February date",
+          "start": "2026-02-30T09:00:00+08:00",
+          "end": "2026-02-30T10:00:00+08:00",
+          "id": "227385ff-2a80-42ed-958c-fe41b10739f9",
+          "createdAt": 1790879253703,
+          "updatedAt": 1790879253703,
+          "revision": 1
+        }
+      },
+      {
+        "case": "board missing parent",
+        "post": {
+          "topic": "QA orphan reply",
+          "text": "QA reply with nonexistent parent",
+          "threadId": "does-not-exist",
+          "links": [],
+          "id": "e8e0413f-d217-4226-a2d9-929c25c2f781",
+          "createdAt": 1790879253712,
+          "updatedAt": 1790879253712,
+          "revision": 1
+        },
+        "read": {
+          "thread": null,
+          "replies": []
+        },
+        "threadSearch": {
+          "items": [],
+          "truncated": false,
+          "total": 0
+        }
+      }
+    ]
+  },
+  {
+    "name": "invalid-expense-dates-ui",
+    "at": "2026-10-01T18:27:34.007Z",
+    "invalidDateLabels": 2,
+    "relevantText": "Invalid Date\nQA date 2026-13-40\nQA invalid date\n1.00\n1.00\nFri, Oct 2\nQA reset check\nQA food\n123.70\nQA lunch\nQA food\n123.70\n247.40\nThu, Oct 1\nWed, Sep 30\nTue, Sep 29\nMon, Sep 28\nSun, Sep 27\nSat, Sep 26\nFri, Sep 25\nThu, Sep 24\nWed, Sep 23\nTue, Sep 22\nMon, Sep 21\nSun, Sep 20\nSat, Sep 19\nFri, Sep 18\nThu, Sep 17\nWed, Sep 16\nTue, Sep 15\nMon, Sep 14\nSun, Sep 13\nSat, Sep 12\nFri, Sep 11\nThu, Sep 10\nWed, Sep 9\nTue, Sep 8\nMon, Sep 7\nSun, Sep 6\nSat, Sep 5\nFri, Sep 4\nThu, Sep 3\nMon, Mar 2\nQA date 2026-02-30\nQA invalid date\n1.00\n1.00\nInvalid Date\nQA date 0000-00-00\nQA invalid date\n1.00\n1.00"
+  },
+  {
+    "name": "news-feed-entities-and-partial-failure",
+    "at": "2026-10-01T18:28:11.342Z",
+    "headlines": [
+      "QA Formatted headline",
+      "QA Research &amp; Development"
+    ],
+    "status": [
+      "QA failing feed: HTTP 503"
+    ],
+    "records": [
+      {
+        "title": "QA Formatted headline",
+        "url": "https://example.com/qa-cdata"
+      },
+      {
+        "title": "QA Research &amp; Development",
+        "url": "https://example.com/qa-entity"
+      }
+    ],
+    "feedRequests": [
+      "/bad",
+      "/good",
+      "/bad",
+      "/good"
+    ]
+  },
+  {
+    "name": "news-repeat-refresh-deduplicates",
+    "at": "2026-10-01T18:28:11.449Z",
+    "count": 2
+  },
+  {
+    "name": "mail-account-replacement-error",
+    "at": "2026-10-01T18:28:42.724Z",
+    "reader": "QA new-account mailbox unavailable\n\nQA account 1 message\nqa@example.invalid\n10/1/2026, 12:00:00 PM\nQA private content for account 1",
+    "list": "Inbox\n\nQA new-account mailbox unavailable\n\nQA account 1 message\nqa@example.invalid\n10/1/2026",
+    "oldContentVisible": true
+  },
+  {
+    "name": "mail-disconnect-reconnect-retains-old-message",
+    "at": "2026-10-01T18:28:42.883Z",
+    "reader": "QA new-account mailbox unavailable\n\nQA account 1 message\nqa@example.invalid\n10/1/2026, 12:00:00 PM\nQA private content for account 1"
+  },
+  {
+    "name": "chat-late-send-clears-new-draft",
+    "at": "2026-10-01T18:29:18.454Z",
+    "sentText": "QA original outgoing text",
+    "visibleDraft": "",
+    "storedDraft": "\"\""
+  },
+  {
+    "name": "automation-disconnected-agent-failure",
+    "at": "2026-10-01T18:29:18.838Z",
+    "status": "failed",
+    "error": "Connect Codex in Settings.",
+    "cursorUnchanged": true,
+    "chatCount": 1
+  },
+  {
+    "name": "current-window",
+    "at": "2026-10-01T18:29:58.982Z",
+    "windows": [
+      {
+        "id": 1,
+        "bounds": {
+          "x": 224,
+          "y": 70,
+          "width": 904,
+          "height": 726
+        },
+        "url": "clarity://app/"
+      }
+    ],
+    "viewport": {
+      "w": 904,
+      "h": 726
+    }
+  },
+  {
+    "name": "music-disconnected-state",
+    "at": "2026-10-01T18:29:59.222Z",
+    "text": "Music\nAll sources\nHome\nPlaylists\nAlbums\nArtists\n\nConnect Spotify or Navidrome to browse your music.\nConnections\n\nAlbums, artists, and playlists you play in Clarity appear here."
+  },
+  {
+    "name": "long-bookmark-layout",
+    "at": "2026-10-01T18:29:59.546Z",
+    "viewport": {
+      "width": 850,
+      "scrollWidth": 850
+    },
+    "rows": [
+      {
+        "width": 596,
+        "scroll": 2513,
+        "rect": {
+          "x": 232,
+          "y": 144,
+          "width": 596,
+          "height": 56,
+          "top": 144,
+          "right": 828,
+          "bottom": 200,
+          "left": 232
+        },
+        "tagsWidth": 2467
+      },
+      {
+        "width": 596,
+        "scroll": 596,
+        "rect": {
+          "x": 232,
+          "y": 202,
+          "width": 596,
+          "height": 56,
+          "top": 202,
+          "right": 828,
+          "bottom": 258,
+          "left": 232
+        },
+        "tagsWidth": 0
+      },
+      {
+        "width": 596,
+        "scroll": 596,
+        "rect": {
+          "x": 232,
+          "y": 260,
+          "width": 596,
+          "height": 56,
+          "top": 260,
+          "right": 828,
+          "bottom": 316,
+          "left": 232
+        },
+        "tagsWidth": 20
+      }
+    ]
+  },
+  {
+    "name": "bookmark-title-collapsed-by-tags",
+    "at": "2026-10-01T18:30:20.004Z",
+    "geometry": {
+      "title": {
+        "x": 266,
+        "y": 153,
+        "width": 0,
+        "height": 20,
+        "top": 153,
+        "right": 266,
+        "bottom": 173,
+        "left": 266
+      },
+      "tags": {
+        "x": 278,
+        "y": 155,
+        "width": 2467.0078125,
+        "height": 16,
+        "top": 155,
+        "right": 2745.0078125,
+        "bottom": 171,
+        "left": 278
+      },
+      "edit": {
+        "x": 794,
+        "y": 159,
+        "width": 26,
+        "height": 26,
+        "top": 159,
+        "right": 820,
+        "bottom": 185,
+        "left": 794
+      },
+      "page": {
+        "x": 210,
+        "y": 44,
+        "width": 640,
+        "height": 556,
+        "top": 44,
+        "right": 850,
+        "bottom": 600,
+        "left": 210
+      },
+      "pageScroll": 2535
+    }
+  },
+  {
+    "name": "board-inline-errors",
+    "at": "2026-10-01T18:30:25.336Z",
+    "visibleErrors": [
+      "Post is required (maximum 20000 characters).",
+      "Post is required (maximum 20000 characters)."
+    ],
+    "count": 2
+  },
+  {
+    "name": "board-error-after-success",
+    "at": "2026-10-01T18:30:25.394Z",
+    "visibleErrors": [
+      "Post is required (maximum 20000 characters).",
+      "Post is required (maximum 20000 characters)."
+    ],
+    "saved": 1
+  },
+  {
+    "name": "hidden-modal-confirmed-after-settling",
+    "at": "2026-10-01T18:31:42.149Z",
+    "error": "locator.click: Timeout 1800ms exceeded.\nCall log:\n  - waiting for getByRole('textbox', { name: 'Message', exact: true })\n    - locator resolved to <textarea aria-label=\"Message\" placeholder=\"Message Clarity\"></textarea>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <html lang=\"en\" data-theme=\"light\" data-input=\"pointer\" data-motion=\"system\">…</html> intercepts pointer events\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <html lang=\"en\" data-theme=\"light\" data-input=\"pointer\" data-motion=\"system\">…</html> intercepts pointer events\n    - retrying click action\n      - waiting 100ms\n    3 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <html lang=\"en\" data-theme=\"light\" data-input=\"pointer\" data-motion=\"system\">…</html> intercepts pointer events\n    - retrying click action\n      - waiting 500ms\n",
+    "modals": [
+      {
+        "visible": false,
+        "hiddenHost": true
+      }
+    ],
+    "bodyInertHit": "HTML"
+  },
+  {
+    "name": "hidden-modal-escape-recovery",
+    "at": "2026-10-01T18:31:42.190Z",
+    "inputFocused": true
+  }
+]

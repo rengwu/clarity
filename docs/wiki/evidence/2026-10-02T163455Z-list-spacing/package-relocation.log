@@ -1,0 +1,17 @@
+TAP version 13
+# Relocated bundle verified: /var/folders/00/h_k67s0j5dq0qvg6ylqysk2w0000gn/T/clarity-package-test-HejUJ1/Clarity.app
+# Subtest: relocated macOS bundle runs with its own dependencies and a system-only PATH
+ok 1 - relocated macOS bundle runs with its own dependencies and a system-only PATH
+  ---
+  duration_ms: 18964.838125
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 19253.207875

@@ -1,0 +1,32 @@
+TAP version 13
+# Subtest: Spotify search/playlist compatibility and playback failure presentation
+not ok 1 - Spotify search/playlist compatibility and playback failure presentation
+  ---
+  duration_ms: 2151.2475
+  type: 'test'
+  location: '/Users/rengwu/Library/Caches/Clarity/build/adversarial-qa-20261002/frozen-source/tests/connectors.mjs:410:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly equal:
+    
+    1 !== 2
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 2
+  actual: 1
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/rengwu/Library/Caches/Clarity/build/adversarial-qa-20261002/frozen-source/tests/connectors.mjs:566:14)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 2390.982292

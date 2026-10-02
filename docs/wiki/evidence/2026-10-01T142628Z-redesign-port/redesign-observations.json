@@ -1,0 +1,20 @@
+{
+  "root": "/var/folders/00/h_k67s0j5dq0qvg6ylqysk2w0000gn/T/clarity-redesign-CZHkXP",
+  "observations": {
+    "news": {
+      "count": 14,
+      "height": 38,
+      "visible": 14
+    },
+    "expenses": {
+      "total": 1237,
+      "amounts": [
+        1237,
+        1237,
+        1237,
+        1237
+      ]
+    }
+  },
+  "errors": []
+}

@@ -1,0 +1,545 @@
+[
+  {
+    "scenario": "Tab, empty-list, layout, source-filter and module revisits reuse results; pending reads share one request",
+    "calls": [
+      {
+        "method": "recent",
+        "args": {}
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "playlists"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "albums"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "artists"
+        }
+      }
+    ],
+    "requests": [
+      "/v1/me",
+      "/v1/me/playlists",
+      "/v1/me/albums"
+    ]
+  },
+  {
+    "scenario": "Search keys, type filters, source/type collection keys, nested Back, empty results and explicit refresh",
+    "calls": [
+      {
+        "method": "recent",
+        "args": {}
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "playlists"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "albums"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "artists"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "first",
+          "type": "all"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "artist",
+          "type": "artist"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "album",
+          "type": "album"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "second",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "first",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "empty",
+          "type": "all"
+        }
+      }
+    ],
+    "requests": [
+      "/v1/me",
+      "/v1/me/playlists",
+      "/v1/me/albums",
+      "search:first",
+      "/v1/artists/artist",
+      "/v1/artists/artist/albums",
+      "/v1/albums/album/tracks",
+      "search:second",
+      "search:first",
+      "search:empty"
+    ]
+  },
+  {
+    "scenario": "Delayed reads cannot replace a newer view; rejected and partial reads remain retryable",
+    "calls": [
+      {
+        "method": "recent",
+        "args": {}
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "playlists"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "albums"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "artists"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "first",
+          "type": "all"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "artist",
+          "type": "artist"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "album",
+          "type": "album"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "second",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "first",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "empty",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "slow",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "retry",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "retry",
+          "type": "all"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "liked",
+          "type": "playlist"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "liked",
+          "type": "playlist"
+        }
+      }
+    ],
+    "requests": [
+      "/v1/me",
+      "/v1/me/playlists",
+      "/v1/me/albums",
+      "search:first",
+      "/v1/artists/artist",
+      "/v1/artists/artist/albums",
+      "/v1/albums/album/tracks",
+      "search:second",
+      "search:first",
+      "search:empty",
+      "search:slow",
+      "search:retry",
+      "search:retry",
+      "/v1/me/tracks",
+      "/v1/me/tracks"
+    ]
+  },
+  {
+    "scenario": "Playback invalidates recent history only; replacing a connected account clears visible and hidden cache entries",
+    "calls": [
+      {
+        "method": "recent",
+        "args": {}
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "playlists"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "albums"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "artists"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "first",
+          "type": "all"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "artist",
+          "type": "artist"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "album",
+          "type": "album"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "second",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "first",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "empty",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "slow",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "retry",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "retry",
+          "type": "all"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "liked",
+          "type": "playlist"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "liked",
+          "type": "playlist"
+        }
+      },
+      {
+        "method": "recent",
+        "args": {}
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "albums"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "albums"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "playlists"
+        }
+      }
+    ],
+    "requests": [
+      "/v1/me",
+      "/v1/me/playlists",
+      "/v1/me/albums",
+      "search:first",
+      "/v1/artists/artist",
+      "/v1/artists/artist/albums",
+      "/v1/albums/album/tracks",
+      "search:second",
+      "search:first",
+      "search:empty",
+      "search:slow",
+      "search:retry",
+      "search:retry",
+      "/v1/me/tracks",
+      "/v1/me/tracks",
+      "/v1/me/albums",
+      "/v1/me/albums",
+      "/v1/me",
+      "/v1/me/playlists"
+    ]
+  },
+  {
+    "scenario": "Partial Music error layout",
+    "theme": "dark",
+    "width": 1200,
+    "height": 800,
+    "notice": {
+      "x": 256,
+      "y": 212,
+      "width": 920,
+      "height": 58.1953125,
+      "top": 212,
+      "right": 1176,
+      "bottom": 270.1953125,
+      "left": 256
+    },
+    "retry": {
+      "x": 1071.2265625,
+      "y": 228.09375,
+      "width": 91.7734375,
+      "height": 26,
+      "top": 228.09375,
+      "right": 1163,
+      "bottom": 254.09375,
+      "left": 1071.2265625
+    },
+    "card": {
+      "x": 256,
+      "y": 286.1953125,
+      "width": 140,
+      "height": 180.6953125,
+      "top": 286.1953125,
+      "right": 396,
+      "bottom": 466.890625,
+      "left": 256
+    },
+    "overflow": false,
+    "gap": 16
+  },
+  {
+    "scenario": "Partial Music error layout",
+    "theme": "dark",
+    "width": 850,
+    "height": 600,
+    "notice": {
+      "x": 250.6015625,
+      "y": 210,
+      "width": 577.3984375,
+      "height": 58.1953125,
+      "top": 210,
+      "right": 828,
+      "bottom": 268.1953125,
+      "left": 250.6015625
+    },
+    "retry": {
+      "x": 723.2265625,
+      "y": 226.09375,
+      "width": 91.7734375,
+      "height": 26,
+      "top": 226.09375,
+      "right": 815,
+      "bottom": 252.09375,
+      "left": 723.2265625
+    },
+    "card": {
+      "x": 250.6015625,
+      "y": 284.1953125,
+      "width": 181.796875,
+      "height": 222.4921875,
+      "top": 284.1953125,
+      "right": 432.3984375,
+      "bottom": 506.6875,
+      "left": 250.6015625
+    },
+    "overflow": false,
+    "gap": 16
+  },
+  {
+    "scenario": "Partial Music error layout",
+    "theme": "light",
+    "width": 1200,
+    "height": 800,
+    "notice": {
+      "x": 235.9296875,
+      "y": 212,
+      "width": 940.0703125,
+      "height": 58.1953125,
+      "top": 212,
+      "right": 1176,
+      "bottom": 270.1953125,
+      "left": 235.9296875
+    },
+    "retry": {
+      "x": 1071.2265625,
+      "y": 228.09375,
+      "width": 91.7734375,
+      "height": 26,
+      "top": 228.09375,
+      "right": 1163,
+      "bottom": 254.09375,
+      "left": 1071.2265625
+    },
+    "card": {
+      "x": 235.9296875,
+      "y": 286.1953125,
+      "width": 143.34375,
+      "height": 184.0390625,
+      "top": 286.1953125,
+      "right": 379.2734375,
+      "bottom": 470.234375,
+      "left": 235.9296875
+    },
+    "overflow": false,
+    "gap": 16
+  },
+  {
+    "scenario": "Partial Music error layout",
+    "theme": "light",
+    "width": 850,
+    "height": 600,
+    "notice": {
+      "x": 248.40625,
+      "y": 210,
+      "width": 579.59375,
+      "height": 58.1953125,
+      "top": 210,
+      "right": 828,
+      "bottom": 268.1953125,
+      "left": 248.40625
+    },
+    "retry": {
+      "x": 723.2265625,
+      "y": 226.09375,
+      "width": 91.7734375,
+      "height": 26,
+      "top": 226.09375,
+      "right": 815,
+      "bottom": 252.09375,
+      "left": 723.2265625
+    },
+    "card": {
+      "x": 248.40625,
+      "y": 284.1953125,
+      "width": 182.53125,
+      "height": 223.2265625,
+      "top": 284.1953125,
+      "right": 430.9375,
+      "bottom": 507.421875,
+      "left": 248.40625
+    },
+    "overflow": false,
+    "gap": 16
+  }
+]

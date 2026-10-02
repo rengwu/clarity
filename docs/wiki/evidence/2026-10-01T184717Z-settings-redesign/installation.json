@@ -1,0 +1,38 @@
+{
+  "recordedAt": "2026-10-01T18:58:39.085973+00:00",
+  "installed": "/Users/rengwu/Applications/Clarity.app",
+  "backup": "/Users/rengwu/Library/Caches/Clarity/build/Clarity-before-settings-redesign-20261001T184717Z.app",
+  "runtimeFiles": [
+    {
+      "path": "main.mjs",
+      "sha256": "e57245db1d2f1b763c2ca01c3d4a0af0d8d41b0fcfc4d027067d0ddb8ba6b242"
+    },
+    {
+      "path": "preload.cjs",
+      "sha256": "8f51417738610391aa9ae5cd4bca18cfb43f19998a351244404972880890264a"
+    },
+    {
+      "path": "worker.mjs",
+      "sha256": "ff1dd08710e3df237c3e640e7ebb2bc7a4764617f59f4918c5a2db50668f44a4"
+    },
+    {
+      "path": "app.js",
+      "sha256": "a10ef17638ad6a645d802f1ba6a3e7cd2fb5febc93faa40ff536262011122c10"
+    },
+    {
+      "path": "app.css",
+      "sha256": "67bb45367737b92af94176dbf9bfd2cc904bbea06ba49b3de18ee64a9f2379aa"
+    },
+    {
+      "path": "index.html",
+      "sha256": "bcd785e95fb0ab58fd806a26ac1c8ce7d5cd692c274ad1b014c3f681ae02293b"
+    },
+    {
+      "path": "clarity-player",
+      "sha256": "6a95f5f7442f68e8aae92c1aa754a666317c094a259ff25e96ebb3d98be38131"
+    }
+  ],
+  "matchesTestedPackage": true,
+  "signatureVerified": true,
+  "launchPolicy": "Existing user process was not quit or reloaded. Normal Quit/reopen activates the update."
+}

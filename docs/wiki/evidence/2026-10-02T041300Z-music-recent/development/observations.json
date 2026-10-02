@@ -1,0 +1,125 @@
+{
+  "requests": [
+    "ping:",
+    "getPlaylist:list",
+    "getAlbum:shared-id",
+    "/v1/albums/unavailable",
+    "/v1/artists/artist",
+    "/v1/albums/shared-id",
+    "getCoverArt:fixture-cover",
+    "/v1/albums/unavailable",
+    "getAlbum:shared-id",
+    "getCoverArt:fixture-cover",
+    "/v1/albums/shared-id",
+    "/v1/albums/shared-id/tracks",
+    "getAlbumList2:",
+    "/v1/me/albums",
+    "getAlbum:fresh",
+    "getAlbum:fresh",
+    "stream:second",
+    "getAlbum:fresh",
+    "stream:first",
+    "getCoverArt:fixture-cover"
+  ],
+  "before": [
+    {
+      "id": "navidrome-album-shared-id",
+      "updatedAt": 1790914799317
+    },
+    {
+      "id": "navidrome-playlist-list",
+      "updatedAt": 1790914799322
+    },
+    {
+      "id": "spotify-album-shared-id",
+      "updatedAt": 1790914799314
+    },
+    {
+      "id": "spotify-album-unavailable",
+      "updatedAt": 1790914799325
+    },
+    {
+      "id": "spotify-artist-artist",
+      "updatedAt": 1790914799319
+    }
+  ],
+  "saved": [
+    {
+      "source": "navidrome",
+      "type": "album",
+      "itemId": "fresh",
+      "title": "Navidrome album fresh",
+      "artist": "Fixture artist",
+      "cover": "clarity://cover/fixture-cover",
+      "playedAt": 1790914802195,
+      "id": "navidrome-album-fresh",
+      "createdAt": 1790914802070,
+      "updatedAt": 1790914802197,
+      "revision": 2
+    },
+    {
+      "source": "navidrome",
+      "type": "album",
+      "title": "Navidrome album shared-id",
+      "artist": "Fixture artist",
+      "cover": "clarity://cover/fixture-cover",
+      "itemId": "shared-id",
+      "playedAt": 1790914799317,
+      "id": "navidrome-album-shared-id",
+      "createdAt": 1790914799317,
+      "updatedAt": 1790914801661,
+      "revision": 2
+    },
+    {
+      "source": "navidrome",
+      "type": "playlist",
+      "title": "Navidrome playlist",
+      "cover": "clarity://cover/fixture-cover",
+      "itemId": "list",
+      "playedAt": 1790914799322,
+      "id": "navidrome-playlist-list",
+      "createdAt": 1790914799322,
+      "updatedAt": 1790914801659,
+      "revision": 2
+    },
+    {
+      "source": "spotify",
+      "type": "album",
+      "title": "Spotify album shared-id",
+      "artist": "Fixture artist",
+      "cover": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDAiIGhlaWdodD0iMjQwIj48cmVjdCB3aWR0aD0iMjQwIiBoZWlnaHQ9IjI0MCIgZmlsbD0iIzI0Mzc0NSIvPjxjaXJjbGUgY3g9IjE1MCIgY3k9Ijk1IiByPSI3NSIgZmlsbD0iIzc1YjViMCIvPjxjaXJjbGUgY3g9Ijg1IiBjeT0iMTQwIiByPSI1NSIgZmlsbD0iI2Q2OTg2ZSIvPjx0ZXh0IHg9IjIwIiB5PSIyMTUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmaWxsPSJ3aGl0ZSI+Rml4dHVyZSBjb3ZlcjwvdGV4dD48L3N2Zz4=",
+      "itemId": "shared-id",
+      "playedAt": 1790914799314,
+      "id": "spotify-album-shared-id",
+      "createdAt": 1790914799314,
+      "updatedAt": 1790914801662,
+      "revision": 2
+    },
+    {
+      "source": "spotify",
+      "type": "album",
+      "title": "Spotify album unavailable",
+      "artist": "Fixture artist",
+      "cover": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDAiIGhlaWdodD0iMjQwIj48cmVjdCB3aWR0aD0iMjQwIiBoZWlnaHQ9IjI0MCIgZmlsbD0iIzI0Mzc0NSIvPjxjaXJjbGUgY3g9IjE1MCIgY3k9Ijk1IiByPSI3NSIgZmlsbD0iIzc1YjViMCIvPjxjaXJjbGUgY3g9Ijg1IiBjeT0iMTQwIiByPSI1NSIgZmlsbD0iI2Q2OTg2ZSIvPjx0ZXh0IHg9IjIwIiB5PSIyMTUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmaWxsPSJ3aGl0ZSI+Rml4dHVyZSBjb3ZlcjwvdGV4dD48L3N2Zz4=",
+      "itemId": "unavailable",
+      "playedAt": 1790914799325,
+      "id": "spotify-album-unavailable",
+      "createdAt": 1790914799325,
+      "updatedAt": 1790914801824,
+      "revision": 2
+    },
+    {
+      "source": "spotify",
+      "type": "artist",
+      "title": "Spotify artist artist",
+      "artist": "Fixture artist",
+      "cover": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNDAiIGhlaWdodD0iMjQwIj48cmVjdCB3aWR0aD0iMjQwIiBoZWlnaHQ9IjI0MCIgZmlsbD0iIzI0Mzc0NSIvPjxjaXJjbGUgY3g9IjE1MCIgY3k9Ijk1IiByPSI3NSIgZmlsbD0iIzc1YjViMCIvPjxjaXJjbGUgY3g9Ijg1IiBjeT0iMTQwIiByPSI1NSIgZmlsbD0iI2Q2OTg2ZSIvPjx0ZXh0IHg9IjIwIiB5PSIyMTUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmaWxsPSJ3aGl0ZSI+Rml4dHVyZSBjb3ZlcjwvdGV4dD48L3N2Zz4=",
+      "itemId": "artist",
+      "playedAt": 1790914799319,
+      "id": "spotify-artist-artist",
+      "createdAt": 1790914799319,
+      "updatedAt": 1790914801661,
+      "revision": 2
+    }
+  ]
+}

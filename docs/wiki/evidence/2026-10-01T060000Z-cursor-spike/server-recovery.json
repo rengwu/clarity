@@ -1,0 +1,36 @@
+{
+  "at": "2026-10-01T06:21:26.378Z",
+  "result": "Passed",
+  "before": "No listener; curl returned connection refused.",
+  "startup": "Ephemeral launchctl submit job local.clarity.cursor-spike, no login plist installed.",
+  "jobPid": 95027,
+  "ownership": "95027     1 /Users/rengwu/.local/share/fnm/node-versions/v22.19.0/installation/bin/node /Users/rengwu/Desktop/Projects/clarity-spikes/2026-10-01-cursor/server.mjs",
+  "assets": [
+    {
+      "name": "index.html",
+      "status": 200,
+      "sha256": "ef63382f60b8007772c2715cff5e15147a9f9ca582142e50f05725e3b08b1724"
+    },
+    {
+      "name": "style.css",
+      "status": 200,
+      "sha256": "35acd1ff962bae6a6e74e5256ad17782cfaf55d6cd3992397a9b09b0f791fb03"
+    },
+    {
+      "name": "app.js",
+      "status": 200,
+      "sha256": "45fddd451540351f0339e0c105c217b127bdb9257bef96442b053a15260ffe69"
+    },
+    {
+      "name": "data.js",
+      "status": 200,
+      "sha256": "d6caaa9e627efbd0358d796f13aaae5dea05508a0afc5d1f19b395c5a76a4c42"
+    },
+    {
+      "name": "ui.js",
+      "status": 200,
+      "sha256": "feef41fa742a602bb54a21eb6f20bf0674f86428db5149c5d4b619d08e051adb"
+    }
+  ],
+  "limits": "Runs in this macOS login session; logout/reboot persistence is not configured."
+}

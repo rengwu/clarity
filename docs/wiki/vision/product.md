@@ -1,20 +1,36 @@
 ---
 title: Product vision
 section: Overview
-status: Captured
-updated: 2026-09-27
+status: Current
+updated: 2026-09-29
 order: 10
 summary: One optional, modular harness for personal tools and development workflows.
 ---
 # Product vision
 
-## Stated intent
+## Current specification · 29 September 2026
+
+Clarity is a private, local personal harness for the user and friends. It opens to the last chat, offers New chat, and puts enabled modules above recent chats in one main sidebar, with Settings below. Chat, Notes, Todos, and Wiki start enabled; Calendar, Expenses, Mail, News, Bookmarks, Music, Agent board, and Automations are optional. Every chat accesses the same enabled module instances. Results stay in chat until the user chooses to open a module.
+
+The user authorized implementation on 28 September (D102). The selected implementation is Electron/TypeScript, React, a local workerd/SQLite backend, and Pi using the existing Codex subscription. Cloudflare OS provides selected scheduler/approval contracts and design direction; Clarity does not run its complete hosted application or runtime-generated modules. This distinction is an implementation default under D103.
+
+One chosen data folder owns Markdown, structured records, attachments, credentials, and browser profiles. Notes are human-maintained and directly editable; Wiki is one topic-organized knowledge base edited through AI. The original two-folder and automatic folder-sync ambitions are superseded. Closing the window keeps the app available through the Dock/menu bar; explicit Quit stops it. macOS comes first; Linux remains unverified.
+
+The [feature map](../features/index.md) defines the current modules. [Implementation and validation](../references/implementation.md) supplies rebuild contracts and evidence; [current follow-up](../discussions/open-questions.md) keeps omissions visible. Terminal sessions, local-file music, device sync, an independent background service, and launch-at-login are outside scope. Private use does not establish that an external integration works: real account checks remain explicit.
+
+This project wiki is maintained as a rebuild specification under D105. It is distinct from the user's in-app Wiki.
+
+## Earlier discussion and research
+
+The material below records earlier states of the discussion. Its proposals and open questions are historical unless explicitly carried into the current specification above or the [current follow-up list](../discussions/open-questions.md).
+
+### Stated intent
 
 Clarity is an omni-harness, similar in spirit to Lucia. It brings together personal utilities, integrations, and developer workflows. Users choose which features to enable and which accounts to connect.
 
 The experience should be lean: a simple calendar, fast expense entry, a lightweight Markdown editor, and a simple knowledge base, alongside the other requested tools. The breadth is intentional; the depth of each feature is still to be explored.
 
-## Opening screen
+### Opening screen
 
 **User-stated requirement:** the first screen is simply a chat screen, with recent chats in the sidebar. Recorded in [D16](../decisions/index.md#d16-chat-opening-screen-25-september-2026).
 
@@ -24,7 +40,7 @@ Reopening resumes the last chat, with New chat available; a first launch without
 
 The chat UI should closely follow Synara or Codex as references ([D19](../decisions/index.md#d19-chat-ui-references-25-september-2026)); exact visual and interaction details remain to be reviewed.
 
-## Chat across modules
+### Chat across modules
 
 **User-stated requirement:** chat can act across all modules. Confirmed examples include summarizing news headlines, adding and editing tasks, adding calendar events, reading notes, reading and summarizing mail, retrieving bookmarks, searching and playing music, and altering the in-app wiki.
 
@@ -36,15 +52,15 @@ Wiki topic maintenance during research and scheduled updates from new relevant a
 
 See [chat and module actions](../foundations/chat.md) and [assistant execution](../foundations/harnesses.md). Specific actions for the remaining modules, the default and scope of the action-mode setting, and detailed result styling remain open.
 
-## Platform
+### Platform
 
 Cloudflare OS with Electron and TypeScript; backend execution is local for now. macOS first, with Linux possible later. Terminals are removed. Closing the window keeps Clarity alive in the Dock/menu bar until explicit Quit. Runtime packaging and clean lifecycle implementation still need validation; see [architecture](../foundations/desktop-stack.md#current-direction-27-september-2026).
 
-## Ownership
+### Ownership
 
 Notes/wiki are actual Markdown files, viewable in the app; notes are editable in-app. Wiki retains its AI-editing/read-only-reader model. All app state belongs under one chosen folder; the second development root is removed. Internal layout, other state representation, and backup mechanics remain open. Device sync is out of scope.
 
-## Desired journeys
+### Desired journeys
 
 These interpretations remain proposals to refine:
 
@@ -55,10 +71,10 @@ These interpretations remain proposals to refine:
 
 Terminal workflows have been removed; local directories and runtime lifetime are still open.
 
-## Still undefined
+### Still undefined
 
 Local packaging and sleep/restart validation, internal folder layout and other state, Codex subscription integration, module upgrades, embedded Spotify implementation, and Navidrome connection/streaming validation remain open. First-version priorities are chat, notes, todo, and wiki; missed runs are skipped. Retain Pi and upstream approvals. Keep implementation understandable and explain new concepts as we build. See [open questions](../discussions/open-questions.md).
 
-## First useful version
+### First useful version
 
 Chat, notes, todo, and wiki are the accepted first-version priorities (D71). Codex is the initial AI-account target (D72); the Pi agent remains. Other modules stay in the broader plan.

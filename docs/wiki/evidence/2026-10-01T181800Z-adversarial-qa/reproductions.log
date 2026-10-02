@@ -1,0 +1,17 @@
+QA07: Failed
+QA02: Failed
+QA03: Failed
+QA05: Failed
+QA04: Failed
+QA13: Failed
+QA06: Failed
+QA08: Failed
+QA09: Failed
+QA14: Failed
+QA10: Failed
+QA11: Failed
+QA12: Failed
+PASS-note-recovery: Passed
+PASS-automation-failure: Passed
+QA01: Failed
+{"failed":14,"passed":2,"untested":0}

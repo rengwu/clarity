@@ -1,0 +1,421 @@
+Built Clarity: /Users/rengwu/Library/Caches/Clarity/build/adversarial-fixes-20261002/integration/output
+TAP version 13
+# Subtest: QA01 malformed Markdown source links stay local and valid links remain navigable
+ok 1 - QA01 malformed Markdown source links stay local and valid links remain navigable
+  ---
+  duration_ms: 4899.3135
+  type: 'test'
+  ...
+# Subtest: QA02 native modals retain their draft and focus when global shortcuts are pressed
+ok 2 - QA02 native modals retain their draft and focus when global shortcuts are pressed
+  ---
+  duration_ms: 4045.901625
+  type: 'test'
+  ...
+# Subtest: QA03 rich-editor Bold remains local and sidebar shortcut works outside editors
+ok 3 - QA03 rich-editor Bold remains local and sidebar shortcut works outside editors
+  ---
+  duration_ms: 4094.214334
+  type: 'test'
+  ...
+# Subtest: QA06 Wiki cross-page heading survives parent synchronization and history return
+ok 4 - QA06 Wiki cross-page heading survives parent synchronization and history return
+  ---
+  duration_ms: 4150.735459
+  type: 'test'
+  ...
+# Subtest: QA12 send acknowledgement preserves newer text attachments context and other conversation drafts
+ok 5 - QA12 send acknowledgement preserves newer text attachments context and other conversation drafts
+  ---
+  duration_ms: 4126.184625
+  type: 'test'
+  ...
+# Subtest: QA12 newer identical text stays unsent and unchanged submissions clear after success
+ok 6 - QA12 newer identical text stays unsent and unchanged submissions clear after success
+  ---
+  duration_ms: 4052.260333
+  type: 'test'
+  ...
+# Subtest: QA12 edits made while creating a conversation follow the created chat without changing outgoing text
+ok 7 - QA12 edits made while creating a conversation follow the created chat without changing outgoing text
+  ---
+  duration_ms: 4126.719625
+  type: 'test'
+  ...
+# Subtest: QA12 new-conversation send failure remains visible and preserves its latest draft
+ok 8 - QA12 new-conversation send failure remains visible and preserves its latest draft
+  ---
+  duration_ms: 2025.470667
+  type: 'test'
+  ...
+# Subtest: QA05 rejects undiscoverable create, folder and move destinations without touching documents
+ok 9 - QA05 rejects undiscoverable create, folder and move destinations without touching documents
+  ---
+  duration_ms: 165.423041
+  type: 'test'
+  ...
+# Subtest: QA07 every structured update and delete requires a valid revision and preserves newer edits
+ok 10 - QA07 every structured update and delete requires a valid revision and preserves newer edits
+  ---
+  duration_ms: 731.713125
+  type: 'test'
+  ...
+# Subtest: QA08 Expenses rejects impossible dates on add/update and approved execution
+ok 11 - QA08 Expenses rejects impossible dates on add/update and approved execution
+  ---
+  duration_ms: 148.616292
+  type: 'test'
+  ...
+# Subtest: QA08 Calendar validates original date and time components before timezone conversion
+ok 12 - QA08 Calendar validates original date and time components before timezone conversion
+  ---
+  duration_ms: 156.102458
+  type: 'test'
+  ...
+# Subtest: QA09 replies require an existing root and valid IDs, with approval and restart checks
+ok 13 - QA09 replies require an existing root and valid IDs, with approval and restart checks
+  ---
+  duration_ms: 189.05225
+  type: 'test'
+  ...
+# Subtest: QA10 RSS and Atom decode text and URLs, sanitize markup and reject entity declarations
+ok 14 - QA10 RSS and Atom decode text and URLs, sanitize markup and reject entity declarations
+  ---
+  duration_ms: 152.459333
+  type: 'test'
+  ...
+# Subtest: QA05 and QA10 native Rename and News Sources preserve visible and saved outcomes
+ok 15 - QA05 and QA10 native Rename and News Sources preserve visible and saved outcomes
+  ---
+  duration_ms: 4153.51525
+  type: 'test'
+  ...
+# Subtest: QA04 bookmark completion preserves a reopened draft on success and failure, and retry preserves input
+ok 16 - QA04 bookmark completion preserves a reopened draft on success and failure, and retry preserves input
+  ---
+  duration_ms: 4230.465
+  type: 'test'
+  ...
+# Subtest: QA11 Mail clears previous-account content and ignores late reads while preserving same-account navigation
+ok 17 - QA11 Mail clears previous-account content and ignores late reads while preserving same-account navigation
+  ---
+  duration_ms: 4079.186041
+  type: 'test'
+  ...
+# Subtest: QA13 forty bookmark tags retain a visible clickable title without nested overflow in either theme
+ok 18 - QA13 forty bookmark tags retain a visible clickable title without nested overflow in either theme
+  ---
+  duration_ms: 2013.694125
+  type: 'test'
+  ...
+# Subtest: QA14 invalid Board reply has one local error, successful correction clears it and saves once
+ok 19 - QA14 invalid Board reply has one local error, successful correction clears it and saves once
+  ---
+  duration_ms: 3997.546792
+  type: 'test'
+  ...
+# Subtest: QA15 retained Settings navigation fits and opens at both supported sizes and themes
+ok 20 - QA15 retained Settings navigation fits and opens at both supported sizes and themes
+  ---
+  duration_ms: 4049.466833
+  type: 'test'
+  ...
+# Subtest: OAuth state/PKCE, encrypted tokens, refresh and read-only Gmail with controlled responses
+ok 21 - OAuth state/PKCE, encrypted tokens, refresh and read-only Gmail with controlled responses
+  ---
+  duration_ms: 5841.3835
+  type: 'test'
+  ...
+# Subtest: Spotify login survives expiry and restart; renewal preserves and rotates refresh tokens
+ok 22 - Spotify login survives expiry and restart; renewal preserves and rotates refresh tokens
+  ---
+  duration_ms: 3938.295958
+  type: 'test'
+  ...
+# Subtest: Spotify search/playlist compatibility and playback failure presentation
+ok 23 - Spotify search/playlist compatibility and playback failure presentation
+  ---
+  duration_ms: 3989.050625
+  type: 'test'
+  ...
+# Subtest: Navidrome connection errors guide retry and preserve the saved account
+ok 24 - Navidrome connection errors guide retry and preserve the saved account
+  ---
+  duration_ms: 3966.698875
+  type: 'test'
+  ...
+# Subtest: Navidrome HTTP stream plays, seeks through the player bar and ends a single-song queue
+ok 25 - Navidrome HTTP stream plays, seeks through the player bar and ends a single-song queue
+  ---
+  duration_ms: 3937.063708
+  type: 'test'
+  ...
+# Subtest: agent context uses the device timezone without guessing a physical location
+ok 26 - agent context uses the device timezone without guessing a physical location
+  ---
+  duration_ms: 7.398083
+  type: 'test'
+  ...
+# Subtest: device readings are approximate and dated; startup does not repeat refused requests
+ok 27 - device readings are approximate and dated; startup does not repeat refused requests
+  ---
+  duration_ms: 0.729584
+  type: 'test'
+  ...
+# Subtest: files preserve conflicts, reject escapes and expire only owned chat copies
+ok 28 - files preserve conflicts, reject escapes and expire only owned chat copies
+  ---
+  duration_ms: 16.568916
+  type: 'test'
+  ...
+# Subtest: music keeps track identity and stops Spotify before starting Navidrome
+ok 29 - music keeps track identity and stops Spotify before starting Navidrome
+  ---
+  duration_ms: 1.561917
+  type: 'test'
+  ...
+# Subtest: Spotify helper crashes surface an error and reconnect; intentional shutdown stays quiet
+ok 30 - Spotify helper crashes surface an error and reconnect; intentional shutdown stays quiet
+  ---
+  duration_ms: 81.263042
+  type: 'test'
+  ...
+# Subtest: Spotify silently renews a rejected playback token, with a single retry
+ok 31 - Spotify silently renews a rejected playback token, with a single retry
+  ---
+  duration_ms: 154.370083
+  type: 'test'
+  ...
+# Subtest: Spotify renews an active helper token without restarting and ignores renewal after close
+ok 32 - Spotify renews an active helper token without restarting and ignores renewal after close
+  ---
+  duration_ms: 2140.689333
+  type: 'test'
+  ...
+# Subtest: Spotify recovers an interrupted track once, preserves position and respects pause and source changes
+ok 33 - Spotify recovers an interrupted track once, preserves position and respects pause and source changes
+  ---
+  duration_ms: 0.782292
+  type: 'test'
+  ...
+# Subtest: automations skip missed runs, preserve failed inputs and keep output outside chats
+ok 34 - automations skip missed runs, preserve failed inputs and keep output outside chats
+  ---
+  duration_ms: 211.241292
+  type: 'test'
+  ...
+# Subtest: approval claims prevent duplicate effects; optimistic revisions prevent stale updates
+ok 35 - approval claims prevent duplicate effects; optimistic revisions prevent stale updates
+  ---
+  duration_ms: 114.300875
+  type: 'test'
+  ...
+# Subtest: automatic action approvals are explicit, current, persisted and keep a result trail
+ok 36 - automatic action approvals are explicit, current, persisted and keep a result trail
+  ---
+  duration_ms: 225.948958
+  type: 'test'
+  ...
+# Subtest: action checklist covers the agent catalog, browser grants and scheduled-run approvals
+ok 37 - action checklist covers the agent catalog, browser grants and scheduled-run approvals
+  ---
+  duration_ms: 165.998208
+  type: 'test'
+  ...
+# Subtest: Linkding preserves local edits, feeds parse and Navidrome accepts a local HTTP server
+ok 38 - Linkding preserves local edits, feeds parse and Navidrome accepts a local HTTP server
+  ---
+  duration_ms: 131.725125
+  type: 'test'
+  ...
+# Subtest: wiki is self-contained and sanitizes page scripts and event handlers
+ok 39 - wiki is self-contained and sanitizes page scripts and event handlers
+  ---
+  duration_ms: 12.90625
+  type: 'test'
+  ...
+# Subtest: browser batches focus main content and block ungranted navigation
+ok 40 - browser batches focus main content and block ungranted navigation
+  ---
+  duration_ms: 3353.561541
+  type: 'test'
+  ...
+# [96736:1002/184107.774845:ERROR:net/disk_cache/simple/simple_version_upgrade.cc:107] Failed to write a new fake index.
+# [96736:1002/184107.775264:ERROR:net/disk_cache/simple/simple_version_upgrade.cc:107] Failed to write a new fake index.
+# [96736:1002/184107.775273:ERROR:net/disk_cache/simple/simple_backend_impl.cc:749] Simple Cache Backend: wrong file structure on disk: 8 path: /private/var/folders/00/h_k67s0j5dq0qvg6ylqysk2w0000gn/T/clarity-app-test-qmIL0D/.clarity/ui/Shared Dictionary/cache
+# [96736:1002/184107.775550:ERROR:net/disk_cache/disk_cache.cc:290] Unable to create cache
+# Test data: /var/folders/00/h_k67s0j5dq0qvg6ylqysk2w0000gn/T/clarity-app-test-qmIL0D
+# Subtest: local app: notes, tasks, calendar, expenses, wiki, persistence and window lifecycle
+ok 41 - local app: notes, tasks, calendar, expenses, wiki, persistence and window lifecycle
+  ---
+  duration_ms: 10869.186792
+  type: 'test'
+  ...
+# Subtest: live Codex: checked actions execute and unchecked actions return to review in the same chat
+ok 42 - live Codex: checked actions execute and unchecked actions return to review in the same chat # SKIP
+  ---
+  duration_ms: 0.489083
+  type: 'test'
+  ...
+# Subtest: live Codex: tool approval, same-thread model change and restart
+ok 43 - live Codex: tool approval, same-thread model change and restart # SKIP
+  ---
+  duration_ms: 0.068833
+  type: 'test'
+  ...
+# Subtest: Music caches navigation reads, shares pending requests and invalidates changed accounts
+ok 44 - Music caches navigation reads, shares pending requests and invalidates changed accounts
+  ---
+  duration_ms: 7486.315333
+  type: 'test'
+  ...
+# Subtest: Spotify collection pages continue past 5000 and playback reuses all fetched pages
+ok 45 - Spotify collection pages continue past 5000 and playback reuses all fetched pages
+  ---
+  duration_ms: 8.5785
+  type: 'test'
+  ...
+# Subtest: Spotify rejects non-advancing pages and discards an account change during a full read
+ok 46 - Spotify rejects non-advancing pages and discards an account change during a full read
+  ---
+  duration_ms: 1.924625
+  type: 'test'
+  ...
+# First page displayed with one provider request.
+# Scrolled through 5,055 songs and reached the final page.
+# Subtest: native Music loads the first page, scrolls beyond 5000, retries a page and reuses results
+ok 47 - native Music loads the first page, scrolls beyond 5000, retries a page and reuses results
+  ---
+  duration_ms: 32835.544209
+  type: 'test'
+  ...
+# Subtest: recent playback preserves collection metadata and provider IDs through real storage and restart
+ok 48 - recent playback preserves collection metadata and provider IDs through real storage and restart
+  ---
+  duration_ms: 222.64
+  type: 'test'
+  ...
+# Subtest: legacy recents repair IDs and metadata without changing play order; failures retain history for retry
+ok 49 - legacy recents repair IDs and metadata without changing play order; failures retain history for retry
+  ---
+  duration_ms: 141.916125
+  type: 'test'
+  ...
+# Subtest: late history repairs preserve a newer play and cannot persist an old-account response
+ok 50 - late history repairs preserve a newer play and cannot persist an old-account response
+  ---
+  duration_ms: 130.414708
+  type: 'test'
+  ...
+# Subtest: native Home repairs old cards, retries missing metadata and records collection-row playback
+ok 51 - native Home repairs old cards, retries missing metadata and records collection-row playback
+  ---
+  duration_ms: 4383.285625
+  type: 'test'
+  ...
+# Subtest: gain metadata handles absent, invalid, quiet and peak-limited recordings
+ok 52 - gain metadata handles absent, invalid, quiet and peak-limited recordings
+  ---
+  duration_ms: 0.53425
+  type: 'test'
+  ...
+# Subtest: Music chooses album/track normalization and sends volume before native playback
+ok 53 - Music chooses album/track normalization and sends volume before native playback
+  ---
+  duration_ms: 1.438458
+  type: 'test'
+  ...
+# Subtest: Spotify keeps the helper until normalization changes at a new load
+ok 54 - Spotify keeps the helper until normalization changes at a new load
+  ---
+  duration_ms: 116.393083
+  type: 'test'
+  ...
+# Subtest: native Music UI applies normalization, album/shuffle modes, settings and persistence
+ok 55 - native Music UI applies normalization, album/shuffle modes, settings and persistence
+  ---
+  duration_ms: 7642.864042
+  type: 'test'
+  ...
+# Subtest: agent approvals checklist: individual choices, mixed Select all and persistence
+ok 56 - agent approvals checklist: individual choices, mixed Select all and persistence
+  ---
+  duration_ms: 8098.747875
+  type: 'test'
+  ...
+# Permission fixtures verified: /var/folders/00/h_k67s0j5dq0qvg6ylqysk2w0000gn/T/clarity-permissions-RhlfND
+# Subtest: permissions: location outcomes, clearing, website revocation and restart
+ok 57 - permissions: location outcomes, clearing, website revocation and restart
+  ---
+  duration_ms: 6402.832125
+  type: 'test'
+  ...
+# Subtest: command parsing proposes bounded editable fields and local search never calls providers
+ok 58 - command parsing proposes bounded editable fields and local search never calls providers
+  ---
+  duration_ms: 3.4815
+  type: 'test'
+  ...
+# Subtest: native redesign preserves source context, history, drafts, commands and compact controls
+ok 59 - native redesign preserves source context, history, drafts, commands and compact controls
+  ---
+  duration_ms: 8373.290041
+  type: 'test'
+  ...
+# Subtest: omni interpretation is opt-in, discards stale proposals and requires explicit provider queries
+ok 60 - omni interpretation is opt-in, discards stale proposals and requires explicit provider queries
+  ---
+  duration_ms: 8098.06625
+  type: 'test'
+  ...
+# Subtest: model interpretation uses the existing model with no tools and rejects cancelled or invalid output
+ok 61 - model interpretation uses the existing model with no tools and rejects cancelled or invalid output
+  ---
+  duration_ms: 2151.635958
+  type: 'test'
+  ...
+# Subtest: spike parity: real motion, compact rows, connected tabs and reduced-motion keyboard controls
+ok 62 - spike parity: real motion, compact rows, connected tabs and reduced-motion keyboard controls
+  ---
+  duration_ms: 5293.435334
+  type: 'test'
+  ...
+# Subtest: task dates validate, preserve revisions and persist through approved actions and restart
+ok 63 - task dates validate, preserve revisions and persist through approved actions and restart
+  ---
+  duration_ms: 285.388958
+  type: 'test'
+  ...
+# Subtest: dated tasks use real Todo controls and stay in sync across Calendar views and restart
+ok 64 - dated tasks use real Todo controls and stay in sync across Calendar views and restart
+  ---
+  duration_ms: 8206.143708
+  type: 'test'
+  ...
+# Subtest: Linkding reconciles upstream changes, preserves local fields, schedules refresh and stops cleanly
+ok 65 - Linkding reconciles upstream changes, preserves local fields, schedules refresh and stops cleanly
+  ---
+  duration_ms: 188.721792
+  type: 'test'
+  ...
+# Subtest: UI audit regressions: drafts, deletes, submissions, complete lists, themes, context and readable reviews
+ok 66 - UI audit regressions: drafts, deletes, submissions, complete lists, themes, context and readable reviews
+  ---
+  duration_ms: 26349.000709
+  type: 'test'
+  ...
+# Subtest: Mail and Music preserve navigation with controlled results; primary hover keeps contrast at minimum window size
+ok 67 - Mail and Music preserve navigation with controlled results; primary hover keeps contrast at minimum window size
+  ---
+  duration_ms: 5145.805167
+  type: 'test'
+  ...
+1..67
+# tests 67
+# suites 0
+# pass 65
+# fail 0
+# cancelled 0
+# skipped 2
+# todo 0
+# duration_ms 230835.994458

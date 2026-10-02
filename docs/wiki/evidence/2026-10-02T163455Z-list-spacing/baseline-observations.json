@@ -1,0 +1,380 @@
+[
+  {
+    "name": "Agent board",
+    "items": [
+      {
+        "tag": "DIV",
+        "class": "toolbar",
+        "text": "Agent boardNew thread",
+        "top": 64,
+        "bottom": 90,
+        "margin": "0px 0px 16px",
+        "padding": "0px"
+      },
+      {
+        "tag": "H1",
+        "class": "",
+        "text": "Agent board",
+        "top": 65.25,
+        "bottom": 88.75,
+        "margin": "0px 771.648px 0px 0px",
+        "padding": "0px"
+      },
+      {
+        "tag": "LABEL",
+        "class": "module-search",
+        "text": "",
+        "top": 106,
+        "bottom": 134,
+        "margin": "0px",
+        "padding": "0px 8px"
+      },
+      {
+        "tag": "INPUT",
+        "class": "",
+        "text": "",
+        "top": 107,
+        "bottom": 133,
+        "margin": "0px",
+        "padding": "4px 0px"
+      },
+      {
+        "tag": "P",
+        "class": "muted",
+        "text": "No posts. Agents use this board only when instructed.",
+        "top": 134,
+        "bottom": 154.796875,
+        "margin": "0px 0px 13px",
+        "padding": "0px"
+      }
+    ]
+  },
+  {
+    "name": "Notes",
+    "items": [
+      {
+        "tag": "INPUT",
+        "class": "",
+        "text": "",
+        "top": 89,
+        "bottom": 117,
+        "margin": "10px 0px",
+        "padding": "5px 8px"
+      },
+      {
+        "tag": "BUTTON",
+        "class": "file-root",
+        "text": "Notes",
+        "top": 127,
+        "bottom": 153,
+        "margin": "0px",
+        "padding": "3px 9px"
+      },
+      {
+        "tag": "P",
+        "class": "muted",
+        "text": "No notes yet. Create a note above.",
+        "top": 153,
+        "bottom": 194.59375,
+        "margin": "0px 0px 13px",
+        "padding": "0px"
+      }
+    ]
+  },
+  {
+    "name": "Todos",
+    "items": [
+      {
+        "tag": "DIV",
+        "class": "toolbar",
+        "text": "TodosNew task",
+        "top": 64,
+        "bottom": 90,
+        "margin": "0px 0px 16px",
+        "padding": "0px"
+      },
+      {
+        "tag": "H1",
+        "class": "",
+        "text": "Todos",
+        "top": 65.25,
+        "bottom": 88.75,
+        "margin": "0px 842.055px 0px 0px",
+        "padding": "0px"
+      },
+      {
+        "tag": "DIV",
+        "class": "list-filters",
+        "text": "All 0Open 0Completed 0",
+        "top": 106,
+        "bottom": 132,
+        "margin": "0px 0px 12px",
+        "padding": "0px"
+      },
+      {
+        "tag": "P",
+        "class": "muted",
+        "text": "No tasks yet. Add a task to get started.",
+        "top": 144,
+        "bottom": 164.796875,
+        "margin": "0px 0px 13px",
+        "padding": "0px"
+      }
+    ]
+  },
+  {
+    "name": "News",
+    "items": [
+      {
+        "tag": "DIV",
+        "class": "toolbar",
+        "text": "NewsSourcesRefresh",
+        "top": 64,
+        "bottom": 90,
+        "margin": "0px 0px 16px",
+        "padding": "0px"
+      },
+      {
+        "tag": "H1",
+        "class": "",
+        "text": "News",
+        "top": 65.25,
+        "bottom": 88.75,
+        "margin": "0px 759.188px 0px 0px",
+        "padding": "0px"
+      },
+      {
+        "tag": "LABEL",
+        "class": "module-search",
+        "text": "",
+        "top": 106,
+        "bottom": 134,
+        "margin": "0px",
+        "padding": "0px 8px"
+      },
+      {
+        "tag": "INPUT",
+        "class": "",
+        "text": "",
+        "top": 107,
+        "bottom": 133,
+        "margin": "0px",
+        "padding": "4px 0px"
+      },
+      {
+        "tag": "DIV",
+        "class": "list-filters",
+        "text": "All sources",
+        "top": 107,
+        "bottom": 133,
+        "margin": "0px",
+        "padding": "0px"
+      },
+      {
+        "tag": "P",
+        "class": "muted",
+        "text": "No articles yet. Add a feed in Sources, then refresh.",
+        "top": 146,
+        "bottom": 166.796875,
+        "margin": "0px 0px 13px",
+        "padding": "0px"
+      }
+    ]
+  },
+  {
+    "name": "Bookmarks",
+    "items": [
+      {
+        "tag": "DIV",
+        "class": "toolbar",
+        "text": "BookmarksAdd bookmarkRefresh LinkdingRefresh X",
+        "top": 64,
+        "bottom": 90,
+        "margin": "0px 0px 16px",
+        "padding": "0px"
+      },
+      {
+        "tag": "H1",
+        "class": "",
+        "text": "Bookmarks",
+        "top": 65.25,
+        "bottom": 88.75,
+        "margin": "0px 554.875px 0px 0px",
+        "padding": "0px"
+      },
+      {
+        "tag": "LABEL",
+        "class": "module-search bookmark-search",
+        "text": "",
+        "top": 106,
+        "bottom": 134,
+        "margin": "0px 0px 12px",
+        "padding": "0px 8px"
+      },
+      {
+        "tag": "INPUT",
+        "class": "",
+        "text": "",
+        "top": 107,
+        "bottom": 133,
+        "margin": "0px",
+        "padding": "4px 0px"
+      },
+      {
+        "tag": "P",
+        "class": "muted",
+        "text": "No bookmarks yet. Add a bookmark or refresh a connected source.",
+        "top": 146,
+        "bottom": 166.796875,
+        "margin": "0px 0px 13px",
+        "padding": "0px"
+      }
+    ]
+  },
+  {
+    "name": "Mail",
+    "items": [
+      {
+        "tag": "H1",
+        "class": "",
+        "text": "Mail",
+        "top": 64,
+        "bottom": 87.5,
+        "margin": "0px 0px 16px",
+        "padding": "0px"
+      }
+    ]
+  },
+  {
+    "name": "Music",
+    "items": [
+      {
+        "tag": "DIV",
+        "class": "toolbar",
+        "text": "MusicAll sources",
+        "top": 64,
+        "bottom": 92,
+        "margin": "0px 0px 16px",
+        "padding": "0px"
+      },
+      {
+        "tag": "H1",
+        "class": "",
+        "text": "Music",
+        "top": 66.25,
+        "bottom": 89.75,
+        "margin": "0px 830.641px 0px 0px",
+        "padding": "0px"
+      },
+      {
+        "tag": "FORM",
+        "class": "music-search module-search",
+        "text": "",
+        "top": 108,
+        "bottom": 136,
+        "margin": "0px 0px 0px 412.328px",
+        "padding": "0px 8px"
+      },
+      {
+        "tag": "INPUT",
+        "class": "",
+        "text": "",
+        "top": 109,
+        "bottom": 135,
+        "margin": "0px",
+        "padding": "4px 0px"
+      },
+      {
+        "tag": "P",
+        "class": "muted",
+        "text": "Albums, artists, and playlists you play in Clarity appear here.",
+        "top": 213.1953125,
+        "bottom": 233.9921875,
+        "margin": "0px 0px 13px",
+        "padding": "0px"
+      }
+    ]
+  },
+  {
+    "name": "Automations",
+    "items": [
+      {
+        "tag": "DIV",
+        "class": "toolbar",
+        "text": "AutomationsNew automation",
+        "top": 64,
+        "bottom": 90,
+        "margin": "0px 0px 16px",
+        "padding": "0px"
+      },
+      {
+        "tag": "H1",
+        "class": "",
+        "text": "Automations",
+        "top": 65.25,
+        "bottom": 88.75,
+        "margin": "0px 741.07px 0px 0px",
+        "padding": "0px"
+      },
+      {
+        "tag": "P",
+        "class": "muted",
+        "text": "No automations yet. Create a schedule for a wiki topic.",
+        "top": 106,
+        "bottom": 126.796875,
+        "margin": "0px 0px 13px",
+        "padding": "0px"
+      }
+    ]
+  },
+  {
+    "name": "Calendar",
+    "items": [
+      {
+        "tag": "DIV",
+        "class": "toolbar",
+        "text": "October 2026WeekMonthTodayEvent",
+        "top": 44,
+        "bottom": 90,
+        "margin": "0px 0px 16px",
+        "padding": "14px 24px 0px"
+      },
+      {
+        "tag": "H1",
+        "class": "",
+        "text": "October 2026",
+        "top": 62.25,
+        "bottom": 85.75,
+        "margin": "0px",
+        "padding": "0px"
+      }
+    ]
+  },
+  {
+    "name": "Expenses",
+    "items": [
+      {
+        "tag": "DIV",
+        "class": "toolbar",
+        "text": "ExpensesNew expense",
+        "top": 64,
+        "bottom": 90,
+        "margin": "0px 0px 16px",
+        "padding": "0px"
+      },
+      {
+        "tag": "H1",
+        "class": "",
+        "text": "Expenses",
+        "top": 65.25,
+        "bottom": 88.75,
+        "margin": "0px 774.719px 0px 0px",
+        "padding": "0px"
+      }
+    ]
+  },
+  {
+    "name": "Wiki",
+    "items": []
+  }
+]

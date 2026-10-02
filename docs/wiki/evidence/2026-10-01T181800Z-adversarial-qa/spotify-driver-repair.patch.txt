@@ -1,0 +1,30 @@
+--- frozen-source/tests/connectors.mjs
++++ external/connectors-drained.mjs
+@@ -563,6 +563,7 @@
+       await page
+         .getByRole("button", { name: "Michael fixture song", exact: true })
+         .waitFor();
++      await page.getByRole("button", { name: "Second fixture song", exact: true }).waitFor();
+       assert.equal(await page.locator(".music-table tbody tr").count(), 2);
+       assert.match(
+         await page.locator(".music-table tbody tr").first().innerText(),
+@@ -691,9 +692,19 @@
+         });
+       });
+       await page.locator(".player").waitFor({ state: "hidden" });
++      await page.evaluate(() => {
++        window.playbackFailureEvent = false;
++        const unsubscribe = window.clarity.subscribe((event) => {
++          if (event.type === "playback" && event.data.message === "Playback reconnect fixture") {
++            window.playbackFailureEvent = true;
++            unsubscribe();
++          }
++        });
++      });
+       await page
+         .getByRole("button", { name: "Michael fixture song", exact: true })
+         .click();
++      await page.waitForFunction(() => window.playbackFailureEvent);
+       await page.locator(".player-error").waitFor();
+       assert.equal(
+         await page.locator(".player-error").textContent(),

@@ -1,0 +1,93 @@
+{
+  "applicationUnchangedDuringFinalChecks": true,
+  "verificationUnchangedDuringFinalChecks": true,
+  "appTests": {
+    "passed": 31,
+    "failed": 0,
+    "liveSkipped": 2
+  },
+  "packageTests": {
+    "passed": 1,
+    "failed": 0
+  },
+  "wikiTests": {
+    "passed": 13,
+    "failed": 0
+  },
+  "reportCheck": {
+    "reports": 10,
+    "errors": 0
+  },
+  "wiki": {
+    "pages": 132,
+    "rebuilt": true,
+    "snapshotAndLinksCurrent": true
+  },
+  "diffWhitespaceCheck": true,
+  "evidence": [
+    {
+      "path": "expenses-verified.png",
+      "sha256": "b4c73edf8484e048190c4fea985e2ff7bf07eb7af94f0f4b232e9671ad4e0690"
+    },
+    {
+      "path": "final-build.json",
+      "sha256": "da609c56b3f08cdfc5090713fdd7847075f1f53cf514afdacfd488e26b7f4297"
+    },
+    {
+      "path": "final-test-build.json",
+      "sha256": "6b2a7a051dba4ac1a029661cd2a100c417010eb2a9d0e76608c787498f315a40"
+    },
+    {
+      "path": "final-tests.log",
+      "sha256": "3a9e537af133519918dcae33b8019974c650150c62d5a6c1cdc33166b0726e73"
+    },
+    {
+      "path": "full-tests.log",
+      "sha256": "868df9c5768cfa09013848ae674c874d01b2e22e299d933027f360fb90e6e131"
+    },
+    {
+      "path": "installation.json",
+      "sha256": "66850a2f7d34a175e002ed85beb410f66d2a447fd317c1bfdbbc635db3fdbb63"
+    },
+    {
+      "path": "interpretation-observations.json",
+      "sha256": "593b9bfa07a6cde26daf96f7d9f2431efd69ee5f0fe96e3907bc5fae4c288b39"
+    },
+    {
+      "path": "launcher-verified.png",
+      "sha256": "aca28b39deab0890e981ff579bcbbfff81c58955e017b9cd5f733658062d9978"
+    },
+    {
+      "path": "news-verified.png",
+      "sha256": "4116b81434f81280a06446cd6fe53efb79bc2a5d05c60d6022289da05580205b"
+    },
+    {
+      "path": "package-build.log",
+      "sha256": "b1b33697986ddbe4cf5c9e185f33297eb7c9c03d780c08330329e60614c355fa"
+    },
+    {
+      "path": "package-tests.log",
+      "sha256": "a0dbb5066b72a4043ab2a4ca02245fcd0827519faa44025c0e0936e8bd783bd1"
+    },
+    {
+      "path": "preview-verified.png",
+      "sha256": "80656eded585b0b1262bc82aaeaf04df36c28f193f9efd218ec7a65cdac48aa8"
+    },
+    {
+      "path": "redesign-observations.json",
+      "sha256": "8fabf134ca846105fe64d6037552beae99dcbb4e6e553d16130915909a7b5ac6"
+    },
+    {
+      "path": "request-observations.json",
+      "sha256": "76f1d45e03b5ee04e1228725ea4bb6d3f88a26e5722c67c8272f64e36b4816bc"
+    },
+    {
+      "path": "typecheck.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "wiki-tests.log",
+      "sha256": "cfa92f7156f6890dbed7978ce1b63c297ae427cf64e9279b28a8dabe693924c6"
+    }
+  ]
+}

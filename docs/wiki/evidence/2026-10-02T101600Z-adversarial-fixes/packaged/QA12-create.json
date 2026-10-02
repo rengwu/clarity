@@ -1,0 +1,12 @@
+{
+  "sentText": "Original new-chat request",
+  "newChatId": "90fc810a-6ed4-4e44-a634-6cbc269d1be9",
+  "createdChatDraft": {
+    "text": "New draft while chat is being created",
+    "attachments": [],
+    "context": ""
+  },
+  "reloadPreserved": true,
+  "rendererErrors": [],
+  "finalText": "Clarity\nNew chat\n⇧⌘L\nSearch\n⌘K\nWorkspace\nNotes\nTodos\nWiki\nRecent chats\nNew chat\nSettings\nNew chat\n⌘K\nNew chat\nGPT-5.5\nLow\nMedium\nHigh\nMax"
+}

@@ -1,0 +1,18 @@
+{
+  "geometry": {
+    "width": 167,
+    "scroll": 167
+  },
+  "bounds": {
+    "button": {
+      "left": 218,
+      "right": 369,
+      "bottom": 219
+    },
+    "text": {
+      "left": 250,
+      "right": 360,
+      "bottom": 214
+    }
+  }
+}

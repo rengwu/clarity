@@ -1,0 +1,1186 @@
+{
+  "mode": "development",
+  "layouts": [
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "dark",
+      "name": "Appearance",
+      "id": "settings-appearance",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": [
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "dark",
+      "name": "Modules",
+      "id": "settings-modules",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": [
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "dark",
+      "name": "Data folder",
+      "id": "settings-data",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": []
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "dark",
+      "name": "Search and commands",
+      "id": "settings-search",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": [
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "dark",
+      "name": "Permissions",
+      "id": "settings-permissions",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [
+        300
+      ],
+      "switches": [
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "dark",
+      "name": "Agent approvals",
+      "id": "settings-agent-approvals",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": []
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "dark",
+      "name": "Codex",
+      "id": "settings-codex",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": []
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "dark",
+      "name": "Google",
+      "id": "settings-google",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [
+        300,
+        300
+      ],
+      "switches": []
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "dark",
+      "name": "Spotify",
+      "id": "settings-spotify",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [
+        300
+      ],
+      "switches": []
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "dark",
+      "name": "Navidrome",
+      "id": "settings-navidrome",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [
+        300,
+        300,
+        300
+      ],
+      "switches": []
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "dark",
+      "name": "Linkding",
+      "id": "settings-linkding",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [
+        300,
+        300,
+        300
+      ],
+      "switches": []
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "dark",
+      "name": "X bookmarks",
+      "id": "settings-x",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": []
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "dark",
+      "name": "Music",
+      "id": "settings-music",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": [
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "dark",
+      "name": "Expenses",
+      "id": "settings-expenses",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [
+        300
+      ],
+      "switches": []
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "light",
+      "name": "Appearance",
+      "id": "settings-appearance",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": [
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "light",
+      "name": "Modules",
+      "id": "settings-modules",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": [
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "light",
+      "name": "Data folder",
+      "id": "settings-data",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": []
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "light",
+      "name": "Search and commands",
+      "id": "settings-search",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": [
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "light",
+      "name": "Permissions",
+      "id": "settings-permissions",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [
+        300
+      ],
+      "switches": [
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "light",
+      "name": "Agent approvals",
+      "id": "settings-agent-approvals",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": []
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "light",
+      "name": "Codex",
+      "id": "settings-codex",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": []
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "light",
+      "name": "Google",
+      "id": "settings-google",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [
+        300,
+        300
+      ],
+      "switches": []
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "light",
+      "name": "Spotify",
+      "id": "settings-spotify",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [
+        300
+      ],
+      "switches": []
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "light",
+      "name": "Navidrome",
+      "id": "settings-navidrome",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [
+        300,
+        300,
+        300
+      ],
+      "switches": []
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "light",
+      "name": "Linkding",
+      "id": "settings-linkding",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [
+        300,
+        300,
+        300
+      ],
+      "switches": []
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "light",
+      "name": "X bookmarks",
+      "id": "settings-x",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": []
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "light",
+      "name": "Music",
+      "id": "settings-music",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": [
+        {
+          "right": 1286,
+          "mask": "none",
+          "knobWidth": "12px"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 1000,
+      "theme": "light",
+      "name": "Expenses",
+      "id": "settings-expenses",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 72,
+      "headerBottom": 44,
+      "widths": [
+        300
+      ],
+      "switches": []
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "dark",
+      "name": "Appearance",
+      "id": "settings-appearance",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": [
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        }
+      ]
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "dark",
+      "name": "Modules",
+      "id": "settings-modules",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": [
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        }
+      ]
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "dark",
+      "name": "Data folder",
+      "id": "settings-data",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": []
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "dark",
+      "name": "Search and commands",
+      "id": "settings-search",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": [
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        }
+      ]
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "dark",
+      "name": "Permissions",
+      "id": "settings-permissions",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [
+        391
+      ],
+      "switches": [
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        }
+      ]
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "dark",
+      "name": "Agent approvals",
+      "id": "settings-agent-approvals",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": []
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "dark",
+      "name": "Codex",
+      "id": "settings-codex",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": []
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "dark",
+      "name": "Google",
+      "id": "settings-google",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [
+        391,
+        391
+      ],
+      "switches": []
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "dark",
+      "name": "Spotify",
+      "id": "settings-spotify",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [
+        391
+      ],
+      "switches": []
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "dark",
+      "name": "Navidrome",
+      "id": "settings-navidrome",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [
+        391,
+        391,
+        391
+      ],
+      "switches": []
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "dark",
+      "name": "Linkding",
+      "id": "settings-linkding",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [
+        391,
+        391,
+        391
+      ],
+      "switches": []
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "dark",
+      "name": "X bookmarks",
+      "id": "settings-x",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": []
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "dark",
+      "name": "Music",
+      "id": "settings-music",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": [
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        }
+      ]
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "dark",
+      "name": "Expenses",
+      "id": "settings-expenses",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [
+        391
+      ],
+      "switches": []
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "light",
+      "name": "Appearance",
+      "id": "settings-appearance",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": [
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        }
+      ]
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "light",
+      "name": "Modules",
+      "id": "settings-modules",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": [
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        },
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        }
+      ]
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "light",
+      "name": "Data folder",
+      "id": "settings-data",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": []
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "light",
+      "name": "Search and commands",
+      "id": "settings-search",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": [
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        }
+      ]
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "light",
+      "name": "Permissions",
+      "id": "settings-permissions",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [
+        391
+      ],
+      "switches": [
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        }
+      ]
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "light",
+      "name": "Agent approvals",
+      "id": "settings-agent-approvals",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": []
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "light",
+      "name": "Codex",
+      "id": "settings-codex",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": []
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "light",
+      "name": "Google",
+      "id": "settings-google",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [
+        391,
+        391
+      ],
+      "switches": []
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "light",
+      "name": "Spotify",
+      "id": "settings-spotify",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [
+        391
+      ],
+      "switches": []
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "light",
+      "name": "Navidrome",
+      "id": "settings-navidrome",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [
+        391,
+        391,
+        391
+      ],
+      "switches": []
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "light",
+      "name": "Linkding",
+      "id": "settings-linkding",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [
+        391,
+        391,
+        391
+      ],
+      "switches": []
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "light",
+      "name": "X bookmarks",
+      "id": "settings-x",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": []
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "light",
+      "name": "Music",
+      "id": "settings-music",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [],
+      "switches": [
+        {
+          "right": 804,
+          "mask": "none",
+          "knobWidth": "12px"
+        }
+      ]
+    },
+    {
+      "width": 850,
+      "height": 600,
+      "theme": "light",
+      "name": "Expenses",
+      "id": "settings-expenses",
+      "visible": 1,
+      "overflow": 0,
+      "bodyOverflow": 0,
+      "top": 66,
+      "headerBottom": 44,
+      "widths": [
+        391
+      ],
+      "switches": []
+    }
+  ],
+  "checks": [
+    "Module switches save, hide/show navigation, preserve files and roll back failed saves.",
+    "Theme arrow keys, section-to-input Tab, preference rollback/persistence, retained unsaved form, guarded local error and no credential draft persistence.",
+    "Mail connection guidance opens the Google section.",
+    "All 14 sections fit both window sizes and themes; real wheel scroll leaves the header stationary.",
+    "Controlled connected Spotify shows both independent connection controls."
+  ],
+  "errors": [],
+  "result": "Passed"
+}

@@ -1,0 +1,62 @@
+TAP version 13
+# 2026-10-01T17:38:17.341Z pw:browser <launching> /Users/rengwu/Library/Caches/Clarity/build/Clarity.app/Contents/MacOS/Electron --inspect=0 --remote-debugging-port=0
+# 2026-10-01T17:38:17.342Z pw:browser <launched> pid=1054
+# 2026-10-01T17:38:17.506Z pw:browser [pid=1054][err] Debugger listening on ws://127.0.0.1:60942/0b1cec49-9217-47bd-9a50-849a7173d25c
+# 2026-10-01T17:38:17.506Z pw:browser [pid=1054][err] For help, see: https://nodejs.org/learn/getting-started/debugging
+# 2026-10-01T17:38:17.507Z pw:browser <ws connecting> ws://127.0.0.1:60942/0b1cec49-9217-47bd-9a50-849a7173d25c
+# 2026-10-01T17:38:17.510Z pw:browser [pid=1054][err] Debugger attached.
+# 2026-10-01T17:38:17.511Z pw:browser <ws connected> ws://127.0.0.1:60942/0b1cec49-9217-47bd-9a50-849a7173d25c
+# 2026-10-01T17:38:17.943Z pw:browser [pid=1054][err] 
+# 2026-10-01T17:38:17.943Z pw:browser [pid=1054][err] DevTools listening on ws://127.0.0.1:60944/devtools/browser/cdf24f97-886b-4932-aae4-6ff7c5bbf5a2
+# 2026-10-01T17:38:17.944Z pw:browser <ws connecting> ws://127.0.0.1:60944/devtools/browser/cdf24f97-886b-4932-aae4-6ff7c5bbf5a2
+# 2026-10-01T17:38:17.998Z pw:browser <ws connected> ws://127.0.0.1:60944/devtools/browser/cdf24f97-886b-4932-aae4-6ff7c5bbf5a2
+# 2026-10-01T17:38:18.224Z pw:browser [pid=1054][err] [1056:1002/013818.223799:ERROR:net/disk_cache/simple/simple_version_upgrade.cc:107] Failed to write a new fake index.
+# 2026-10-01T17:38:18.224Z pw:browser [pid=1054][err] [1056:1002/013818.224163:ERROR:net/disk_cache/simple/simple_version_upgrade.cc:107] Failed to write a new fake index.
+# 2026-10-01T17:38:18.224Z pw:browser [pid=1054][err] [1056:1002/013818.224169:ERROR:net/disk_cache/simple/simple_backend_impl.cc:749] Simple Cache Backend: wrong file structure on disk: 8 path: /private/var/folders/00/h_k67s0j5dq0qvg6ylqysk2w0000gn/T/clarity-volume-ui-6Lfd9n/.clarity/ui/Shared Dictionary/cache
+# 2026-10-01T17:38:18.224Z pw:browser [pid=1054][err] [1056:1002/013818.224388:ERROR:net/disk_cache/disk_cache.cc:290] Unable to create cache
+# 2026-10-01T17:38:53.243Z pw:browser <ws disconnecting> ws://127.0.0.1:60942/0b1cec49-9217-47bd-9a50-849a7173d25c
+# 2026-10-01T17:38:53.244Z pw:browser [pid=1054][err] Debugger ending on ws://127.0.0.1:60942/0b1cec49-9217-47bd-9a50-849a7173d25c
+# 2026-10-01T17:38:53.244Z pw:browser [pid=1054][err] For help, see: https://nodejs.org/learn/getting-started/debugging
+# 2026-10-01T17:38:53.244Z pw:browser <ws disconnected> ws://127.0.0.1:60942/0b1cec49-9217-47bd-9a50-849a7173d25c code=1005 reason=
+# 2026-10-01T17:38:53.401Z pw:browser <ws disconnected> ws://127.0.0.1:60944/devtools/browser/cdf24f97-886b-4932-aae4-6ff7c5bbf5a2 code=1006 reason=
+# 2026-10-01T17:38:53.401Z pw:browser [pid=1054] <process did exit: exitCode=0, signal=null>
+# 2026-10-01T17:38:53.402Z pw:browser [pid=1054] starting temporary directories cleanup
+# 2026-10-01T17:38:53.403Z pw:browser [pid=1054] finished temporary directories cleanup
+# 2026-10-01T17:38:53.403Z pw:browser <launching> /Users/rengwu/Library/Caches/Clarity/build/Clarity.app/Contents/MacOS/Electron --inspect=0 --remote-debugging-port=0
+# 2026-10-01T17:38:53.404Z pw:browser <launched> pid=49479
+# 2026-10-01T17:38:53.580Z pw:browser [pid=49479][err] Debugger listening on ws://127.0.0.1:61036/25784419-b804-4c6e-aed3-172fae01fe64
+# 2026-10-01T17:38:53.580Z pw:browser [pid=49479][err] For help, see: https://nodejs.org/learn/getting-started/debugging
+# 2026-10-01T17:38:53.580Z pw:browser <ws connecting> ws://127.0.0.1:61036/25784419-b804-4c6e-aed3-172fae01fe64
+# 2026-10-01T17:38:53.581Z pw:browser [pid=49479][err] Debugger attached.
+# 2026-10-01T17:38:53.582Z pw:browser <ws connected> ws://127.0.0.1:61036/25784419-b804-4c6e-aed3-172fae01fe64
+# 2026-10-01T17:38:54.145Z pw:browser [pid=49479][err] 
+# 2026-10-01T17:38:54.145Z pw:browser [pid=49479][err] DevTools listening on ws://127.0.0.1:61038/devtools/browser/81c04a49-ae9b-467f-a7b1-32defd5a57fb
+# 2026-10-01T17:38:54.146Z pw:browser <ws connecting> ws://127.0.0.1:61038/devtools/browser/81c04a49-ae9b-467f-a7b1-32defd5a57fb
+# 2026-10-01T17:38:54.197Z pw:browser <ws connected> ws://127.0.0.1:61038/devtools/browser/81c04a49-ae9b-467f-a7b1-32defd5a57fb
+# 2026-10-01T17:38:54.532Z pw:browser [pid=49479][err] [49481:1002/013854.531808:ERROR:net/disk_cache/simple/simple_version_upgrade.cc:107] Failed to write a new fake index.
+# 2026-10-01T17:38:54.532Z pw:browser [pid=49479][err] [49481:1002/013854.532249:ERROR:net/disk_cache/simple/simple_version_upgrade.cc:107] Failed to write a new fake index.
+# 2026-10-01T17:38:54.532Z pw:browser [pid=49479][err] [49481:1002/013854.532255:ERROR:net/disk_cache/simple/simple_backend_impl.cc:749] Simple Cache Backend: wrong file structure on disk: 8 path: /private/var/folders/00/h_k67s0j5dq0qvg6ylqysk2w0000gn/T/clarity-volume-ui-6Lfd9n/.clarity/ui/Shared Dictionary/cache
+# 2026-10-01T17:38:54.532Z pw:browser [pid=49479][err] [49481:1002/013854.532580:ERROR:net/disk_cache/disk_cache.cc:290] Unable to create cache
+# 2026-10-01T17:38:55.013Z pw:browser <ws disconnecting> ws://127.0.0.1:61036/25784419-b804-4c6e-aed3-172fae01fe64
+# 2026-10-01T17:38:55.014Z pw:browser [pid=49479][err] Debugger ending on ws://127.0.0.1:61036/25784419-b804-4c6e-aed3-172fae01fe64
+# 2026-10-01T17:38:55.014Z pw:browser [pid=49479][err] For help, see: https://nodejs.org/learn/getting-started/debugging
+# 2026-10-01T17:38:55.014Z pw:browser <ws disconnected> ws://127.0.0.1:61036/25784419-b804-4c6e-aed3-172fae01fe64 code=1005 reason=
+# 2026-10-01T17:38:55.072Z pw:browser <ws disconnected> ws://127.0.0.1:61038/devtools/browser/81c04a49-ae9b-467f-a7b1-32defd5a57fb code=1006 reason=
+# 2026-10-01T17:38:55.072Z pw:browser [pid=49479] <process did exit: exitCode=0, signal=null>
+# 2026-10-01T17:38:55.073Z pw:browser [pid=49479] starting temporary directories cleanup
+# Subtest: native Music UI applies normalization, album/shuffle modes, settings and persistence
+ok 1 - native Music UI applies normalization, album/shuffle modes, settings and persistence
+  ---
+  duration_ms: 37877.9725
+  type: 'test'
+  ...
+# 2026-10-01T17:38:55.074Z pw:browser [pid=49479] finished temporary directories cleanup
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 37961.396667

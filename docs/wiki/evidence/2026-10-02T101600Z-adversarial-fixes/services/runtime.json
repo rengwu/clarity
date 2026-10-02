@@ -1,0 +1,66 @@
+{
+  "recordedAt": "2026-10-02T10:33:07.311Z",
+  "output": "/Users/rengwu/Library/Caches/Clarity/build/adversarial-fixes-20261002/services/output",
+  "files": [
+    {
+      "name": "app.css",
+      "bytes": 115703,
+      "sha256": "b3964cc17d28980009780dfe7d71788d2afba588984e2e993dddbf8994423712"
+    },
+    {
+      "name": "app.css.map",
+      "bytes": 205796,
+      "sha256": "64bb786996ed74002cc13575e3c1741cbeb2ec9e57472c192a1a654ac6f35cf7"
+    },
+    {
+      "name": "app.js",
+      "bytes": 6476156,
+      "sha256": "4a74f478a4bc4b76951160bf34930fe36806dc0b56be7236a92f8edd8eec305e"
+    },
+    {
+      "name": "app.js.map",
+      "bytes": 11860584,
+      "sha256": "bb8a73923e968c99f27d080bcb5beb9eba67444e8dc13eb0c44c835c32faf3ae"
+    },
+    {
+      "name": "clarity-player",
+      "bytes": 5274304,
+      "sha256": "6a95f5f7442f68e8aae92c1aa754a666317c094a259ff25e96ebb3d98be38131"
+    },
+    {
+      "name": "index.html",
+      "bytes": 329,
+      "sha256": "bcd785e95fb0ab58fd806a26ac1c8ce7d5cd692c274ad1b014c3f681ae02293b"
+    },
+    {
+      "name": "main.mjs",
+      "bytes": 192748,
+      "sha256": "2c1107dbe722ff3e6bfb0b6e82434aa6dfa7e95efcda8733b5791c873591d53c"
+    },
+    {
+      "name": "main.mjs.map",
+      "bytes": 357933,
+      "sha256": "214e33b454fef0d5d28e067f9bf4b3c96fa0a6127203846859cc084afd6a816c"
+    },
+    {
+      "name": "preload.cjs",
+      "bytes": 685,
+      "sha256": "8f51417738610391aa9ae5cd4bca18cfb43f19998a351244404972880890264a"
+    },
+    {
+      "name": "preload.cjs.map",
+      "bytes": 1289,
+      "sha256": "b9abf61530f2885530366d12864ec2474b908e8a5ef80ea6fb1896d89f5dd201"
+    },
+    {
+      "name": "worker.mjs",
+      "bytes": 2327,
+      "sha256": "ff1dd08710e3df237c3e640e7ebb2bc7a4764617f59f4918c5a2db50668f44a4"
+    },
+    {
+      "name": "worker.mjs.map",
+      "bytes": 3940,
+      "sha256": "26dcd88e34046ce924230d4bbbce175a4df93892e7030e2d96005ec398e5f913"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+TAP version 13
+# Subtest: Spotify collection pages continue past 5000 and playback reuses all fetched pages
+ok 1 - Spotify collection pages continue past 5000 and playback reuses all fetched pages
+  ---
+  duration_ms: 8.879958
+  type: 'test'
+  ...
+# Subtest: Spotify rejects non-advancing pages and discards an account change during a full read
+ok 2 - Spotify rejects non-advancing pages and discards an account change during a full read
+  ---
+  duration_ms: 1.896417
+  type: 'test'
+  ...
+# First page displayed with one provider request.
+# Scrolled through 5,055 songs and reached the final page.
+# Subtest: native Music loads the first page, scrolls beyond 5000, retries a page and reuses results
+ok 3 - native Music loads the first page, scrolls beyond 5000, retries a page and reuses results
+  ---
+  duration_ms: 74571.1075
+  type: 'test'
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 3
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 74665.19825

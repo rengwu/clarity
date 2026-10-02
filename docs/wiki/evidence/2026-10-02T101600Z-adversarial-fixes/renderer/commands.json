@@ -1,0 +1,32 @@
+[
+  {
+    "command": "CLARITY_BUILD_CACHE=<renderer-cache> node tooling/clarity.mjs build",
+    "exitCode": 0
+  },
+  {
+    "command": "CLARITY_BUILD_CACHE=<renderer-cache> CLARITY_QA_EVIDENCE=<renderer-evidence> node --test tests/adversarial-renderer.mjs",
+    "log": "final-tests-4.log",
+    "exitCode": 0,
+    "passed": 8,
+    "failed": 0,
+    "skipped": 0
+  },
+  {
+    "command": "CLARITY_BUILD_CACHE=<renderer-cache> node tooling/clarity.mjs check",
+    "log": "typecheck-final.log",
+    "exitCode": 0
+  },
+  {
+    "command": "CLARITY_BUILD_CACHE=<renderer-baseline-cache> CLARITY_QA_EVIDENCE=<renderer-evidence>/baseline node --test tests/adversarial-renderer.mjs",
+    "log": "baseline-tests-final.log",
+    "exitCode": 1,
+    "passed": 0,
+    "failed": 8,
+    "purpose": "pre-edit negative controls"
+  },
+  {
+    "command": "CLARITY_BUILD_CACHE=<renderer-cache> node tooling/fingerprint.mjs",
+    "output": "build-after.json",
+    "exitCode": 0
+  }
+]

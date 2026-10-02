@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: QA04 bookmark completion preserves a reopened draft on success and failure, and retry preserves input
+ok 1 - QA04 bookmark completion preserves a reopened draft on success and failure, and retry preserves input
+  ---
+  duration_ms: 4141.692542
+  type: 'test'
+  ...
+# Subtest: QA11 Mail clears previous-account content and ignores late reads while preserving same-account navigation
+ok 2 - QA11 Mail clears previous-account content and ignores late reads while preserving same-account navigation
+  ---
+  duration_ms: 4068.592958
+  type: 'test'
+  ...
+# Subtest: QA13 forty bookmark tags retain a visible clickable title without nested overflow in either theme
+ok 3 - QA13 forty bookmark tags retain a visible clickable title without nested overflow in either theme
+  ---
+  duration_ms: 2006.237042
+  type: 'test'
+  ...
+# Subtest: QA14 invalid Board reply has one local error, successful correction clears it and saves once
+ok 4 - QA14 invalid Board reply has one local error, successful correction clears it and saves once
+  ---
+  duration_ms: 4050.923
+  type: 'test'
+  ...
+# Subtest: QA15 retained Settings navigation fits and opens at both supported sizes and themes
+ok 5 - QA15 retained Settings navigation fits and opens at both supported sizes and themes
+  ---
+  duration_ms: 4025.648
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 18660.991666

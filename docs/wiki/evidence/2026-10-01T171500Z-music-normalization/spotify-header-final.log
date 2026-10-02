@@ -1,0 +1,35 @@
+    Updating crates.io index
+     Locking 435 packages to latest compatible versions
+      Adding alsa v0.10.0 (available: v0.12.1)
+      Adding cpal v0.16.0 (available: v0.18.2)
+      Adding generic-array v0.14.7 (available: v0.14.9)
+      Adding gstreamer v0.24.5 (available: v0.25.4)
+      Adding gstreamer-app v0.24.5 (available: v0.25.2)
+      Adding gstreamer-audio v0.24.5 (available: v0.25.4)
+      Adding rand v0.9.5 (available: v0.10.3)
+      Adding rand_distr v0.5.1 (available: v0.6.0)
+      Adding rodio v0.21.1 (available: v0.22.2)
+      Adding symphonia v0.5.5 (available: v0.6.1)
+      Adding vergen v9.0.6 (available: v9.1.0)
+warning: librespot-core@0.8.0: not within a suitable 'git' worktree!
+warning: librespot-core@0.8.0: VERGEN_GIT_COMMIT_DATE set to default
+warning: librespot-core@0.8.0: VERGEN_GIT_SHA set to default
+warning: this lint expectation is unfulfilled
+  --> /Users/rengwu/Library/Caches/Clarity/build/spotify-player/librespot-core/src/authentication.rs:69:14
+   |
+69 |     #[expect(deprecated)]
+   |              ^^^^^^^^^^
+   |
+   = note: `#[warn(unfulfilled_lint_expectations)]` on by default
+
+warning: `librespot-core` (lib) generated 1 warning
+   Compiling librespot-playback v0.8.0 (/Users/rengwu/Library/Caches/Clarity/build/normalization-engine-check-KNUvQL/playback)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.01s
+     Running unittests src/lib.rs (/Users/rengwu/Library/Caches/Clarity/build/spotify-player/target/debug/deps/librespot_playback-d4cdd06200a82464)
+
+running 1 test
+Spotify header gains checked: track=0.501187234, album=0.251188643; off/missing/quiet=1; peak=0.5
+test player::clarity_normalization::spotify_header_and_helper_config_give_fixed_peak_safe_gains ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

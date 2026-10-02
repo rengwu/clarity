@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: music keeps track identity and stops Spotify before starting Navidrome
+ok 1 - music keeps track identity and stops Spotify before starting Navidrome
+  ---
+  duration_ms: 3.014667
+  type: 'test'
+  ...
+# Subtest: Spotify helper crashes surface an error and reconnect; intentional shutdown stays quiet
+ok 2 - Spotify helper crashes surface an error and reconnect; intentional shutdown stays quiet
+  ---
+  duration_ms: 97.284541
+  type: 'test'
+  ...
+# Subtest: Spotify silently renews a rejected playback token, with a single retry
+ok 3 - Spotify silently renews a rejected playback token, with a single retry
+  ---
+  duration_ms: 220.522125
+  type: 'test'
+  ...
+# Subtest: Spotify renews an active helper token without restarting and ignores renewal after close
+ok 4 - Spotify renews an active helper token without restarting and ignores renewal after close
+  ---
+  duration_ms: 2152.756333
+  type: 'test'
+  ...
+# Subtest: Spotify recovers an interrupted track once, preserves position and respects pause and source changes
+ok 5 - Spotify recovers an interrupted track once, preserves position and respects pause and source changes
+  ---
+  duration_ms: 1.791542
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 3258.644084

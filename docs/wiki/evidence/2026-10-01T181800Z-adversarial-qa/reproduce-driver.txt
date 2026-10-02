@@ -1,0 +1,206 @@
+import assert from 'node:assert/strict';
+import { mkdtemp, mkdir, writeFile, readFile, rename } from 'node:fs/promises';
+import { homedir, tmpdir } from 'node:os';
+import { join, resolve } from 'node:path';
+import { createRequire } from 'node:module';
+import { pathToFileURL } from 'node:url';
+import { createServer } from 'node:http';
+
+const base = join(homedir(), 'Library/Caches/Clarity/build/adversarial-qa-20261002');
+const source = process.env.QA_SOURCE || join(base, 'frozen-source');
+const cache = process.env.QA_CACHE || join(base, 'frozen-cache');
+const evidence = process.env.QA_EVIDENCE || '/Users/rengwu/Desktop/Projects/clarity/docs/wiki/evidence/2026-10-01T181800Z-adversarial-qa/confirmed';
+const require = createRequire(join(cache, 'loader.cjs'));
+await mkdir(evidence, { recursive: true });
+await require('esbuild').build({
+  stdin: { contents: "export {Store} from './src/main/store'; export {Files} from './src/main/files'; export {Modules} from './src/main/modules';", resolveDir: source },
+  outfile: join(base, 'reproduction-core.mjs'), bundle: true, packages: 'external', platform: 'node', format: 'esm',
+});
+const { Store, Files, Modules } = await import(pathToFileURL(join(base, 'reproduction-core.mjs')));
+const root = await mkdtemp(join(tmpdir(), 'clarity-qa-confirmed-'));
+const enabled = ['chat','notes','todos','wiki','calendar','expenses','bookmarks','news','mail','music','board','automations'];
+const files = new Files(root);
+await files.initialize();
+await writeFile(join(root, 'Notes', 'Welcome.md'), '# QA welcome\n\nKeep this original note.\n');
+await writeFile(join(root, 'Notes', 'Malformed.md'), '# QA malformed\n\n[Broken link](broken%ZZ.md)\n');
+await writeFile(join(root, 'Wiki', 'Overview.md'), '# QA overview\n\n[Jump to details](Deep.md#details)\n');
+await writeFile(join(root, 'Wiki', 'Deep.md'), '# Deep page\n\n' + Array.from({length:80}, (_,i)=>`QA filler paragraph ${i+1}.\n\n`).join('') + '## Details\n\nQA anchor destination.\n');
+const store = new Store(root, join(cache,'output/worker.mjs'));
+await store.start();
+const modules = new Modules(store, files, {}, {}, ()=>{});
+await store.put('settings','default',{enabled,theme:'light',useDeviceLocation:false,locationRequested:true,lastChat:'qa-chat'});
+await store.put('chats','qa-chat',{title:'QA conversation',messages:[],grants:[],attachments:[],status:'idle'});
+await modules.invoke('todos','add',{title:'QA ordinary task'});
+await modules.invoke('bookmarks','add',{title:'QA ordinary bookmark',url:'https://example.com/ordinary',tags:['qa']});
+const longBookmark = await modules.invoke('bookmarks','add',{title:'QA long bookmark title',url:'https://example.com/long',description:'QA long tags',tags:Array.from({length:40},(_,i)=>`QA-tag-${i}`)});
+const thread = await modules.invoke('board','post',{topic:'QA thread',text:'QA root post'});
+const job = await modules.invoke('automations','add',{title:'QA paused job',instruction:'Maintain safe QA information',topicPath:'Overview.md',frequency:'daily',hour:9,minute:0,enabled:false});
+const results = [];
+const errors = [];
+async function saveResults(){await writeFile(join(evidence,'results.json'), JSON.stringify({root,source,cache,results,errors},null,2));}
+async function scenario(id, expected, work) {
+  try {
+    const { pass, ...actual } = await work();
+    results.push({ id, expected, outcome:pass?'Passed':'Failed', actual });
+  } catch (error) {
+    results.push({id,expected,outcome:'Untested',harnessError:error.stack});
+  }
+  await saveResults();
+  console.log(`${id}: ${results.at(-1).outcome}`);
+}
+await scenario('QA07', 'Agent mutations require a revision; an older queued edit must not overwrite a newer edit.', async()=>{
+  const first=await modules.invoke('todos','add',{title:'QA original revision'});
+  const queued=await modules.agent('qa-chat','todos','update',{id:first.id,title:'QA stale queued title'});
+  const current=await modules.invoke('todos','update',{id:first.id,revision:first.revision,title:'QA NEWER HUMAN TITLE'});
+  let rejected=false,error='';
+  try {await modules.approve(queued.actionId,true);} catch(e){rejected=true;error=e.message;}
+  const final=await store.get('todos',first.id);
+  const deleteQueued=await modules.agent('qa-chat','todos','remove',{id:first.id});
+  await modules.invoke('todos','update',{id:first.id,revision:final.revision,title:'QA newer before deletion'});
+  let deleteRejected=false;
+  try {await modules.approve(deleteQueued.actionId,true);}catch{deleteRejected=true;}
+  return {pass:rejected&&deleteRejected, queued, current, final, error, deleteRejected, deleted:!(await store.get('todos',first.id))};
+});
+await store.close();
+
+let application, page;
+const feedRequests=[];
+const server=createServer((request,response)=>{
+  feedRequests.push(request.url);
+  if(request.url==='/bad'){response.writeHead(503);response.end('Fixture unavailable');return;}
+  response.writeHead(200,{'content-type':'application/rss+xml'});
+  response.end('<?xml version="1.0"?><rss version="2.0"><channel><title>QA feed</title><item><title>QA Research &amp; Development</title><link>https://example.com/qa-entity</link><pubDate>Thu, 01 Oct 2026 12:00:00 GMT</pubDate></item></channel></rss>');
+});
+await new Promise(r=>server.listen(0,'127.0.0.1',r));
+const feedBase=`http://127.0.0.1:${server.address().port}`;
+try {
+  application=await require('playwright-core')._electron.launch({executablePath:require('electron'),args:[join(cache,'output/main.mjs')],env:{...process.env,CLARITY_TEST_ROOT:root}});
+  page=await application.firstWindow();
+  page.setDefaultTimeout(7000);
+  page.on('pageerror',e=>errors.push(e.message));
+  await page.locator('.sidebar').waitFor();
+  await application.evaluate(({ipcMain})=>{
+    const original=ipcMain._invokeHandlers.get('clarity:call');
+    globalThis.qa={};
+    ipcMain.removeHandler('clarity:call');
+    ipcMain.handle('clarity:call',async(event,method,args)=>{
+      const qa=globalThis.qa;
+      if(method==='bootstrap'){
+        const result=await original(event,method,args);
+        if(qa.fakeChat)result.value.auth.codex=true;
+        if(qa.mail)result.value.auth.google=qa.mail.connected;
+        return result;
+      }
+      if(method==='chats.send'&&qa.fakeChat){qa.sent=args;await new Promise(r=>qa.releaseSend=r);return {ok:true,value:{}};}
+      if(method==='module'&&args.module==='notes'&&args.method==='write'&&qa.failNotes)return {ok:false,error:'QA simulated disk write failure'};
+      if(method==='module'&&args.module==='bookmarks'&&args.method==='add'&&qa.holdBookmark)await new Promise(r=>qa.releaseBookmark=r);
+      if(method==='module'&&args.module==='mail'&&qa.mail){
+        if(qa.mail.fail)return {ok:false,error:'QA mailbox unavailable after reconnect'};
+        const message={id:'qa-message',subject:'QA first account message',from:'qa@example.invalid',date:'Thu, 1 Oct 2026 12:00:00 +0800',text:'QA first account private text'};
+        return {ok:true,value:args.method==='list'?{messages:[message],nextPage:null}:message};
+      }
+      return original(event,method,args);
+    });
+  });
+  const call=(method,args)=>page.evaluate(({method,args})=>window.clarity.call(method,args),{method,args});
+  const invoke=(module,method,args={})=>call('module',{module,method,args});
+  const settle=()=>page.evaluate(()=>Promise.all(document.getAnimations().filter(a=>a.effect?.getComputedTiming().iterations!==Infinity).map(a=>a.finished.catch(()=>{}))));
+  const nav=async name=>{await page.locator('.sidebar').getByRole('button',{name,exact:true}).click();await settle();};
+  const authEvent=()=>application.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].webContents.send('clarity:event',{type:'auth',data:{kind:'connected',provider:'google'}}));
+  const screenshot=async name=>{await settle();await page.screenshot({path:join(evidence,`${name}.png`)});};
+  const size=async(width,height)=>{await application.evaluate(({BrowserWindow},s)=>BrowserWindow.getAllWindows()[0].setSize(s.width,s.height),{width,height});await page.setViewportSize({width,height});await settle();};
+  await size(850,600);
+
+  await scenario('QA02','Navigation shortcuts must leave the destination interactive when a modal is open.',async()=>{
+    await nav('Todos');await page.getByRole('button',{name:'New task',exact:true}).click();
+    await page.getByRole('textbox',{name:'New task',exact:true}).fill('QA pending task');
+    await page.keyboard.press('Meta+l');await settle();
+    let blocked=false,pointerError='';try{await page.getByRole('textbox',{name:'Message',exact:true}).click({timeout:1600});}catch(e){blocked=true;pointerError=e.message;}
+    const dialogs=await page.locator('dialog:modal').evaluateAll(es=>es.map(e=>({title:e.querySelector('h2')?.textContent,visible:!!e.getClientRects().length,hiddenHost:e.closest('.module-host')?.hidden})));
+    await screenshot('QA02-hidden-modal');await page.keyboard.press('Escape');
+    await page.getByRole('textbox',{name:'Message',exact:true}).click();
+    return {pass:!blocked,blocked,pointerError,dialogs,escapeRecovers:true};
+  });
+  await scenario('QA03','Bold in the rich editor must not also toggle the global sidebar.',async()=>{
+    await nav('Notes');await page.getByRole('navigation',{name:'Note files'}).getByRole('button',{name:'Welcome',exact:true}).click();
+    const editor=page.locator('.note-document:not([hidden]) .ProseMirror');await editor.waitFor();await editor.click();await page.keyboard.press('Meta+a');await page.keyboard.press('Meta+b');await settle();
+    const collapsed=await page.locator('.shell').evaluate(e=>e.classList.contains('sidebar-collapsed'));const bold=await editor.locator('strong').count();await screenshot('QA03-bold-sidebar');
+    await editor.locator('p').first().click();await page.keyboard.press('ArrowRight');if(collapsed)await page.getByRole('button',{name:'Show sidebar',exact:true}).click();
+    return {pass:!collapsed,collapsed,bold};
+  });
+  await scenario('QA05','Saving or renaming a note must keep it discoverable, or reject unsupported hidden names.',async()=>{
+    await page.getByRole('button',{name:'Rename',exact:true}).click();await page.getByRole('textbox',{name:'Name',exact:true}).fill('.hidden-draft');await page.getByRole('button',{name:'Save',exact:true}).click();await page.getByRole('dialog',{name:'Rename note'}).waitFor({state:'hidden'});
+    await page.getByRole('tab',{name:'.hidden-draft.md',exact:true}).waitFor();await screenshot('QA05-hidden-note');await page.getByRole('button',{name:'Close .hidden-draft.md',exact:true}).click();
+    await page.getByRole('searchbox',{name:'Search notes',exact:true}).fill('hidden-draft');await page.getByText('No results for “hidden-draft”.',{exact:true}).waitFor();
+    const list=await invoke('notes','list',{query:'hidden-draft'});const disk=await readFile(join(root,'Notes','.hidden-draft.md'),'utf8');await screenshot('QA05-hidden-note-search');await page.getByRole('searchbox',{name:'Search notes',exact:true}).fill('');
+    return {pass:list.length>0,matches:list,diskContent:disk};
+  });
+  await scenario('QA04','A late save completion must not dismiss or discard a different newly opened bookmark draft.',async()=>{
+    await nav('Bookmarks');await application.evaluate(()=>globalThis.qa.holdBookmark=true);
+    await page.getByRole('button',{name:'Add bookmark',exact:true}).click();await page.getByRole('textbox',{name:'Title',exact:true}).fill('QA delayed first bookmark');await page.getByRole('textbox',{name:'URL',exact:true}).fill('https://example.com/first');await page.getByRole('button',{name:'Save',exact:true}).click();
+    await page.getByRole('button',{name:'Cancel',exact:true}).click();await page.getByRole('button',{name:'Add bookmark',exact:true}).click();await page.getByRole('textbox',{name:'Title',exact:true}).fill('QA NEW UNSAVED BOOKMARK');await page.getByRole('textbox',{name:'URL',exact:true}).fill('https://example.com/second');await screenshot('QA04-before-ack');
+    await application.evaluate(()=>{globalThis.qa.holdBookmark=false;globalThis.qa.releaseBookmark();});await page.getByRole('dialog',{name:'Add bookmark'}).waitFor({state:'hidden'});const titles=(await invoke('bookmarks','list')).items.map(i=>i.title);await screenshot('QA04-after-ack');
+    return {pass:false,newDraftDismissed:true,savedTitles:titles};
+  });
+  await scenario('QA13','Supported bookmark tags must not collapse the title or overflow the workspace.',async()=>{
+    const row=page.locator(`[data-item-id="${longBookmark.id}"]`);const geometry=await row.evaluate(e=>({titleWidth:e.querySelector('.bookmark-title').getBoundingClientRect().width,rowWidth:e.clientWidth,scrollWidth:e.scrollWidth,tagsWidth:e.querySelector('.bookmark-tags').scrollWidth}));await screenshot('QA13-bookmark-tags');return {pass:geometry.titleWidth>0&&geometry.scrollWidth<=geometry.rowWidth+1,geometry,tags:40,viewport:await page.evaluate(()=>({width:innerWidth,height:innerHeight}))};
+  });
+  await scenario('QA06','A relative Wiki page-and-heading link must retain its fragment and scroll to the heading.',async()=>{
+    await nav('Wiki');const frame=page.frameLocator('iframe');await frame.getByRole('link',{name:'QA overview',exact:true}).click();await frame.getByRole('link',{name:'Jump to details',exact:true}).click();await frame.getByText('QA filler paragraph 80.',{exact:true}).waitFor();await settle();
+    await page.waitForFunction(()=>document.querySelector('iframe').src.includes('Deep.md'));
+    const geometry=await frame.locator('body').evaluate(()=>({hash:location.hash,scroll:scrollY,headingY:document.getElementById('details').getBoundingClientRect().top,viewport:innerHeight}));await screenshot('QA06-wiki-anchor');return {pass:geometry.headingY>=0&&geometry.headingY<geometry.viewport,geometry};
+  });
+  await scenario('QA08','Expenses and Calendar reject impossible Gregorian dates before storing records.',async()=>{
+    const accepted=[];for(const date of ['2026-02-30','2026-13-40','0000-00-00'])try{accepted.push(await invoke('expenses','add',{amountCents:100,category:'QA date validation',description:'QA date '+date,date}));}catch{}
+    let event;try{event=await invoke('calendar','add',{title:'QA impossible February date',start:'2026-02-30T09:00:00+08:00',end:'2026-02-30T10:00:00+08:00'});}catch{}
+    await nav('Expenses');await page.getByText('QA date 2026-13-40',{exact:true}).waitFor();await screenshot('QA08-invalid-dates');const invalidLabels=await page.getByText('Invalid Date',{exact:true}).count();return {pass:!accepted.length&&!event,accepted,event,invalidLabels,normalizedCalendarDate:event?new Date(event.start).toISOString():null};
+  });
+  await scenario('QA09','A board reply must validate that its parent thread exists before reporting success.',async()=>{
+    const post=await invoke('board','post',{topic:'QA orphan reply',text:'QA orphan content',threadId:'nonexistent-parent'});const read=await invoke('board','read',{id:post.id});const search=await invoke('board','list',{query:'QA orphan',threads:true});return {pass:!!read.thread,post,read,search};
+  });
+  await scenario('QA14','Correcting a failed board reply clears its error and shows one error while invalid.',async()=>{
+    await nav('Agent board');await page.locator('.thread-list button').filter({hasText:'QA thread'}).click();await page.getByRole('textbox',{name:'Reply',exact:true}).fill('   ');await page.getByRole('button',{name:'Post',exact:true}).click();await page.getByRole('alert').first().waitFor();const before=await page.getByRole('alert').allTextContents();await page.getByRole('textbox',{name:'Reply',exact:true}).fill('QA corrected reply');await page.getByRole('button',{name:'Post',exact:true}).click();await page.getByText('QA corrected reply',{exact:true}).waitFor();const after=await page.getByRole('alert').allTextContents();await screenshot('QA14-board-stale-errors');return {pass:before.length===1&&after.length===0,before,after,savedReply:(await invoke('board','read',{id:thread.id})).replies.at(-1)};
+  });
+  await scenario('QA10','RSS character entities display as normal characters, with separate source failures visible.',async()=>{
+    await nav('News');await page.getByRole('button',{name:'Sources',exact:true}).click();
+    for(const [title,suffix] of [['QA good feed','good'],['QA failing feed','bad']]){await page.getByRole('textbox',{name:'Name',exact:true}).fill(title);await page.getByRole('textbox',{name:'Feed URL',exact:true}).fill(feedBase+'/'+suffix);await page.getByRole('button',{name:'Add source',exact:true}).click();await page.waitForFunction(()=>document.querySelector('dialog input[type="url"]').value==='');}
+    await page.keyboard.press('Escape');await page.getByRole('button',{name:'Refresh',exact:true}).click();await page.getByText('QA failing feed: HTTP 503',{exact:true}).waitFor();const titles=await page.locator('.news-headline').allTextContents();await screenshot('QA10-news-entities');return {pass:titles.includes('QA Research & Development'),titles,feedRequests,status:await page.locator('.news-view [role="status"]').allTextContents()};
+  });
+  await scenario('QA11','Mail clears prior-account message contents on disconnect/reconnect, including failed new reads.',async()=>{
+    await application.evaluate(()=>globalThis.qa.mail={connected:true,fail:false});await authEvent();await nav('Mail');await page.getByRole('navigation',{name:'Messages'}).getByRole('button',{name:/QA first account message/}).click();await page.locator('.mail-reader').getByText('QA first account private text',{exact:true}).waitFor();
+    await application.evaluate(()=>{globalThis.qa.mail.connected=false;globalThis.qa.mail.fail=true;});await authEvent();await page.getByText('Connect Google to read your inbox.',{exact:true}).waitFor();await application.evaluate(()=>globalThis.qa.mail.connected=true);await authEvent();await page.locator('.mail-reader').getByRole('alert').waitFor();const text=await page.locator('.mail-reader').innerText();await screenshot('QA11-old-mail-content');return {pass:!text.includes('QA first account private text'),text,fixture:'Controlled auth events and read-only Mail responses; no real account'};
+  });
+  await scenario('QA12','Typing a new Chat draft while send is preparing preserves that unsent draft when the original send is acknowledged.',async()=>{
+    await application.evaluate(()=>globalThis.qa.fakeChat=true);await authEvent();await nav('QA conversation');await page.getByRole('textbox',{name:'Message',exact:true}).fill('QA original outgoing text');await page.getByRole('button',{name:'Send',exact:true}).click();await page.getByRole('button',{name:'Stop',exact:true}).waitFor();await page.getByRole('textbox',{name:'Message',exact:true}).fill('QA NEW UNSENT DRAFT');await screenshot('QA12-before-ack');await application.evaluate(()=>globalThis.qa.releaseSend());await page.waitForFunction(()=>document.querySelector('.composer textarea').value==='');
+    const actual=await page.getByRole('textbox',{name:'Message',exact:true}).inputValue();const stored=await page.evaluate(()=>localStorage.getItem('clarity:draft:chat:qa-chat:text'));const sent=await application.evaluate(()=>globalThis.qa.sent.text);await screenshot('QA12-after-ack');return {pass:actual==='QA NEW UNSENT DRAFT',actual,stored,sent,fixture:'Controlled delayed send acknowledgement; no model call'};
+  });
+  await scenario('PASS-note-recovery','A failed note save prevents module disablement and permits preserving a recovery copy.',async()=>{
+    await nav('Notes');await page.getByRole('navigation',{name:'Note files'}).getByRole('button',{name:'Malformed',exact:true}).click();await page.getByRole('button',{name:'Markdown',exact:true}).click();await application.evaluate(()=>globalThis.qa.failNotes=true);await page.getByRole('textbox',{name:'Markdown source',exact:true}).fill('# QA unsaved recovery text');await page.getByText('QA simulated disk write failure',{exact:true}).waitFor();await nav('Settings');await page.getByRole('button',{name:'Modules',exact:true}).click();await page.getByRole('checkbox',{name:'Notes',exact:true}).click();await page.getByText(/Save a copy of Malformed.md before closing/).waitFor();const prevented=await page.getByRole('checkbox',{name:'Notes',exact:true}).isChecked();await application.evaluate(()=>globalThis.qa.failNotes=false);await nav('Notes');await page.getByRole('button',{name:'Save another copy',exact:true}).click();await page.getByText(/Draft saved to Malformed \(recovered\).md/).waitFor();const copy=await readFile(join(root,'Notes','Malformed (recovered).md'),'utf8');await page.getByRole('button',{name:'Close Malformed.md',exact:true}).click();await page.getByRole('button',{name:'Dismiss error',exact:true}).click();return {pass:prevented&&copy==='# QA unsaved recovery text',prevented,copy};
+  });
+  await scenario('PASS-automation-failure','A disconnected automation preserves its input cursor and creates no chat.',async()=>{
+    await nav('Automations');const before=await invoke('automations','read',{id:job.id});await page.locator(`[data-item-id="${job.id}"]`).getByRole('button',{name:'Run now',exact:true}).click();await page.locator(`[data-item-id="${job.id}"]`).getByRole('alert').waitFor();const after=await invoke('automations','read',{id:job.id});const chatCount=(await call('chats.list')).length;return {pass:after.status==='failed'&&after.since===before.since&&chatCount===1,status:after.status,error:after.error,cursorUnchanged:after.since===before.since,chatCount};
+  });
+  await scenario('QA01','Malformed document links must not crash the application while opening a source preview.',async()=>{
+    await nav('QA conversation');await page.getByRole('textbox',{name:'Message',exact:true}).fill('QA draft survives renderer recovery');await page.getByRole('button',{name:'Search and commands',exact:true}).click();await page.getByRole('combobox',{name:'Search Clarity',exact:true}).fill('Malformed');await page.getByRole('option',{name:'Malformed Notes · Malformed.md',exact:true}).click();await page.waitForFunction(()=>!document.querySelector('.shell'));const children=await page.locator('#root').evaluate(e=>e.childElementCount);await screenshot('QA01-blank-renderer');await page.reload();await page.locator('.sidebar').waitFor();const recoveredDraft=await page.getByRole('textbox',{name:'Message',exact:true}).inputValue();return {pass:children>0,rootChildren:children,errors:[...errors],recoveredDraft};
+  });
+
+  await application.evaluate(()=>{globalThis.qa.fakeChat=false;globalThis.qa.mail={connected:true,fail:false};});await authEvent();
+  const layouts=[];
+  for(const [width,height] of [[850,600],[1200,800]])for(const theme of ['light','dark']){
+    await size(width,height);await call('settings.save',{theme});await page.waitForFunction(t=>document.documentElement.dataset.theme===t,theme);
+    for(const name of ['QA conversation','Notes','Todos','Wiki','Calendar','Expenses','Mail','News','Bookmarks','Music','Agent board','Automations','Settings']){
+      await nav(name);
+      const module=await page.locator('.module-host:not([hidden])').getAttribute('data-module');
+      const geometry=await page.locator('.module-host:not([hidden])').evaluate(e=>({width:innerWidth,height:innerHeight,bodyScrollWidth:document.body.scrollWidth,hostWidth:e.clientWidth,hostScrollWidth:e.scrollWidth,textLength:e.innerText.length}));
+      await screenshot(`layout-${module}-${theme}-${width}`);layouts.push({module,theme,...geometry});
+    }
+  }
+  await writeFile(join(evidence,'layouts.json'),JSON.stringify(layouts,null,2));
+  await saveResults();
+} finally {
+  await application?.close();
+  server.closeAllConnections();
+  await new Promise(r=>server.close(r));
+  await saveResults();
+}
+console.log(JSON.stringify({failed:results.filter(r=>r.outcome==='Failed').length,passed:results.filter(r=>r.outcome==='Passed').length,untested:results.filter(r=>r.outcome==='Untested').length}));

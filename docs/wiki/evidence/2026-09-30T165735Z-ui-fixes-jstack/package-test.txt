@@ -1,0 +1,19 @@
+Command: node --test tests/package.mjs
+Captured completion output (initial TAP version line was emitted earlier).
+Exit code: 0
+# Relocated bundle verified: /var/folders/00/h_k67s0j5dq0qvg6ylqysk2w0000gn/T/clarity-package-test-WBhE7q/Clarity.app
+# Subtest: relocated macOS bundle runs with its own dependencies and a system-only PATH
+ok 1 - relocated macOS bundle runs with its own dependencies and a system-only PATH
+  ---
+  duration_ms: 13534.042833
+  type: 'test'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 13805.099542

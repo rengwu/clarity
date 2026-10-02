@@ -1,0 +1,108 @@
+{
+  "sidebarMotion": {
+    "animations": [
+      {
+        "duration": 220,
+        "property": "grid-template-columns"
+      }
+    ],
+    "width": 154.8984375
+  },
+  "tasks": [
+    {
+      "height": 36,
+      "gap": null
+    },
+    {
+      "height": 36,
+      "gap": 2
+    },
+    {
+      "height": 36,
+      "gap": 2
+    }
+  ],
+  "reorder": [
+    {
+      "duration": 114.34073968202325,
+      "frames": [
+        null,
+        null
+      ]
+    },
+    {
+      "duration": 160,
+      "frames": [
+        "scale(0.65)",
+        "scale(1)"
+      ]
+    },
+    {
+      "duration": 220,
+      "frames": [
+        "translateY(41.1478px)",
+        "translateY(0px)"
+      ]
+    },
+    {
+      "duration": 220,
+      "frames": [
+        "translateY(41.1478px)",
+        "translateY(0px)"
+      ]
+    },
+    {
+      "duration": 220,
+      "frames": [
+        "translateY(-72.8522px)",
+        "translateY(0px)"
+      ]
+    }
+  ],
+  "notes": {
+    "divider": 806,
+    "view": 806,
+    "tabs": [
+      {
+        "height": 35,
+        "radius": "0px",
+        "separator": "0"
+      },
+      {
+        "height": 35,
+        "radius": "0px",
+        "separator": "0"
+      }
+    ]
+  },
+  "news": [
+    36,
+    36,
+    36,
+    36,
+    36,
+    36,
+    36,
+    36,
+    36,
+    36,
+    36,
+    36,
+    36,
+    36
+  ],
+  "bookmarks": [
+    56,
+    56,
+    56
+  ],
+  "separators": [
+    "0",
+    "0",
+    "1"
+  ],
+  "reduced": {
+    "animations": 0,
+    "sidebar": "0s"
+  }
+}

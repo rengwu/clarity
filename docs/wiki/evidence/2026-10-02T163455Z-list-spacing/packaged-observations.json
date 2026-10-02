@@ -1,0 +1,839 @@
+{
+  "observations": [
+    {
+      "name": "Agent board",
+      "theme": "dark",
+      "width": 1200,
+      "state": "empty",
+      "result": [
+        {
+          "text": "No posts. Agents use this board only when instructed.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Notes",
+      "theme": "dark",
+      "width": 1200,
+      "state": "empty",
+      "result": [
+        {
+          "text": "No notes yet. Create a note above.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Todos",
+      "theme": "dark",
+      "width": 1200,
+      "state": "empty",
+      "result": [
+        {
+          "text": "No tasks yet. Add a task to get started.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "News",
+      "theme": "dark",
+      "width": 1200,
+      "state": "empty",
+      "result": [
+        {
+          "text": "No articles yet. Add a feed in Sources, then refresh.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Bookmarks",
+      "theme": "dark",
+      "width": 1200,
+      "state": "empty",
+      "result": [
+        {
+          "text": "No bookmarks yet. Add a bookmark or refresh a connected source.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Mail",
+      "theme": "dark",
+      "width": 1200,
+      "state": "empty",
+      "result": [
+        {
+          "text": "Your inbox is empty.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Music",
+      "theme": "dark",
+      "width": 1200,
+      "state": "empty",
+      "result": [
+        {
+          "text": "Albums, artists, and playlists you play in Clarity appear here.",
+          "gap": 16,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Automations",
+      "theme": "dark",
+      "width": 1200,
+      "state": "empty",
+      "result": [
+        {
+          "text": "No automations yet. Create a schedule for a wiki topic.",
+          "gap": 16,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Calendar",
+      "theme": "dark",
+      "width": 1200,
+      "state": "empty",
+      "result": []
+    },
+    {
+      "name": "Expenses",
+      "theme": "dark",
+      "width": 1200,
+      "state": "empty",
+      "result": []
+    },
+    {
+      "name": "Wiki",
+      "theme": "dark",
+      "width": 1200,
+      "state": "empty",
+      "result": []
+    },
+    {
+      "name": "New chat",
+      "theme": "dark",
+      "width": 1200,
+      "state": "empty",
+      "result": []
+    },
+    {
+      "name": "Settings",
+      "theme": "dark",
+      "width": 1200,
+      "state": "empty",
+      "result": []
+    },
+    {
+      "name": "Agent board",
+      "theme": "dark",
+      "width": 1200,
+      "state": "no matches",
+      "result": [
+        {
+          "text": "No results for “no-match-fixture”.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Notes",
+      "theme": "dark",
+      "width": 1200,
+      "state": "no matches",
+      "result": [
+        {
+          "text": "No results for “no-match-fixture”.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "News",
+      "theme": "dark",
+      "width": 1200,
+      "state": "no matches",
+      "result": [
+        {
+          "text": "No results for “no-match-fixture”.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Bookmarks",
+      "theme": "dark",
+      "width": 1200,
+      "state": "no matches",
+      "result": [
+        {
+          "text": "No results for “no-match-fixture”.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Mail",
+      "theme": "dark",
+      "width": 1200,
+      "state": "no matches",
+      "result": [
+        {
+          "text": "No results for “no-match-fixture”.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Agent board",
+      "theme": "light",
+      "width": 1200,
+      "state": "empty",
+      "result": [
+        {
+          "text": "No posts. Agents use this board only when instructed.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Notes",
+      "theme": "light",
+      "width": 1200,
+      "state": "empty",
+      "result": [
+        {
+          "text": "No notes yet. Create a note above.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Todos",
+      "theme": "light",
+      "width": 1200,
+      "state": "empty",
+      "result": [
+        {
+          "text": "No tasks yet. Add a task to get started.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "News",
+      "theme": "light",
+      "width": 1200,
+      "state": "empty",
+      "result": [
+        {
+          "text": "No articles yet. Add a feed in Sources, then refresh.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Bookmarks",
+      "theme": "light",
+      "width": 1200,
+      "state": "empty",
+      "result": [
+        {
+          "text": "No bookmarks yet. Add a bookmark or refresh a connected source.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Mail",
+      "theme": "light",
+      "width": 1200,
+      "state": "empty",
+      "result": [
+        {
+          "text": "Your inbox is empty.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Music",
+      "theme": "light",
+      "width": 1200,
+      "state": "empty",
+      "result": [
+        {
+          "text": "Albums, artists, and playlists you play in Clarity appear here.",
+          "gap": 16,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Automations",
+      "theme": "light",
+      "width": 1200,
+      "state": "empty",
+      "result": [
+        {
+          "text": "No automations yet. Create a schedule for a wiki topic.",
+          "gap": 16,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Calendar",
+      "theme": "light",
+      "width": 1200,
+      "state": "empty",
+      "result": []
+    },
+    {
+      "name": "Expenses",
+      "theme": "light",
+      "width": 1200,
+      "state": "empty",
+      "result": []
+    },
+    {
+      "name": "Wiki",
+      "theme": "light",
+      "width": 1200,
+      "state": "empty",
+      "result": []
+    },
+    {
+      "name": "New chat",
+      "theme": "light",
+      "width": 1200,
+      "state": "empty",
+      "result": []
+    },
+    {
+      "name": "Settings",
+      "theme": "light",
+      "width": 1200,
+      "state": "empty",
+      "result": []
+    },
+    {
+      "name": "Agent board",
+      "theme": "light",
+      "width": 1200,
+      "state": "no matches",
+      "result": [
+        {
+          "text": "No results for “no-match-fixture”.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Notes",
+      "theme": "light",
+      "width": 1200,
+      "state": "no matches",
+      "result": [
+        {
+          "text": "No results for “no-match-fixture”.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "News",
+      "theme": "light",
+      "width": 1200,
+      "state": "no matches",
+      "result": [
+        {
+          "text": "No results for “no-match-fixture”.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Bookmarks",
+      "theme": "light",
+      "width": 1200,
+      "state": "no matches",
+      "result": [
+        {
+          "text": "No results for “no-match-fixture”.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Mail",
+      "theme": "light",
+      "width": 1200,
+      "state": "no matches",
+      "result": [
+        {
+          "text": "No results for “no-match-fixture”.",
+          "gap": 11.999992370605469,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Agent board",
+      "theme": "dark",
+      "width": 850,
+      "state": "empty",
+      "result": [
+        {
+          "text": "No posts. Agents use this board only when instructed.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Notes",
+      "theme": "dark",
+      "width": 850,
+      "state": "empty",
+      "result": [
+        {
+          "text": "No notes yet. Create a note above.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Todos",
+      "theme": "dark",
+      "width": 850,
+      "state": "empty",
+      "result": [
+        {
+          "text": "No tasks yet. Add a task to get started.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "News",
+      "theme": "dark",
+      "width": 850,
+      "state": "empty",
+      "result": [
+        {
+          "text": "No articles yet. Add a feed in Sources, then refresh.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Bookmarks",
+      "theme": "dark",
+      "width": 850,
+      "state": "empty",
+      "result": [
+        {
+          "text": "No bookmarks yet. Add a bookmark or refresh a connected source.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Mail",
+      "theme": "dark",
+      "width": 850,
+      "state": "empty",
+      "result": [
+        {
+          "text": "Your inbox is empty.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Music",
+      "theme": "dark",
+      "width": 850,
+      "state": "empty",
+      "result": [
+        {
+          "text": "Albums, artists, and playlists you play in Clarity appear here.",
+          "gap": 16,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Automations",
+      "theme": "dark",
+      "width": 850,
+      "state": "empty",
+      "result": [
+        {
+          "text": "No automations yet. Create a schedule for a wiki topic.",
+          "gap": 16,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Calendar",
+      "theme": "dark",
+      "width": 850,
+      "state": "empty",
+      "result": []
+    },
+    {
+      "name": "Expenses",
+      "theme": "dark",
+      "width": 850,
+      "state": "empty",
+      "result": []
+    },
+    {
+      "name": "Wiki",
+      "theme": "dark",
+      "width": 850,
+      "state": "empty",
+      "result": []
+    },
+    {
+      "name": "New chat",
+      "theme": "dark",
+      "width": 850,
+      "state": "empty",
+      "result": []
+    },
+    {
+      "name": "Settings",
+      "theme": "dark",
+      "width": 850,
+      "state": "empty",
+      "result": []
+    },
+    {
+      "name": "Agent board",
+      "theme": "dark",
+      "width": 850,
+      "state": "no matches",
+      "result": [
+        {
+          "text": "No results for “no-match-fixture”.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Notes",
+      "theme": "dark",
+      "width": 850,
+      "state": "no matches",
+      "result": [
+        {
+          "text": "No results for “no-match-fixture”.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "News",
+      "theme": "dark",
+      "width": 850,
+      "state": "no matches",
+      "result": [
+        {
+          "text": "No results for “no-match-fixture”.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Bookmarks",
+      "theme": "dark",
+      "width": 850,
+      "state": "no matches",
+      "result": [
+        {
+          "text": "No results for “no-match-fixture”.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Mail",
+      "theme": "dark",
+      "width": 850,
+      "state": "no matches",
+      "result": [
+        {
+          "text": "No results for “no-match-fixture”.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Agent board",
+      "theme": "light",
+      "width": 850,
+      "state": "empty",
+      "result": [
+        {
+          "text": "No posts. Agents use this board only when instructed.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Notes",
+      "theme": "light",
+      "width": 850,
+      "state": "empty",
+      "result": [
+        {
+          "text": "No notes yet. Create a note above.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Todos",
+      "theme": "light",
+      "width": 850,
+      "state": "empty",
+      "result": [
+        {
+          "text": "No tasks yet. Add a task to get started.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "News",
+      "theme": "light",
+      "width": 850,
+      "state": "empty",
+      "result": [
+        {
+          "text": "No articles yet. Add a feed in Sources, then refresh.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Bookmarks",
+      "theme": "light",
+      "width": 850,
+      "state": "empty",
+      "result": [
+        {
+          "text": "No bookmarks yet. Add a bookmark or refresh a connected source.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Mail",
+      "theme": "light",
+      "width": 850,
+      "state": "empty",
+      "result": [
+        {
+          "text": "Your inbox is empty.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Music",
+      "theme": "light",
+      "width": 850,
+      "state": "empty",
+      "result": [
+        {
+          "text": "Albums, artists, and playlists you play in Clarity appear here.",
+          "gap": 16,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Automations",
+      "theme": "light",
+      "width": 850,
+      "state": "empty",
+      "result": [
+        {
+          "text": "No automations yet. Create a schedule for a wiki topic.",
+          "gap": 16,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Calendar",
+      "theme": "light",
+      "width": 850,
+      "state": "empty",
+      "result": []
+    },
+    {
+      "name": "Expenses",
+      "theme": "light",
+      "width": 850,
+      "state": "empty",
+      "result": []
+    },
+    {
+      "name": "Wiki",
+      "theme": "light",
+      "width": 850,
+      "state": "empty",
+      "result": []
+    },
+    {
+      "name": "New chat",
+      "theme": "light",
+      "width": 850,
+      "state": "empty",
+      "result": []
+    },
+    {
+      "name": "Settings",
+      "theme": "light",
+      "width": 850,
+      "state": "empty",
+      "result": []
+    },
+    {
+      "name": "Agent board",
+      "theme": "light",
+      "width": 850,
+      "state": "no matches",
+      "result": [
+        {
+          "text": "No results for “no-match-fixture”.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Notes",
+      "theme": "light",
+      "width": 850,
+      "state": "no matches",
+      "result": [
+        {
+          "text": "No results for “no-match-fixture”.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "News",
+      "theme": "light",
+      "width": 850,
+      "state": "no matches",
+      "result": [
+        {
+          "text": "No results for “no-match-fixture”.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Bookmarks",
+      "theme": "light",
+      "width": 850,
+      "state": "no matches",
+      "result": [
+        {
+          "text": "No results for “no-match-fixture”.",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Mail",
+      "theme": "light",
+      "width": 850,
+      "state": "no matches",
+      "result": [
+        {
+          "text": "No results for “no-match-fixture”.",
+          "gap": 12.000007629394531,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Agent board",
+      "theme": "light",
+      "width": 850,
+      "state": "loading",
+      "result": [
+        {
+          "text": "Loading…",
+          "gap": 12,
+          "overflow": false
+        }
+      ]
+    },
+    {
+      "name": "Agent board",
+      "state": "populated",
+      "gap": 12
+    }
+  ],
+  "errors": []
+}

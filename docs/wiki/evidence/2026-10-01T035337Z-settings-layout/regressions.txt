@@ -1,0 +1,41 @@
+TAP version 13
+# Subtest: relocated macOS bundle runs with its own dependencies and a system-only PATH
+not ok 1 - relocated macOS bundle runs with its own dependencies and a system-only PATH
+  ---
+  duration_ms: 19155.40875
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/package.mjs:14:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    locator.fill: Error: strict mode violation: getByRole('textbox', { name: 'New task' }) resolved to 2 elements:
+        1) <input value="" maxlength="1000" aria-label="New task" placeholder="Add a task"/> aka getByRole('textbox', { name: 'New task', exact: true })
+        2) <input value="" type="date" min="0001-01-01" max="9999-12-31" aria-label="New task date (optional)"/> aka getByRole('textbox', { name: 'New task date (optional)' })
+    
+    Call log:
+    [2m  - waiting for getByRole('textbox', { name: 'New task' })[22m
+    
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    TestContext.<anonymous> (/Users/rengwu/Desktop/Projects/clarity/tests/package.mjs:79:61)
+  ...
+# Subtest: agent approvals checklist: individual choices, mixed Select all and persistence
+ok 2 - agent approvals checklist: individual choices, mixed Select all and persistence
+  ---
+  duration_ms: 7828.307417
+  type: 'test'
+  ...
+# Subtest: UI audit regressions: drafts, deletes, submissions, complete lists, themes, context and readable reviews
+ok 3 - UI audit regressions: drafts, deletes, submissions, complete lists, themes, context and readable reviews
+  ---
+  duration_ms: 25014.204125
+  type: 'test'
+  ...
+1..3
+# tests 3
+# suites 0
+# pass 2
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 53341.492583

@@ -1,0 +1,58 @@
+{
+  "news.png": {
+    "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+    "url": "http://127.0.0.1:4318/",
+    "capturedAt": "2026-10-01T08:51:48.907Z",
+    "mode": "viewport",
+    "clipped": false,
+    "image": {
+      "mimeType": "image/png",
+      "width": 2880,
+      "height": 1800,
+      "byteLength": 260520
+    },
+    "artifactPath": "/Users/rengwu/.synara/codex-home-overlay/generated_images/browser-proof/b01e8a085dc53e5d5415dd93/cd65c801-50bf-4836-b133-d106aae90108.png"
+  },
+  "glyphs.png": {
+    "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+    "url": "http://127.0.0.1:4318/",
+    "capturedAt": "2026-10-01T08:52:03.827Z",
+    "mode": "viewport",
+    "clipped": false,
+    "image": {
+      "mimeType": "image/png",
+      "width": 2880,
+      "height": 1800,
+      "byteLength": 261256
+    },
+    "artifactPath": "/Users/rengwu/.synara/codex-home-overlay/generated_images/browser-proof/b01e8a085dc53e5d5415dd93/8d926598-1f1b-406b-a5b9-61e9f0cd2127.png"
+  },
+  "songs.png": {
+    "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+    "url": "http://127.0.0.1:4318/",
+    "capturedAt": "2026-10-01T08:53:38.522Z",
+    "mode": "viewport",
+    "clipped": false,
+    "image": {
+      "mimeType": "image/png",
+      "width": 2880,
+      "height": 1800,
+      "byteLength": 313017
+    },
+    "artifactPath": "/Users/rengwu/.synara/codex-home-overlay/generated_images/browser-proof/b01e8a085dc53e5d5415dd93/01718072-d8bb-4cc7-89ff-13c9dfb752d3.png"
+  },
+  "mobile-news.png": {
+    "tabId": "da3d7c2a-1116-4d05-954f-7d17adc7e1bc",
+    "url": "http://127.0.0.1:4318/",
+    "capturedAt": "2026-10-01T08:51:18.625Z",
+    "mode": "viewport",
+    "clipped": false,
+    "image": {
+      "mimeType": "image/png",
+      "width": 780,
+      "height": 1688,
+      "byteLength": 148600
+    },
+    "artifactPath": "/Users/rengwu/.synara/codex-home-overlay/generated_images/browser-proof/b01e8a085dc53e5d5415dd93/9152c2e0-41b0-4bb9-9f0c-5981be4e904c.png"
+  }
+}

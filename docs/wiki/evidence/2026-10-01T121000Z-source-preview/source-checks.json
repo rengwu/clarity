@@ -1,0 +1,24 @@
+{
+  "syntax": "Both JavaScript modules passed node --check",
+  "served": [
+    {
+      "file": "index.html",
+      "status": 200,
+      "matchesSource": true,
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "style.css",
+      "status": 200,
+      "matchesSource": true,
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "app.js",
+      "status": 200,
+      "matchesSource": true,
+      "cacheControl": "no-store"
+    }
+  ],
+  "server": "{\n\t\"StandardOutPath\" = \"/Users/rengwu/Desktop/Projects/clarity-spikes/2026-10-01-navigation-review/server.log\";\n\t\"LimitLoadToSessionType\" = \"Aqua\";\n\t\"StandardErrorPath\" = \"/Users/rengwu/Desktop/Projects/clarity-spikes/2026-10-01-navigation-review/server-error.log\";\n\t\"Label\" = \"local.clarity.navigation-review\";\n\t\"OnDemand\" = false;\n\t\"LastExitStatus\" = 0;\n\t\"PID\" = 5489;\n\t\"Program\" = \"/Users/rengwu/.local/share/fnm/node-versions/v22.19.0/installation/bin/node\";\n\t\"ProgramArguments\" = (\n\t\t\"/Users/rengwu/.local/share/fnm/node-versions/v22.19.0/installation/bin/node\";\n\t\t\"/Users/rengwu/Desktop/Projects/clarity-spikes/2026-10-01-navigation-review/server.mjs\";\n\t);\n};\n"
+}

@@ -1,0 +1,21 @@
+{
+  "cursorVersion": "3.23.12",
+  "surfaces": [
+    "Running Cursor Agents > Settings > General",
+    "Running Cursor Agents > Settings > Appearance",
+    "External all-module prototype > Settings > Modules",
+    "External prototype Settings source"
+  ],
+  "observations": [
+    "Narrow icon navigation with restrained active state",
+    "Centered bounded content with low-contrast setting groups",
+    "Left labels and explanations, right controls and switches",
+    "Quiet section headings and straight row dividers"
+  ],
+  "prototypeSource": {
+    "app.js": "72bb4cde8358ff1e06a18672857c7866cb20a5f7da8ed394c0ac285707dd30f6",
+    "style.css": "35acd1ff962bae6a6e74e5256ad17782cfaf55d6cd3992397a9b09b0f791fb03",
+    "design.css": "b11d557ac252ffc0dcafbc74f3ef1ef2acf2ac51cd3c072f0e9055311ceefec8"
+  },
+  "limits": "Native reference screenshots remain outside the repository. Codex Desktop was permitted but not inspected. Dimensions in Clarity are delegated implementation choices."
+}

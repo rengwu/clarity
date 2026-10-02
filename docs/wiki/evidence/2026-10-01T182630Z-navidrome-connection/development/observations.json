@@ -1,0 +1,40 @@
+{
+  "authenticated": 1,
+  "observations": [
+    {
+      "code": "EHOSTUNREACH",
+      "message": "The Navidrome server is unreachable. Check its address and your network connection. Also allow Clarity in System Settings → Privacy & Security → Local Network, then try again.",
+      "connected": false
+    },
+    {
+      "code": "ECONNREFUSED",
+      "message": "Navidrome refused the connection. Check that the server is running and the port is correct.",
+      "connected": false
+    },
+    {
+      "code": "ENOTFOUND",
+      "message": "Could not find the Navidrome server. Check its address and your network connection.",
+      "connected": false
+    },
+    {
+      "code": "ETIMEDOUT",
+      "message": "Navidrome took too long to respond. Check the server and try again.",
+      "connected": false
+    },
+    {
+      "code": "UNKNOWN",
+      "message": "Couldn’t reach Navidrome. Check the server address and your connection.",
+      "connected": false
+    },
+    {
+      "failure": "auth",
+      "message": "Wrong username or password",
+      "savedAccountPreserved": true
+    },
+    {
+      "failure": "http",
+      "message": "Navidrome request failed (503)",
+      "savedAccountPreserved": true
+    }
+  ]
+}

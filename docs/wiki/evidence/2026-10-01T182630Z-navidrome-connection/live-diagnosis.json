@@ -1,0 +1,51 @@
+{
+  "recordedAt": "2026-10-01T18:34:15.266Z",
+  "server": {
+    "address": "User-supplied LAN HTTP address (redacted)",
+    "serverVersion": "0.55.2",
+    "authenticated": [
+      {
+        "method": "ping",
+        "http": 200,
+        "status": "ok"
+      },
+      {
+        "method": "getMusicFolders",
+        "http": 200,
+        "status": "ok",
+        "folderCount": 1
+      },
+      {
+        "method": "getPlaylists",
+        "http": 200,
+        "status": "ok"
+      }
+    ]
+  },
+  "isolatedInstalledExecutable": {
+    "nodeFetchStatus": 200,
+    "electronNetFetchStatus": 200
+  },
+  "normalInstalledLaunchBeforeFix": {
+    "nodeFetchError": "fetch failed",
+    "nodeFetchCause": "EHOSTUNREACH",
+    "electronNetFetchError": "net::ERR_ADDRESS_UNREACHABLE",
+    "navidromeSaved": false
+  },
+  "macOSLocalNetworkConsent": "Status not supplied; installed request still fails with EHOSTUNREACH. No OS permission changed by the agent.",
+  "credentialsInEvidence": false,
+  "updatedInstalledApp": {
+    "startupReady": true,
+    "existingSpotifyRecovered": true,
+    "credentialWarning": false,
+    "navidromeConnected": false,
+    "message": "The Navidrome server is unreachable. Check its address and your network connection. Also allow Clarity in System Settings \u2192 Privacy & Security \u2192 Local Network, then try again."
+  },
+  "diagnosticCleanup": {
+    "temporaryDebugPortsClosed": true,
+    "windowReadinessDuringCleanup": {
+      "ready": false
+    },
+    "note": "The last verified live form submission is recorded in updatedInstalledApp. Later cleanup did not re-verify the form."
+  }
+}

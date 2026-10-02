@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-01T15:33:26.740Z",
+  "spotifyLibrary": true,
+  "spotifyPlayback": false,
+  "credentialWarning": null,
+  "search": {
+    "query": "Billie Jean",
+    "items": 40,
+    "error": null
+  },
+  "playbackError": "Connect Spotify playback in Settings.",
+  "duplicateAlertsObserved": 2
+}

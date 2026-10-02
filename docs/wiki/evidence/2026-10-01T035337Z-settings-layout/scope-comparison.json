@@ -1,0 +1,12 @@
+{
+  "applicationChangedOutsideScope": true,
+  "settingsFilesStable": true,
+  "packageRuntimeStable": true,
+  "changedFiles": [
+    "src/renderer/views/calendar.tsx",
+    "src/renderer/views/todos.tsx",
+    "tests/package.mjs",
+    "tests/task-dates.mjs",
+    "tooling/clarity.mjs"
+  ]
+}

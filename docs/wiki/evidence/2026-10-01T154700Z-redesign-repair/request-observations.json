@@ -1,0 +1,15 @@
+{
+  "interpretations": [
+    "Please remind me to review the plan",
+    "slow previous proposal",
+    "A new ambiguous request",
+    "Interpretation failure"
+  ],
+  "mail": [
+    "A new ambiguous request",
+    "slow stale search"
+  ],
+  "music": [
+    "A new ambiguous request"
+  ]
+}

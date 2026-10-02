@@ -1,0 +1,215 @@
+Built Clarity: /Users/rengwu/Library/Caches/Clarity/build/output
+TAP version 13
+# Subtest: OAuth state/PKCE, encrypted tokens, refresh and read-only Gmail with controlled responses
+ok 1 - OAuth state/PKCE, encrypted tokens, refresh and read-only Gmail with controlled responses
+  ---
+  duration_ms: 5913.948917
+  type: 'test'
+  ...
+# Subtest: Spotify login survives expiry and restart; renewal preserves and rotates refresh tokens
+ok 2 - Spotify login survives expiry and restart; renewal preserves and rotates refresh tokens
+  ---
+  duration_ms: 3894.218542
+  type: 'test'
+  ...
+# Subtest: Spotify search/playlist compatibility and playback failure presentation
+ok 3 - Spotify search/playlist compatibility and playback failure presentation
+  ---
+  duration_ms: 1956.745834
+  type: 'test'
+  ...
+# Subtest: Navidrome HTTP stream plays, seeks through the player bar and ends a single-song queue
+ok 4 - Navidrome HTTP stream plays, seeks through the player bar and ends a single-song queue
+  ---
+  duration_ms: 1945.872166
+  type: 'test'
+  ...
+# Subtest: agent context uses the device timezone without guessing a physical location
+ok 5 - agent context uses the device timezone without guessing a physical location
+  ---
+  duration_ms: 4.316208
+  type: 'test'
+  ...
+# Subtest: device readings are approximate and dated; startup does not repeat refused requests
+ok 6 - device readings are approximate and dated; startup does not repeat refused requests
+  ---
+  duration_ms: 0.588458
+  type: 'test'
+  ...
+# Subtest: files preserve conflicts, reject escapes and expire only owned chat copies
+ok 7 - files preserve conflicts, reject escapes and expire only owned chat copies
+  ---
+  duration_ms: 12.857584
+  type: 'test'
+  ...
+# Subtest: music keeps track identity and stops Spotify before starting Navidrome
+ok 8 - music keeps track identity and stops Spotify before starting Navidrome
+  ---
+  duration_ms: 1.411333
+  type: 'test'
+  ...
+# Subtest: Spotify helper crashes surface an error and reconnect; intentional shutdown stays quiet
+ok 9 - Spotify helper crashes surface an error and reconnect; intentional shutdown stays quiet
+  ---
+  duration_ms: 82.329375
+  type: 'test'
+  ...
+# Subtest: Spotify silently renews a rejected playback token, with a single retry
+ok 10 - Spotify silently renews a rejected playback token, with a single retry
+  ---
+  duration_ms: 152.633709
+  type: 'test'
+  ...
+# Subtest: Spotify renews an active helper token without restarting and ignores renewal after close
+ok 11 - Spotify renews an active helper token without restarting and ignores renewal after close
+  ---
+  duration_ms: 2160.05
+  type: 'test'
+  ...
+# Subtest: Spotify recovers an interrupted track once, preserves position and respects pause and source changes
+ok 12 - Spotify recovers an interrupted track once, preserves position and respects pause and source changes
+  ---
+  duration_ms: 0.742416
+  type: 'test'
+  ...
+# Subtest: automations skip missed runs, preserve failed inputs and keep output outside chats
+ok 13 - automations skip missed runs, preserve failed inputs and keep output outside chats
+  ---
+  duration_ms: 216.449917
+  type: 'test'
+  ...
+# Subtest: approval claims prevent duplicate effects; optimistic revisions prevent stale updates
+ok 14 - approval claims prevent duplicate effects; optimistic revisions prevent stale updates
+  ---
+  duration_ms: 100.452167
+  type: 'test'
+  ...
+# Subtest: automatic action approvals are explicit, current, persisted and keep a result trail
+ok 15 - automatic action approvals are explicit, current, persisted and keep a result trail
+  ---
+  duration_ms: 197.847
+  type: 'test'
+  ...
+# Subtest: action checklist covers the agent catalog, browser grants and scheduled-run approvals
+ok 16 - action checklist covers the agent catalog, browser grants and scheduled-run approvals
+  ---
+  duration_ms: 130.578208
+  type: 'test'
+  ...
+# Subtest: Linkding preserves local edits, feeds parse and Navidrome accepts a local HTTP server
+ok 17 - Linkding preserves local edits, feeds parse and Navidrome accepts a local HTTP server
+  ---
+  duration_ms: 105.691583
+  type: 'test'
+  ...
+# Subtest: wiki is self-contained and sanitizes page scripts and event handlers
+ok 18 - wiki is self-contained and sanitizes page scripts and event handlers
+  ---
+  duration_ms: 10.189792
+  type: 'test'
+  ...
+# Subtest: browser batches focus main content and block ungranted navigation
+ok 19 - browser batches focus main content and block ungranted navigation
+  ---
+  duration_ms: 1449.541375
+  type: 'test'
+  ...
+# [82727:1001/223021.588145:ERROR:net/disk_cache/simple/simple_version_upgrade.cc:107] Failed to write a new fake index.
+# [82727:1001/223021.588471:ERROR:net/disk_cache/simple/simple_version_upgrade.cc:107] Failed to write a new fake index.
+# [82727:1001/223021.588478:ERROR:net/disk_cache/simple/simple_backend_impl.cc:749] Simple Cache Backend: wrong file structure on disk: 8 path: /private/var/folders/00/h_k67s0j5dq0qvg6ylqysk2w0000gn/T/clarity-app-test-GklDdg/.clarity/ui/Shared Dictionary/cache
+# [82727:1001/223021.588801:ERROR:net/disk_cache/disk_cache.cc:290] Unable to create cache
+# Test data: /var/folders/00/h_k67s0j5dq0qvg6ylqysk2w0000gn/T/clarity-app-test-GklDdg
+# Subtest: local app: notes, tasks, calendar, expenses, wiki, persistence and window lifecycle
+ok 20 - local app: notes, tasks, calendar, expenses, wiki, persistence and window lifecycle
+  ---
+  duration_ms: 7949.729209
+  type: 'test'
+  ...
+# Subtest: live Codex: checked actions execute and unchecked actions return to review in the same chat
+ok 21 - live Codex: checked actions execute and unchecked actions return to review in the same chat # SKIP
+  ---
+  duration_ms: 0.445875
+  type: 'test'
+  ...
+# Subtest: live Codex: tool approval, same-thread model change and restart
+ok 22 - live Codex: tool approval, same-thread model change and restart # SKIP
+  ---
+  duration_ms: 0.063042
+  type: 'test'
+  ...
+# Subtest: agent approvals checklist: individual choices, mixed Select all and persistence
+ok 23 - agent approvals checklist: individual choices, mixed Select all and persistence
+  ---
+  duration_ms: 3942.582917
+  type: 'test'
+  ...
+# Permission fixtures verified: /var/folders/00/h_k67s0j5dq0qvg6ylqysk2w0000gn/T/clarity-permissions-CEgwen
+# Subtest: permissions: location outcomes, clearing, website revocation and restart
+ok 24 - permissions: location outcomes, clearing, website revocation and restart
+  ---
+  duration_ms: 6245.877
+  type: 'test'
+  ...
+# Subtest: command parsing proposes bounded editable fields and local search never calls providers
+ok 25 - command parsing proposes bounded editable fields and local search never calls providers
+  ---
+  duration_ms: 3.409959
+  type: 'test'
+  ...
+# Subtest: native redesign preserves source context, history, drafts, commands and compact controls
+ok 26 - native redesign preserves source context, history, drafts, commands and compact controls
+  ---
+  duration_ms: 7700.899042
+  type: 'test'
+  ...
+# Subtest: omni interpretation is opt-in, discards stale proposals and requires explicit provider queries
+ok 27 - omni interpretation is opt-in, discards stale proposals and requires explicit provider queries
+  ---
+  duration_ms: 7475.981
+  type: 'test'
+  ...
+# Subtest: model interpretation uses the existing model with no tools and rejects cancelled or invalid output
+ok 28 - model interpretation uses the existing model with no tools and rejects cancelled or invalid output
+  ---
+  duration_ms: 2063.580458
+  type: 'test'
+  ...
+# Subtest: task dates validate, preserve revisions and persist through approved actions and restart
+ok 29 - task dates validate, preserve revisions and persist through approved actions and restart
+  ---
+  duration_ms: 320.090917
+  type: 'test'
+  ...
+# Subtest: dated tasks use real Todo controls and stay in sync across Calendar views and restart
+ok 30 - dated tasks use real Todo controls and stay in sync across Calendar views and restart
+  ---
+  duration_ms: 8140.778875
+  type: 'test'
+  ...
+# Subtest: Linkding reconciles upstream changes, preserves local fields, schedules refresh and stops cleanly
+ok 31 - Linkding reconciles upstream changes, preserves local fields, schedules refresh and stops cleanly
+  ---
+  duration_ms: 180.735583
+  type: 'test'
+  ...
+# Subtest: UI audit regressions: drafts, deletes, submissions, complete lists, themes, context and readable reviews
+ok 32 - UI audit regressions: drafts, deletes, submissions, complete lists, themes, context and readable reviews
+  ---
+  duration_ms: 23065.15525
+  type: 'test'
+  ...
+# Subtest: Mail and Music preserve navigation with controlled results; primary hover keeps contrast at minimum window size
+ok 33 - Mail and Music preserve navigation with controlled results; primary hover keeps contrast at minimum window size
+  ---
+  duration_ms: 4046.089875
+  type: 'test'
+  ...
+1..33
+# tests 33
+# suites 0
+# pass 31
+# fail 0
+# cancelled 0
+# skipped 2
+# todo 0
+# duration_ms 92034.047916

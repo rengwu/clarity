@@ -1,0 +1,289 @@
+Built Clarity: /Users/rengwu/Library/Caches/Clarity/build/adversarial-qa-20261002/frozen-cache/output
+TAP version 13
+# Subtest: OAuth state/PKCE, encrypted tokens, refresh and read-only Gmail with controlled responses
+ok 1 - OAuth state/PKCE, encrypted tokens, refresh and read-only Gmail with controlled responses
+  ---
+  duration_ms: 6395.485292
+  type: 'test'
+  ...
+# Subtest: Spotify login survives expiry and restart; renewal preserves and rotates refresh tokens
+ok 2 - Spotify login survives expiry and restart; renewal preserves and rotates refresh tokens
+  ---
+  duration_ms: 3976.64125
+  type: 'test'
+  ...
+# Subtest: Spotify search/playlist compatibility and playback failure presentation
+not ok 3 - Spotify search/playlist compatibility and playback failure presentation
+  ---
+  duration_ms: 32724.811458
+  type: 'test'
+  location: '/Users/rengwu/Library/Caches/Clarity/build/adversarial-qa-20261002/frozen-source/tests/connectors.mjs:410:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    locator.waitFor: Timeout 30000ms exceeded.
+    Call log:
+    [2m  - waiting for getByRole('button', { name: 'Pause', exact: true }) to be visible[22m
+    
+  code: 'ERR_TEST_FAILURE'
+  name: 'TimeoutError'
+  stack: |-
+    TestContext.<anonymous> (/Users/rengwu/Library/Caches/Clarity/build/adversarial-qa-20261002/frozen-source/tests/connectors.mjs:769:70)
+  ...
+# Subtest: Navidrome connection errors guide retry and preserve the saved account
+ok 4 - Navidrome connection errors guide retry and preserve the saved account
+  ---
+  duration_ms: 4428.034292
+  type: 'test'
+  ...
+# Subtest: Navidrome HTTP stream plays, seeks through the player bar and ends a single-song queue
+ok 5 - Navidrome HTTP stream plays, seeks through the player bar and ends a single-song queue
+  ---
+  duration_ms: 4065.447875
+  type: 'test'
+  ...
+# Subtest: agent context uses the device timezone without guessing a physical location
+ok 6 - agent context uses the device timezone without guessing a physical location
+  ---
+  duration_ms: 9.796125
+  type: 'test'
+  ...
+# Subtest: device readings are approximate and dated; startup does not repeat refused requests
+ok 7 - device readings are approximate and dated; startup does not repeat refused requests
+  ---
+  duration_ms: 0.642083
+  type: 'test'
+  ...
+# Subtest: files preserve conflicts, reject escapes and expire only owned chat copies
+ok 8 - files preserve conflicts, reject escapes and expire only owned chat copies
+  ---
+  duration_ms: 12.270083
+  type: 'test'
+  ...
+# Subtest: music keeps track identity and stops Spotify before starting Navidrome
+ok 9 - music keeps track identity and stops Spotify before starting Navidrome
+  ---
+  duration_ms: 1.37425
+  type: 'test'
+  ...
+# Subtest: Spotify helper crashes surface an error and reconnect; intentional shutdown stays quiet
+ok 10 - Spotify helper crashes surface an error and reconnect; intentional shutdown stays quiet
+  ---
+  duration_ms: 82.037041
+  type: 'test'
+  ...
+# Subtest: Spotify silently renews a rejected playback token, with a single retry
+ok 11 - Spotify silently renews a rejected playback token, with a single retry
+  ---
+  duration_ms: 154.107375
+  type: 'test'
+  ...
+# Subtest: Spotify renews an active helper token without restarting and ignores renewal after close
+ok 12 - Spotify renews an active helper token without restarting and ignores renewal after close
+  ---
+  duration_ms: 2154.952666
+  type: 'test'
+  ...
+# Subtest: Spotify recovers an interrupted track once, preserves position and respects pause and source changes
+ok 13 - Spotify recovers an interrupted track once, preserves position and respects pause and source changes
+  ---
+  duration_ms: 0.777916
+  type: 'test'
+  ...
+# Subtest: automations skip missed runs, preserve failed inputs and keep output outside chats
+ok 14 - automations skip missed runs, preserve failed inputs and keep output outside chats
+  ---
+  duration_ms: 193.908875
+  type: 'test'
+  ...
+# Subtest: approval claims prevent duplicate effects; optimistic revisions prevent stale updates
+ok 15 - approval claims prevent duplicate effects; optimistic revisions prevent stale updates
+  ---
+  duration_ms: 101.319917
+  type: 'test'
+  ...
+# Subtest: automatic action approvals are explicit, current, persisted and keep a result trail
+ok 16 - automatic action approvals are explicit, current, persisted and keep a result trail
+  ---
+  duration_ms: 200.724125
+  type: 'test'
+  ...
+# Subtest: action checklist covers the agent catalog, browser grants and scheduled-run approvals
+ok 17 - action checklist covers the agent catalog, browser grants and scheduled-run approvals
+  ---
+  duration_ms: 130.906541
+  type: 'test'
+  ...
+# Subtest: Linkding preserves local edits, feeds parse and Navidrome accepts a local HTTP server
+ok 18 - Linkding preserves local edits, feeds parse and Navidrome accepts a local HTTP server
+  ---
+  duration_ms: 104.433125
+  type: 'test'
+  ...
+# Subtest: wiki is self-contained and sanitizes page scripts and event handlers
+ok 19 - wiki is self-contained and sanitizes page scripts and event handlers
+  ---
+  duration_ms: 10.730625
+  type: 'test'
+  ...
+# Subtest: browser batches focus main content and block ungranted navigation
+ok 20 - browser batches focus main content and block ungranted navigation
+  ---
+  duration_ms: 1656.024458
+  type: 'test'
+  ...
+# [71556:1002/023337.934172:ERROR:net/disk_cache/simple/simple_version_upgrade.cc:107] Failed to write a new fake index.
+# [71556:1002/023337.934538:ERROR:net/disk_cache/simple/simple_version_upgrade.cc:107] Failed to write a new fake index.
+# [71556:1002/023337.934546:ERROR:net/disk_cache/simple/simple_backend_impl.cc:749] Simple Cache Backend: wrong file structure on disk: 8 path: /private/var/folders/00/h_k67s0j5dq0qvg6ylqysk2w0000gn/T/clarity-app-test-uz81YN/.clarity/ui/Shared Dictionary/cache
+# [71556:1002/023337.934798:ERROR:net/disk_cache/disk_cache.cc:290] Unable to create cache
+# Test data: /var/folders/00/h_k67s0j5dq0qvg6ylqysk2w0000gn/T/clarity-app-test-uz81YN
+# Subtest: local app: notes, tasks, calendar, expenses, wiki, persistence and window lifecycle
+ok 21 - local app: notes, tasks, calendar, expenses, wiki, persistence and window lifecycle
+  ---
+  duration_ms: 10464.396292
+  type: 'test'
+  ...
+# Subtest: live Codex: checked actions execute and unchecked actions return to review in the same chat
+ok 22 - live Codex: checked actions execute and unchecked actions return to review in the same chat # SKIP
+  ---
+  duration_ms: 0.4145
+  type: 'test'
+  ...
+# Subtest: live Codex: tool approval, same-thread model change and restart
+ok 23 - live Codex: tool approval, same-thread model change and restart # SKIP
+  ---
+  duration_ms: 0.057459
+  type: 'test'
+  ...
+# Subtest: Music caches navigation reads, shares pending requests and invalidates changed accounts
+ok 24 - Music caches navigation reads, shares pending requests and invalidates changed accounts
+  ---
+  duration_ms: 7342.305709
+  type: 'test'
+  ...
+# Subtest: Spotify collection pages continue past 5000 and playback reuses all fetched pages
+ok 25 - Spotify collection pages continue past 5000 and playback reuses all fetched pages
+  ---
+  duration_ms: 8.81475
+  type: 'test'
+  ...
+# Subtest: Spotify rejects non-advancing pages and discards an account change during a full read
+ok 26 - Spotify rejects non-advancing pages and discards an account change during a full read
+  ---
+  duration_ms: 1.961791
+  type: 'test'
+  ...
+# First page displayed with one provider request.
+# Scrolled through 5,055 songs and reached the final page.
+# Subtest: native Music loads the first page, scrolls beyond 5000, retries a page and reuses results
+ok 27 - native Music loads the first page, scrolls beyond 5000, retries a page and reuses results
+  ---
+  duration_ms: 52390.026125
+  type: 'test'
+  ...
+# Subtest: gain metadata handles absent, invalid, quiet and peak-limited recordings
+ok 28 - gain metadata handles absent, invalid, quiet and peak-limited recordings
+  ---
+  duration_ms: 0.715208
+  type: 'test'
+  ...
+# Subtest: Music chooses album/track normalization and sends volume before native playback
+ok 29 - Music chooses album/track normalization and sends volume before native playback
+  ---
+  duration_ms: 1.701333
+  type: 'test'
+  ...
+# Subtest: Spotify keeps the helper until normalization changes at a new load
+ok 30 - Spotify keeps the helper until normalization changes at a new load
+  ---
+  duration_ms: 128.768083
+  type: 'test'
+  ...
+# Subtest: native Music UI applies normalization, album/shuffle modes, settings and persistence
+ok 31 - native Music UI applies normalization, album/shuffle modes, settings and persistence
+  ---
+  duration_ms: 7098.174208
+  type: 'test'
+  ...
+# Subtest: agent approvals checklist: individual choices, mixed Select all and persistence
+ok 32 - agent approvals checklist: individual choices, mixed Select all and persistence
+  ---
+  duration_ms: 7910.090833
+  type: 'test'
+  ...
+# Permission fixtures verified: /var/folders/00/h_k67s0j5dq0qvg6ylqysk2w0000gn/T/clarity-permissions-4u3SDs
+# Subtest: permissions: location outcomes, clearing, website revocation and restart
+ok 33 - permissions: location outcomes, clearing, website revocation and restart
+  ---
+  duration_ms: 6485.114416
+  type: 'test'
+  ...
+# Subtest: command parsing proposes bounded editable fields and local search never calls providers
+ok 34 - command parsing proposes bounded editable fields and local search never calls providers
+  ---
+  duration_ms: 3.190583
+  type: 'test'
+  ...
+# Subtest: native redesign preserves source context, history, drafts, commands and compact controls
+ok 35 - native redesign preserves source context, history, drafts, commands and compact controls
+  ---
+  duration_ms: 8327.85875
+  type: 'test'
+  ...
+# Subtest: omni interpretation is opt-in, discards stale proposals and requires explicit provider queries
+ok 36 - omni interpretation is opt-in, discards stale proposals and requires explicit provider queries
+  ---
+  duration_ms: 7987.783792
+  type: 'test'
+  ...
+# Subtest: model interpretation uses the existing model with no tools and rejects cancelled or invalid output
+ok 37 - model interpretation uses the existing model with no tools and rejects cancelled or invalid output
+  ---
+  duration_ms: 2083.574
+  type: 'test'
+  ...
+# Subtest: spike parity: real motion, compact rows, connected tabs and reduced-motion keyboard controls
+ok 38 - spike parity: real motion, compact rows, connected tabs and reduced-motion keyboard controls
+  ---
+  duration_ms: 5789.111375
+  type: 'test'
+  ...
+# Subtest: task dates validate, preserve revisions and persist through approved actions and restart
+ok 39 - task dates validate, preserve revisions and persist through approved actions and restart
+  ---
+  duration_ms: 322.552542
+  type: 'test'
+  ...
+# Subtest: dated tasks use real Todo controls and stay in sync across Calendar views and restart
+ok 40 - dated tasks use real Todo controls and stay in sync across Calendar views and restart
+  ---
+  duration_ms: 8333.065042
+  type: 'test'
+  ...
+# Subtest: Linkding reconciles upstream changes, preserves local fields, schedules refresh and stops cleanly
+ok 41 - Linkding reconciles upstream changes, preserves local fields, schedules refresh and stops cleanly
+  ---
+  duration_ms: 180.78125
+  type: 'test'
+  ...
+# Subtest: UI audit regressions: drafts, deletes, submissions, complete lists, themes, context and readable reviews
+ok 42 - UI audit regressions: drafts, deletes, submissions, complete lists, themes, context and readable reviews
+  ---
+  duration_ms: 29746.219
+  type: 'test'
+  ...
+# Subtest: Mail and Music preserve navigation with controlled results; primary hover keeps contrast at minimum window size
+ok 43 - Mail and Music preserve navigation with controlled results; primary hover keeps contrast at minimum window size
+  ---
+  duration_ms: 5229.159917
+  type: 'test'
+  ...
+1..43
+# tests 43
+# suites 0
+# pass 40
+# fail 1
+# cancelled 0
+# skipped 2
+# todo 0
+# duration_ms 219156.945333
+/Users/rengwu/.local/share/fnm/node-versions/v22.19.0/installation/bin/node exited with 1

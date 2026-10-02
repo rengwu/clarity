@@ -1,0 +1,14 @@
+[
+  {
+    "file": "app.js",
+    "current": "2b61861c2ca91d5d9f4a74b4c6466259ac4cf6a8bb70a5cc2c190a631b942602",
+    "installed": "2b61861c2ca91d5d9f4a74b4c6466259ac4cf6a8bb70a5cc2c190a631b942602",
+    "matches": true
+  },
+  {
+    "file": "app.css",
+    "current": "d170761bec47d45bf24e340ce877ea2b46d2cb53afc774fab6486cfdd6888f7b",
+    "installed": "d170761bec47d45bf24e340ce877ea2b46d2cb53afc774fab6486cfdd6888f7b",
+    "matches": true
+  }
+]

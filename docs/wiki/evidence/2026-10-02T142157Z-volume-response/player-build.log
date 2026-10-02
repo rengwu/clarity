@@ -1,0 +1,21 @@
+Building Spotify audio helper in the external cache…
+     Locking 1 package to latest Rust 1.96.0 compatible version
+      Adding librespot-core v0.8.0 (/Users/rengwu/Library/Caches/Clarity/build/spotify-player/librespot-core)
+   Compiling librespot-core v0.8.0 (/Users/rengwu/Library/Caches/Clarity/build/spotify-player/librespot-core)
+warning: librespot-core@0.8.0: not within a suitable 'git' worktree!
+warning: librespot-core@0.8.0: VERGEN_GIT_COMMIT_DATE set to default
+warning: librespot-core@0.8.0: VERGEN_GIT_SHA set to default
+warning: this lint expectation is unfulfilled
+  --> librespot-core/src/authentication.rs:69:14
+   |
+69 |     #[expect(deprecated)]
+   |              ^^^^^^^^^^
+   |
+   = note: `#[warn(unfulfilled_lint_expectations)]` on by default
+
+   Compiling librespot-metadata v0.8.0
+   Compiling librespot-audio v0.8.0
+warning: `librespot-core` (lib) generated 1 warning
+   Compiling librespot-playback v0.8.0
+   Compiling clarity-player v0.1.0 (/Users/rengwu/Library/Caches/Clarity/build/spotify-player)
+    Finished `release` profile [optimized] target(s) in 13.81s

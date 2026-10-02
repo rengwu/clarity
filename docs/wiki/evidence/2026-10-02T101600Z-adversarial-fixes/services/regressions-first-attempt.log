@@ -1,0 +1,64 @@
+TAP version 13
+# Subtest: QA05 rejects undiscoverable create, folder and move destinations without touching documents
+ok 1 - QA05 rejects undiscoverable create, folder and move destinations without touching documents
+  ---
+  duration_ms: 228.875292
+  type: 'test'
+  ...
+# Subtest: QA07 every structured update and delete requires a valid revision and preserves newer edits
+ok 2 - QA07 every structured update and delete requires a valid revision and preserves newer edits
+  ---
+  duration_ms: 1385.025292
+  type: 'test'
+  ...
+# Subtest: QA08 Expenses rejects impossible dates on add/update and approved execution
+ok 3 - QA08 Expenses rejects impossible dates on add/update and approved execution
+  ---
+  duration_ms: 223.034542
+  type: 'test'
+  ...
+# Subtest: QA08 Calendar validates original date and time components before timezone conversion
+ok 4 - QA08 Calendar validates original date and time components before timezone conversion
+  ---
+  duration_ms: 185.01225
+  type: 'test'
+  ...
+# Subtest: QA09 replies require an existing root and valid IDs, with approval and restart checks
+ok 5 - QA09 replies require an existing root and valid IDs, with approval and restart checks
+  ---
+  duration_ms: 209.806542
+  type: 'test'
+  ...
+# Subtest: QA10 RSS and Atom decode text and URLs, sanitize markup and reject entity declarations
+ok 6 - QA10 RSS and Atom decode text and URLs, sanitize markup and reject entity declarations
+  ---
+  duration_ms: 179.692833
+  type: 'test'
+  ...
+# Subtest: QA05 and QA10 native Rename and News Sources preserve visible and saved outcomes
+not ok 7 - QA05 and QA10 native Rename and News Sources preserve visible and saved outcomes
+  ---
+  duration_ms: 4540.388583
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-services.mjs:607:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    page.evaluate: Error
+        at eval (eval at evaluate (:311:30), <anonymous>:7:35)
+        at async <anonymous>:337:30
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    eval (eval at evaluate (:311:30), <anonymous>:7:35)
+    async <anonymous>:337:30
+    invoke (/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-services.mjs:689:14)
+    TestContext.<anonymous> (/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-services.mjs:701:27)
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 6
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 7477.51575

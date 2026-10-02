@@ -1,0 +1,180 @@
+import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
+import { mkdtemp, mkdir, writeFile, readFile } from 'node:fs/promises';
+import { tmpdir, homedir } from 'node:os';
+import { join, resolve } from 'node:path';
+const cache = process.env.CLARITY_BUILD_CACHE || join(homedir(), 'Library/Caches/Clarity/build');
+const require = createRequire(join(cache, 'loader.cjs'));
+const evidence = resolve(process.env.CLARITY_SETTINGS_EVIDENCE || 'docs/wiki/evidence/2026-10-01T184717Z-settings-redesign');
+await mkdir(evidence, { recursive: true });
+const packaged = process.env.CLARITY_SETTINGS_PACKAGE === '1';
+const mode = packaged ? 'package' : 'development';
+const root = await mkdtemp(join(tmpdir(), 'clarity-settings-design-'));
+const enabled = ['chat','notes','todos','wiki','calendar','expenses','mail','news','bookmarks','music','board','automations'];
+const app = await require('playwright-core')._electron.launch({
+  executablePath: packaged ? join(cache, 'Clarity.app/Contents/MacOS/Electron') : require('electron'),
+  args: packaged ? [] : [join(cache, 'output/main.mjs')],
+  env: { ...process.env, CLARITY_TEST_ROOT: root },
+});
+const observations = { mode, layouts: [], checks: [], errors: [] };
+try {
+  const page = await app.firstWindow();
+  page.setDefaultTimeout(12000);
+  page.on('pageerror', (error) => observations.errors.push(error.message));
+  await page.locator('.sidebar').waitFor();
+  const call = (method, args) => page.evaluate(({ method, args }) => window.clarity.call(method, args), { method, args });
+  await app.evaluate(({ipcMain}) => {
+    const original = ipcMain._invokeHandlers.get('clarity:call');
+    globalThis.settingsFixture = { failSave: false, attempts: 0, connected: false };
+    ipcMain.removeHandler('clarity:call');
+    ipcMain.handle('clarity:call', async (event, method, args) => {
+      const fixture = globalThis.settingsFixture;
+      if (method === 'bootstrap') {
+        const result = await original(event, method, args);
+        result.value.auth = fixture.connected ? {codex:true,google:true,spotify:true,spotifyPlayback:true,navidrome:true,linkding:true} : {};
+        return result;
+      }
+      if (method === 'settings.save' && fixture.failSave) {
+        fixture.failSave = false;
+        return {ok:false,error:'Fixture save failed. Try again.'};
+      }
+      if (method === 'auth.configure') {
+        fixture.attempts++;
+        await new Promise(resolve => setTimeout(resolve, 350));
+        return {ok:false,error:'Fixture server is unreachable. Check the address and try again.'};
+      }
+      return original(event, method, args);
+    });
+  });
+  await call('settings.save', {enabled, theme:'dark', useDeviceLocation:false, locationRequested:true});
+  await writeFile(join(root,'Notes','Preserved.md'),'# Preserved\n\nKeep this note.\n');
+  const nav = (name) => page.locator('.sidebar').getByRole('button',{name,exact:true}).click();
+  const section = async (name) => {
+    await page.getByRole('navigation',{name:'Settings sections'}).getByRole('button',{name,exact:true}).click();
+    await page.evaluate(() => Promise.all(document.getAnimations().map(animation => animation.finished.catch(()=>{}))));
+    await page.mouse.move(5,5);
+  };
+  await nav('Settings');
+  assert.equal(await page.locator('#settings-appearance').isVisible(),true);
+  await section('Modules');
+  const notes = page.locator('#settings-modules').getByRole('checkbox',{name:'Notes',exact:true});
+  await notes.uncheck();
+  await page.waitForFunction(async()=> !(await window.clarity.call('bootstrap')).settings.enabled.includes('notes'));
+  assert.equal(await page.locator('.sidebar').getByRole('button',{name:'Notes',exact:true}).count(),0);
+  assert.match(await readFile(join(root,'Notes','Preserved.md'),'utf8'), /Keep this note/);
+  await notes.check();
+  await page.locator('.sidebar').getByRole('button',{name:'Notes',exact:true}).waitFor();
+  await app.evaluate(()=> {globalThis.settingsFixture.failSave=true;});
+  await notes.click();
+  await page.locator('#settings-modules').getByRole('alert').waitFor();
+  assert.equal(await notes.isChecked(),true);
+  observations.checks.push('Module switches save, hide/show navigation, preserve files and roll back failed saves.');
+  await section('Appearance');
+  await page.getByRole('radio',{name:'Dark',exact:true}).focus();
+  await page.keyboard.press('ArrowLeft');
+  await page.waitForFunction(()=>document.documentElement.dataset.theme==='light');
+  assert.equal(await page.getByRole('radio',{name:'Light',exact:true}).evaluate(e=>document.activeElement===e),true);
+  await page.keyboard.press('End');
+  await page.waitForFunction(()=>document.documentElement.dataset.theme==='dark');
+  await page.getByRole('checkbox',{name:'Reduce motion',exact:true}).check();
+  await page.waitForFunction(()=>document.documentElement.dataset.motion==='reduced');
+  await section('Search and commands');
+  const interpret = page.getByRole('checkbox',{name:'Automatically interpret commands',exact:true});
+  await app.evaluate(()=> {globalThis.settingsFixture.failSave=true;});
+  await interpret.click();
+  await page.locator('#settings-search').getByRole('alert').waitFor();
+  assert.equal(await interpret.isChecked(),false);
+  await interpret.check();
+  await section('Music');
+  await page.getByRole('checkbox',{name:'Normalize volume',exact:true}).uncheck();
+  await section('Linkding');
+  await page.getByLabel('Refresh bookmarks',{exact:true}).selectOption('60');
+  await section('Navidrome');
+  const form = page.locator('#settings-navidrome');
+  await page.keyboard.press('Tab');
+  assert.equal(await form.getByLabel('Server address',{exact:true}).evaluate(e=>document.activeElement===e),true);
+  await form.getByLabel('Server address',{exact:true}).fill('https://music.example.test');
+  await form.getByLabel('Username',{exact:true}).fill('fixture-reader');
+  await form.getByLabel('Password',{exact:true}).fill('synthetic-password');
+  await section('Appearance');
+  await section('Navidrome');
+  assert.equal(await form.getByLabel('Username',{exact:true}).inputValue(),'fixture-reader');
+  await form.getByRole('button',{name:'Connect Navidrome',exact:true}).click();
+  assert.equal(await form.getByRole('button',{name:'Connecting…',exact:true}).isDisabled(),true);
+  await form.getByRole('alert').waitFor();
+  assert.equal(await app.evaluate(()=>globalThis.settingsFixture.attempts),1);
+  assert.equal(await form.getByLabel('Username',{exact:true}).inputValue(),'fixture-reader');
+  await page.screenshot({path:join(evidence,`${mode}-connection-error.png`),scale:'css'});
+  await page.reload();
+  await nav('Settings');
+  const saved = (await call('bootstrap')).settings;
+  assert.equal(saved.reducedMotion,true);
+  assert.equal(saved.autoInterpretCommands,true);
+  assert.equal(saved.musicNormalization,false);
+  assert.equal(saved.linkdingRefreshMinutes,60);
+  await section('Navidrome');
+  assert.equal(await form.getByLabel('Password',{exact:true}).inputValue(),'');
+  observations.checks.push('Theme arrow keys, section-to-input Tab, preference rollback/persistence, retained unsaved form, guarded local error and no credential draft persistence.');
+  await nav('Mail');
+  await page.getByRole('button',{name:'Connect Google',exact:true}).click();
+  await page.locator('#settings-google').waitFor({state:'visible'});
+  assert.equal(await page.locator('#settings-google').isVisible(),true);
+  observations.checks.push('Mail connection guidance opens the Google section.');
+  await section('Appearance');
+  await page.getByRole('checkbox',{name:'Reduce motion',exact:true}).uncheck();
+  const names = await page.getByRole('navigation',{name:'Settings sections'}).getByRole('button').allTextContents();
+  for (const [width,height] of [[1440,1000],[850,600]]) {
+    await app.evaluate(({BrowserWindow},{width,height}) => BrowserWindow.getAllWindows().find(w=>w.isVisible()).setSize(width,height),{width,height});
+    for (const theme of ['dark','light']) {
+      await section('Appearance');
+      await page.getByRole('radio',{name:theme==='dark'?'Dark':'Light',exact:true}).click();
+      await page.waitForFunction(theme=>document.documentElement.dataset.theme===theme,theme);
+      for (const name of names) {
+        await section(name);
+        const layout = await page.evaluate(()=> {
+          const scroll=document.querySelector('.settings-scroll');
+          const visible=[...document.querySelectorAll('.settings-content > [id]')].filter(e=>!e.hidden);
+          const current=visible[0];
+          const rect=current.getBoundingClientRect();
+          const widths=[...current.querySelectorAll('.field input,.field select')].map(e=>Math.round(e.getBoundingClientRect().width));
+          const switches=[...current.querySelectorAll('.settings-switch')].map(e=>({right:Math.round(e.getBoundingClientRect().right), mask:getComputedStyle(e,'::after').maskImage, knobWidth:getComputedStyle(e,'::after').width}));
+          return {id:current.id,visible:visible.length,overflow:scroll.scrollWidth-scroll.clientWidth,bodyOverflow:document.body.scrollWidth-innerWidth,top:rect.top,headerBottom:document.querySelector('.workspace-header').getBoundingClientRect().bottom,widths,switches};
+        });
+        assert.equal(layout.visible,1,`${name}: one section`);
+        assert.ok(layout.overflow<=1 && layout.bodyOverflow<=1,`${name} overflow at ${width} ${theme}: ${JSON.stringify(layout)}`);
+        assert.ok(layout.top>=layout.headerBottom,`${name}: heading below header`);
+        assert.ok(new Set(layout.widths).size<=1,`${name}: equal field widths`);
+        for(const control of layout.switches){assert.equal(control.mask,'none');assert.equal(control.knobWidth,'12px');}
+        assert.ok(new Set(layout.switches.map(s=>s.right)).size<=1,`${name}: aligned switches`);
+        observations.layouts.push({width,height,theme,name,...layout});
+        if ((width===1440 && theme==='dark' && ['Appearance','Modules','Navidrome','Agent approvals','Spotify'].includes(name)) || (width===850 && ['Navidrome','Permissions','Appearance'].includes(name))) {
+          await page.screenshot({path:join(evidence,`${mode}-${theme}-${width}-${layout.id}.png`),scale:'css'});
+        }
+      }
+    }
+  }
+  await section('Agent approvals');
+  const headerY=await page.locator('.workspace-header').evaluate(e=>e.getBoundingClientRect().y);
+  const scroller=await page.locator('.settings-scroll').boundingBox();
+  await page.mouse.move(scroller.x+scroller.width/2,scroller.y+scroller.height/2);
+  await page.mouse.wheel(0,700);
+  await page.waitForFunction(()=>document.querySelector('.settings-scroll').scrollTop>100);
+  assert.equal(await page.locator('.workspace-header').evaluate(e=>e.getBoundingClientRect().y),headerY);
+  observations.checks.push('All 14 sections fit both window sizes and themes; real wheel scroll leaves the header stationary.');
+  await app.evaluate(()=>{globalThis.settingsFixture.connected=true;});
+  await page.reload();
+  await nav('Settings');
+  await section('Spotify');
+  await page.getByRole('button',{name:'Disconnect library',exact:true}).waitFor();
+  await page.getByRole('button',{name:'Disconnect playback',exact:true}).waitFor();
+  await page.screenshot({path:join(evidence,`${mode}-connected-spotify-minimum.png`),scale:'css'});
+  observations.checks.push('Controlled connected Spotify shows both independent connection controls.');
+  assert.deepEqual(observations.errors,[]);
+  observations.result='Passed';
+  console.log(`${mode}: ${observations.layouts.length} section/theme/window layouts and ${observations.checks.length} workflow groups passed.`);
+} catch(error) {
+  observations.result='Failed'; observations.failure=String(error); throw error;
+} finally {
+  await writeFile(join(evidence,`${mode}-observations.json`),JSON.stringify(observations,null,2));
+  await app.close();
+}

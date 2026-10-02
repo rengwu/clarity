@@ -1,0 +1,38 @@
+{
+  "recordedAt": "2026-10-01T17:41:21.724Z",
+  "installed": "/Users/rengwu/Applications/Clarity.app",
+  "backup": "/Users/rengwu/Library/Caches/Clarity/build/Clarity-before-music-normalization-20261001T171500Z.app",
+  "signature": "Passed",
+  "applicationSha256": "9149e19fa4abf9d3d57d04a321ab6c23242254fe4e40d9ad3e7b01f7a0dbc0fc",
+  "packageRuntimeSha256": "6baa106192fe5530346d63a3ca21d762f7379bcceeb79ec0cd2c92d9f27c99ec",
+  "runtimeFiles": [
+    {
+      "path": "main.mjs",
+      "sha256": "a66b2ecad4e058a8d60a127cdf2fe18b1dd4c7d06ebfcea49dd8102b3932379f"
+    },
+    {
+      "path": "preload.cjs",
+      "sha256": "8f51417738610391aa9ae5cd4bca18cfb43f19998a351244404972880890264a"
+    },
+    {
+      "path": "worker.mjs",
+      "sha256": "ff1dd08710e3df237c3e640e7ebb2bc7a4764617f59f4918c5a2db50668f44a4"
+    },
+    {
+      "path": "app.js",
+      "sha256": "5695c5e76643e704fd6908905510e5796976ed7817740a763662244688c64157"
+    },
+    {
+      "path": "app.css",
+      "sha256": "d170761bec47d45bf24e340ce877ea2b46d2cb53afc774fab6486cfdd6888f7b"
+    },
+    {
+      "path": "index.html",
+      "sha256": "bcd785e95fb0ab58fd806a26ac1c8ce7d5cd692c274ad1b014c3f681ae02293b"
+    },
+    {
+      "path": "clarity-player",
+      "sha256": "6a95f5f7442f68e8aae92c1aa754a666317c094a259ff25e96ebb3d98be38131"
+    }
+  ]
+}

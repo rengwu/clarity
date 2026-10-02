@@ -1,0 +1,37 @@
+{
+  "playlistHasName": true,
+  "playlistHasCover": true,
+  "total": 8,
+  "sampledRows": 8,
+  "wrapperKeys": [
+    "added_at",
+    "added_by",
+    "is_local",
+    "primary_color",
+    "item",
+    "video_thumbnail"
+  ],
+  "trackKeys": [
+    "is_playable",
+    "explicit",
+    "type",
+    "episode",
+    "track",
+    "album",
+    "artists",
+    "disc_number",
+    "track_number",
+    "duration_ms",
+    "external_ids",
+    "external_urls",
+    "href",
+    "id",
+    "name",
+    "uri",
+    "is_local"
+  ],
+  "booleanTrackFlags": 8,
+  "rawNamedTracks": 8,
+  "oldParserNamedTracks": 0,
+  "rawMetadataPresent": true
+}

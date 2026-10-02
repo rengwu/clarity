@@ -1,0 +1,14 @@
+{
+  "installed": "/Users/rengwu/Applications/Clarity.app",
+  "backup": "/Users/rengwu/Library/Caches/Clarity/spacing-20261003/Clarity-before-spacing.app",
+  "runtimeFiles": {
+    "main.mjs": "2c1107dbe722ff3e6bfb0b6e82434aa6dfa7e95efcda8733b5791c873591d53c",
+    "preload.cjs": "8f51417738610391aa9ae5cd4bca18cfb43f19998a351244404972880890264a",
+    "worker.mjs": "ff1dd08710e3df237c3e640e7ebb2bc7a4764617f59f4918c5a2db50668f44a4",
+    "app.js": "4cd936ea727340560e69bca344129feaf17f24ad5ccaacd54b50d9455df73fb5",
+    "app.css": "6ebdaa8b019102af9d6872e485e9bf81578c7df9e7cef90ba32d29e6b842dd93",
+    "index.html": "bcd785e95fb0ab58fd806a26ac1c8ce7d5cd692c274ad1b014c3f681ae02293b",
+    "clarity-player": "a542af188b51e398434dcd075f3860a42af7c93c602e08ca68392e2a00598b91"
+  },
+  "signature": "Passed"
+}

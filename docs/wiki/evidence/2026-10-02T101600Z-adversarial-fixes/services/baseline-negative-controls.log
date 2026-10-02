@@ -1,0 +1,122 @@
+TAP version 13
+# Subtest: QA05 rejects undiscoverable create, folder and move destinations without touching documents
+not ok 1 - QA05 rejects undiscoverable create, folder and move destinations without touching documents
+  ---
+  duration_ms: 117.427834
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-services.mjs:64:1'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected rejection.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  operator: 'rejects'
+  stack: |-
+    async TestContext.<anonymous> (file:///Users/rengwu/Desktop/Projects/clarity/tests/adversarial-services.mjs:82:7)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: QA07 every structured update and delete requires a valid revision and preserves newer edits
+not ok 2 - QA07 every structured update and delete requires a valid revision and preserves newer edits
+  ---
+  duration_ms: 81.029959
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-services.mjs:111:1'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected rejection.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  operator: 'rejects'
+  stack: |-
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async TestContext.<anonymous> (file:///Users/rengwu/Desktop/Projects/clarity/tests/adversarial-services.mjs:149:9)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: QA08 Expenses rejects impossible dates on add/update and approved execution
+not ok 3 - QA08 Expenses rejects impossible dates on add/update and approved execution
+  ---
+  duration_ms: 70.645625
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-services.mjs:245:1'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected rejection.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  operator: 'rejects'
+  stack: |-
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async TestContext.<anonymous> (file:///Users/rengwu/Desktop/Projects/clarity/tests/adversarial-services.mjs:264:7)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: QA08 Calendar validates original date and time components before timezone conversion
+not ok 4 - QA08 Calendar validates original date and time components before timezone conversion
+  ---
+  duration_ms: 71.107208
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-services.mjs:296:1'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected rejection.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  operator: 'rejects'
+  stack: |-
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async TestContext.<anonymous> (file:///Users/rengwu/Desktop/Projects/clarity/tests/adversarial-services.mjs:315:7)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: QA09 replies require an existing root and valid IDs, with approval and restart checks
+not ok 5 - QA09 replies require an existing root and valid IDs, with approval and restart checks
+  ---
+  duration_ms: 71.990084
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-services.mjs:380:1'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected rejection.'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  operator: 'rejects'
+  stack: |-
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async TestContext.<anonymous> (file:///Users/rengwu/Desktop/Projects/clarity/tests/adversarial-services.mjs:393:7)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: QA10 RSS and Atom decode text and URLs, sanitize markup and reject entity declarations
+not ok 6 - QA10 RSS and Atom decode text and URLs, sanitize markup and reject entity declarations
+  ---
+  duration_ms: 121.1285
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/adversarial-services.mjs:462:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    The expression evaluated to a falsy value:
+    
+      assert.ok(articles.some((article) => article.title === 'QA Research & Development — 🚀'))
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///Users/rengwu/Desktop/Projects/clarity/tests/adversarial-services.mjs:477:12)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 0
+# fail 6
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 926.5515

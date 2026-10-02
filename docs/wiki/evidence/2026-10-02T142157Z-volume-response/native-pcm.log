@@ -1,0 +1,44 @@
+   Compiling librespot-core v0.8.0 (/Users/rengwu/Library/Caches/Clarity/build/spotify-player/librespot-core)
+warning: librespot-core@0.8.0: not within a suitable 'git' worktree!
+warning: librespot-core@0.8.0: VERGEN_GIT_COMMIT_DATE set to default
+warning: librespot-core@0.8.0: VERGEN_GIT_SHA set to default
+warning: this lint expectation is unfulfilled
+  --> librespot-core/src/authentication.rs:69:14
+   |
+69 |     #[expect(deprecated)]
+   |              ^^^^^^^^^^
+   |
+   = note: `#[warn(unfulfilled_lint_expectations)]` on by default
+
+   Compiling librespot-audio v0.8.0
+   Compiling librespot-metadata v0.8.0
+warning: `librespot-core` (lib) generated 1 warning
+   Compiling librespot-playback v0.8.0
+   Compiling clarity-player v0.1.0 (/Users/rengwu/Library/Caches/Clarity/build/spotify-player)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 10.05s
+     Running unittests src/main.rs (/Users/rengwu/Library/Caches/Clarity/build/spotify-player/target/debug/deps/clarity_player-22700263b09123b5)
+
+running 3 tests
+Queued PCM volume=0 samples_until_change=441 queued_packets=30
+Queued PCM volume=25 samples_until_change=323 queued_packets=29
+Queued PCM volume=70 samples_until_change=166 queued_packets=29
+Queued PCM volume=100 samples_until_change=166 queued_packets=28
+Queued PCM volume=0 samples_until_change=323 queued_packets=27
+Queued PCM volume=100 samples_until_change=166 queued_packets=27
+test volume_tests::output_volume_changes_already_queued_audio_without_draining_it ... ok
+PCM checked: enabled=false album=false volume=0 gain=0.000000000 samples=176400
+PCM checked: enabled=true album=false volume=0 gain=0.000000000 samples=176400
+PCM checked: enabled=false album=false volume=25 gain=0.005622969 samples=176400
+PCM checked: enabled=true album=false volume=25 gain=0.005622969 samples=176400
+PCM checked: enabled=false album=false volume=50 gain=0.031621110 samples=176400
+PCM checked: enabled=true album=false volume=50 gain=0.031621110 samples=176400
+PCM checked: enabled=false album=false volume=70 gain=0.125885906 samples=176400
+PCM checked: enabled=true album=false volume=70 gain=0.125885906 samples=176400
+PCM checked: enabled=false album=false volume=100 gain=1.000000000 samples=176400
+PCM checked: enabled=true album=false volume=100 gain=1.000000000 samples=176400
+PCM checked: enabled=true album=true volume=100 gain=1.000000000 samples=176400
+test volume_tests::decoded_pcm_uses_matching_volume_and_preserves_untagged_audio ... ok
+test tests::oauth_expiry_never_uses_login5_and_a_renewed_token_restores_access ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.11s
+

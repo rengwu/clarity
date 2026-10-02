@@ -1,0 +1,88 @@
+TAP version 13
+# Subtest: OAuth state/PKCE, encrypted tokens, refresh and read-only Gmail with controlled responses
+ok 1 - OAuth state/PKCE, encrypted tokens, refresh and read-only Gmail with controlled responses
+  ---
+  duration_ms: 5983.457
+  type: 'test'
+  ...
+# Subtest: Spotify login survives expiry and restart; renewal preserves and rotates refresh tokens
+ok 2 - Spotify login survives expiry and restart; renewal preserves and rotates refresh tokens
+  ---
+  duration_ms: 3075.524875
+  type: 'test'
+  ...
+# Subtest: Spotify search/playlist compatibility and playback failure presentation
+ok 3 - Spotify search/playlist compatibility and playback failure presentation
+  ---
+  duration_ms: 2924.328542
+  type: 'test'
+  ...
+# Subtest: Navidrome HTTP stream plays, seeks through the player bar and ends a single-song queue
+ok 4 - Navidrome HTTP stream plays, seeks through the player bar and ends a single-song queue
+  ---
+  duration_ms: 2346.881875
+  type: 'test'
+  ...
+# Subtest: Music caches navigation reads, shares pending requests and invalidates changed accounts
+ok 5 - Music caches navigation reads, shares pending requests and invalidates changed accounts
+  ---
+  duration_ms: 6130.979333
+  type: 'test'
+  ...
+# Subtest: gain metadata handles absent, invalid, quiet and peak-limited recordings
+ok 6 - gain metadata handles absent, invalid, quiet and peak-limited recordings
+  ---
+  duration_ms: 0.571542
+  type: 'test'
+  ...
+# Subtest: Music chooses album/track normalization and sends volume before native playback
+ok 7 - Music chooses album/track normalization and sends volume before native playback
+  ---
+  duration_ms: 2.225625
+  type: 'test'
+  ...
+# Subtest: Spotify keeps the helper until normalization changes at a new load
+not ok 8 - Spotify keeps the helper until normalization changes at a new load
+  ---
+  duration_ms: 86.361208
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/music-volume.mjs:125:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    Expected values to be strictly deep-equal:
+    + actual - expected
+    
+    + []
+    - [
+    -   true,
+    -   false
+    - ]
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+    0: true
+    1: false
+  actual:
+  operator: 'deepStrictEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///Users/rengwu/Desktop/Projects/clarity/tests/music-volume.mjs:171:14)
+    process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: native Music UI applies normalization, album/shuffle modes, settings and persistence
+ok 9 - native Music UI applies normalization, album/shuffle modes, settings and persistence
+  ---
+  duration_ms: 6188.476916
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 8
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 27142.244417

@@ -1,0 +1,16 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Mail/dark/850/no matches: gap 11.999992370605469
+    at measure (file:///Users/rengwu/Library/Caches/Clarity/spacing-20261003/verify.mjs:30:36)
+    at async file:///Users/rengwu/Library/Caches/Clarity/spacing-20261003/verify.mjs:63:5 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v22.19.0

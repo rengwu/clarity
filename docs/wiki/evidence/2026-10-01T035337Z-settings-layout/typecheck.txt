@@ -1,0 +1,2 @@
+Command: node tooling/clarity.mjs check
+Application and Worker type checks completed with exit code 0.

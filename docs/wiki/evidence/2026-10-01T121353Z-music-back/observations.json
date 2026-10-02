@@ -1,0 +1,85 @@
+{
+  "results": [
+    {
+      "width": 1440,
+      "tab": "albums",
+      "activation": "label click",
+      "passed": true,
+      "control": {
+        "x": 256,
+        "y": 151,
+        "width": 80.21875,
+        "height": 26
+      }
+    },
+    {
+      "width": 1440,
+      "tab": "playlists",
+      "activation": "label click",
+      "passed": true,
+      "control": {
+        "x": 256,
+        "y": 151,
+        "width": 84.3125,
+        "height": 26
+      }
+    },
+    {
+      "width": 1440,
+      "tab": "artists",
+      "activation": "label click",
+      "passed": true,
+      "control": {
+        "x": 256,
+        "y": 151,
+        "width": 68.6875,
+        "height": 26
+      }
+    },
+    {
+      "width": 390,
+      "tab": "albums",
+      "activation": "label click",
+      "passed": true,
+      "control": {
+        "x": 16,
+        "y": 176,
+        "width": 80.21875,
+        "height": 26
+      }
+    },
+    {
+      "width": 390,
+      "tab": "playlists",
+      "activation": "label click",
+      "passed": true,
+      "control": {
+        "x": 16,
+        "y": 176,
+        "width": 84.3125,
+        "height": 26
+      }
+    },
+    {
+      "width": 390,
+      "tab": "artists",
+      "activation": "label click",
+      "passed": true,
+      "control": {
+        "x": 16,
+        "y": 176,
+        "width": 68.6875,
+        "height": 26
+      }
+    },
+    {
+      "scenario": "Nested album → artist → artists; label and keyboard Enter",
+      "passed": true
+    },
+    {
+      "scenario": "Keyboard Space and chevron click",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

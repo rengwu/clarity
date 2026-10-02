@@ -1,0 +1,37 @@
+{
+  "installed": "/Users/rengwu/Applications/Clarity.app",
+  "backup": "/Users/rengwu/Library/Caches/Clarity/build/Clarity-before-music-recent-20261002T041300Z.app",
+  "signatureVerified": true,
+  "runtimeFiles": [
+    {
+      "path": "main.mjs",
+      "sha256": "b467de6c01951039b0370fd1c0fd84354ebf4a10d4fcf9975a2ddf0c829f25f9"
+    },
+    {
+      "path": "preload.cjs",
+      "sha256": "8f51417738610391aa9ae5cd4bca18cfb43f19998a351244404972880890264a"
+    },
+    {
+      "path": "worker.mjs",
+      "sha256": "ff1dd08710e3df237c3e640e7ebb2bc7a4764617f59f4918c5a2db50668f44a4"
+    },
+    {
+      "path": "app.js",
+      "sha256": "ee98e0c9de362665d1d774827606c0af8cb009bf82fc80707b1b4d064e941409"
+    },
+    {
+      "path": "app.css",
+      "sha256": "67bb45367737b92af94176dbf9bfd2cc904bbea06ba49b3de18ee64a9f2379aa"
+    },
+    {
+      "path": "index.html",
+      "sha256": "bcd785e95fb0ab58fd806a26ac1c8ce7d5cd692c274ad1b014c3f681ae02293b"
+    },
+    {
+      "path": "clarity-player",
+      "sha256": "6a95f5f7442f68e8aae92c1aa754a666317c094a259ff25e96ebb3d98be38131"
+    }
+  ],
+  "runtimeHashMatch": true,
+  "runningAppRestarted": false
+}

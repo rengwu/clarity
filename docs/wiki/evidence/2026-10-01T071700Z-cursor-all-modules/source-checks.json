@@ -1,0 +1,75 @@
+{
+  "recordedAt": "2026-10-01T07:46:29.702996+00:00",
+  "served": [
+    {
+      "file": "index.html",
+      "status": 200,
+      "matchesSource": true,
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "style.css",
+      "status": 200,
+      "matchesSource": true,
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "design.css",
+      "status": 200,
+      "matchesSource": true,
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "app.js",
+      "status": 200,
+      "matchesSource": true,
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "data.js",
+      "status": 200,
+      "matchesSource": true,
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "ui.js",
+      "status": 200,
+      "matchesSource": true,
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "fixtures.js",
+      "status": 200,
+      "matchesSource": true,
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "modules.js",
+      "status": 200,
+      "matchesSource": true,
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "music.js",
+      "status": 200,
+      "matchesSource": true,
+      "cacheControl": "no-store"
+    },
+    {
+      "file": "motion.js",
+      "status": 200,
+      "matchesSource": true,
+      "cacheControl": "no-store"
+    }
+  ],
+  "unservedReferenceStatus": 404,
+  "syntax": "Passed for all executable JS modules and server",
+  "migration": {
+    "freshHeadlines": 14,
+    "oldEditsPreserved": true,
+    "enabledModulesPreserved": true,
+    "weekScrollConvertedFrom448To352": true,
+    "repeatedUpgradePreservesRemovedHeadlines": true
+  },
+  "server": "{\n\t\"StandardOutPath\" = \"/Users/rengwu/Desktop/Projects/clarity-spikes/2026-10-01-cursor/server.log\";\n\t\"LimitLoadToSessionType\" = \"Aqua\";\n\t\"StandardErrorPath\" = \"/Users/rengwu/Desktop/Projects/clarity-spikes/2026-10-01-cursor/server-error.log\";\n\t\"Label\" = \"local.clarity.cursor-spike\";\n\t\"OnDemand\" = false;\n\t\"LastExitStatus\" = 0;\n\t\"PID\" = 67521;\n\t\"Program\" = \"/Users/rengwu/.local/share/fnm/node-versions/v22.19.0/installation/bin/node\";\n\t\"ProgramArguments\" = (\n\t\t\"/Users/rengwu/.local/share/fnm/node-versions/v22.19.0/installation/bin/node\";\n\t\t\"/Users/rengwu/Desktop/Projects/clarity-spikes/2026-10-01-cursor/server.mjs\";\n\t);\n};\n"
+}

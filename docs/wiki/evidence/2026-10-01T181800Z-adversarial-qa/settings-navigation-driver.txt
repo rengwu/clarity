@@ -1,0 +1,42 @@
+import { mkdtemp, mkdir, writeFile } from 'node:fs/promises';
+import { tmpdir, homedir } from 'node:os';
+import { join } from 'node:path';
+import { createRequire } from 'node:module';
+import { pathToFileURL } from 'node:url';
+const base=join(homedir(),'Library/Caches/Clarity/build/adversarial-qa-20261002');
+const cache=process.env.QA_CACHE||join(base,'frozen-cache');
+const evidence=process.env.QA_EVIDENCE||'/Users/rengwu/Desktop/Projects/clarity/docs/wiki/evidence/2026-10-01T181800Z-adversarial-qa/confirmed';
+const require=createRequire(join(cache,'loader.cjs'));
+const {Store,Files}=await import(pathToFileURL(join(base,'reproduction-core.mjs')));
+const root=await mkdtemp(join(tmpdir(),'clarity-qa-settings-'));
+await new Files(root).initialize();
+const store=new Store(root,join(cache,'output/worker.mjs'));
+await store.start();
+await store.put('settings','default',{enabled:['chat','notes','todos','wiki'],useDeviceLocation:false,locationRequested:true,theme:'light'});
+await store.close();
+await mkdir(evidence,{recursive:true});
+let app;const results=[];
+try{
+ app=await require('playwright-core')._electron.launch({executablePath:require('electron'),args:[join(cache,'output/main.mjs')],env:{...process.env,CLARITY_TEST_ROOT:root}});
+ const page=await app.firstWindow();await page.locator('.sidebar').waitFor();
+ await page.locator('.sidebar').getByRole('button',{name:'Settings',exact:true}).click();
+ for(const [width,height] of [[850,600],[1200,800]])for(const theme of ['light','dark']){
+  await app.evaluate(({BrowserWindow},s)=>BrowserWindow.getAllWindows()[0].setSize(s.width,s.height),{width,height});
+  await page.setViewportSize({width,height});
+  await page.evaluate(theme=>window.clarity.call('settings.save',{theme}),theme);
+  await page.waitForFunction(t=>document.documentElement.dataset.theme===t,theme);
+  await page.evaluate(async()=>{await Promise.allSettled(document.getAnimations().filter(a=>a.effect?.getComputedTiming().iterations!==Infinity).map(a=>a.finished));});
+  const geometry=await page.locator('.settings-nav').evaluate(nav=>{
+   const button=[...nav.querySelectorAll('button')].find(b=>b.textContent.includes('Search and commands'));
+   const range=document.createRange();range.selectNodeContents(button.querySelector('span')||button);
+   const text=range.getBoundingClientRect(),box=nav.getBoundingClientRect();
+   return {clientWidth:nav.clientWidth,scrollWidth:nav.scrollWidth,navRight:box.right,labelRight:text.right,buttonWidth:button.getBoundingClientRect().width,label:button.textContent};
+  });
+  const clickable=page.getByRole('navigation',{name:'Settings sections',exact:true}).getByRole('button',{name:'Search and commands',exact:true});await clickable.click();
+  const sectionVisible=await page.locator('#settings-search').isVisible();
+  await page.screenshot({path:join(evidence,`QA15-settings-${theme}-${width}.png`)});
+  results.push({theme,width,height,geometry,sectionVisible,outcome:geometry.scrollWidth>geometry.clientWidth+1?'Failed':'Passed'});
+ }
+ await writeFile(join(evidence,'settings-navigation.json'),JSON.stringify({id:'QA15',expected:'Settings labels fit their navigation column without horizontal scrolling at the supported minimum size.',results},null,2));
+ console.log(JSON.stringify(results,null,2));
+}finally{await app?.close();}

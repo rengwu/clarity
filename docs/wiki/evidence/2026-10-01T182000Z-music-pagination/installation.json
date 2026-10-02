@@ -1,0 +1,42 @@
+{
+  "recordedAt": "2026-10-01T18:40:43.927946+00:00",
+  "source": "/Users/rengwu/Library/Caches/Clarity/music-pagination-20261001T182000Z/Clarity.app",
+  "installed": "/Users/rengwu/Applications/Clarity.app",
+  "backup": "/Users/rengwu/Library/Caches/Clarity/music-pagination-20261001T182000Z/Clarity-before-music-pagination-20261001T182000Z.app",
+  "applicationSha256": "bf51ac58d7d03c36a0a5851216557b3b7a3f0746c91cb91d2c5ec9c7c273b40e",
+  "verificationSha256": "af161ec2c72b8dbf64698f1727559cdcdc81847aeba05acfdcd39df8db2c7078",
+  "packageRuntimeSha256": "cefd0b1e97e76bcf181d1a6a716a305bd40540f91a6dcfce946b22e6388f44b5",
+  "signatureVerified": true,
+  "runtimeFiles": [
+    {
+      "path": "main.mjs",
+      "sha256": "e57245db1d2f1b763c2ca01c3d4a0af0d8d41b0fcfc4d027067d0ddb8ba6b242"
+    },
+    {
+      "path": "preload.cjs",
+      "sha256": "8f51417738610391aa9ae5cd4bca18cfb43f19998a351244404972880890264a"
+    },
+    {
+      "path": "worker.mjs",
+      "sha256": "ff1dd08710e3df237c3e640e7ebb2bc7a4764617f59f4918c5a2db50668f44a4"
+    },
+    {
+      "path": "app.js",
+      "sha256": "c8be02682298040f86abd84f25924e50ebdb4cf56c83b05b53e6c43abd4f0855"
+    },
+    {
+      "path": "app.css",
+      "sha256": "adea7b22796b7e998638bbc5e0d7937bb9688dec32d47f8ca9e05423067203e7"
+    },
+    {
+      "path": "index.html",
+      "sha256": "bcd785e95fb0ab58fd806a26ac1c8ce7d5cd692c274ad1b014c3f681ae02293b"
+    },
+    {
+      "path": "clarity-player",
+      "sha256": "6a95f5f7442f68e8aae92c1aa754a666317c094a259ff25e96ebb3d98be38131"
+    }
+  ],
+  "realUserAppRestarted": false,
+  "userDataChanged": false
+}

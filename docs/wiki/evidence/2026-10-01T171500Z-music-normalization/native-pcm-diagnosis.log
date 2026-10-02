@@ -1,0 +1,36 @@
+warning: librespot-core@0.8.0: not within a suitable 'git' worktree!
+warning: librespot-core@0.8.0: VERGEN_GIT_COMMIT_DATE set to default
+warning: librespot-core@0.8.0: VERGEN_GIT_SHA set to default
+warning: this lint expectation is unfulfilled
+  --> librespot-core/src/authentication.rs:69:14
+   |
+69 |     #[expect(deprecated)]
+   |              ^^^^^^^^^^
+   |
+   = note: `#[warn(unfulfilled_lint_expectations)]` on by default
+
+warning: `librespot-core` (lib) generated 1 warning
+   Compiling clarity-player v0.1.0 (/Users/rengwu/Library/Caches/Clarity/build/spotify-player)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.92s
+     Running unittests src/main.rs (/Users/rengwu/Library/Caches/Clarity/build/spotify-player/target/debug/deps/clarity_player-22700263b09123b5)
+
+running 1 test
+PCM checked: enabled=false album=false volume=0 gain=0.000000000 samples=176400
+PCM checked: enabled=false album=false volume=25 gain=0.005622969 samples=176400
+PCM checked: enabled=false album=false volume=50 gain=0.031621110 samples=176400
+PCM checked: enabled=false album=false volume=70 gain=0.125885906 samples=176400
+PCM checked: enabled=false album=false volume=100 gain=1.000000000 samples=176400
+
+thread 'volume_tests::decoded_pcm_uses_matching_volume_and_fixed_track_album_gain' (11621502) panicked at src/volume_tests.rs:131:13:
+Unexpected PCM gain: enabled=true, album=false, volume=100, expected=0.5011872336272722, sample=0.03131103515625, original=0.03131103515625, ratio=1
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test volume_tests::decoded_pcm_uses_matching_volume_and_fixed_track_album_gain ... FAILED
+
+failures:
+
+failures:
+    volume_tests::decoded_pcm_uses_matching_volume_and_fixed_track_album_gain
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.32s
+
+error: test failed, to rerun pass `--bin clarity-player`

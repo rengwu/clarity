@@ -2,11 +2,21 @@
 title: Reference register
 section: References
 status: Reference
-updated: 2026-09-28
+updated: 2026-10-02
 order: 0
 summary: Inspiration, inspected sources, and references still to investigate.
 ---
 # Reference register
+
+**Dated research, not the current rebuild contract.** The observations below describe the inspected revisions and experiments at their stated dates. Later implementation choices and app validation are in [Implementation and validation](implementation.md); unresolved work is in [Current follow-up](../discussions/open-questions.md). Historical statements that integration, storage, or packaging were undecided do not reopen those choices.
+
+## Global feedback research · 2 October 2026
+
+The [2 October global feedback research](../foundations/desktop-stack.md#global-feedback-research-and-pending-proposal) compares contextual errors and toasts using Carbon, W3C, native-dialog guidance, Radix, Sonner and React Aria. It is a pending proposal based on source/documentation inspection, with the final method reserved for the user; no candidate was installed or exercised.
+
+## UI and usability evidence · 1 October 2026
+
+The [UI audit](ui-audit.md) records nineteen prioritized findings from the current development build, isolated UI fixtures, and source review. It retains the original evidence and now maps all nineteen findings to implemented fixes and regression evidence. The [fix journal](../journal/2026-10-01-ui-fixes.md) records the remediation; no new live-provider compatibility is claimed.
 
 ## Disposable runtime evidence · 28 September 2026
 
@@ -41,6 +51,8 @@ Reference root: `~/Desktop/Projects`. These are paths on the current machine, no
 For Music, the [open-source client survey](../features/music.md#open-source-client-survey-25-september-2026) covers Spotifast, spotify-player, ncspot, Psst, Supersonic, Yuzic, EKO, Feishin, and SonicLair. Upstream documentation and release metadata were inspected on 25 September 2026, plus Yuzic's dependency manifest, Supersonic's Go dependencies, and EKO's license. No runtime performance or live playback was tested. The user supplied Yuzic as an additional reference; this does not select its mobile stack for Clarity.
 
 Music references have a separate purpose: [D46](../decisions/index.md#d46-music-core-implementation-references-25-september-2026) prioritizes copying or emulating robust core implementations, rather than reproducing their entire UI. The earlier music survey is preliminary research, not a robustness ranking.
+
+On 29 September, inspected Spotifast revision `70d42a560c4204278abfbc28646376792749e869` and its pinned librespot fork, then built a disposable Clarity helper against that fork. It reproduced the observed login5 503 after successful native authentication. This is distinct from testing the full Spotifast app. A subsequent live experiment played successfully by supplying the existing streaming OAuth token directly; the installed implementation now follows that path. Credential persistence findings, source links, evidence and limits are recorded together on [Music](../features/music.md#playback-oauth-token-ownership), in the [diagnosis journal](../journal/2026-09-29-spotify-endpoint.md#follow-up-spotifast-comparison), and in the [resolution journal](../journal/2026-09-29-spotify-oauth-playback.md).
 
 For the later [combined Music scope](../features/music.md#current-screen-scope), inspected official Spotify saved-album, saved-track, playlist, recent-history, and Developer Policy documentation, plus OpenSubsonic search/playlist references. The user subsequently accepted flat playlists and deferred the policy discussion for private use under [D48](../decisions/index.md#d48-lean-music-scope-and-private-use-25-september-2026). The supplied artist-grid and album-track-table screenshots are layout references only; source badges/borders and a combined search tab remain undecided.
 

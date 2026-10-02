@@ -1,0 +1,119 @@
+import assert from 'node:assert/strict';
+import { mkdtemp, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { createRequire } from 'node:module';
+
+const cache = '/Users/rengwu/Library/Caches/Clarity/build';
+const evidence = join(cache, 'settings-layout-2026-10-01');
+const require = createRequire(join(cache, 'loader.cjs'));
+const root = await mkdtemp(join(tmpdir(), 'clarity-settings-layout-'));
+const packaged = process.argv.includes('--packaged');
+const application = await require('playwright-core')._electron.launch({
+  executablePath: packaged ? join(cache, 'Clarity.app/Contents/MacOS/Electron') : require('electron'),
+  args: packaged ? [] : [join(cache, 'output/main.mjs')],
+  env: { ...process.env, CLARITY_TEST_ROOT: root },
+});
+const observations = [];
+const errors = [];
+try {
+  const page = await application.firstWindow();
+  page.setDefaultTimeout(10000);
+  page.on('pageerror', error => errors.push(error.message));
+  await page.locator('.sidebar').waitFor();
+  await page.evaluate(() => window.clarity.call('settings.save', {
+    enabled: ['chat', 'notes', 'todos', 'wiki', 'mail', 'music', 'bookmarks', 'expenses'],
+    useDeviceLocation: false,
+    locationRequested: true,
+  }));
+  await page.locator('.sidebar').getByRole('button', { name: 'Mail', exact: true }).click();
+  await page.getByRole('button', { name: 'Connect Google', exact: true }).click();
+  await page.locator('#settings-google:focus').waitFor();
+  const landing = await page.locator('#settings-google').boundingBox();
+  const header = await page.locator('.settings-header').boundingBox();
+  assert.ok(landing.y >= header.y + header.height && landing.y < header.y + header.height + 40,
+    'Mail connection entry lands beneath the Settings header');
+
+  for (const size of [{ width: 1440, height: 1000 }, { width: 850, height: 600 }]) {
+    await application.evaluate(({ BrowserWindow }, size) => BrowserWindow.getAllWindows()[0].setSize(size.width, size.height), size);
+    for (const theme of ['dark', 'light']) {
+      await page.evaluate(theme => window.clarity.call('settings.save', { theme }), theme);
+      await page.waitForFunction(theme => document.documentElement.dataset.theme === theme, theme);
+      for (const section of ['google', 'permissions', 'linkding', 'agent-approvals']) {
+        const selector = page.getByRole('combobox', { name: 'Settings section' });
+        await selector.selectOption(section);
+        await page.locator(`#settings-${section}:focus`).waitFor();
+        const layout = await page.evaluate(section => {
+          const bounds = element => {
+            const { x, y, width, height, right, bottom } = element.getBoundingClientRect();
+            return { x, y, width, height, right, bottom };
+          };
+          const target = document.getElementById(`settings-${section}`);
+          const scroller = document.querySelector('.settings-scroll');
+          const heading = target.querySelector('h2');
+          const styles = getComputedStyle(target);
+          return {
+            header: bounds(document.querySelector('.settings-header')),
+            scroller: bounds(scroller),
+            workspace: bounds(document.querySelector('.workspace')),
+            target: bounds(target),
+            heading: bounds(heading),
+            padding: styles.paddingLeft,
+            outline: styles.outlineColor,
+            accent: styles.getPropertyValue('--accent').trim(),
+            scrollbarWidth: getComputedStyle(scroller).scrollbarWidth,
+            scrollWidth: scroller.scrollWidth,
+            clientWidth: scroller.clientWidth,
+            scrollTop: scroller.scrollTop,
+            maxScrollTop: scroller.scrollHeight - scroller.clientHeight,
+            fields: [...document.querySelectorAll('.settings-content .field input, .settings-content .field select')].map(element => ({
+              label: element.closest('label').textContent.trim(),
+              ...bounds(element),
+            })),
+          };
+        }, section);
+        assert.ok(layout.target.y >= layout.header.bottom, `${section} must not sit behind the header`);
+        assert.ok(layout.target.y < layout.header.bottom + 45 || Math.abs(layout.scrollTop - layout.maxScrollTop) <= 1,
+          `${section} lands near the top unless scrolling is already at the end`);
+        assert.ok(layout.heading.x - layout.target.x >= 16, 'Highlight has horizontal breathing room');
+        assert.ok(layout.heading.y - layout.target.y >= 20, 'Highlight has vertical breathing room');
+        assert.equal(layout.scroller.right, layout.workspace.right, 'Scrollbar belongs at the workspace edge');
+        assert.equal(layout.scrollWidth, layout.clientWidth, 'No horizontal overflow');
+        assert.equal(layout.scrollbarWidth, 'thin');
+        assert.ok(layout.fields.every(field => Math.abs(field.width - layout.fields[0].width) < 1),
+          'All settings inputs and field selectors have equal widths');
+        observations.push({ size, theme, section, ...layout });
+        if (!packaged && theme === 'dark' && ['google', 'permissions', 'linkding'].includes(section)) {
+          await page.screenshot({ path: join(evidence, `${section}-${size.width}.png`) });
+        }
+        if (section === 'google') {
+          await page.keyboard.press('Tab');
+          assert.equal(await page.getByLabel('Google OAuth client ID').evaluate(element => element === document.activeElement), true,
+            'Tab from the section target reaches its first field');
+          assert.notEqual(await page.getByLabel('Google OAuth client ID').evaluate(element => getComputedStyle(element).outlineStyle), 'none');
+        }
+      }
+      const before = await page.locator('.settings-header').boundingBox();
+      const scrollTop = await page.locator('.settings-scroll').evaluate(element => element.scrollTop);
+      const area = await page.locator('.settings-scroll').boundingBox();
+      await page.mouse.move(area.x + area.width / 2, area.y + 90);
+      await page.mouse.wheel(0, 350);
+      await page.waitForFunction(previous => document.querySelector('.settings-scroll').scrollTop > previous, scrollTop);
+      assert.deepEqual(await page.locator('.settings-header').boundingBox(), before,
+        'Header remains stable during real wheel scrolling');
+      assert.equal(await page.locator('.settings-page').evaluate(element => element.scrollTop), 0);
+    }
+  }
+  await page.getByRole('combobox', { name: 'Settings section' }).selectOption('linkding');
+  await page.locator('#settings-linkding').getByLabel('Refresh bookmarks').selectOption('60');
+  await page.waitForFunction(async () => (await window.clarity.call('bootstrap')).settings.linkdingRefreshMinutes === 60);
+  await page.reload();
+  await page.locator('.sidebar').getByRole('button', { name: 'Settings', exact: true }).click();
+  await page.getByRole('combobox', { name: 'Settings section' }).selectOption('linkding');
+  assert.equal(await page.getByLabel('Refresh bookmarks').inputValue(), '60');
+  assert.deepEqual(errors, []);
+  console.log(`Passed: ${observations.length} layout scenarios; Mail landing, Tab focus, wheel scrolling, uniform fields, and saved refresh selection after reload (${packaged ? 'packaged' : 'development'}).`);
+} finally {
+  await writeFile(join(evidence, packaged ? 'packaged-observations.json' : 'observations.json'), JSON.stringify({ observations, errors }, null, 2));
+  await application.close();
+}

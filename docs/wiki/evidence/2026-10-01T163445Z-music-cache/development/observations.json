@@ -1,0 +1,848 @@
+[
+  {
+    "scenario": "Tab, empty-list, layout, source-filter and module revisits reuse results; pending reads share one request",
+    "calls": [
+      {
+        "method": "recent",
+        "args": {}
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "playlists"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "albums"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "artists"
+        }
+      }
+    ],
+    "requests": [
+      "/v1/me",
+      "/v1/me/playlists",
+      "/v1/me/albums"
+    ]
+  },
+  {
+    "scenario": "Search keys, type filters, source/type collection keys, nested Back, empty results and explicit refresh",
+    "calls": [
+      {
+        "method": "recent",
+        "args": {}
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "playlists"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "albums"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "artists"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "first",
+          "type": "all"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "artist",
+          "type": "artist"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "album",
+          "type": "album"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "second",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "first",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "empty",
+          "type": "all"
+        }
+      }
+    ],
+    "requests": [
+      "/v1/me",
+      "/v1/me/playlists",
+      "/v1/me/albums",
+      "search:first",
+      "/v1/artists/artist",
+      "/v1/artists/artist/albums",
+      "/v1/albums/album/tracks",
+      "search:second",
+      "search:first",
+      "search:empty"
+    ]
+  },
+  {
+    "scenario": "Delayed reads cannot replace a newer view; rejected and partial reads remain retryable",
+    "calls": [
+      {
+        "method": "recent",
+        "args": {}
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "playlists"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "albums"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "artists"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "first",
+          "type": "all"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "artist",
+          "type": "artist"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "album",
+          "type": "album"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "second",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "first",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "empty",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "slow",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "retry",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "retry",
+          "type": "all"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "liked",
+          "type": "playlist"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "liked",
+          "type": "playlist"
+        }
+      }
+    ],
+    "requests": [
+      "/v1/me",
+      "/v1/me/playlists",
+      "/v1/me/albums",
+      "search:first",
+      "/v1/artists/artist",
+      "/v1/artists/artist/albums",
+      "/v1/albums/album/tracks",
+      "search:second",
+      "search:first",
+      "search:empty",
+      "search:slow",
+      "search:retry",
+      "search:retry",
+      "/v1/me/tracks",
+      "/v1/me/tracks"
+    ]
+  },
+  {
+    "scenario": "Playback invalidates recent history only; replacing a connected account clears visible and hidden cache entries",
+    "calls": [
+      {
+        "method": "recent",
+        "args": {}
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "playlists"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "albums"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "artists"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "first",
+          "type": "all"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "artist",
+          "type": "artist"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "album",
+          "type": "album"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "second",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "first",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "empty",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "slow",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "retry",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "retry",
+          "type": "all"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "liked",
+          "type": "playlist"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "liked",
+          "type": "playlist"
+        }
+      },
+      {
+        "method": "recent",
+        "args": {}
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "albums"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "albums"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "playlists"
+        }
+      }
+    ],
+    "requests": [
+      "/v1/me",
+      "/v1/me/playlists",
+      "/v1/me/albums",
+      "search:first",
+      "/v1/artists/artist",
+      "/v1/artists/artist/albums",
+      "/v1/albums/album/tracks",
+      "search:second",
+      "search:first",
+      "search:empty",
+      "search:slow",
+      "search:retry",
+      "search:retry",
+      "/v1/me/tracks",
+      "/v1/me/tracks",
+      "/v1/me/albums",
+      "/v1/me/albums",
+      "/v1/me",
+      "/v1/me/playlists"
+    ]
+  },
+  {
+    "scenario": "Navidrome configuration invalidates while hidden, partial-provider results retry, equal IDs stay source-specific and disconnect clears old results",
+    "calls": [
+      {
+        "method": "recent",
+        "args": {}
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "playlists"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "albums"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "artists"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "first",
+          "type": "all"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "artist",
+          "type": "artist"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "album",
+          "type": "album"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "second",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "first",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "empty",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "slow",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "retry",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "retry",
+          "type": "all"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "liked",
+          "type": "playlist"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "liked",
+          "type": "playlist"
+        }
+      },
+      {
+        "method": "recent",
+        "args": {}
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "albums"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "albums"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "playlists"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "playlists"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "playlists"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "playlists"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "playlists"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "albums"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "album",
+          "type": "album"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "navidrome",
+          "id": "album",
+          "type": "album"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "albums"
+        }
+      }
+    ],
+    "requests": [
+      "/v1/me",
+      "/v1/me/playlists",
+      "/v1/me/albums",
+      "search:first",
+      "/v1/artists/artist",
+      "/v1/artists/artist/albums",
+      "/v1/albums/album/tracks",
+      "search:second",
+      "search:first",
+      "search:empty",
+      "search:slow",
+      "search:retry",
+      "search:retry",
+      "/v1/me/tracks",
+      "/v1/me/tracks",
+      "/v1/me/albums",
+      "/v1/me/albums",
+      "/v1/me",
+      "/v1/me/playlists",
+      "navidrome:ping:first",
+      "navidrome:getPlaylists:first",
+      "/v1/me",
+      "/v1/me/playlists",
+      "navidrome:ping:second",
+      "navidrome:getPlaylists:second",
+      "/v1/me",
+      "/v1/me/playlists",
+      "navidrome:getPlaylists:second",
+      "/v1/me",
+      "/v1/me/playlists",
+      "navidrome:getPlaylists:second",
+      "/v1/me",
+      "/v1/me/playlists",
+      "navidrome:getAlbumList2:second",
+      "/v1/me/albums",
+      "/v1/albums/album/tracks",
+      "navidrome:getAlbum:second",
+      "navidrome:getAlbumList2:second"
+    ]
+  },
+  {
+    "scenario": "Renderer reload starts an empty result cache",
+    "calls": [
+      {
+        "method": "recent",
+        "args": {}
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "playlists"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "albums"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "artists"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "first",
+          "type": "all"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "artist",
+          "type": "artist"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "album",
+          "type": "album"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "second",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "first",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "empty",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "slow",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "retry",
+          "type": "all"
+        }
+      },
+      {
+        "method": "search",
+        "args": {
+          "query": "retry",
+          "type": "all"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "liked",
+          "type": "playlist"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "liked",
+          "type": "playlist"
+        }
+      },
+      {
+        "method": "recent",
+        "args": {}
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "albums"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "albums"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "playlists"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "playlists"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "playlists"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "playlists"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "playlists"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "albums"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "spotify",
+          "id": "album",
+          "type": "album"
+        }
+      },
+      {
+        "method": "collection",
+        "args": {
+          "source": "navidrome",
+          "id": "album",
+          "type": "album"
+        }
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "albums"
+        }
+      },
+      {
+        "method": "recent",
+        "args": {}
+      },
+      {
+        "method": "library",
+        "args": {
+          "type": "albums"
+        }
+      }
+    ],
+    "requests": [
+      "/v1/me",
+      "/v1/me/playlists",
+      "/v1/me/albums",
+      "search:first",
+      "/v1/artists/artist",
+      "/v1/artists/artist/albums",
+      "/v1/albums/album/tracks",
+      "search:second",
+      "search:first",
+      "search:empty",
+      "search:slow",
+      "search:retry",
+      "search:retry",
+      "/v1/me/tracks",
+      "/v1/me/tracks",
+      "/v1/me/albums",
+      "/v1/me/albums",
+      "/v1/me",
+      "/v1/me/playlists",
+      "navidrome:ping:first",
+      "navidrome:getPlaylists:first",
+      "/v1/me",
+      "/v1/me/playlists",
+      "navidrome:ping:second",
+      "navidrome:getPlaylists:second",
+      "/v1/me",
+      "/v1/me/playlists",
+      "navidrome:getPlaylists:second",
+      "/v1/me",
+      "/v1/me/playlists",
+      "navidrome:getPlaylists:second",
+      "/v1/me",
+      "/v1/me/playlists",
+      "navidrome:getAlbumList2:second",
+      "/v1/me/albums",
+      "/v1/albums/album/tracks",
+      "navidrome:getAlbum:second",
+      "navidrome:getAlbumList2:second",
+      "navidrome:getAlbumList2:second"
+    ]
+  }
+]

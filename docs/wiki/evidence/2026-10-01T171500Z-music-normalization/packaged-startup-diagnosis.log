@@ -1,0 +1,20 @@
+TAP version 13
+# Subtest: native Music UI applies normalization, album/shuffle modes, settings and persistence
+not ok 1 - native Music UI applies normalization, album/shuffle modes, settings and persistence
+  ---
+  duration_ms: 90002.99425
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/music-volume.mjs:201:1'
+  failureType: 'testTimeoutFailure'
+  error: 'test timed out after 90000ms'
+  code: 'ERR_TEST_FAILURE'
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 0
+# cancelled 1
+# skipped 0
+# todo 0
+# duration_ms 119074.207792

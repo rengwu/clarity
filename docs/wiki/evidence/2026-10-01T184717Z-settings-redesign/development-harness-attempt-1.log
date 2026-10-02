@@ -1,0 +1,36 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+locator.uncheck: Clicking the checkbox did not change its state
+Call log:
+[2m  - waiting for locator('#settings-modules').getByRole('checkbox', { name: 'Notes', exact: true })[22m
+[2m    - locator resolved to <input checked type="checkbox" aria-label="Notes" class="settings-switch"/>[22m
+[2m  - attempting click action[22m
+[2m    - waiting for element to be visible, enabled and stable[22m
+[2m    - element is visible, enabled and stable[22m
+[2m    - scrolling into view if needed[22m
+[2m    - done scrolling[22m
+[2m    - performing click action[22m
+[2m    - click action done[22m
+[2m    - waiting for scheduled navigations to finish[22m
+[2m    - navigations have finished[22m
+
+    at /Users/rengwu/Desktop/Projects/clarity/docs/wiki/evidence/2026-10-01T184717Z-settings-redesign/verify-settings.mjs:68:15 {
+  log: [
+    "  - waiting for locator('#settings-modules').getByRole('checkbox', { name: 'Notes', exact: true })",
+    '    - locator resolved to <input checked type="checkbox" aria-label="Notes" class="settings-switch"/>',
+    '  - attempting click action',
+    '    - waiting for element to be visible, enabled and stable',
+    '    - element is visible, enabled and stable',
+    '    - scrolling into view if needed',
+    '    - done scrolling',
+    '    - performing click action',
+    '    - click action done',
+    '    - waiting for scheduled navigations to finish',
+    '    - navigations have finished'
+  ],
+  name: 'Error'
+}
+
+Node.js v22.19.0

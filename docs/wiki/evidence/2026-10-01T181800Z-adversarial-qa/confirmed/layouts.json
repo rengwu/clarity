@@ -1,0 +1,522 @@
+[
+  {
+    "module": "chat",
+    "theme": "light",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 351
+  },
+  {
+    "module": "notes",
+    "theme": "light",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 72
+  },
+  {
+    "module": "todos",
+    "theme": "light",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 56
+  },
+  {
+    "module": "wiki",
+    "theme": "light",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 22
+  },
+  {
+    "module": "calendar",
+    "theme": "light",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 213
+  },
+  {
+    "module": "expenses",
+    "theme": "light",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 570
+  },
+  {
+    "module": "mail",
+    "theme": "light",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 78
+  },
+  {
+    "module": "news",
+    "theme": "light",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 110
+  },
+  {
+    "module": "bookmarks",
+    "theme": "light",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 561
+  },
+  {
+    "module": "music",
+    "theme": "light",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 176
+  },
+  {
+    "module": "board",
+    "theme": "light",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 67
+  },
+  {
+    "module": "automations",
+    "theme": "light",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 136
+  },
+  {
+    "module": "settings",
+    "theme": "light",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 254
+  },
+  {
+    "module": "chat",
+    "theme": "dark",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 351
+  },
+  {
+    "module": "notes",
+    "theme": "dark",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 72
+  },
+  {
+    "module": "todos",
+    "theme": "dark",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 56
+  },
+  {
+    "module": "wiki",
+    "theme": "dark",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 22
+  },
+  {
+    "module": "calendar",
+    "theme": "dark",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 213
+  },
+  {
+    "module": "expenses",
+    "theme": "dark",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 570
+  },
+  {
+    "module": "mail",
+    "theme": "dark",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 78
+  },
+  {
+    "module": "news",
+    "theme": "dark",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 110
+  },
+  {
+    "module": "bookmarks",
+    "theme": "dark",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 561
+  },
+  {
+    "module": "music",
+    "theme": "dark",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 176
+  },
+  {
+    "module": "board",
+    "theme": "dark",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 67
+  },
+  {
+    "module": "automations",
+    "theme": "dark",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 136
+  },
+  {
+    "module": "settings",
+    "theme": "dark",
+    "width": 850,
+    "height": 600,
+    "bodyScrollWidth": 850,
+    "hostWidth": 640,
+    "hostScrollWidth": 640,
+    "textLength": 254
+  },
+  {
+    "module": "chat",
+    "theme": "light",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 351
+  },
+  {
+    "module": "notes",
+    "theme": "light",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 72
+  },
+  {
+    "module": "todos",
+    "theme": "light",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 56
+  },
+  {
+    "module": "wiki",
+    "theme": "light",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 22
+  },
+  {
+    "module": "calendar",
+    "theme": "light",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 213
+  },
+  {
+    "module": "expenses",
+    "theme": "light",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 570
+  },
+  {
+    "module": "mail",
+    "theme": "light",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 78
+  },
+  {
+    "module": "news",
+    "theme": "light",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 110
+  },
+  {
+    "module": "bookmarks",
+    "theme": "light",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 561
+  },
+  {
+    "module": "music",
+    "theme": "light",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 176
+  },
+  {
+    "module": "board",
+    "theme": "light",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 67
+  },
+  {
+    "module": "automations",
+    "theme": "light",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 136
+  },
+  {
+    "module": "settings",
+    "theme": "light",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 254
+  },
+  {
+    "module": "chat",
+    "theme": "dark",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 351
+  },
+  {
+    "module": "notes",
+    "theme": "dark",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 72
+  },
+  {
+    "module": "todos",
+    "theme": "dark",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 56
+  },
+  {
+    "module": "wiki",
+    "theme": "dark",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 22
+  },
+  {
+    "module": "calendar",
+    "theme": "dark",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 213
+  },
+  {
+    "module": "expenses",
+    "theme": "dark",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 570
+  },
+  {
+    "module": "mail",
+    "theme": "dark",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 78
+  },
+  {
+    "module": "news",
+    "theme": "dark",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 110
+  },
+  {
+    "module": "bookmarks",
+    "theme": "dark",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 561
+  },
+  {
+    "module": "music",
+    "theme": "dark",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 176
+  },
+  {
+    "module": "board",
+    "theme": "dark",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 67
+  },
+  {
+    "module": "automations",
+    "theme": "dark",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 136
+  },
+  {
+    "module": "settings",
+    "theme": "dark",
+    "width": 1200,
+    "height": 800,
+    "bodyScrollWidth": 1200,
+    "hostWidth": 968,
+    "hostScrollWidth": 968,
+    "textLength": 254
+  }
+]

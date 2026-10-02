@@ -1,0 +1,11 @@
+TAP version 13
+# Subtest: Music caches navigation reads, shares pending requests and invalidates changed accounts
+not ok 1 - Music caches navigation reads, shares pending requests and invalidates changed accounts
+  ---
+  duration_ms: 120002.688
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/music-cache.mjs:13:1'
+  failureType: 'testTimeoutFailure'
+  error: 'test timed out after 120000ms'
+  code: 'ERR_TEST_FAILURE'
+  ...

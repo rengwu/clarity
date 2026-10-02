@@ -1,0 +1,1305 @@
+[
+  {
+    "scenario": "First page appears without requesting the remainder",
+    "requests": [
+      {
+        "offset": 0,
+        "account": 1
+      }
+    ],
+    "rows": 50
+  },
+  {
+    "scenario": "Pending navigation shares a read; failed continuation retries only its page",
+    "requests": [
+      {
+        "offset": 0,
+        "account": 1
+      },
+      {
+        "offset": 50,
+        "account": 1
+      },
+      {
+        "offset": 100,
+        "account": 1
+      },
+      {
+        "offset": 100,
+        "account": 1
+      }
+    ],
+    "rows": 150
+  },
+  {
+    "scenario": "Real scrolling continues beyond the old 100-page limit to the last song",
+    "rows": 5055,
+    "last": "5055\t\nAccount 1 song 5054\nFixture artist\n\tSpotify\t3:00",
+    "requests": [
+      {
+        "offset": 0,
+        "account": 1
+      },
+      {
+        "offset": 50,
+        "account": 1
+      },
+      {
+        "offset": 100,
+        "account": 1
+      },
+      {
+        "offset": 100,
+        "account": 1
+      },
+      {
+        "offset": 150,
+        "account": 1
+      },
+      {
+        "offset": 200,
+        "account": 1
+      },
+      {
+        "offset": 250,
+        "account": 1
+      },
+      {
+        "offset": 300,
+        "account": 1
+      },
+      {
+        "offset": 350,
+        "account": 1
+      },
+      {
+        "offset": 400,
+        "account": 1
+      },
+      {
+        "offset": 450,
+        "account": 1
+      },
+      {
+        "offset": 500,
+        "account": 1
+      },
+      {
+        "offset": 550,
+        "account": 1
+      },
+      {
+        "offset": 600,
+        "account": 1
+      },
+      {
+        "offset": 650,
+        "account": 1
+      },
+      {
+        "offset": 700,
+        "account": 1
+      },
+      {
+        "offset": 750,
+        "account": 1
+      },
+      {
+        "offset": 800,
+        "account": 1
+      },
+      {
+        "offset": 850,
+        "account": 1
+      },
+      {
+        "offset": 900,
+        "account": 1
+      },
+      {
+        "offset": 950,
+        "account": 1
+      },
+      {
+        "offset": 1000,
+        "account": 1
+      },
+      {
+        "offset": 1050,
+        "account": 1
+      },
+      {
+        "offset": 1100,
+        "account": 1
+      },
+      {
+        "offset": 1150,
+        "account": 1
+      },
+      {
+        "offset": 1200,
+        "account": 1
+      },
+      {
+        "offset": 1250,
+        "account": 1
+      },
+      {
+        "offset": 1300,
+        "account": 1
+      },
+      {
+        "offset": 1350,
+        "account": 1
+      },
+      {
+        "offset": 1400,
+        "account": 1
+      },
+      {
+        "offset": 1450,
+        "account": 1
+      },
+      {
+        "offset": 1500,
+        "account": 1
+      },
+      {
+        "offset": 1550,
+        "account": 1
+      },
+      {
+        "offset": 1600,
+        "account": 1
+      },
+      {
+        "offset": 1650,
+        "account": 1
+      },
+      {
+        "offset": 1700,
+        "account": 1
+      },
+      {
+        "offset": 1750,
+        "account": 1
+      },
+      {
+        "offset": 1800,
+        "account": 1
+      },
+      {
+        "offset": 1850,
+        "account": 1
+      },
+      {
+        "offset": 1900,
+        "account": 1
+      },
+      {
+        "offset": 1950,
+        "account": 1
+      },
+      {
+        "offset": 2000,
+        "account": 1
+      },
+      {
+        "offset": 2050,
+        "account": 1
+      },
+      {
+        "offset": 2100,
+        "account": 1
+      },
+      {
+        "offset": 2150,
+        "account": 1
+      },
+      {
+        "offset": 2200,
+        "account": 1
+      },
+      {
+        "offset": 2250,
+        "account": 1
+      },
+      {
+        "offset": 2300,
+        "account": 1
+      },
+      {
+        "offset": 2350,
+        "account": 1
+      },
+      {
+        "offset": 2400,
+        "account": 1
+      },
+      {
+        "offset": 2450,
+        "account": 1
+      },
+      {
+        "offset": 2500,
+        "account": 1
+      },
+      {
+        "offset": 2550,
+        "account": 1
+      },
+      {
+        "offset": 2600,
+        "account": 1
+      },
+      {
+        "offset": 2650,
+        "account": 1
+      },
+      {
+        "offset": 2700,
+        "account": 1
+      },
+      {
+        "offset": 2750,
+        "account": 1
+      },
+      {
+        "offset": 2800,
+        "account": 1
+      },
+      {
+        "offset": 2850,
+        "account": 1
+      },
+      {
+        "offset": 2900,
+        "account": 1
+      },
+      {
+        "offset": 2950,
+        "account": 1
+      },
+      {
+        "offset": 3000,
+        "account": 1
+      },
+      {
+        "offset": 3050,
+        "account": 1
+      },
+      {
+        "offset": 3100,
+        "account": 1
+      },
+      {
+        "offset": 3150,
+        "account": 1
+      },
+      {
+        "offset": 3200,
+        "account": 1
+      },
+      {
+        "offset": 3250,
+        "account": 1
+      },
+      {
+        "offset": 3300,
+        "account": 1
+      },
+      {
+        "offset": 3350,
+        "account": 1
+      },
+      {
+        "offset": 3400,
+        "account": 1
+      },
+      {
+        "offset": 3450,
+        "account": 1
+      },
+      {
+        "offset": 3500,
+        "account": 1
+      },
+      {
+        "offset": 3550,
+        "account": 1
+      },
+      {
+        "offset": 3600,
+        "account": 1
+      },
+      {
+        "offset": 3650,
+        "account": 1
+      },
+      {
+        "offset": 3700,
+        "account": 1
+      },
+      {
+        "offset": 3750,
+        "account": 1
+      },
+      {
+        "offset": 3800,
+        "account": 1
+      },
+      {
+        "offset": 3850,
+        "account": 1
+      },
+      {
+        "offset": 3900,
+        "account": 1
+      },
+      {
+        "offset": 3950,
+        "account": 1
+      },
+      {
+        "offset": 4000,
+        "account": 1
+      },
+      {
+        "offset": 4050,
+        "account": 1
+      },
+      {
+        "offset": 4100,
+        "account": 1
+      },
+      {
+        "offset": 4150,
+        "account": 1
+      },
+      {
+        "offset": 4200,
+        "account": 1
+      },
+      {
+        "offset": 4250,
+        "account": 1
+      },
+      {
+        "offset": 4300,
+        "account": 1
+      },
+      {
+        "offset": 4350,
+        "account": 1
+      },
+      {
+        "offset": 4400,
+        "account": 1
+      },
+      {
+        "offset": 4450,
+        "account": 1
+      },
+      {
+        "offset": 4500,
+        "account": 1
+      },
+      {
+        "offset": 4550,
+        "account": 1
+      },
+      {
+        "offset": 4600,
+        "account": 1
+      },
+      {
+        "offset": 4650,
+        "account": 1
+      },
+      {
+        "offset": 4700,
+        "account": 1
+      },
+      {
+        "offset": 4750,
+        "account": 1
+      },
+      {
+        "offset": 4800,
+        "account": 1
+      },
+      {
+        "offset": 4850,
+        "account": 1
+      },
+      {
+        "offset": 4900,
+        "account": 1
+      },
+      {
+        "offset": 4950,
+        "account": 1
+      },
+      {
+        "offset": 5000,
+        "account": 1
+      },
+      {
+        "offset": 5050,
+        "account": 1
+      }
+    ],
+    "scrollingMs": 35274
+  },
+  {
+    "scenario": "Playback and reopening reuse all pages",
+    "requests": [
+      {
+        "offset": 0,
+        "account": 1
+      },
+      {
+        "offset": 50,
+        "account": 1
+      },
+      {
+        "offset": 100,
+        "account": 1
+      },
+      {
+        "offset": 100,
+        "account": 1
+      },
+      {
+        "offset": 150,
+        "account": 1
+      },
+      {
+        "offset": 200,
+        "account": 1
+      },
+      {
+        "offset": 250,
+        "account": 1
+      },
+      {
+        "offset": 300,
+        "account": 1
+      },
+      {
+        "offset": 350,
+        "account": 1
+      },
+      {
+        "offset": 400,
+        "account": 1
+      },
+      {
+        "offset": 450,
+        "account": 1
+      },
+      {
+        "offset": 500,
+        "account": 1
+      },
+      {
+        "offset": 550,
+        "account": 1
+      },
+      {
+        "offset": 600,
+        "account": 1
+      },
+      {
+        "offset": 650,
+        "account": 1
+      },
+      {
+        "offset": 700,
+        "account": 1
+      },
+      {
+        "offset": 750,
+        "account": 1
+      },
+      {
+        "offset": 800,
+        "account": 1
+      },
+      {
+        "offset": 850,
+        "account": 1
+      },
+      {
+        "offset": 900,
+        "account": 1
+      },
+      {
+        "offset": 950,
+        "account": 1
+      },
+      {
+        "offset": 1000,
+        "account": 1
+      },
+      {
+        "offset": 1050,
+        "account": 1
+      },
+      {
+        "offset": 1100,
+        "account": 1
+      },
+      {
+        "offset": 1150,
+        "account": 1
+      },
+      {
+        "offset": 1200,
+        "account": 1
+      },
+      {
+        "offset": 1250,
+        "account": 1
+      },
+      {
+        "offset": 1300,
+        "account": 1
+      },
+      {
+        "offset": 1350,
+        "account": 1
+      },
+      {
+        "offset": 1400,
+        "account": 1
+      },
+      {
+        "offset": 1450,
+        "account": 1
+      },
+      {
+        "offset": 1500,
+        "account": 1
+      },
+      {
+        "offset": 1550,
+        "account": 1
+      },
+      {
+        "offset": 1600,
+        "account": 1
+      },
+      {
+        "offset": 1650,
+        "account": 1
+      },
+      {
+        "offset": 1700,
+        "account": 1
+      },
+      {
+        "offset": 1750,
+        "account": 1
+      },
+      {
+        "offset": 1800,
+        "account": 1
+      },
+      {
+        "offset": 1850,
+        "account": 1
+      },
+      {
+        "offset": 1900,
+        "account": 1
+      },
+      {
+        "offset": 1950,
+        "account": 1
+      },
+      {
+        "offset": 2000,
+        "account": 1
+      },
+      {
+        "offset": 2050,
+        "account": 1
+      },
+      {
+        "offset": 2100,
+        "account": 1
+      },
+      {
+        "offset": 2150,
+        "account": 1
+      },
+      {
+        "offset": 2200,
+        "account": 1
+      },
+      {
+        "offset": 2250,
+        "account": 1
+      },
+      {
+        "offset": 2300,
+        "account": 1
+      },
+      {
+        "offset": 2350,
+        "account": 1
+      },
+      {
+        "offset": 2400,
+        "account": 1
+      },
+      {
+        "offset": 2450,
+        "account": 1
+      },
+      {
+        "offset": 2500,
+        "account": 1
+      },
+      {
+        "offset": 2550,
+        "account": 1
+      },
+      {
+        "offset": 2600,
+        "account": 1
+      },
+      {
+        "offset": 2650,
+        "account": 1
+      },
+      {
+        "offset": 2700,
+        "account": 1
+      },
+      {
+        "offset": 2750,
+        "account": 1
+      },
+      {
+        "offset": 2800,
+        "account": 1
+      },
+      {
+        "offset": 2850,
+        "account": 1
+      },
+      {
+        "offset": 2900,
+        "account": 1
+      },
+      {
+        "offset": 2950,
+        "account": 1
+      },
+      {
+        "offset": 3000,
+        "account": 1
+      },
+      {
+        "offset": 3050,
+        "account": 1
+      },
+      {
+        "offset": 3100,
+        "account": 1
+      },
+      {
+        "offset": 3150,
+        "account": 1
+      },
+      {
+        "offset": 3200,
+        "account": 1
+      },
+      {
+        "offset": 3250,
+        "account": 1
+      },
+      {
+        "offset": 3300,
+        "account": 1
+      },
+      {
+        "offset": 3350,
+        "account": 1
+      },
+      {
+        "offset": 3400,
+        "account": 1
+      },
+      {
+        "offset": 3450,
+        "account": 1
+      },
+      {
+        "offset": 3500,
+        "account": 1
+      },
+      {
+        "offset": 3550,
+        "account": 1
+      },
+      {
+        "offset": 3600,
+        "account": 1
+      },
+      {
+        "offset": 3650,
+        "account": 1
+      },
+      {
+        "offset": 3700,
+        "account": 1
+      },
+      {
+        "offset": 3750,
+        "account": 1
+      },
+      {
+        "offset": 3800,
+        "account": 1
+      },
+      {
+        "offset": 3850,
+        "account": 1
+      },
+      {
+        "offset": 3900,
+        "account": 1
+      },
+      {
+        "offset": 3950,
+        "account": 1
+      },
+      {
+        "offset": 4000,
+        "account": 1
+      },
+      {
+        "offset": 4050,
+        "account": 1
+      },
+      {
+        "offset": 4100,
+        "account": 1
+      },
+      {
+        "offset": 4150,
+        "account": 1
+      },
+      {
+        "offset": 4200,
+        "account": 1
+      },
+      {
+        "offset": 4250,
+        "account": 1
+      },
+      {
+        "offset": 4300,
+        "account": 1
+      },
+      {
+        "offset": 4350,
+        "account": 1
+      },
+      {
+        "offset": 4400,
+        "account": 1
+      },
+      {
+        "offset": 4450,
+        "account": 1
+      },
+      {
+        "offset": 4500,
+        "account": 1
+      },
+      {
+        "offset": 4550,
+        "account": 1
+      },
+      {
+        "offset": 4600,
+        "account": 1
+      },
+      {
+        "offset": 4650,
+        "account": 1
+      },
+      {
+        "offset": 4700,
+        "account": 1
+      },
+      {
+        "offset": 4750,
+        "account": 1
+      },
+      {
+        "offset": 4800,
+        "account": 1
+      },
+      {
+        "offset": 4850,
+        "account": 1
+      },
+      {
+        "offset": 4900,
+        "account": 1
+      },
+      {
+        "offset": 4950,
+        "account": 1
+      },
+      {
+        "offset": 5000,
+        "account": 1
+      },
+      {
+        "offset": 5050,
+        "account": 1
+      }
+    ]
+  },
+  {
+    "scenario": "Refresh resets pages; account replacement discards an old pending page",
+    "requests": [
+      {
+        "offset": 0,
+        "account": 1
+      },
+      {
+        "offset": 50,
+        "account": 1
+      },
+      {
+        "offset": 100,
+        "account": 1
+      },
+      {
+        "offset": 100,
+        "account": 1
+      },
+      {
+        "offset": 150,
+        "account": 1
+      },
+      {
+        "offset": 200,
+        "account": 1
+      },
+      {
+        "offset": 250,
+        "account": 1
+      },
+      {
+        "offset": 300,
+        "account": 1
+      },
+      {
+        "offset": 350,
+        "account": 1
+      },
+      {
+        "offset": 400,
+        "account": 1
+      },
+      {
+        "offset": 450,
+        "account": 1
+      },
+      {
+        "offset": 500,
+        "account": 1
+      },
+      {
+        "offset": 550,
+        "account": 1
+      },
+      {
+        "offset": 600,
+        "account": 1
+      },
+      {
+        "offset": 650,
+        "account": 1
+      },
+      {
+        "offset": 700,
+        "account": 1
+      },
+      {
+        "offset": 750,
+        "account": 1
+      },
+      {
+        "offset": 800,
+        "account": 1
+      },
+      {
+        "offset": 850,
+        "account": 1
+      },
+      {
+        "offset": 900,
+        "account": 1
+      },
+      {
+        "offset": 950,
+        "account": 1
+      },
+      {
+        "offset": 1000,
+        "account": 1
+      },
+      {
+        "offset": 1050,
+        "account": 1
+      },
+      {
+        "offset": 1100,
+        "account": 1
+      },
+      {
+        "offset": 1150,
+        "account": 1
+      },
+      {
+        "offset": 1200,
+        "account": 1
+      },
+      {
+        "offset": 1250,
+        "account": 1
+      },
+      {
+        "offset": 1300,
+        "account": 1
+      },
+      {
+        "offset": 1350,
+        "account": 1
+      },
+      {
+        "offset": 1400,
+        "account": 1
+      },
+      {
+        "offset": 1450,
+        "account": 1
+      },
+      {
+        "offset": 1500,
+        "account": 1
+      },
+      {
+        "offset": 1550,
+        "account": 1
+      },
+      {
+        "offset": 1600,
+        "account": 1
+      },
+      {
+        "offset": 1650,
+        "account": 1
+      },
+      {
+        "offset": 1700,
+        "account": 1
+      },
+      {
+        "offset": 1750,
+        "account": 1
+      },
+      {
+        "offset": 1800,
+        "account": 1
+      },
+      {
+        "offset": 1850,
+        "account": 1
+      },
+      {
+        "offset": 1900,
+        "account": 1
+      },
+      {
+        "offset": 1950,
+        "account": 1
+      },
+      {
+        "offset": 2000,
+        "account": 1
+      },
+      {
+        "offset": 2050,
+        "account": 1
+      },
+      {
+        "offset": 2100,
+        "account": 1
+      },
+      {
+        "offset": 2150,
+        "account": 1
+      },
+      {
+        "offset": 2200,
+        "account": 1
+      },
+      {
+        "offset": 2250,
+        "account": 1
+      },
+      {
+        "offset": 2300,
+        "account": 1
+      },
+      {
+        "offset": 2350,
+        "account": 1
+      },
+      {
+        "offset": 2400,
+        "account": 1
+      },
+      {
+        "offset": 2450,
+        "account": 1
+      },
+      {
+        "offset": 2500,
+        "account": 1
+      },
+      {
+        "offset": 2550,
+        "account": 1
+      },
+      {
+        "offset": 2600,
+        "account": 1
+      },
+      {
+        "offset": 2650,
+        "account": 1
+      },
+      {
+        "offset": 2700,
+        "account": 1
+      },
+      {
+        "offset": 2750,
+        "account": 1
+      },
+      {
+        "offset": 2800,
+        "account": 1
+      },
+      {
+        "offset": 2850,
+        "account": 1
+      },
+      {
+        "offset": 2900,
+        "account": 1
+      },
+      {
+        "offset": 2950,
+        "account": 1
+      },
+      {
+        "offset": 3000,
+        "account": 1
+      },
+      {
+        "offset": 3050,
+        "account": 1
+      },
+      {
+        "offset": 3100,
+        "account": 1
+      },
+      {
+        "offset": 3150,
+        "account": 1
+      },
+      {
+        "offset": 3200,
+        "account": 1
+      },
+      {
+        "offset": 3250,
+        "account": 1
+      },
+      {
+        "offset": 3300,
+        "account": 1
+      },
+      {
+        "offset": 3350,
+        "account": 1
+      },
+      {
+        "offset": 3400,
+        "account": 1
+      },
+      {
+        "offset": 3450,
+        "account": 1
+      },
+      {
+        "offset": 3500,
+        "account": 1
+      },
+      {
+        "offset": 3550,
+        "account": 1
+      },
+      {
+        "offset": 3600,
+        "account": 1
+      },
+      {
+        "offset": 3650,
+        "account": 1
+      },
+      {
+        "offset": 3700,
+        "account": 1
+      },
+      {
+        "offset": 3750,
+        "account": 1
+      },
+      {
+        "offset": 3800,
+        "account": 1
+      },
+      {
+        "offset": 3850,
+        "account": 1
+      },
+      {
+        "offset": 3900,
+        "account": 1
+      },
+      {
+        "offset": 3950,
+        "account": 1
+      },
+      {
+        "offset": 4000,
+        "account": 1
+      },
+      {
+        "offset": 4050,
+        "account": 1
+      },
+      {
+        "offset": 4100,
+        "account": 1
+      },
+      {
+        "offset": 4150,
+        "account": 1
+      },
+      {
+        "offset": 4200,
+        "account": 1
+      },
+      {
+        "offset": 4250,
+        "account": 1
+      },
+      {
+        "offset": 4300,
+        "account": 1
+      },
+      {
+        "offset": 4350,
+        "account": 1
+      },
+      {
+        "offset": 4400,
+        "account": 1
+      },
+      {
+        "offset": 4450,
+        "account": 1
+      },
+      {
+        "offset": 4500,
+        "account": 1
+      },
+      {
+        "offset": 4550,
+        "account": 1
+      },
+      {
+        "offset": 4600,
+        "account": 1
+      },
+      {
+        "offset": 4650,
+        "account": 1
+      },
+      {
+        "offset": 4700,
+        "account": 1
+      },
+      {
+        "offset": 4750,
+        "account": 1
+      },
+      {
+        "offset": 4800,
+        "account": 1
+      },
+      {
+        "offset": 4850,
+        "account": 1
+      },
+      {
+        "offset": 4900,
+        "account": 1
+      },
+      {
+        "offset": 4950,
+        "account": 1
+      },
+      {
+        "offset": 5000,
+        "account": 1
+      },
+      {
+        "offset": 5050,
+        "account": 1
+      },
+      {
+        "offset": 0,
+        "account": 1
+      },
+      {
+        "offset": 50,
+        "account": 1
+      },
+      {
+        "offset": 0,
+        "account": 2
+      },
+      {
+        "offset": 50,
+        "account": 2
+      }
+    ],
+    "rows": 100
+  }
+]

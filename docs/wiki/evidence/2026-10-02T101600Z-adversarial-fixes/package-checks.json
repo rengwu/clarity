@@ -1,0 +1,41 @@
+[
+  {
+    "label": "package-build",
+    "command": [
+      "node",
+      "tooling/clarity.mjs",
+      "package"
+    ],
+    "cwd": "/Users/rengwu/Library/Caches/Clarity/build/adversarial-fixes-20261002/final-source",
+    "startedAt": "2026-10-02T10:44:02.492065+00:00",
+    "finishedAt": "2026-10-02T10:44:15.172674+00:00",
+    "exitCode": 0
+  },
+  {
+    "label": "packaged-regressions",
+    "command": [
+      "node",
+      "--test",
+      "--test-concurrency=1",
+      "tests/adversarial-services.mjs",
+      "tests/adversarial-renderer.mjs",
+      "tests/adversarial-state.mjs"
+    ],
+    "cwd": "/Users/rengwu/Library/Caches/Clarity/build/adversarial-fixes-20261002/final-source",
+    "startedAt": "2026-10-02T10:44:15.173228+00:00",
+    "finishedAt": "2026-10-02T10:45:12.950290+00:00",
+    "exitCode": 0
+  },
+  {
+    "label": "package-relocation",
+    "command": [
+      "node",
+      "--test",
+      "tests/package.mjs"
+    ],
+    "cwd": "/Users/rengwu/Library/Caches/Clarity/build/adversarial-fixes-20261002/final-source",
+    "startedAt": "2026-10-02T10:45:12.950730+00:00",
+    "finishedAt": "2026-10-02T10:45:32.717109+00:00",
+    "exitCode": 0
+  }
+]

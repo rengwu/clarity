@@ -1,0 +1,49 @@
+{
+  "before": {
+    "markdownFiles": 2,
+    "markdownSha256": "c6543203a93e17eb80957af5b2e37ab4c942ef26d772f00c951edbee8c35e6f2",
+    "recordCounts": [
+      [
+        "actions",
+        17
+      ],
+      [
+        "chats",
+        5
+      ],
+      [
+        "expenses",
+        2
+      ],
+      [
+        "todos",
+        1
+      ]
+    ]
+  },
+  "after": {
+    "markdownFiles": 2,
+    "markdownSha256": "c6543203a93e17eb80957af5b2e37ab4c942ef26d772f00c951edbee8c35e6f2",
+    "recordCounts": [
+      [
+        "actions",
+        17
+      ],
+      [
+        "chats",
+        5
+      ],
+      [
+        "expenses",
+        2
+      ],
+      [
+        "todos",
+        1
+      ]
+    ]
+  },
+  "unchanged": true,
+  "excluded": "Settings, music-recent and connection-state; OAuth grants changed through the normal sign-in flow.",
+  "recordedAt": "2026-10-01T16:49:01.511865+00:00"
+}

@@ -1,0 +1,66 @@
+{
+  "ownedFiles": [
+    {
+      "path": "src/renderer/markdown.tsx",
+      "before": "35adea008b16710d66d6bac8ea598cf466dfc3992b6a0ec3af27dd7d3937dc2b",
+      "after": "b8866d0f6e8cbc69ea6fcb07dbfc0a57b09b7f135bfa284f8342da76586092a8"
+    },
+    {
+      "path": "src/renderer/main.tsx",
+      "before": "d5a05c6406b9774034194465995249e1928ca63ce35656730d1e1a5e400368ce",
+      "after": "a2b1b6db326f43d40013d650d6a9f910b0d0656e32f608067cee00689f34b56b"
+    },
+    {
+      "path": "src/renderer/views/chat.tsx",
+      "before": "72e9094965671c21cd3ec6ebb5aff5d888bfd16209123cd1344079e91462b7e0",
+      "after": "9ab474fd0b4eb1994d7a2b86843335c59d64929ffe8295dfbc20fabffd071eb1"
+    },
+    {
+      "path": "src/renderer/views/wiki.tsx",
+      "before": "13340047c74762d4ae2e2da65ff0ade82fbf8d8f58c82defd319f04fa6f83028",
+      "after": "5af5d217a3064b6b534b5adb0389f0e0439efadbb8e0e519da08032986936213"
+    },
+    {
+      "path": "src/main/wiki.ts",
+      "before": "42f410eff23aed9b06e026d9c42a74db6d5ba8553bdff1e691e281fbcac5a61d",
+      "after": "7abe49247bf8e9ab07570f3c7be8e3beb203e5b6dadca5b6e580fc92cea0ffdb"
+    },
+    {
+      "path": "src/renderer/state.ts",
+      "before": "723efc6975ae4e77d3924f60211f5c1be2c5ca15de8348756870d9f2e0e6b68c",
+      "after": "cc35f2c33b3e283298f6a61f7c5f8ce47f48aa9802d3c19ed8a8f03a9eb1a5b6"
+    },
+    {
+      "path": "tests/adversarial-renderer.mjs",
+      "before": null,
+      "after": "0d2999f8cdffb5d6766b99b62b3482383a57118432d4d416f23e6e7db9beca82"
+    }
+  ],
+  "runtime": {
+    "app.css": "b3964cc17d28980009780dfe7d71788d2afba588984e2e993dddbf8994423712",
+    "app.css.map": "64bb786996ed74002cc13575e3c1741cbeb2ec9e57472c192a1a654ac6f35cf7",
+    "app.js": "813f03a107640e22aa979f3a181bec14d8f31add559100159c9cdef775e150fc",
+    "app.js.map": "e4b88c65a373f7a7639f5f8b58c64eae2c42c4c962411720c8fbae1bc50a1d51",
+    "clarity-player": "6a95f5f7442f68e8aae92c1aa754a666317c094a259ff25e96ebb3d98be38131",
+    "index.html": "bcd785e95fb0ab58fd806a26ac1c8ce7d5cd692c274ad1b014c3f681ae02293b",
+    "main.mjs": "2c1107dbe722ff3e6bfb0b6e82434aa6dfa7e95efcda8733b5791c873591d53c",
+    "main.mjs.map": "214e33b454fef0d5d28e067f9bf4b3c96fa0a6127203846859cc084afd6a816c",
+    "preload.cjs": "8f51417738610391aa9ae5cd4bca18cfb43f19998a351244404972880890264a",
+    "preload.cjs.map": "b9abf61530f2885530366d12864ec2474b908e8a5ef80ea6fb1896d89f5dd201",
+    "worker.mjs": "ff1dd08710e3df237c3e640e7ebb2bc7a4764617f59f4918c5a2db50668f44a4",
+    "worker.mjs.map": "26dcd88e34046ce924230d4bbbce175a4df93892e7030e2d96005ec398e5f913"
+  },
+  "baselineRuntime": {
+    "app.css": "06b7ec91c70a7d428542563f3fe292eca2d565eb40676e020646f02f8299dc8e",
+    "app.css.map": "c123d7d38dbbb2baba27bd18ad491b6704d86931d31f05e11d37815526c70c2c",
+    "app.js": "5f633acb1e11a2456fafbbcb8cbade98e68a2005099eeaab6b54bd899422388a",
+    "app.js.map": "016cf83f809879a5ac4825699fba1e02a4041f652c80a0695c91a19ee028dba2",
+    "index.html": "bcd785e95fb0ab58fd806a26ac1c8ce7d5cd692c274ad1b014c3f681ae02293b",
+    "main.mjs": "b467de6c01951039b0370fd1c0fd84354ebf4a10d4fcf9975a2ddf0c829f25f9",
+    "main.mjs.map": "e1cbdb3548cc151ed3a9ff5f74da5def5827be1a05d051aebed78754b596f0a4",
+    "preload.cjs": "0ab582f06dbfc708702d760edba2891c1ca581da4d338f718b43feda416bc9b8",
+    "preload.cjs.map": "5fb622a57d73217dd379713ab67ea445f5738861d4932ec08a135ee332fbcc32",
+    "worker.mjs": "ff1dd08710e3df237c3e640e7ebb2bc7a4764617f59f4918c5a2db50668f44a4",
+    "worker.mjs.map": "7ebb33e9bd24a0138d821385749fb17a229169dbfd766a9f78f26baf0f18ff3c"
+  }
+}

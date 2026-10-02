@@ -1,0 +1,46 @@
+TAP version 13
+# Subtest: OAuth state/PKCE, encrypted tokens, refresh and read-only Gmail with controlled responses
+ok 1 - OAuth state/PKCE, encrypted tokens, refresh and read-only Gmail with controlled responses
+  ---
+  duration_ms: 10005.145209
+  type: 'test'
+  ...
+# Subtest: Spotify login survives expiry and restart; renewal preserves and rotates refresh tokens
+ok 2 - Spotify login survives expiry and restart; renewal preserves and rotates refresh tokens
+  ---
+  duration_ms: 4585.039292
+  type: 'test'
+  ...
+# Subtest: Spotify search/playlist compatibility and playback failure presentation
+ok 3 - Spotify search/playlist compatibility and playback failure presentation
+  ---
+  duration_ms: 4156.794
+  type: 'test'
+  ...
+# Subtest: Navidrome connection errors guide retry and preserve the saved account
+ok 4 - Navidrome connection errors guide retry and preserve the saved account
+  ---
+  duration_ms: 3989.676583
+  type: 'test'
+  ...
+# Subtest: Navidrome HTTP stream plays, seeks through the player bar and ends a single-song queue
+ok 5 - Navidrome HTTP stream plays, seeks through the player bar and ends a single-song queue
+  ---
+  duration_ms: 4129.451708
+  type: 'test'
+  ...
+# Subtest: Music caches navigation reads, shares pending requests and invalidates changed accounts
+ok 6 - Music caches navigation reads, shares pending requests and invalidates changed accounts
+  ---
+  duration_ms: 7422.338667
+  type: 'test'
+  ...
+1..6
+# tests 6
+# suites 0
+# pass 6
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 34600.902791

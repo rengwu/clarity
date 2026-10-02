@@ -1,0 +1,9 @@
+{
+  "installed": "/Users/rengwu/Applications/Clarity.app",
+  "backup": "/Users/rengwu/Library/Caches/Clarity/build/Clarity-before-settings-2026-10-01T03-59-20.797Z.app",
+  "installedAt": "2026-10-01T03:59:30.608Z",
+  "signatureVerified": true,
+  "runtimeMatchesTestedPackage": true,
+  "packageRuntimeSha256": "7d9c64b0f1089b700dbd5bc593f902403caed103446f52f9500362f85e8a6e13",
+  "runningInstance": "Existing session left running; normal Quit/reopen loads the update."
+}

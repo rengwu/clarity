@@ -1,0 +1,26 @@
+{
+  "recordedAt": "2026-10-01T16:40:06.943Z",
+  "destination": "/Users/rengwu/Applications/Clarity.app",
+  "backup": "/Users/rengwu/Library/Caches/Clarity/build/Clarity-before-music-cache-20261001T163445Z.app",
+  "previous": {
+    "main.mjs": "6d65db6c9db065f9e00a00c9c3709921ccc393b6ff30d877fa3246ecc6612316",
+    "preload.cjs": "8f51417738610391aa9ae5cd4bca18cfb43f19998a351244404972880890264a",
+    "worker.mjs": "ff1dd08710e3df237c3e640e7ebb2bc7a4764617f59f4918c5a2db50668f44a4",
+    "app.js": "2b61861c2ca91d5d9f4a74b4c6466259ac4cf6a8bb70a5cc2c190a631b942602",
+    "app.css": "d170761bec47d45bf24e340ce877ea2b46d2cb53afc774fab6486cfdd6888f7b",
+    "index.html": "bcd785e95fb0ab58fd806a26ac1c8ce7d5cd692c274ad1b014c3f681ae02293b",
+    "clarity-player": "607ab1c0a2f5a1f8ff56ffec5e5c1b22de196f51b3f1f79bdb525271d869c180"
+  },
+  "installed": {
+    "main.mjs": "6d65db6c9db065f9e00a00c9c3709921ccc393b6ff30d877fa3246ecc6612316",
+    "preload.cjs": "8f51417738610391aa9ae5cd4bca18cfb43f19998a351244404972880890264a",
+    "worker.mjs": "ff1dd08710e3df237c3e640e7ebb2bc7a4764617f59f4918c5a2db50668f44a4",
+    "app.js": "2b61861c2ca91d5d9f4a74b4c6466259ac4cf6a8bb70a5cc2c190a631b942602",
+    "app.css": "d170761bec47d45bf24e340ce877ea2b46d2cb53afc774fab6486cfdd6888f7b",
+    "index.html": "bcd785e95fb0ab58fd806a26ac1c8ce7d5cd692c274ad1b014c3f681ae02293b",
+    "clarity-player": "607ab1c0a2f5a1f8ff56ffec5e5c1b22de196f51b3f1f79bdb525271d869c180"
+  },
+  "packageMatchesInstalled": true,
+  "signatureVerified": true,
+  "launchedWithUserData": false
+}

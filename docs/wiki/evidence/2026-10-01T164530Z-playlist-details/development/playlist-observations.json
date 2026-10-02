@@ -1,0 +1,15 @@
+{
+  "title": "Fixture playlist",
+  "rows": [
+    "1Michael fixture songMichael fixture artistSpotify3:45",
+    "2Second fixture songMichael fixture artistSpotify3:45"
+  ],
+  "artworkCount": 2,
+  "requestsBeforeAndAfterRevisit": 4,
+  "requests": [
+    "/v1/search?q=michael&type=track%2Calbum%2Cartist%2Cplaylist&limit=10",
+    "/v1/playlists/playlist-one?fields=id,name,type,images",
+    "/v1/playlists/playlist-one/items?limit=50",
+    "/v1/playlists/playlist-one/items?limit=50&offset=50"
+  ]
+}

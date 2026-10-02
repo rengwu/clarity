@@ -1,0 +1,1 @@
+Passed: label clicks on Albums, Playlists and Artist at desktop/mobile; nested Back; Enter/Space; arrow click; no playback or runtime errors.

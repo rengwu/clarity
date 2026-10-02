@@ -1,0 +1,29 @@
+{
+  "screens": [
+    "Notes",
+    "Todos",
+    "Expenses",
+    "News",
+    "Bookmarks",
+    "Music",
+    "Agent board",
+    "Automations",
+    "Calendar",
+    "Wiki",
+    "Mail",
+    "Settings"
+  ],
+  "mailSearch": [
+    {
+      "tag": "svg",
+      "center": 108,
+      "margin": "0px"
+    },
+    {
+      "tag": "INPUT",
+      "center": 108,
+      "margin": "0px"
+    }
+  ],
+  "rendererErrors": []
+}

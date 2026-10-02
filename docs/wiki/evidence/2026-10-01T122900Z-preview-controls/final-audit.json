@@ -1,0 +1,13 @@
+{
+  "externalSourceMatchesRecordedManifest": true,
+  "workspaceHashesUnchangedDuringExampleChecks": {
+    "applicationSha256": true,
+    "verificationSha256": true,
+    "packageRuntimeSha256": true
+  },
+  "documentationChecks": {
+    "reportChecker": "9 reports, no errors",
+    "wikiBuild": "129 pages built",
+    "wikiSnapshot": "129 pages and internal links checked; current"
+  }
+}

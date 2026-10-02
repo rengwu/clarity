@@ -1,0 +1,8 @@
+{
+  "source": "/Users/rengwu/Library/Caches/Clarity/build/adversarial-fixes-20261002/baseline-source",
+  "hashes": {
+    "src/main/files.ts": "9191847f9a347763ca693560862d37b43550f7bff57339150a5dae218a287851",
+    "src/main/modules.ts": "033e88e6585b5ef8501efab30b1c36321dc2f8279d432d4feff0f291ffc425e0",
+    "src/main/integrations.ts": "cbaa9dbf43a2287ba65be5c6be41e50f2e704d4b204f32b8843eb0648ab6905a"
+  }
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "command": [
+      "node",
+      "--test",
+      "--test-name-pattern=creating a conversation|new-conversation",
+      "tests/adversarial-renderer.mjs"
+    ],
+    "attempt": 1,
+    "exitCode": 0
+  },
+  {
+    "command": [
+      "node",
+      "--test",
+      "--test-name-pattern=creating a conversation|new-conversation",
+      "tests/adversarial-renderer.mjs"
+    ],
+    "attempt": 2,
+    "exitCode": 0
+  }
+]

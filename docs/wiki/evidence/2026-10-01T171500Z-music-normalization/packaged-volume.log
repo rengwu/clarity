@@ -1,0 +1,28 @@
+TAP version 13
+# Subtest: native Music UI applies normalization, album/shuffle modes, settings and persistence
+not ok 1 - native Music UI applies normalization, album/shuffle modes, settings and persistence
+  ---
+  duration_ms: 164.517166
+  type: 'test'
+  location: '/Users/rengwu/Desktop/Projects/clarity/tests/music-volume.mjs:201:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    electron.launch: Failed to launch: Error: spawn /Users/rengwu/Library/Caches/Clarity/build/Clarity.app/Contents/MacOS/Clarity ENOENT
+    Call log:
+    [2m  - <launching> /Users/rengwu/Library/Caches/Clarity/build/Clarity.app/Contents/MacOS/Clarity --inspect=0 --remote-debugging-port=0[22m
+    [2m  - [pid=N/A] starting temporary directories cleanup[22m
+    [2m  - [pid=N/A] finished temporary directories cleanup[22m
+    
+  code: 'ERR_TEST_FAILURE'
+  stack: |-
+    async TestContext.<anonymous> (/Users/rengwu/Desktop/Projects/clarity/tests/music-volume.mjs:272:21)
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 0
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 248.110458

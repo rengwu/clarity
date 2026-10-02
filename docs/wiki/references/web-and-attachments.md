@@ -2,11 +2,13 @@
 title: Web browsing and attachment research
 section: References
 status: Exploring
-updated: 2026-09-28
+updated: 2026-09-29
 order: 10
 summary: Source review of interactive browsing, persistent sign-in, and broad local attachments.
 ---
 # Web browsing and attachment research
+
+**Dated research, not the current rebuild contract.** The observations below describe the inspected revisions and experiments at their stated dates. Later implementation choices and app validation are in [Implementation and validation](implementation.md); unresolved work is in [Current follow-up](../discussions/open-questions.md). Historical statements that integration, storage, or packaging were undecided do not reopen those choices.
 
 The user requested research before answering the [web and attachment follow-ups](../discussions/open-questions.md#fifth-question-round-27-september-2026). Findings below are observations and assistant recommendations, not new accepted scope or technology decisions.
 

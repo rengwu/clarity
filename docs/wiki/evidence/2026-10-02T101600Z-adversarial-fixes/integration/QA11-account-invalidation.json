@@ -1,0 +1,51 @@
+{
+  "requests": [
+    {
+      "method": "list",
+      "account": "Previous",
+      "args": {
+        "pageToken": "",
+        "query": ""
+      }
+    },
+    {
+      "method": "read",
+      "account": "Previous",
+      "args": {
+        "id": "Previous-message"
+      }
+    },
+    {
+      "method": "list",
+      "account": "Previous",
+      "args": {
+        "pageToken": "",
+        "query": ""
+      }
+    },
+    {
+      "method": "read",
+      "account": "Previous",
+      "args": {
+        "id": "Previous-message"
+      }
+    },
+    {
+      "method": "list",
+      "account": "Previous",
+      "args": {
+        "pageToken": "",
+        "query": ""
+      }
+    },
+    {
+      "method": "list",
+      "account": "Current",
+      "args": {
+        "pageToken": "",
+        "query": ""
+      }
+    }
+  ],
+  "reader": "Select a message."
+}

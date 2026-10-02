@@ -1,0 +1,22 @@
+TAP version 13
+# Subtest: task dates validate, preserve revisions and persist through approved actions and restart
+ok 1 - task dates validate, preserve revisions and persist through approved actions and restart
+  ---
+  duration_ms: 396.370875
+  type: 'test'
+  ...
+# Subtest: dated tasks use real Todo controls and stay in sync across Calendar views and restart
+ok 2 - dated tasks use real Todo controls and stay in sync across Calendar views and restart
+  ---
+  duration_ms: 8987.730542
+  type: 'test'
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 2
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 9910.119833
