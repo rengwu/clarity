@@ -1,0 +1,52 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { mkdir, readFile } from 'node:fs/promises';
+import { homedir } from 'node:os';
+import { join, resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
+import { createRequire } from 'node:module';
+const cache = process.env.CLARITY_BUILD_CACHE || join(homedir(), 'Library/Caches/Clarity/build');
+const require = createRequire(join(cache, 'loader.cjs'));
+
+test('offline project wiki: navigation, search, source, evidence, metadata and saved appearance', {timeout:60000}, async () => {
+  const browser = await require('playwright-core').chromium.launch({channel:'chrome',headless:true});
+  try {
+    const context=await browser.newContext({offline:true,viewport:{width:1280,height:850}});
+    const page=await context.newPage();
+    page.setDefaultTimeout(8000);
+    const errors=[];page.on('pageerror',error=>errors.push(error.message));
+    await page.goto(pathToFileURL(resolve('docs/wiki/index.html')).toString());
+    await page.getByRole('heading',{name:'Clarity',exact:true,level:1}).waitFor();
+    await page.getByRole('searchbox',{name:'Search the wiki',exact:true}).fill('FEAT-verification-workflow');
+    await page.getByRole('button',{name:'Search',exact:true}).click();
+    await page.locator('#results').getByRole('link',{name:'Verification and wiki maintenance',exact:true}).click();
+    await page.getByRole('heading',{name:'Verification and wiki maintenance',exact:true,level:1}).waitFor();
+    await page.locator('#article').getByRole('link',{name:'1 October 2026: UI fixes and jstack adoption',exact:true}).click();
+    const report=await readFile('docs/wiki/verification/runs/2026-09-30T165735Z-ui-fixes-jstack.md','utf8');
+    const outcome=report.match(/^result: (.+)$/m)[1];
+    await page.locator('#page-meta').getByText(`Result: ${outcome}`,{exact:true}).waitFor();
+    const reportUrl=page.url();
+    const evidence=page.locator('#article').getByRole('link',{name:'Build fingerprint',exact:true}).first();
+    const address=new URL(await evidence.getAttribute('href'),page.url()).toString();
+    assert.match(address,/^file:.*\/evidence\/.*\/build.json$/);
+    await page.goto(address);
+    await page.getByText('applicationSha256',{exact:false}).first().waitFor();
+    await page.goto(reportUrl);
+    await page.locator('#source-tab').click();
+    await page.locator('#source-text').getByText(`result: ${outcome}`,{exact:false}).waitFor();
+    await page.locator('#read-tab').click();
+    await page.locator('#appearance > summary').click();
+    await page.getByRole('radio',{name:'Dark',exact:true}).check();
+    assert.equal(await page.locator('html').getAttribute('data-theme'),'dark');
+    await page.reload();
+    assert.equal(await page.locator('html').getAttribute('data-theme'),'dark');
+    await page.setViewportSize({width:850,height:600});
+    await page.locator('#appearance > summary').click();
+    await page.getByRole('radio',{name:'Light',exact:true}).check();
+    assert.equal(await page.locator('html').getAttribute('data-theme'),'light');
+    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
+    await mkdir(join(cache,'ui-fixes-2026-10-01'),{recursive:true});
+    await page.screenshot({path:join(cache,'ui-fixes-2026-10-01/wiki-verification-reader.png')});
+    assert.deepEqual(errors,[]);
+  } finally {await browser.close();}
+});

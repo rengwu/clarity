@@ -50,9 +50,14 @@ export class Secrets {
     else next[key] = value;
     const file = join(this.root, '.clarity', 'credentials.bin');
     const temporary = `${file}.${randomUUID()}.tmp`;
-    await writeFile(temporary, safeStorage.encryptString(JSON.stringify(next)), { mode: 0o600 });
+    await writeFile(temporary, safeStorage.encryptString(JSON.stringify(next)), {
+      mode: 0o600,
+    });
     if (this.warning)
-      await copyFile(file, join(this.root, '.clarity', `credentials-recovery-${randomUUID()}.bin`));
+      await copyFile(
+        file,
+        join(this.root, '.clarity', `credentials-recovery-${randomUUID()}.bin`),
+      );
     await rename(temporary, file);
     this.values = next;
     this.warning = undefined;
@@ -113,7 +118,10 @@ export class Auth {
     if (!credential) throw new Error('Connect Codex in Settings.');
     if (credential.expires < Date.now() + 60000)
       credential = await this.refresh('codex', async () => {
-        const updated = await openaiCodexOAuth.refresh!(credential, new AbortController().signal);
+        const updated = await openaiCodexOAuth.refresh!(
+          credential,
+          new AbortController().signal,
+        );
         await this.secrets.set('codex', updated);
         return updated;
       });
@@ -145,7 +153,10 @@ export class Auth {
       prompt: async (prompt) => {
         if (prompt.type === 'select') return 'browser';
         const id = randomUUID();
-        this.notify({ type: 'auth', data: { kind: 'prompt', id, message: prompt.message } });
+        this.notify({
+          type: 'auth',
+          data: { kind: 'prompt', id, message: prompt.message },
+        });
         return new Promise<string>((resolve, reject) => {
           this.prompts.set(id, { resolve, reject });
           prompt.signal?.addEventListener(
@@ -165,7 +176,10 @@ export class Auth {
     });
     await this.secrets.set('codex', credential);
     await this.secrets.set('codex-existing', undefined);
-    this.notify({ type: 'auth', data: { kind: 'connected', provider: 'codex' } });
+    this.notify({
+      type: 'auth',
+      data: { kind: 'connected', provider: 'codex' },
+    });
     return this.status();
   }
   async connectOAuth(
@@ -177,7 +191,8 @@ export class Auth {
     const state = randomBytes(24).toString('hex');
     const verifier = randomBytes(48).toString('base64url');
     const challenge = createHash('sha256').update(verifier).digest('base64url');
-    const port = provider === 'spotify-playback' ? 8898 : provider === 'spotify' ? 43827 : 43828;
+    const port =
+      provider === 'spotify-playback' ? 8898 : provider === 'spotify' ? 43827 : 43828;
     const path = provider === 'spotify-playback' ? '/login' : '/callback';
     const redirect = `http://127.0.0.1:${port}${path}`;
     this.cancel();
@@ -272,19 +287,36 @@ export class Auth {
         `Sign-in failed (${response.status}). Check the client ID and registered redirect URL.`,
       );
     const tokens = (await response.json()) as any;
-    await this.secrets.set(`${provider}-config`, { clientId: clientId.trim(), clientSecret });
-    await this.secrets.set(provider, { ...tokens, expires: Date.now() + tokens.expires_in * 1000 });
+    await this.secrets.set(`${provider}-config`, {
+      clientId: clientId.trim(),
+      clientSecret,
+    });
+    await this.secrets.set(provider, {
+      ...tokens,
+      expires: Date.now() + tokens.expires_in * 1000,
+    });
+    this.notify({ type: 'auth', data: { kind: 'connected', provider } });
     return this.status();
   }
-  async token(provider: 'google' | 'spotify' | 'spotify-playback') {
+  async token(provider: 'google' | 'spotify' | 'spotify-playback', rejectedToken?: string) {
+    const name =
+      provider === 'google'
+        ? 'Google'
+        : provider === 'spotify-playback'
+          ? 'Spotify playback'
+          : 'Spotify';
     let credential = this.secrets.get(provider);
-    if (!credential)
-      throw new Error(
-        `Connect ${provider === 'google' ? 'Google' : provider === 'spotify-playback' ? 'Spotify playback' : 'Spotify'} in Settings.`,
-      );
-    if (credential.expires < Date.now() + 60000)
+    if (!credential) throw new Error(`Connect ${name} in Settings.`);
+    if (
+      !credential.access_token ||
+      !Number.isFinite(credential.expires) ||
+      credential.expires < Date.now() + 60000 ||
+      credential.access_token === rejectedToken
+    )
       credential = await this.refresh(provider, async () => {
         const config = this.secrets.get(`${provider}-config`);
+        if (!credential.refresh_token || !config?.clientId)
+          throw new Error(`Reconnect ${name} in Settings to renew its saved sign-in.`);
         const endpoint =
           provider === 'google'
             ? 'https://oauth2.googleapis.com/token'
@@ -300,10 +332,30 @@ export class Auth {
           }),
           signal: AbortSignal.timeout(30000),
         });
-        if (!response.ok)
-          throw new Error(`Reconnect ${provider} in Settings (${response.status}).`);
-        const next = (await response.json()) as any;
-        const updated = { ...credential, ...next, expires: Date.now() + next.expires_in * 1000 };
+        const next = (await response.json().catch(() => null)) as any;
+        if (!response.ok) {
+          if (next?.error === 'invalid_grant')
+            throw new Error(`${name}'s saved sign-in was rejected. Reconnect it in Settings.`);
+          if (next?.error === 'invalid_client')
+            throw new Error(
+              `${name}'s client configuration was rejected. Check it in Settings.`,
+            );
+          throw new Error(
+            `${name} could not renew its connection (${response.status}). Try again shortly; your sign-in is still saved.`,
+          );
+        }
+        if (!next?.access_token || !(Number(next.expires_in) > 0))
+          throw new Error(
+            `${name} returned an invalid renewal response. Try again; your sign-in is still saved.`,
+          );
+        const updated = {
+          ...credential,
+          ...next,
+          refresh_token: next.refresh_token || credential.refresh_token,
+          expires: Date.now() + Number(next.expires_in) * 1000,
+        };
+        if (this.secrets.get(provider) !== credential)
+          throw new Error(`${name}'s connection changed. Try again.`);
         await this.secrets.set(provider, updated);
         return updated;
       });

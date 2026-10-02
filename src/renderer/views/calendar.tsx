@@ -1,6 +1,18 @@
+import { useSubmission } from '../state';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { invoke, useApp, useResource, Dialog, Field, ErrorText } from '../api';
+import {
+  invoke,
+  useApp,
+  useResource,
+  Dialog,
+  Field,
+  ErrorText,
+  listAll,
+  DeleteButton,
+  useItemFocus,
+} from '../api';
 import { localDate } from './expenses';
+import { Icon } from '../icons';
 
 const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const startOfWeek = (value: Date) => {
@@ -41,10 +53,13 @@ function layoutEvents(events: any[]) {
 
 export function Calendar() {
   const app = useApp();
-  const events = useResource<any>(
-    () => invoke('calendar', 'list', { limit: 2000 }),
-    [],
-    'calendar',
+  const submission = useSubmission();
+  const events = useResource<any>(() => listAll('calendar'), [], 'calendar');
+  const todosEnabled = app.bootstrap.settings.enabled.includes('todos');
+  const todos = useResource<any>(
+    () => (todosEnabled ? listAll('todos') : Promise.resolve({ items: [] })),
+    [todosEnabled],
+    'todos',
   );
   const [view, setView] = useState<'week' | 'month'>('week');
   const [date, setDate] = useState(new Date());
@@ -72,6 +87,44 @@ export function Calendar() {
     Date.UTC(value.getFullYear(), value.getMonth(), value.getDate()) / 86400000;
   const dayCount = Math.ceil((ordinal(lastMonth) - ordinal(firstDay)) / 7) * 7;
   const items: any[] = events.data?.items || [];
+  const tasksByDate = new Map<string, any[]>();
+  for (const task of [...(todosEnabled ? todos.data?.items || [] : [])].sort(
+    (a, b) => Number(a.done) - Number(b.done) || a.createdAt - b.createdAt,
+  )) {
+    if (!task.date) continue;
+    const tasks = tasksByDate.get(task.date) || [];
+    tasks.push(task);
+    tasksByDate.set(task.date, tasks);
+  }
+  const tasksForDay = (day: Date) =>
+    (tasksByDate.get(localDate(day)) || []).map((task) => (
+      <button
+        key={task.id}
+        className={`calendar-task${task.done ? ' completed' : ''}`}
+        data-todo-id={task.id}
+        aria-label={`${task.done ? 'Completed task' : 'Task'}: ${task.title}`}
+        title={task.title}
+        onClick={() => app.navigate('todos', { id: task.id })}
+      >
+        <span aria-hidden="true">{task.done ? '☑' : '☐'}</span>
+        <span className="task-name">{task.title}</span>
+      </button>
+    ));
+  useEffect(() => {
+    if (app.target?.module !== 'calendar' || !app.target.id || !events.data) return;
+    const item = items.find((item) => item.id === app.target!.id);
+    if (item) {
+      setDate(new Date(item.start));
+      setView('week');
+    }
+  }, [app.target, events.data]);
+  const focus = useItemFocus('calendar', events.data?.items, events.loading);
+  useEffect(() => {
+    if (focus.id)
+      document
+        .querySelector<HTMLElement>(`[data-item-id="${CSS.escape(focus.id)}"]`)
+        ?.scrollIntoView({ block: 'center' });
+  }, [date, view, focus.id]);
   const forDay = (day: Date) =>
     items
       .filter((item) => new Date(item.start) < plusDays(day, 1) && new Date(item.end) > day)
@@ -95,7 +148,7 @@ export function Calendar() {
     });
   };
   useEffect(() => {
-    if (view === 'week' && weekScroller.current) weekScroller.current.scrollTop = 7 * 60;
+    if (view === 'week' && weekScroller.current) weekScroller.current.scrollTop = 7 * 44;
   }, [view]);
   useLayoutEffect(() => {
     if (view !== 'month' || !scroller.current) return;
@@ -132,26 +185,52 @@ export function Calendar() {
           })}
         </h1>
         <div className="segmented">
-          <button className={view === 'week' ? 'selected' : ''} onClick={() => setView('week')}>
+          <button
+            className={view === 'week' ? 'selected' : ''}
+            onClick={() => {
+              if (view === 'month') setDate(visibleMonth);
+              setView('week');
+            }}
+          >
             Week
           </button>
-          <button className={view === 'month' ? 'selected' : ''} onClick={() => setView('month')}>
+          <button
+            className={view === 'month' ? 'selected' : ''}
+            onClick={() => setView('month')}
+          >
             Month
           </button>
         </div>
         <span className="spacer" />
-        <button aria-label="Previous period" onClick={() => navigate(-1)}>
-          ‹
+        <button
+          className="icon-button quiet"
+          aria-label="Previous period"
+          onClick={() => navigate(-1)}
+        >
+          <Icon name="left" size={14} />
         </button>
         <button onClick={() => setDate(new Date())}>Today</button>
-        <button aria-label="Next period" onClick={() => navigate(1)}>
-          ›
+        <button
+          className="icon-button quiet"
+          aria-label="Next period"
+          onClick={() => navigate(1)}
+        >
+          <Icon name="right" size={14} />
         </button>
-        <button className="primary" onClick={() => add(date)}>
-          + Event
+        <button
+          className="primary"
+          onClick={() => add(view === 'month' ? visibleMonth : date)}
+        >
+          <Icon name="plus" size={14} />
+          Event
         </button>
       </div>
-      <ErrorText>{events.error}</ErrorText>
+      <ErrorText>{events.error || focus.error}</ErrorText>
+      <ErrorText>
+        {todosEnabled && todos.error ? `Could not load tasks: ${todos.error}` : ''}
+      </ErrorText>
+      {events.loading && <p role="status">Loading events…</p>}
+      {todosEnabled && todos.loading && <p role="status">Loading tasks…</p>}
       {view === 'week' ? (
         <>
           <div className="week-heading">
@@ -160,11 +239,25 @@ export function Calendar() {
               const day = plusDays(week, index);
               return (
                 <div className={localDate(day) === localDate() ? 'today' : ''} key={name}>
-                  {name} {day.getDate()}
+                  <span>{name}</span>
+                  <strong>{day.getDate()}</strong>
                 </div>
               );
             })}
           </div>
+          {todosEnabled && (
+            <div className="week-tasks" aria-label="Dated tasks">
+              <span className="week-tasks-label">Tasks</span>
+              {dayNames.map((name, index) => {
+                const day = plusDays(week, index);
+                return (
+                  <div className="week-task-day" key={name} data-date={localDate(day)}>
+                    {tasksForDay(day)}
+                  </div>
+                );
+              })}
+            </div>
+          )}
           <div className="week-scroll" ref={weekScroller}>
             <div className="week-grid">
               <div className="hour-labels">
@@ -194,7 +287,8 @@ export function Calendar() {
                         Math.max(
                           0,
                           Math.floor(
-                            (event.clientY - event.currentTarget.getBoundingClientRect().top) / 30,
+                            (event.clientY - event.currentTarget.getBoundingClientRect().top) /
+                              22,
                           ) * 30,
                         ),
                       );
@@ -209,10 +303,12 @@ export function Calendar() {
                       return (
                         <button
                           className="calendar-event"
+                          data-item-id={item.id}
+                          data-focused={focus.id === item.id}
                           key={item.id}
                           style={{
-                            top,
-                            height: Math.max(24, (end - start) / 60000),
+                            top: (top * 44) / 60,
+                            height: Math.max(22, (((end - start) / 60000) * 44) / 60),
                             left: `${(column / columns) * 100}%`,
                             width: `${100 / columns}%`,
                           }}
@@ -276,7 +372,9 @@ export function Calendar() {
                     key={localDate(day)}
                     data-date={localDate(day)}
                     data-month={
-                      day.getDate() === 1 ? `${day.getFullYear()}-${day.getMonth()}` : undefined
+                      day.getDate() === 1
+                        ? `${day.getFullYear()}-${day.getMonth()}`
+                        : undefined
                     }
                     onDoubleClick={(event) => {
                       if (!(event.target as Element).closest('button')) add(day);
@@ -287,6 +385,7 @@ export function Calendar() {
                         ? day.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
                         : day.getDate()}
                     </time>
+                    {tasksForDay(day)}
                     {forDay(day).map((item) => (
                       <button key={item.id} onClick={() => edit(item)}>
                         {item.title}
@@ -302,21 +401,25 @@ export function Calendar() {
       {editing && (
         <Dialog
           title={editing.id ? 'Edit event' : 'New event'}
-          onClose={() => setEditing(undefined)}
+          onClose={() => {
+            if (!submission.busy) setEditing(undefined);
+          }}
         >
           <form
             onSubmit={async (event) => {
               event.preventDefault();
-              try {
-                await invoke('calendar', editing.id ? 'update' : 'add', {
-                  ...editing,
-                  start: new Date(editing.start).toISOString(),
-                  end: new Date(editing.end).toISOString(),
-                });
-                setEditing(undefined);
-              } catch (failure: any) {
-                setError(failure.message);
-              }
+              await submission.run(async () => {
+                try {
+                  await invoke('calendar', editing.id ? 'update' : 'add', {
+                    ...editing,
+                    start: new Date(editing.start).toISOString(),
+                    end: new Date(editing.end).toISOString(),
+                  });
+                  setEditing(undefined);
+                } catch (failure: any) {
+                  setError(failure.message);
+                }
+              });
             }}
           >
             <Field label="Title">
@@ -346,25 +449,24 @@ export function Calendar() {
             <ErrorText>{error}</ErrorText>
             <div className="form-actions">
               {editing.id && (
-                <button
-                  type="button"
-                  onClick={() =>
-                    void invoke('calendar', 'remove', {
+                <DeleteButton
+                  name={editing.title || editing.description || 'this item'}
+                  onDelete={async () => {
+                    await invoke('calendar', 'remove', {
                       id: editing.id,
                       revision: editing.revision,
-                    })
-                      .then(() => setEditing(undefined))
-                      .catch(app.error)
-                  }
-                >
-                  Delete
-                </button>
+                    });
+                    setEditing(undefined);
+                  }}
+                />
               )}
               <span className="spacer" />
               <button type="button" onClick={() => setEditing(undefined)}>
                 Cancel
               </button>
-              <button className="primary">Save</button>
+              <button className="primary" disabled={submission.busy}>
+                {submission.busy ? 'Saving…' : 'Save'}
+              </button>
             </div>
           </form>
         </Dialog>

@@ -22,18 +22,44 @@ export type RecordValue = {
 };
 export type Settings = {
   enabled: Module[];
+  autoApproveActions: string[];
   model: string;
   effort: string;
   lastChat?: string;
   currency: string;
+  location: string;
+  deviceLocation?: DeviceLocation;
+  useDeviceLocation: boolean;
+  locationRequested: boolean;
+  locationPermission: 'unknown' | 'granted' | 'denied';
+  locationError?: string;
   theme: 'system' | 'light' | 'dark';
+  linkdingRefreshMinutes: number;
+  autoInterpretCommands: boolean;
+  reducedMotion: boolean;
+  musicNormalization: boolean;
+};
+export type DeviceLocation = {
+  latitude: number;
+  longitude: number;
+  accuracyMetres: number;
+  measuredAt: number;
 };
 export const defaultSettings: Settings = {
   enabled: ['chat', 'notes', 'todos', 'wiki'],
+  autoApproveActions: [],
   model: 'gpt-5.5',
   effort: 'medium',
   currency: '',
+  location: '',
+  useDeviceLocation: true,
+  locationRequested: false,
+  locationPermission: 'unknown',
   theme: 'system',
+  linkdingRefreshMinutes: 0,
+  autoInterpretCommands: false,
+  reducedMotion: false,
+  musicNormalization: true,
 };
 export type Note = { path: string; title: string; modified: number; folder: boolean };
 export type Document = { path: string; text: string; version: string };
@@ -61,11 +87,13 @@ export type Action = RecordValue & {
   args: any;
   description: string;
   status: 'pending' | 'applying' | 'applied' | 'rejected' | 'failed';
+  autoApproved?: boolean;
   result?: any;
   error?: string;
+  before?: any;
 };
 export type AppEvent = {
-  type: 'changed' | 'chat' | 'auth' | 'playback';
+  type: 'changed' | 'chat' | 'auth' | 'playback' | 'navigate';
   module?: string;
   id?: string;
   data?: any;

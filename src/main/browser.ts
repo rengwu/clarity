@@ -10,6 +10,7 @@ export class Browser {
   private permissions = new Map<string, Set<string>>();
   private blocked = new Map<string, string>();
   private batches = new Map<string, Promise<any>>();
+  private permissionVersions = new Map<string, number>();
   constructor(private root: string) {}
   async start(visible = false) {
     if (this.context) return this.context;
@@ -66,8 +67,11 @@ export class Browser {
     };
   }
   async batch(owner: string, operations: any[], grants: string[]) {
+    const permissionVersion = this.permissionVersions.get(owner) || 0;
     const previous = this.batches.get(owner) || Promise.resolve();
-    const task = previous.catch(() => {}).then(() => this.performBatch(owner, operations, grants));
+    const task = previous
+      .catch(() => {})
+      .then(() => this.performBatch(owner, operations, grants, permissionVersion));
     this.batches.set(owner, task);
     try {
       return await task;
@@ -75,16 +79,31 @@ export class Browser {
       if (this.batches.get(owner) === task) this.batches.delete(owner);
     }
   }
-  private async performBatch(owner: string, operations: any[], grants: string[]) {
+  private async performBatch(
+    owner: string,
+    operations: any[],
+    grants: string[],
+    permissionVersion: number,
+  ) {
     if (!Array.isArray(operations) || operations.length < 1 || operations.length > 12)
       throw new Error('Use between 1 and 12 browser actions per batch.');
     const context = await this.start();
+    if (permissionVersion !== (this.permissionVersions.get(owner) || 0))
+      throw new Error(
+        'Website access changed. Check this chat’s permissions before browsing again.',
+      );
     let page = this.pages.get(owner);
     const allowed = new Set(grants);
     this.permissions.set(owner, allowed);
     this.blocked.delete(owner);
     if (!page || page.isClosed()) {
       page = await context.newPage();
+      if (permissionVersion !== (this.permissionVersions.get(owner) || 0)) {
+        await page.close();
+        throw new Error(
+          'Website access changed. Check this chat’s permissions before browsing again.',
+        );
+      }
       this.pages.set(owner, page);
       page.on('popup', (popup) => void popup.close());
       await page.route('**/*', async (route) => {
@@ -262,5 +281,12 @@ export class Browser {
     await this.context?.close();
     this.context = undefined;
     this.pages.clear();
+  }
+  async revoke(owner: string, origin: string) {
+    this.permissionVersions.set(owner, (this.permissionVersions.get(owner) || 0) + 1);
+    this.permissions.get(owner)?.delete(origin);
+    const page = this.pages.get(owner);
+    this.pages.delete(owner);
+    await page?.close();
   }
 }

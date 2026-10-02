@@ -1,9 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { AttachmentChip } from '../attachment';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { call, useApp, useResource, ErrorText } from '../api';
 import { Markdown } from '../markdown';
-import type { Attachment } from '../../shared/types';
+import type { Action, Attachment } from '../../shared/types';
 
-const drafts = new Map<string, { text: string; attachments: Attachment[] }>();
+import { readDraft, readDraftRevision, useRememberedState, writeDraft } from '../state';
+import { ActionCard } from '../action-card';
+import { Icon } from '../icons';
+import { ModelPicker } from '../model-picker';
 
 function Message({ message }: { message: any }) {
   if (message.role === 'user' && message.clarity)
@@ -12,14 +16,7 @@ function Message({ message }: { message: any }) {
         <Markdown text={message.clarity.text} />
         <div className="attachment-list">
           {message.clarity.attachments.map((item: Attachment) => (
-            <span className="attachment-chip" key={item.id}>
-              {item.name}
-              {Date.now() - item.createdAt > 90 * 86400000
-                ? ' · expired'
-                : !item.supported
-                  ? ' · stored only'
-                  : ''}
-            </span>
+            <AttachmentChip key={item.id} attachment={item} />
           ))}
         </div>
       </article>
@@ -69,35 +66,42 @@ export function Chat({ id, onCreate }: { id?: string; onCreate: () => Promise<st
     [id],
     'chats',
   );
-  const actions = useResource<any[]>(
+  const actions = useResource<Action[]>(
     () => (id ? call('actions.list', { owner: id }) : Promise.resolve([])),
     [id],
     'actions',
   );
   const [live, setLive] = useState<any>();
-  const [text, setText] = useState('');
-  const [attachments, setAttachments] = useState<Attachment[]>([]);
+  const [text, setText] = useRememberedState(`chat:${id || 'new'}:text`, '', true);
+  const composerInput = useRef<HTMLTextAreaElement>(null);
+  useLayoutEffect(() => {
+    const input = composerInput.current;
+    if (!input || app.active !== 'chat') return;
+    input.style.height = 'auto';
+    input.style.height = `${Math.max(40, Math.min(240, input.scrollHeight))}px`;
+  }, [text, app.active]);
+  const [contextPath, setContextPath] = useRememberedState(
+    `chat:${id || 'new'}:context`,
+    '',
+    true,
+  );
+  useEffect(() => {
+    if (app.target?.module === 'chat' && app.target.contextPath)
+      setContextPath(app.target.contextPath);
+  }, [app.target]);
+  const [attachments, setAttachments] = useRememberedState<Attachment[]>(
+    `chat:${id || 'new'}:attachments`,
+    [],
+    true,
+  );
   const [error, setError] = useState('');
   const [sending, setSending] = useState(false);
-  const [reviewing, setReviewing] = useState('');
+  const sendPending = useRef(false);
   const [model, setModel] = useState(app.bootstrap.settings.model);
   const [effort, setEffort] = useState(app.bootstrap.settings.effort);
   const bottom = useRef<HTMLDivElement>(null);
   const scroll = useRef<HTMLDivElement>(null);
   const follow = useRef(true);
-  const draft = useRef({ text, attachments });
-  draft.current = { text, attachments };
-  useEffect(() => {
-    setLive(undefined);
-    setError('');
-    follow.current = true;
-    const saved = drafts.get(id || 'new');
-    setText(saved?.text || '');
-    setAttachments(saved?.attachments || []);
-    return () => {
-      drafts.set(id || 'new', draft.current);
-    };
-  }, [id]);
   useEffect(
     () =>
       window.clarity.subscribe((event) => {
@@ -108,6 +112,24 @@ export function Chat({ id, onCreate }: { id?: string; onCreate: () => Promise<st
   const chat = live || resource.data;
   const running = chat?.status === 'running' || sending;
   const messages = chat?.messages || [];
+  const timeline = [
+    ...[...messages, ...(live?.streaming ? [live.streaming] : [])].map((message, index) => ({
+      kind: 'message' as const,
+      key: `message:${index}`,
+      timestamp: message.timestamp || 0,
+      message,
+    })),
+    ...(actions.data || []).map((action) => ({
+      kind: 'action' as const,
+      key: `action:${action.id}`,
+      timestamp: action.createdAt,
+      action,
+    })),
+  ].sort((a, b) => {
+    if (a.timestamp !== b.timestamp) return a.timestamp - b.timestamp;
+    if (a.kind !== b.kind) return a.kind === 'message' ? -1 : 1;
+    return a.kind === 'action' ? a.key.localeCompare(b.key) : 0;
+  });
   useEffect(() => {
     if (follow.current) bottom.current?.scrollIntoView({ block: 'end' });
   }, [messages, live?.streaming, actions.data]);
@@ -131,33 +153,65 @@ export function Chat({ id, onCreate }: { id?: string; onCreate: () => Promise<st
   }
   async function send(event?: React.FormEvent) {
     event?.preventDefault();
-    if (running || (!text.trim() && !attachments.length)) return;
+    if (sendPending.current || running || (!text.trim() && !attachments.length)) return;
+    sendPending.current = true;
+    const submitted = { text, attachments, contextPath };
+    const sourcePrefix = `chat:${id || 'new'}`;
+    const submittedTextRevision = readDraftRevision(`${sourcePrefix}:text`);
+    const submittedContextRevision = readDraftRevision(`${sourcePrefix}:context`);
     setSending(true);
     setError('');
+    let created = false;
     try {
       const target = id || (await onCreate());
-      await call('chats.send', { id: target, text, attachments, model, effort });
-      drafts.delete(id || 'new');
-      setText('');
-      setAttachments([]);
+      created = !id;
+      const targetPrefix = `chat:${target}`;
+      const textUnchanged = readDraftRevision(`${sourcePrefix}:text`) === submittedTextRevision;
+      const contextUnchanged =
+        readDraftRevision(`${sourcePrefix}:context`) === submittedContextRevision;
+      if (!id) {
+        writeDraft(`${targetPrefix}:text`, readDraft(`${sourcePrefix}:text`, submitted.text));
+        writeDraft(
+          `${targetPrefix}:attachments`,
+          readDraft(`${sourcePrefix}:attachments`, submitted.attachments),
+        );
+        writeDraft(`${targetPrefix}:context`, readDraft(`${sourcePrefix}:context`, submitted.contextPath));
+        app.navigate('chat', { id: target });
+      }
+      const targetTextRevision = readDraftRevision(`${targetPrefix}:text`);
+      const targetContextRevision = readDraftRevision(`${targetPrefix}:context`);
+      await call('chats.send', {
+        id: target,
+        text: contextPath ? `About Wiki/${contextPath}:\n\n${text}` : text,
+        attachments,
+        model,
+        effort,
+      });
+      const draftKeys = id ? [target] : ['new', target];
+      for (const key of draftKeys) {
+        const prefix = `chat:${key}`;
+        const expectedTextRevision = key === target ? targetTextRevision : submittedTextRevision;
+        if (textUnchanged && readDraftRevision(`${prefix}:text`) === expectedTextRevision)
+          writeDraft(`${prefix}:text`, '');
+        const currentAttachments = readDraft<Attachment[]>(`${prefix}:attachments`, []);
+        writeDraft(
+          `${prefix}:attachments`,
+          currentAttachments.filter(
+            (item) => !submitted.attachments.some((sent) => sent.id === item.id),
+          ),
+        );
+        const expectedContextRevision = key === target ? targetContextRevision : submittedContextRevision;
+        if (contextUnchanged && readDraftRevision(`${prefix}:context`) === expectedContextRevision)
+          writeDraft(`${prefix}:context`, '');
+      }
       follow.current = true;
       await resource.reload();
     } catch (failure: any) {
-      setError(failure.message);
+      if (created) app.error(failure);
+      else setError(failure.message);
     } finally {
+      sendPending.current = false;
       setSending(false);
-    }
-  }
-  async function review(action: any, apply: boolean) {
-    setReviewing(action.id);
-    setError('');
-    try {
-      await call('actions.review', { id: action.id, apply });
-    } catch (failure: any) {
-      setError(failure.message);
-    } finally {
-      setReviewing('');
-      await actions.reload();
     }
   }
   return (
@@ -176,20 +230,28 @@ export function Chat({ id, onCreate }: { id?: string; onCreate: () => Promise<st
         ref={scroll}
         onScroll={() => {
           const element = scroll.current!;
-          follow.current = element.scrollHeight - element.scrollTop - element.clientHeight < 100;
+          follow.current =
+            element.scrollHeight - element.scrollTop - element.clientHeight < 100;
         }}
       >
         <div className="chat-content">
           {!messages.length && (
-            <h1>{app.bootstrap.auth.codex ? 'New chat' : 'Connect Codex to start chatting'}</h1>
+            <h1>
+              {app.bootstrap.auth.codex ? 'New chat' : 'Connect Codex to start chatting'}
+            </h1>
           )}
           {!app.bootstrap.auth.codex && (
-            <button onClick={() => app.navigate('settings')}>Connect Codex</button>
+            <button onClick={() => app.navigate('settings', { section: 'codex' })}>
+              Connect Codex
+            </button>
           )}
-          {messages.map((message: any, index: number) => (
-            <Message key={index} message={message} />
-          ))}
-          {live?.streaming && <Message message={live.streaming} />}
+          {timeline.map((item) =>
+            item.kind === 'message' ? (
+              <Message key={item.key} message={item.message} />
+            ) : (
+              <ActionCard key={item.key} action={item.action} />
+            ),
+          )}
           {running && (
             <div className="working" role="status">
               Working…
@@ -199,86 +261,40 @@ export function Chat({ id, onCreate }: { id?: string; onCreate: () => Promise<st
             <p className="muted">Response interrupted. You can continue this chat.</p>
           )}
           <ErrorText>{chat?.error || resource.error}</ErrorText>
-          {actions.data?.map((action) => (
-            <section className="action-review" key={action.id}>
-              <div className="row">
-                <strong>{action.description}</strong>
-                <span className="muted">
-                  {action.status === 'pending' ? 'Needs approval' : action.status}
-                </span>
-              </div>
-              <details open={action.status === 'pending'}>
-                <summary>Changes</summary>
-                <pre>{JSON.stringify(action.args, null, 2)}</pre>
-              </details>
-              <ErrorText>{action.error}</ErrorText>
-              {action.status === 'applied' &&
-                action.module === 'browser' &&
-                action.method === 'authorize' && (
-                  <button
-                    onClick={() =>
-                      void call('browser.login', { url: action.args.origin }).catch(app.error)
-                    }
-                  >
-                    Open browser
-                  </button>
-                )}
-              {action.status === 'applied' && action.module !== 'browser' && (
-                <button onClick={() => app.navigate(action.module)}>
-                  Open{' '}
-                  {action.module === 'todos'
-                    ? 'Todos'
-                    : action.module === 'notes'
-                      ? 'Notes'
-                      : action.module === 'wiki'
-                        ? 'Wiki'
-                        : action.module}
-                </button>
-              )}
-              {action.status === 'pending' && (
-                <div className="row">
-                  <button
-                    className="primary"
-                    disabled={reviewing === action.id}
-                    onClick={() => void review(action, true)}
-                  >
-                    Apply
-                  </button>
-                  <button
-                    disabled={reviewing === action.id}
-                    onClick={() => void review(action, false)}
-                  >
-                    Dismiss
-                  </button>
-                </div>
-              )}
-            </section>
-          ))}
           <div ref={bottom} />
         </div>
       </div>
       <form className="composer" onSubmit={send}>
         <ErrorText>{error}</ErrorText>
+        {contextPath && (
+          <div className="attachment-chip">
+            Wiki/{contextPath}
+            <button
+              type="button"
+              aria-label="Remove wiki context"
+              onClick={() => setContextPath('')}
+            >
+              ×
+            </button>
+          </div>
+        )}
         {!!attachments.length && (
           <div className="attachment-list">
             {attachments.map((attachment) => (
-              <span className="attachment-chip" key={attachment.id}>
-                {attachment.name}
-                {!attachment.supported && ' · stored only'}
-                <button
-                  type="button"
-                  aria-label={`Remove ${attachment.name}`}
-                  onClick={() =>
-                    setAttachments((current) => current.filter((item) => item.id !== attachment.id))
-                  }
-                >
-                  ×
-                </button>
-              </span>
+              <AttachmentChip
+                key={attachment.id}
+                attachment={attachment}
+                onRemove={() =>
+                  setAttachments((current) =>
+                    current.filter((item) => item.id !== attachment.id),
+                  )
+                }
+              />
             ))}
           </div>
         )}
         <textarea
+          ref={composerInput}
           aria-label="Message"
           placeholder="Message Clarity"
           value={text}
@@ -311,53 +327,39 @@ export function Chat({ id, onCreate }: { id?: string; onCreate: () => Promise<st
               }
             }}
           >
-            ＋
+            <Icon name="plus" />
           </button>
-          <select
-            aria-label="Model"
-            value={model}
-            onChange={(event) => {
-              setModel(event.target.value);
-              void call('settings.save', { model: event.target.value }).catch(app.error);
+          <ModelPicker
+            models={app.bootstrap.models}
+            model={model}
+            effort={effort}
+            onChange={(nextModel, nextEffort) => {
+              setModel(nextModel);
+              setEffort(nextEffort);
+              void call('settings.save', { model: nextModel, effort: nextEffort }).catch(
+                app.error,
+              );
             }}
-          >
-            {app.bootstrap.models.map((item: any) => (
-              <option key={item.id} value={item.id}>
-                {item.name}
-              </option>
-            ))}
-          </select>
-          <select
-            aria-label="Effort"
-            value={effort}
-            onChange={(event) => {
-              setEffort(event.target.value);
-              void call('settings.save', { effort: event.target.value }).catch(app.error);
-            }}
-          >
-            {(
-              app.bootstrap.models.find((item: any) => item.id === model)?.efforts || [
-                'low',
-                'medium',
-                'high',
-              ]
-            ).map((level: string) => (
-              <option key={level} value={level}>
-                {level}
-              </option>
-            ))}
-          </select>
+          />
           <span className="spacer" />
           {running ? (
-            <button type="button" onClick={() => void call('chats.stop', { id }).catch(app.error)}>
-              Stop
+            <button
+              type="button"
+              className="icon-button"
+              aria-label="Stop"
+              title="Stop"
+              onClick={() => void call('chats.stop', { id }).catch(app.error)}
+            >
+              <Icon name="stop" />
             </button>
           ) : (
             <button
-              className="primary"
+              className="primary icon-button"
+              aria-label="Send"
+              title="Send"
               disabled={(!text.trim() && !attachments.length) || !app.bootstrap.auth.codex}
             >
-              Send
+              <Icon name="send" />
             </button>
           )}
         </div>

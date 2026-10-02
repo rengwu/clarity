@@ -53,7 +53,12 @@ async function build() {
   for (const obsolete of ['main.cjs', 'main.cjs.map', 'wiki-builder.mjs'])
     await rm(join(output, obsolete), { force: true });
   const { build } = require('esbuild');
-  const common = { bundle: true, nodePaths: [modules], logLevel: 'warning', sourcemap: true };
+  const common = {
+    bundle: true,
+    nodePaths: [modules],
+    logLevel: 'warning',
+    sourcemap: true,
+  };
   await Promise.all([
     build({
       ...common,
@@ -292,6 +297,29 @@ async function packageApp() {
     'Set :CFBundleIdentifier local.clarity.desktop',
     join(destination, 'Contents/Info.plist'),
   ]);
+  for (const key of ['NSLocationUsageDescription', 'NSLocationWhenInUseUsageDescription'])
+    await run('/usr/libexec/PlistBuddy', [
+      '-c',
+      `Add :${key} string Clarity uses your approximate location for local answers. It is shared with your AI provider when you chat.`,
+      join(destination, 'Contents/Info.plist'),
+    ]);
+  await run('/usr/libexec/PlistBuddy', [
+    '-c',
+    'Add :NSLocalNetworkUsageDescription string Clarity connects to Navidrome and Linkding servers you choose on your local network.',
+    join(destination, 'Contents/Info.plist'),
+  ]);
+  for (const instruction of [
+    'Add :CFBundleURLTypes array',
+    'Add :CFBundleURLTypes:0 dict',
+    'Add :CFBundleURLTypes:0:CFBundleURLName string Clarity item links',
+    'Add :CFBundleURLTypes:0:CFBundleURLSchemes array',
+    'Add :CFBundleURLTypes:0:CFBundleURLSchemes:0 string clarity',
+  ])
+    await run('/usr/libexec/PlistBuddy', [
+      '-c',
+      instruction,
+      join(destination, 'Contents/Info.plist'),
+    ]);
   await run('/usr/bin/codesign', ['--force', '--deep', '--sign', '-', destination]);
   await run('/usr/bin/codesign', ['--verify', '--deep', '--strict', destination]);
   console.log(destination);
@@ -319,9 +347,23 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
         [
           '--test',
           '--test-concurrency=1',
-          ...['core', 'integration', 'connectors', 'live-chat'].map((name) =>
-            join(repository, `tests/${name}.mjs`),
-          ),
+          ...[
+            'core',
+            'integration',
+            'permissions',
+            'connectors',
+            'music-cache',
+            'music-pagination',
+            'music-recent',
+            'music-volume',
+            'usability',
+            'task-dates',
+            'redesign',
+            'adversarial-services',
+            'adversarial-renderer',
+            'adversarial-state',
+            'live-chat',
+          ].map((name) => join(repository, `tests/${name}.mjs`)),
         ],
         { env: { ...process.env, CLARITY_BUILD_CACHE: cache } },
       );

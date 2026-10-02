@@ -9,6 +9,7 @@ import {
   type RecordValue,
 } from '../shared/types';
 import type { ActionDescription } from '../vendor/cloudflare-os/gatekeeper';
+import { agentActionIds, validateAutoApproveActions } from '../shared/agent-actions';
 import { normalizeCalendarRule, nextFireAfter } from '../vendor/cloudflare-os/scheduler-core';
 import type { Store } from './store';
 import type { Files } from './files';
@@ -17,24 +18,25 @@ import { httpUrl, fetchPage } from './integrations';
 import type { Browser } from './browser';
 
 export const catalog = {
-  todos: 'list; add {title}; update {id,title?,done?,revision}; remove {id,revision}',
+  todos:
+    'list; add {title,date?:YYYY-MM-DD}; update {id,title?,done?,date?:YYYY-MM-DD|null,revision}; remove {id,revision}. Date is optional; null clears it. Dated tasks appear in Calendar without creating an event.',
   notes:
-    'list {query?}; read {path}; create {folder?,title?}; write {path,text,version}; embed {path,attachmentId,version}: preserve a chat attachment as a permanent copy and append its relative link; remove {path}',
-  wiki: 'list {query?}; read {path}; write {path,text,version:null for a NEW file}; embed {path,attachmentId,version}: preserve a chat attachment as a permanent copy and append its relative link; remove {path}',
+    'list {query?}; read {path}; create {folder?,title?}; write {path,text,version}; embed {path,attachmentId,version}: preserve a chat attachment as a permanent copy and append its relative link; move {path,to}; folder {path}; remove {path}',
+  wiki: 'list {query?}; read {path}; create {folder?,title?}: create an empty page; write {path,text,version:null for a NEW file}; embed {path,attachmentId,version}: preserve a chat attachment as a permanent copy and append its relative link; move {path,to}; folder {path}; remove {path}',
   calendar:
     'list; add {title,start,end}; update {id,title,start,end,revision}; remove {id,revision}',
   expenses:
     'list; add {amountCents,category,description,date:YYYY-MM-DD}; update {id,...same fields,revision}; remove {id,revision}',
   bookmarks:
     'list {query?}; add {title,url,description?,tags?}; update {id,...fields,revision}; remove {id,revision}; refreshLinkding; refreshX',
-  news: 'list {query?}; sources; addSource {title,url}; removeSource {id}; refresh',
+  news: 'list {query?}; sources; addSource {title,url}; removeSource {id,revision}; refresh',
   mail: 'list {query?,pageToken?}; read {id}. Read-only Gmail; no compose, reply, or message mutation.',
   board:
     'list {query?,after?,limit?}; read {id}; post {topic,text,threadId?,links?:[{module,id?,path?,label?}]}. Link notes/wiki by path and chats by id. Use only when instructed, including standing project instructions.',
   automations:
     'list; add {title,instruction,topicPath,hour,minute,frequency:daily|weekly,weekdays?}; update {id,...fields,revision}; remove {id,revision}',
   music:
-    'search {query,type:all|song|artist|album|playlist}; library {type:albums|playlists|artists}; collection {source,id,type}; play {source,id,type}; control {action:pause|resume|next|previous,volume?,shuffle?,repeat?}',
+    'search {query,type:all|song|artist|album|playlist}; library {type:albums|playlists|artists}; collection {source,id,type}; play {source,id,type}; control {action:pause|resume|next|previous|seek,position?:seconds,volume?,shuffle?,repeat?}',
 };
 const collections: Record<string, string> = {
   todos: 'todos',
@@ -51,6 +53,36 @@ function text(value: any, label: string, limit = 200) {
     throw new Error(`${label} is required (maximum ${limit} characters).`);
   return value.trim();
 }
+function requiredRevision(value: any): number {
+  if (!Number.isSafeInteger(value) || value < 1)
+    throw new Error(
+      'A current record revision is required. Read the item again before changing it.',
+    );
+  return value;
+}
+function validCalendarDate(value: any): boolean {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const [year, month, day] = value.split('-').map(Number);
+  if (year < 1 || month < 1 || month > 12 || day < 1) return false;
+  const leap = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
+  const days = [31, leap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  return day <= days[month - 1];
+}
+function validDateTime(value: any): boolean {
+  if (typeof value !== 'string') return false;
+  const parts =
+    /^(\d{4}-\d{2}-\d{2})T(\d{2}):(\d{2})(?::(\d{2})(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})?$/.exec(
+      value,
+    );
+  return (
+    !!parts &&
+    validCalendarDate(parts[1]) &&
+    Number(parts[2]) < 24 &&
+    Number(parts[3]) < 60 &&
+    Number(parts[4] || 0) < 60 &&
+    Number.isFinite(Date.parse(value))
+  );
+}
 export class Modules {
   private settingsWrites: Promise<any> = Promise.resolve();
   music?: { invoke: (method: string, args: any) => Promise<any> };
@@ -63,12 +95,20 @@ export class Modules {
     private notify: (event: AppEvent) => void,
   ) {}
   async settings(): Promise<Settings> {
-    return { ...defaultSettings, ...(await this.store.get('settings', 'default')) } as Settings;
+    return {
+      ...defaultSettings,
+      ...(await this.store.get('settings', 'default')),
+    } as Settings;
   }
   saveSettings(changes: Partial<Settings>) {
     const task = this.settingsWrites
       .catch(() => {})
       .then(async () => {
+        if (changes.autoApproveActions !== undefined)
+          changes = {
+            ...changes,
+            autoApproveActions: validateAutoApproveActions(changes.autoApproveActions),
+          };
         const settings = { ...(await this.settings()), ...changes };
         await this.store.put('settings', 'default', settings);
         this.notify({ type: 'changed', module: 'settings' });
@@ -92,9 +132,11 @@ export class Modules {
       const chat = await this.store.get('chats', owner);
       if (!chat) throw new Error('Interactive browsing is available in chats only.');
       if (method === 'authorize')
-        return this.propose(owner, module, method, { origin: httpUrl(args.url).origin });
+        return this.requestAction(owner, module, method, {
+          origin: httpUrl(args.url).origin,
+        });
       if (method !== 'batch') throw new Error('Unknown browser method');
-      if (args.consequential !== false) return this.propose(owner, module, method, args);
+      if (args.consequential !== false) return this.requestAction(owner, module, method, args);
       return this.browser.batch(owner, args.actions, chat.grants || []);
     }
     if (module === 'chats') {
@@ -121,27 +163,52 @@ export class Modules {
     if (readers.has(method)) return this.invoke(module, method, args);
     if (automationTopic && module === 'wiki' && method === 'write' && args.path === automationTopic)
       return this.invoke(module, method, args);
-    return this.propose(owner, module, method, args);
+    return this.requestAction(owner, module, method, args);
   }
-  private async propose(owner: string, module: string, method: string, args: any) {
+  private async requestAction(owner: string, module: string, method: string, args: any) {
+    const actionKey = `${module}.${method}`;
+    if (!agentActionIds.includes(actionKey)) throw new Error('Unknown agent action.');
     if (module !== 'browser' && !(await this.available())[module])
       throw new Error('This module is disabled.');
+    const autoApproved = (await this.settings()).autoApproveActions.includes(actionKey);
     const id = randomUUID();
+    const before =
+      args.id && collections[module]
+        ? await this.store.get(
+            module === 'news' && method === 'removeSource' ? 'news-sources' : collections[module],
+            args.id,
+          )
+        : ['notes', 'wiki'].includes(module) &&
+            args.path &&
+            ['write', 'move', 'remove'].includes(method)
+          ? await this.files
+              .read(module === 'notes' ? 'Notes' : 'Wiki', args.path)
+              .catch(() => null)
+          : undefined;
     const description: ActionDescription = {
       description: `${module}: ${method}`,
       descriptionIsComplete: true,
-      fields: [{ type: 'text', label: 'Arguments', value: JSON.stringify(args, null, 2) }],
+      fields: [
+        {
+          type: 'text',
+          label: 'Arguments',
+          value: JSON.stringify(args, null, 2),
+        },
+      ],
     } as any;
-    await this.store.put('actions', id, {
+    const action = await this.store.put<Action>('actions', id, {
       owner,
       module,
       method,
       args,
       description: description.description,
       fields: description.fields,
-      status: 'pending',
+      status: autoApproved ? 'applying' : 'pending',
+      autoApproved,
+      before,
     });
     this.notify({ type: 'changed', module: 'actions', id });
+    if (autoApproved) return this.apply(action);
     return {
       status: 'pending-approval',
       actionId: id,
@@ -170,6 +237,10 @@ export class Modules {
       action.revision,
     );
     this.notify({ type: 'changed', module: 'actions', id });
+    return this.apply(action);
+  }
+  private async apply(action: Action) {
+    const id = action.id;
     let result: any;
     try {
       if (action.module === 'browser') {
@@ -278,39 +349,76 @@ export class Modules {
           url: httpUrl(args.url).toString(),
           enabled: true,
         });
-      if (method === 'removeSource') return this.store.delete('news-sources', args.id);
+      if (method === 'removeSource')
+        return this.store.delete(
+          'news-sources',
+          text(args.id, 'ID'),
+          requiredRevision(args.revision),
+        );
     }
     if (module === 'board') {
       if (method === 'read') {
-        const thread = await this.store.get('board', args.id);
+        const post = await this.store.get('board', args.id);
+        const thread = post?.threadId ? await this.store.get('board', post.threadId) : post;
         const replies = (await this.store.list('board'))
-          .filter((post) => post.threadId === args.id)
+          .filter((post) => post.threadId === thread?.id)
           .sort((a, b) => a.createdAt - b.createdAt);
         return { thread, replies };
       }
-      if (method === 'post')
+      if (method === 'post') {
+        let threadId = null;
+        if (args.threadId !== undefined && args.threadId !== null) {
+          threadId = text(args.threadId, 'Thread ID');
+          const parent = await this.store.get('board', threadId);
+          if (!parent || parent.threadId != null)
+            throw new Error('Reply to an existing root thread. This thread is unavailable.');
+        }
         return this.store.put('board', randomUUID(), {
           topic: text(args.topic, 'Topic'),
           text: text(args.text, 'Post', 20000),
-          threadId: args.threadId || null,
+          threadId,
           links: Array.isArray(args.links) ? args.links.slice(0, 20) : [],
         });
+      }
     }
     const collection = collections[module];
     if (!collection) throw new Error('Unknown module');
+    if (method === 'read') {
+      const item = await this.store.get(collection, text(args.id, 'ID'));
+      if (!item) throw new Error('This item is no longer available.');
+      return item;
+    }
     if (method === 'list') {
-      let items = (await this.store.list(collection)).sort((a, b) => b.createdAt - a.createdAt);
-      if (args.query)
-        items = items.filter((item) =>
-          JSON.stringify(item).toLowerCase().includes(String(args.query).toLowerCase()),
-        );
+      const all = (await this.store.list(collection)).sort(
+        (a, b) => b.createdAt - a.createdAt || a.id.localeCompare(b.id),
+      );
+      const query = String(args.query || '').toLowerCase();
+      let items = query
+        ? all.filter((item) => JSON.stringify(item).toLowerCase().includes(query))
+        : all;
+      if (module === 'board' && args.threads) {
+        const matches = items;
+        const ids = new Set(matches.map((item) => item.threadId || item.id));
+        items = all
+          .filter((item) => !item.threadId && ids.has(item.id))
+          .map((item) => ({
+            ...item,
+            match: query ? matches.find((post) => post.threadId === item.id)?.text : undefined,
+          }));
+      }
       if (args.after) items = items.filter((item) => item.createdAt > Number(args.after));
-      const limit = Math.max(1, Math.min(Number(args.limit) || 500, 2000));
-      return { items: items.slice(0, limit), truncated: items.length > limit, total: items.length };
+      const limit = Math.max(1, Math.min(Math.floor(Number(args.limit)) || 500, 2000));
+      const offset = Math.max(0, Math.floor(Number(args.offset)) || 0);
+      return {
+        items: items.slice(offset, offset + limit),
+        truncated: offset + limit < items.length,
+        total: items.length,
+      };
     }
     if (method === 'remove')
-      return this.store.delete(collection, text(args.id, 'ID'), args.revision);
+      return this.store.delete(collection, text(args.id, 'ID'), requiredRevision(args.revision));
     if (!['add', 'update'].includes(method)) throw new Error('Unknown module method');
+    if (method === 'update') requiredRevision(args.revision);
     const previous =
       method === 'update' ? await this.store.get(collection, text(args.id, 'ID')) : null;
     if (method === 'update' && !previous) throw new Error('Item was not found.');
@@ -319,15 +427,18 @@ export class Modules {
     if (module === 'todos') {
       value.title = text(value.title, 'Task', 1000);
       value.done = !!value.done;
+      if (value.date === undefined || value.date === null || value.date === '') value.date = null;
+      else if (!validCalendarDate(value.date))
+        throw new Error('Enter a valid task date (YYYY-MM-DD), or leave it empty.');
     }
     if (module === 'calendar') {
       value.title = text(value.title, 'Event title');
       if (
-        !Number.isFinite(Date.parse(value.start)) ||
-        !Number.isFinite(Date.parse(value.end)) ||
+        !validDateTime(value.start) ||
+        !validDateTime(value.end) ||
         Date.parse(value.end) <= Date.parse(value.start)
       )
-        throw new Error('End must be after the start.');
+        throw new Error('Enter valid start and end dates. End must be after the start.');
     }
     if (module === 'expenses') {
       if (
@@ -338,7 +449,8 @@ export class Modules {
         throw new Error('Enter a positive amount.');
       value.category = text(value.category, 'Category');
       value.description = text(value.description, 'Description', 1000);
-      if (!/^\d{4}-\d{2}-\d{2}$/.test(value.date)) throw new Error('Enter an expense date.');
+      if (!validCalendarDate(value.date))
+        throw new Error('Enter a valid expense date (YYYY-MM-DD).');
     }
     if (module === 'bookmarks') {
       value.url = httpUrl(value.url).toString();

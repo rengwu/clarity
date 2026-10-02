@@ -4,6 +4,8 @@ A local personal harness built with Electron and TypeScript. Chat, notes, todos,
 
 The macOS build is `~/Applications/Clarity.app`. Open it, choose a data folder, then use **Settings → Codex → Use installed Codex sign-in**. The packaged app needs neither Node nor Rust. Closing its window keeps it running; use **Quit Clarity** to exit.
 
+Clarity requests device location when first opening your data folder. **Settings → Permissions** lets you refresh or disable it, enter a manual city/country, open macOS Location Settings, and revoke website access for individual chats. Disabling device location clears its saved reading. The agent receives your device timezone and fresh local time automatically; location readings are approximate and dated, not continuous tracking. Location is shared with the selected AI provider in chats and automations.
+
 Clarity selectively reuses Cloudflare OS's scheduler and approval contracts with local workerd/SQLite and Pi. It does not contain the full upstream Cloudflare OS application.
 
 ## Run the app
@@ -44,8 +46,8 @@ All app data lives in the chosen folder: `Notes/`, `Wiki/`, `Attachments/`, `Tra
 - **Wiki:** ask Chat to create or change topic pages. Read them in-app or open `Wiki/index.html` directly in a browser. The HTML rebuilds from Markdown while Clarity runs.
 - **Codex:** use the installed sign-in or the provided ChatGPT sign-in flow. Installed credentials are read without rewriting the CLI's tokens; if they expire, sign in again through Codex.
 - **Gmail:** provide a desktop Google OAuth client with Gmail API enabled. Inbox and message reading only. Setup shows the redirect address.
-- **Spotify:** provide a Spotify client ID for library access, then enable native playback with its separate sign-in. Premium is required for playback. Audio uses the bundled librespot helper. Actual Spotify account playback still needs validation.
-- **Navidrome:** enter an HTTP/HTTPS server address, username, and password. **Linkding:** enter the instance address and API token. **X:** sign in in Clarity's browser, close that browser, and refresh from Bookmarks; the refresh runs headlessly. X's unofficial interface remains account-dependent and can change.
+- **Spotify:** provide a Spotify client ID for library access, then enable native playback with its separate sign-in. Premium is required for playback. Audio uses the bundled librespot helper; saved OAuth tokens renew automatically and are passed directly to the running helper. Current live validation and limitations are recorded on [Music](docs/wiki/features/music.md#persistent-sign-in).
+- **Navidrome:** enter an HTTP/HTTPS server address, username, and password. **Linkding:** enter the instance address and API token. **X:** Open X uses your default browser. Sign in for import uses a separate browser profile; close it after signing in and refresh from Bookmarks. The headless importer cannot reuse the default browser's login, and X's unofficial interface remains account-dependent and can change.
 - **Automations:** daily/weekly wiki updates inspect new local state while Clarity runs. Missed runs are skipped; output and approval requests stay in Automations.
 - **Agent board:** opt-in topic threads through the maintained module API. Put standing instructions in `AGENTS.md` at the data-root level, or instruct Chat directly. External CLI/REST adapters are not included.
 
@@ -57,7 +59,9 @@ External-account checks and browser performance limits are recorded in the [vali
 
 Open [docs/wiki/index.html](docs/wiki/index.html) directly in a browser. The file contains the complete reader and content snapshot. No server, account, network connection, or folder picker is needed.
 
-Markdown under `docs/wiki/` is the single source of planning content. It remains separate from the app's user-owned Wiki folder.
+Markdown under `docs/wiki/` is the project specification, including current behavior, implementation contracts, decisions, and known gaps. It must be sufficient to guide a rebuild without relying on this conversation. New agents must start with [agent onboarding](docs/wiki/index.md#agent-onboarding); use the rebuild reading order for broader work. It remains separate from the app's user-owned Wiki folder.
+
+The wiki owns the detailed [working rules and completion workflow](docs/wiki/vision/principles.md). AGENTS.md is a short entry point; keep product and implementation details on their wiki topics.
 
 ## Build
 
@@ -100,14 +104,22 @@ See the [overview](../index.md).
 
 Titles default to the first H1 or filename. Sections default to the top-level folder name; root pages use Overview. Pages sort by section, then optional order, then path. `index.md` appears first in its section. All sections are allowed; no planning-specific folders are required.
 
-Optional metadata uses plain `key: value` lines between `---` delimiters (not nested YAML): `title`, `section`, `order`, `status`, `updated` (YYYY-MM-DD), and `summary`. When both are present, `title` must match the first H1. Existing Clarity metadata is preserved. Summaries are not repeated as subtitles; state and update dates are shown only when supplied and relevant.
+Optional metadata uses plain `key: value` lines between `---` delimiters (not nested YAML): `title`, `section`, `order`, `status`, `updated` (YYYY-MM-DD), and `summary`. When both are present, `title` must match the first H1. Existing Clarity metadata is preserved. Summaries are not repeated as subtitles. Additional flat metadata, including verification result, is rendered as escaped labels; its meaning belongs to the owning workflow.
 
-Use relative `.md` links, with optional heading anchors, for wiki pages. URL-encode spaces and special characters in links. External links must use HTTP(S). Markdown tables, lists, and code fences are supported; raw HTML is sanitized. This reader remains text-only: image syntax is rejected. `search.md` is reserved for the reader's search route.
+Use relative `.md` links, with optional heading anchors, for wiki pages. URL-encode spaces and special characters in links. External links must use HTTP(S). Markdown tables, lists, and code fences are supported; raw HTML is sanitized. Inline image syntax is rejected; ordinary links to PNG/JPEG/GIF/WebP, MP4/WebM, PDF, TXT/LOG, JSON and CSV under `attachments/` or `evidence/` open separate files. The builder checks paths and hashes file contents; changed evidence requires rebuilding. `search.md` is reserved for the reader's search route.
 
 ## Reuse
 
-Copy only `_build.mjs` into another project's `docs/wiki/`, add an `index.md` and any topic pages, and run it with Node. The script includes its parser, sanitizer, and third-party license information. No package manifest, lockfile, `node_modules`, separate asset directory, or installed skill is required. Copy the generated HTML alone to share a snapshot; copy the Markdown and builder to continue editing elsewhere.
+Copy only `_build.mjs` into another project's `docs/wiki/`, add an `index.md` and any topic pages, and run it with Node. The script includes its parser, sanitizer, and third-party license information. No package manifest, lockfile, `node_modules`, separate asset directory, or installed skill is required. Copy the generated HTML plus linked attachment/evidence directories to share a complete snapshot; copy the Markdown and builder to continue editing elsewhere.
 
-The planning workflow is packaged in [planning-wiki](../planning-wiki/SKILL.md), alongside this project. It contains the skill instructions and the portable builder asset. Point an agent at that `SKILL.md` to use it in another project; it has not been installed globally. The workflow focuses on planning, decisions, open questions, and discussion history, while the reader still supports arbitrary topics.
+The reader is adopted from local [jstack](../jstack/README.md) revision `cdda753adc7ed81d3eb3abf0283b29e7c226670c`, v1.2.0. [Clarity verification setup](docs/wiki/verification/setup.md) records project-local commands, stable feature IDs, evidence and maintenance rules. The repo works without the sibling jstack checkout or a global plugin installation. Planning/interview guidance is used when relevant; it does not add a mandatory interview to routine changes.
+
+```sh
+node tooling/fingerprint.mjs
+node --test tests/wiki-reader.mjs tests/wiki-reports.mjs
+node tooling/check-reports.mjs docs/wiki
+node docs/wiki/_build.mjs
+node docs/wiki/_build.mjs --check
+```
 
 Earlier wiki-tooling discussions and journals are preserved in [the tooling archive](docs/archive/wiki-tooling/discussions/reusable-planning-workflow.md), with [decisions D11–D15](docs/archive/wiki-tooling/decisions/index.md). They are excluded from Clarity's reader so its navigation and search focus on the product. The local `_build.mjs` remains necessary to rebuild this wiki independently of the skill folder.

@@ -16,7 +16,8 @@ import { watch, type FSWatcher } from 'node:fs';
 import { join, dirname, basename, resolve, extname } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { homedir } from 'node:os';
-import type { AppEvent, ApiResult, Settings } from '../shared/types';
+import { parseItemLink, type ItemTarget } from '../shared/navigation';
+import type { AppEvent, ApiResult, Settings, Chat } from '../shared/types';
 import { modules as moduleNames, defaultSettings } from '../shared/types';
 import { Store } from './store';
 import { Files } from './files';
@@ -28,9 +29,16 @@ import { Chats } from './chat';
 import { Wiki } from './wiki';
 import { Automations } from './automations';
 import { Music } from './music';
+import { approximateLocation, requestLocationOnStartup } from './environment';
+import { searchLocal } from './launcher';
 
 const output = dirname(fileURLToPath(import.meta.url));
 app.setName('Clarity');
+if (process.platform === 'darwin')
+  app.commandLine.appendSwitch(
+    'enable-features',
+    'LocationProviderManager:LocationProviderManagerMode/PlatformOnly',
+  );
 protocol.registerSchemesAsPrivileged([
   {
     scheme: 'clarity',
@@ -38,6 +46,20 @@ protocol.registerSchemesAsPrivileged([
   },
 ]);
 let window: BrowserWindow | undefined;
+let pendingNavigation: ItemTarget | undefined;
+function openItem(address: string) {
+  const target = parseItemLink(address);
+  if (!target) return;
+  pendingNavigation = target;
+  if (app.isReady()) {
+    openWindow();
+    notify({ type: 'navigate' });
+  }
+}
+app.on('open-url', (event, address) => {
+  event.preventDefault();
+  openItem(address);
+});
 let tray: Tray | undefined;
 let root: string | undefined;
 let store: Store | undefined;
@@ -53,9 +75,17 @@ let music: Music | undefined;
 let watchers: FSWatcher[] = [];
 let cleanupTimer: ReturnType<typeof setInterval> | undefined;
 let quitting = false;
+let locating = false;
+let locationStartupChecked = false;
 const bootstrap = join(app.getPath('userData'), 'root.txt');
 const registeredSessions = new WeakSet<Electron.Session>();
 const notify = (event: AppEvent) => {
+  if (
+    event.type === 'auth' &&
+    ['spotify', 'navidrome'].includes(event.data?.provider) &&
+    ['connected', 'disconnected'].includes(event.data?.kind)
+  )
+    music?.clearCollections();
   for (const win of BrowserWindow.getAllWindows())
     if (!win.isDestroyed() && win.webContents.getURL().startsWith('clarity://app/'))
       win.webContents.send('clarity:event', event);
@@ -72,7 +102,9 @@ async function initialize(folder: string) {
   const secrets = new Secrets(root);
   await secrets.load();
   auth = new Auth(secrets, notify);
-  integrations = new Integrations(auth, store);
+  integrations = new Integrations(auth, store, () =>
+    notify({ type: 'changed', module: 'bookmarks' }),
+  );
   browser = new Browser(root);
   modules = new Modules(store, files, integrations, browser, notify);
   chats = new Chats(modules, auth, notify);
@@ -81,9 +113,11 @@ async function initialize(folder: string) {
   modules.onWikiChanged = () => wiki!.build();
   await wiki.build();
   music = new Music(integrations, auth, store, notify, join(output, 'clarity-player'), root);
+  music.setNormalization((await modules.settings()).musicNormalization);
   modules.music = music;
   automations = new Automations(modules, chats, auth, notify);
   await automations.start();
+  await integrations.start();
   await files.cleanup();
   cleanupTimer = setInterval(
     () =>
@@ -125,6 +159,12 @@ async function handleProtocol(request: Request): Promise<Response> {
       return new Response('Choose a data folder', { status: 409 });
     if (url.hostname === 'wiki' && url.pathname === '/index.html')
       return net.fetch(pathToFileURL(join(root, 'Wiki', 'index.html')).toString());
+    if (url.hostname === 'attachment') {
+      const { path } = await files.attachment(decodeURIComponent(url.pathname.slice(1)));
+      if (!/\.(png|jpe?g|gif|webp)$/i.test(path))
+        return new Response('Only images are exposed', { status: 403 });
+      return net.fetch(pathToFileURL(path).toString());
+    }
     if (url.hostname === 'assets') {
       const parts = decodeURIComponent(url.pathname).slice(1).split('/');
       const area = parts.shift()!;
@@ -134,7 +174,12 @@ async function handleProtocol(request: Request): Promise<Response> {
       return net.fetch(pathToFileURL(path).toString());
     }
     if (url.hostname === 'stream')
-      return integrations.navidrome('stream', { id: decodeURIComponent(url.pathname.slice(1)) });
+      return integrations.navidrome(
+        'stream',
+        { id: decodeURIComponent(url.pathname.slice(1)) },
+        undefined,
+        request.headers.get('range') || undefined,
+      );
     if (url.hostname === 'cover')
       return integrations.navidrome('getCoverArt', {
         id: decodeURIComponent(url.pathname.slice(1)),
@@ -158,8 +203,25 @@ function openWindow() {
     profile.protocol.handle('clarity', handleProtocol);
     registeredSessions.add(profile);
   }
-  profile.setPermissionRequestHandler((_contents, permission, callback) =>
-    callback(permission === 'mediaKeySystem'),
+  const locationRequest = (
+    contents: Electron.WebContents | null,
+    details: { isMainFrame: boolean; requestingUrl?: string },
+  ) =>
+    locating &&
+    contents === window?.webContents &&
+    details.isMainFrame &&
+    details.requestingUrl === 'clarity://app/';
+  profile.setPermissionRequestHandler((contents, permission, callback, details) =>
+    callback(
+      permission === 'mediaKeySystem' ||
+        (['geolocation', 'geolocation-approximate'].includes(permission) &&
+          locationRequest(contents, details)),
+    ),
+  );
+  profile.setPermissionCheckHandler(
+    (contents, permission, _origin, details) =>
+      !['geolocation', 'geolocation-approximate'].includes(permission) ||
+      locationRequest(contents, details),
   );
   window = new BrowserWindow({
     width: 1280,
@@ -209,16 +271,40 @@ function openWindow() {
       window?.hide();
     }
   });
+  window.webContents.once('did-finish-load', () => {
+    if (
+      locationStartupChecked ||
+      !modules ||
+      process.env.CLARITY_TEST_ROOT ||
+      process.platform !== 'darwin'
+    )
+      return;
+    locationStartupChecked = true;
+    void modules
+      .settings()
+      .then(async (settings) => {
+        if (requestLocationOnStartup(settings)) await call('location.request');
+      })
+      .catch(() => {});
+  });
   void window.loadURL('clarity://app/');
 }
 
 async function call(method: string, args: any = {}): Promise<any> {
+  if (method === 'navigation.take') {
+    const target = pendingNavigation;
+    pendingNavigation = undefined;
+    return target;
+  }
   if (method === 'bootstrap')
     return {
       root,
       settings: modules ? await modules.settings() : defaultSettings,
       auth: auth ? await auth.status() : {},
       models: chats ? await chats.models() : [],
+      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      deviceLocationAvailable: process.platform === 'darwin',
+      locating,
     };
   if (method === 'root.pick') {
     if (root) {
@@ -245,25 +331,143 @@ async function call(method: string, args: any = {}): Promise<any> {
   }
   if (!modules || !store || !files || !chats || !auth || !music)
     throw new Error('Choose your Clarity folder first.');
+  if (method === 'permissions.openLocationSettings') {
+    await shell.openExternal(
+      'x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices',
+    );
+    return {};
+  }
+  if (method === 'permissions.sites')
+    return (await store.list<Chat>('chats'))
+      .filter((chat) => chat.grants?.length)
+      .map(({ id, title, grants }) => ({ id, title, origins: grants }));
+  if (method === 'permissions.revokeSite') {
+    const chat = await store.get<Chat>('chats', args.chatId);
+    if (!chat) throw new Error('Chat not found.');
+    const origin = httpUrl(args.origin).origin;
+    await store.put(
+      'chats',
+      chat.id,
+      { ...chat, grants: chat.grants.filter((value) => value !== origin) },
+      chat.revision,
+    );
+    await browser!.revoke(chat.id, origin);
+    notify({ type: 'changed', module: 'actions' });
+    return {};
+  }
+  if (method === 'location.request') {
+    if (process.platform !== 'darwin')
+      throw new Error('Device location currently requires macOS. Enter a location instead.');
+    if (locating) throw new Error('A location request is already running.');
+    if (!window?.isVisible()) throw new Error('Open Clarity to request device location.');
+    locating = true;
+    try {
+      await modules.saveSettings({
+        useDeviceLocation: true,
+        locationRequested: true,
+        locationError: undefined,
+      });
+      const position = await window.webContents.executeJavaScript(
+        `new Promise((resolve) => {
+        const timeout = setTimeout(() => resolve({ errorCode: 3 }), 45000);
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            clearTimeout(timeout);
+            resolve({ latitude: position.coords.latitude, longitude: position.coords.longitude,
+              accuracy: position.coords.accuracy, timestamp: position.timestamp });
+          },
+          error => {
+            clearTimeout(timeout);
+            resolve({ errorCode: error.code });
+          },
+          { enableHighAccuracy: false, maximumAge: 60000, timeout: 30000 }
+        );
+      })`,
+        true,
+      );
+      if (!(await modules.settings()).useDeviceLocation) return {};
+      if (position.errorCode) {
+        if (position.errorCode === 1)
+          await modules.saveSettings({
+            locationPermission: 'denied',
+            deviceLocation: undefined,
+          });
+        throw new Error(
+          position.errorCode === 1
+            ? 'Location access denied. Allow Clarity in System Settings → Privacy & Security → Location Services, or enter a location.'
+            : 'Device location is unavailable. Check Location Services and Wi-Fi, then try again.',
+        );
+      }
+      const deviceLocation = approximateLocation(position);
+      return await modules.saveSettings({
+        location: '',
+        deviceLocation,
+        locationPermission: 'granted',
+        locationError: undefined,
+      });
+    } catch (error: any) {
+      await modules.saveSettings({ locationError: error.message });
+      throw error;
+    } finally {
+      locating = false;
+      notify({ type: 'changed', module: 'settings' });
+    }
+  }
   if (method === 'settings.save') {
     const previous = await modules.settings();
     const changes: any = {};
+    if (args.location !== undefined) {
+      if (typeof args.location !== 'string' || args.location.trim().length > 200)
+        throw new Error('Location must be text of at most 200 characters.');
+      changes.location = args.location.trim();
+      changes.deviceLocation = undefined;
+      changes.useDeviceLocation = false;
+      changes.locationError = undefined;
+    }
+    if (args.useDeviceLocation === false) {
+      changes.useDeviceLocation = false;
+      changes.deviceLocation = undefined;
+      changes.locationError = undefined;
+    }
     for (const key of ['model', 'effort', 'lastChat', 'currency', 'theme'])
       if (args[key] !== undefined) changes[key] = args[key];
     if (Array.isArray(args.enabled))
       changes.enabled = [
         ...new Set(['chat', ...args.enabled.filter((name: any) => moduleNames.includes(name))]),
       ];
+    if (args.linkdingRefreshMinutes !== undefined) {
+      if (![0, 60, 1440].includes(args.linkdingRefreshMinutes))
+        throw new Error('Choose manual, hourly, or daily refresh.');
+      changes.linkdingRefreshMinutes = args.linkdingRefreshMinutes;
+    }
+    if (args.autoApproveActions !== undefined) changes.autoApproveActions = args.autoApproveActions;
+    for (const key of ['autoInterpretCommands', 'reducedMotion', 'musicNormalization']) {
+      if (args[key] !== undefined) {
+        if (typeof args[key] !== 'boolean')
+          throw new Error('Choose an enabled or disabled setting.');
+        changes[key] = args[key];
+      }
+    }
     if (previous.enabled.includes('music') && changes.enabled && !changes.enabled.includes('music'))
       await music.close();
-    return modules.saveSettings(changes);
+    const saved = await modules.saveSettings(changes);
+    music.setNormalization(saved.musicNormalization);
+    await integrations!.checkRefresh();
+    return saved;
   }
   if (method === 'module') return modules.invoke(args.module, args.method, args.args || {});
+  if (method === 'launcher.search') return searchLocal(modules, args.query);
+  if (method === 'launcher.interpret') return chats.interpretCommand(args.query);
+  if (method === 'launcher.cancel') return chats.cancelInterpretation();
   if (method === 'chats.list')
     return (await store.list('chats'))
       .sort((a, b) => b.updatedAt - a.updatedAt)
       .map(({ messages, ...chat }) => chat);
-  if (method === 'chats.get') return store.get('chats', args.id);
+  if (method === 'chats.get') {
+    const chat = await store.get('chats', args.id);
+    if (!chat) throw new Error('This conversation is no longer available.');
+    return chat;
+  }
   if (method === 'chats.create') return chats.create();
   if (method === 'chats.send') return chats.send(args.id, args);
   if (method === 'chats.stop') return chats.stop(args.id);
@@ -281,7 +485,14 @@ async function call(method: string, args: any = {}): Promise<any> {
     if (!['google', 'spotify'].includes(args.provider)) throw new Error('Unknown provider');
     return auth.connectOAuth(args.provider, args.clientId, args.clientSecret);
   }
-  if (method === 'auth.configure') return integrations!.configure(args.provider, args);
+  if (method === 'auth.configure') {
+    const result = await integrations!.configure(args.provider, args);
+    if (args.provider === 'navidrome')
+      notify({ type: 'auth', data: { kind: 'connected', provider: args.provider } });
+    await integrations!.checkRefresh();
+    return result;
+  }
+  if (method === 'linkding.status') return integrations!.linkdingStatus();
   if (method === 'auth.disconnect') {
     if (
       !['codex', 'google', 'spotify', 'spotify-playback', 'navidrome', 'linkding'].includes(
@@ -291,8 +502,9 @@ async function call(method: string, args: any = {}): Promise<any> {
       throw new Error('Unknown provider');
     if (['spotify', 'spotify-playback', 'navidrome'].includes(args.provider)) await music.close();
     await auth.secrets.set(args.provider, undefined);
-    if (args.provider === 'spotify') await auth.secrets.set('spotify-playback', undefined);
     if (args.provider === 'codex') await auth.secrets.set('codex-existing', undefined);
+    await integrations!.checkRefresh();
+    notify({ type: 'auth', data: { kind: 'disconnected', provider: args.provider } });
     return auth.status();
   }
   if (method === 'browser.login') return browser!.login(args.url);
@@ -312,6 +524,11 @@ async function call(method: string, args: any = {}): Promise<any> {
       }
     }
     return { attachments, errors };
+  }
+  if (method === 'attachments.preview') return files.previewAttachment(args.id);
+  if (method === 'attachments.reveal') {
+    shell.showItemInFolder((await files.attachment(args.id)).path);
+    return {};
   }
   if (method === 'attachments.add')
     return files.attach(args.name, Buffer.from(args.bytes), args.mime);
@@ -341,7 +558,10 @@ else {
       };
     }
   });
-  app.on('second-instance', openWindow);
+  app.on('second-instance', (_event, args) => {
+    openWindow();
+    args.filter((value) => value.startsWith('clarity://item/')).forEach(openItem);
+  });
   app.on('activate', openWindow);
   app.on('window-all-closed', () => {});
   app.on('before-quit', (event) => {
@@ -365,6 +585,7 @@ else {
       auth?.cancel();
       clearInterval(cleanupTimer);
       await automations?.stop();
+      await integrations?.stop();
       watchers.forEach((watcher) => watcher.close());
       await music?.close();
       await chats?.close();
@@ -377,6 +598,8 @@ else {
   app
     .whenReady()
     .then(async () => {
+      if (app.isPackaged && !process.env.CLARITY_TEST_ROOT)
+        app.setAsDefaultProtocolClient('clarity');
       let folder = process.env.CLARITY_TEST_ROOT;
       if (!folder) {
         try {

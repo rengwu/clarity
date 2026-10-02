@@ -16,6 +16,13 @@ import { createHash, randomUUID } from 'node:crypto';
 import type { Note, Document, Attachment } from '../shared/types';
 
 const hash = (text: string | Buffer) => createHash('sha256').update(text).digest('hex');
+function visibleDocumentPath(path: string) {
+  if (
+    typeof path !== 'string' ||
+    path.split('/').some((part) => part.startsWith('.') || part.toLowerCase() === 'assets')
+  )
+    throw new Error('Document and folder names cannot start with a dot or use the assets folder.');
+}
 export class Files {
   private saves = new Map<string, Promise<any>>();
   constructor(readonly root: string) {}
@@ -49,7 +56,9 @@ export class Files {
   async list(area: 'Notes' | 'Wiki', query = '') {
     const items: Note[] = [];
     const walk = async (folder: string) => {
-      for (const entry of await readdir(await this.path(area, folder), { withFileTypes: true })) {
+      for (const entry of await readdir(await this.path(area, folder), {
+        withFileTypes: true,
+      })) {
         if (entry.name.startsWith('.') || entry.isSymbolicLink() || entry.name === 'assets')
           continue;
         const path = [folder, entry.name].filter(Boolean).join('/');
@@ -66,7 +75,12 @@ export class Files {
               !(await readFile(absolute, 'utf8')).toLowerCase().includes(query.toLowerCase()))
           )
             continue;
-          items.push({ path, title: basename(path, '.md'), modified: info.mtimeMs, folder: false });
+          items.push({
+            path,
+            title: basename(path, '.md'),
+            modified: info.mtimeMs,
+            folder: false,
+          });
         }
       }
     };
@@ -86,6 +100,7 @@ export class Files {
     const base = title.replace(/\.md$/i, '');
     for (let number = 0; number < 10000; number++) {
       const path = [folder, `${base}${number ? ` ${number}` : ''}.md`].filter(Boolean).join('/');
+      visibleDocumentPath(path);
       try {
         await writeFile(await this.path(area, path, true), '', { flag: 'wx' });
         return this.read(area, path);
@@ -154,6 +169,7 @@ export class Files {
   async move(area: 'Notes' | 'Wiki', from: string, to: string) {
     if (!from?.endsWith('.md') || !to?.endsWith('.md'))
       throw new Error('Only Markdown documents can be renamed');
+    visibleDocumentPath(to);
     const destination = await this.path(area, to, true);
     try {
       await lstat(destination);
@@ -165,6 +181,7 @@ export class Files {
     return { path: to };
   }
   async folder(area: 'Notes' | 'Wiki', path: string) {
+    visibleDocumentPath(path);
     await mkdir(await this.path(area, path, true), { recursive: true });
     return { path };
   }
@@ -194,9 +211,51 @@ export class Files {
       /\.(md|txt|csv|json|js|ts|tsx|jsx|py|rs|go|html|css|yaml|yml|toml|xml|sh|sql|log|pdf|png|jpg|jpeg|webp|gif)$/i.test(
         clean,
       );
-    const record = { id, name: clean, size: bytes.length, mime, createdAt: Date.now(), supported };
+    const record = {
+      id,
+      name: clean,
+      size: bytes.length,
+      mime,
+      createdAt: Date.now(),
+      supported,
+    };
     await writeFile(join(folder, '.metadata.json'), JSON.stringify(record));
     return record;
+  }
+  async attachment(id: string) {
+    if (!/^[\da-f-]{36}$/i.test(id)) throw new Error('Invalid attachment ID.');
+    try {
+      const record: Attachment = JSON.parse(
+        await readFile(await this.path('Attachments', `${id}/.metadata.json`), 'utf8'),
+      );
+      if (
+        record.id !== id ||
+        basename(record.name) !== record.name ||
+        record.name.includes('\\') ||
+        !Number.isFinite(record.createdAt) ||
+        Date.now() - record.createdAt >= 90 * 86400000
+      )
+        throw new Error('Unavailable');
+      const path = await this.path('Attachments', `${id}/${record.name}`);
+      return { record, path };
+    } catch {
+      throw new Error('This attachment is unavailable or has expired after 90 days.');
+    }
+  }
+  async previewAttachment(id: string) {
+    const { record, path } = await this.attachment(id);
+    const image = /\.(png|jpe?g|gif|webp)$/i.test(record.name);
+    const isText =
+      /\.(md|txt|csv|json|js|ts|tsx|jsx|py|rs|go|html|css|yaml|yml|toml|xml|sh|sql|log)$/i.test(
+        record.name,
+      );
+    const contents = isText ? await readFile(path, 'utf8') : '';
+    return {
+      ...record,
+      image,
+      text: contents.slice(0, 100000),
+      truncated: contents.length > 100000,
+    };
   }
   async asset(area: 'Notes' | 'Wiki', documentPath: string, name: string, bytes: Buffer) {
     if (!/\.(png|jpe?g|gif|webp)$/i.test(name))
@@ -253,7 +312,9 @@ export class Files {
     }
   }
   async cleanup(now = Date.now()) {
-    for (const entry of await readdir(join(this.root, 'Attachments'), { withFileTypes: true })) {
+    for (const entry of await readdir(join(this.root, 'Attachments'), {
+      withFileTypes: true,
+    })) {
       if (!entry.isDirectory() || entry.isSymbolicLink()) continue;
       const directory = join(this.root, 'Attachments', entry.name);
       try {
@@ -262,10 +323,15 @@ export class Files {
           await rm(directory, { recursive: true });
       } catch {}
     }
-    for (const entry of await readdir(join(this.root, 'Trash'), { withFileTypes: true })) {
+    for (const entry of await readdir(join(this.root, 'Trash'), {
+      withFileTypes: true,
+    })) {
       const timestamp = Number(entry.name.split('-')[0]);
       if (!entry.isSymbolicLink() && timestamp > 0 && now - timestamp > 30 * 86400000)
-        await rm(join(this.root, 'Trash', entry.name), { recursive: true, force: true });
+        await rm(join(this.root, 'Trash', entry.name), {
+          recursive: true,
+          force: true,
+        });
     }
   }
 }

@@ -1,15 +1,42 @@
-import React, { useState } from 'react';
-import { call, invoke, useApp, useResource, Field, Dialog, Source, ErrorText } from '../api';
+import { useSubmission } from '../state';
+import React, { useEffect, useRef, useState } from 'react';
+import { Icon } from '../icons';
+import {
+  call,
+  invoke,
+  useApp,
+  useResource,
+  Field,
+  Dialog,
+  ErrorText,
+  listAll,
+  DeleteButton,
+  ListState,
+  useItemFocus,
+} from '../api';
 
 export function Bookmarks() {
   const app = useApp();
+  const submission = useSubmission();
   const [query, setQuery] = useState('');
-  const list = useResource<any>(
-    () => invoke('bookmarks', 'list', { query, limit: 2000 }),
-    [query],
-    'bookmarks',
-  );
+  useEffect(() => {
+    if (app.target?.module === 'bookmarks') setQuery('');
+  }, [app.target]);
+  const list = useResource<any>(() => listAll('bookmarks', { query }), [query], 'bookmarks');
+  const focus = useItemFocus('bookmarks', list.data?.items, list.loading);
+  const refreshState = useResource<any>(() => call('linkding.status'), [], 'bookmarks');
   const [editing, setEditing] = useState<any>();
+  const editGeneration = useRef(0);
+  function openEditor(item: any) {
+    editGeneration.current++;
+    setError('');
+    setEditing(item);
+  }
+  function closeEditor() {
+    editGeneration.current++;
+    setEditing(undefined);
+    setError('');
+  }
   const [error, setError] = useState('');
   const [status, setStatus] = useState('');
   const [busy, setBusy] = useState(false);
@@ -19,7 +46,7 @@ export function Bookmarks() {
     try {
       const result = await invoke('bookmarks', `refresh${source}`);
       setStatus(
-        `${result.imported} bookmarks imported${result.truncated || result.complete === false ? '. Older bookmarks may remain beyond this refresh’s limit.' : '.'}`,
+        `${result.imported} imported${source === 'Linkding' ? `, ${result.updated} updated, ${result.preserved} with local edits preserved` : ''}${result.truncated || result.complete === false ? '. Older bookmarks may remain beyond this refresh’s limit.' : '.'}`,
       );
     } catch (failure: any) {
       setStatus(failure.message);
@@ -34,10 +61,10 @@ export function Bookmarks() {
         <button
           className="primary"
           onClick={() => {
-            setError('');
-            setEditing({ title: '', url: '', description: '', tags: '' });
+            openEditor({ title: '', url: '', description: '', tags: '' });
           }}
         >
+          <Icon name="plus" size={14} />
           Add bookmark
         </button>
         <button
@@ -50,46 +77,93 @@ export function Bookmarks() {
           Refresh X
         </button>
       </div>
-      <input
-        className="search"
-        type="search"
-        aria-label="Search bookmarks"
-        placeholder="Search bookmarks"
-        value={query}
-        onChange={(event) => setQuery(event.target.value)}
-      />
+      <label className="module-search">
+        <Icon name="search" size={14} />
+        <input
+          type="search"
+          aria-label="Search bookmarks"
+          placeholder="Search bookmarks"
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+        />
+      </label>
       <p role="status" className="muted">
         {status}
       </p>
-      <ErrorText>{list.error}</ErrorText>
+      {app.bootstrap.auth.linkding && refreshState.data && (
+        <p className="muted" role="status">
+          {refreshState.data.lastRun
+            ? `Last Linkding ${refreshState.data.error ? 'attempt' : 'refresh'}: ${new Date(refreshState.data.lastRun).toLocaleString()}. `
+            : ''}
+          {refreshState.data.result &&
+            `${refreshState.data.result.imported} imported, ${refreshState.data.result.updated} updated, ${refreshState.data.result.preserved} with local edits preserved. `}
+          {refreshState.data.result?.truncated &&
+            'Older bookmarks remain beyond this refresh’s limit. '}
+          {refreshState.data.nextRun
+            ? `Next refresh: ${new Date(refreshState.data.nextRun).toLocaleString()}.`
+            : ''}
+        </p>
+      )}
+      <ErrorText>{refreshState.data?.error || refreshState.error}</ErrorText>
+      <ErrorText>{list.error || focus.error}</ErrorText>
+      <ListState
+        loading={list.loading}
+        count={list.data?.items.length || 0}
+        query={query}
+        empty="No bookmarks yet. Add a bookmark or refresh a connected source."
+        error={list.error}
+      />
       <div className="bookmark-list">
         {list.data?.items.map((item: any) => (
-          <article className="bookmark" key={item.id}>
-            <div className="row">
-              <button
-                className="link bookmark-title"
-                onClick={() => void call('external.open', { url: item.url }).catch(app.error)}
-              >
-                {item.title}
-              </button>
-              {item.source && <Source source={item.source} />}
-              <span className="spacer" />
-              <button
-                onClick={() => {
-                  setError('');
-                  setEditing({ ...item, tags: item.tags.join(', ') });
-                }}
-              >
-                Edit
-              </button>
+          <article
+            className="bookmark"
+            key={item.id}
+            data-item-id={item.id}
+            tabIndex={-1}
+            data-focused={focus.id === item.id}
+          >
+            <Icon name="bookmarks" size={16} />
+            <div className="bookmark-copy">
+              <div className="bookmark-first-line">
+                <button
+                  className="link bookmark-title"
+                  title={item.title}
+                  onClick={() => void call('external.open', { url: item.url }).catch(app.error)}
+                >
+                  {item.title}
+                </button>
+                <span className="bookmark-tags" title={item.tags.join(', ')}>
+                  {item.tags.map((tag: string) => (
+                    <span className="mini-tag" key={tag}>
+                      {tag}
+                    </span>
+                  ))}
+                </span>
+              </div>
+              <div className="bookmark-meta">
+                <span className="bookmark-domain">
+                  {item.url.replace(/^https?:\/\/(?:www\.)?/, '').split('/')[0]}
+                </span>
+                {item.description && (
+                  <span className="bookmark-description">{item.description}</span>
+                )}
+                {item.source && (
+                  <span className="bookmark-origin">
+                    {item.source === 'local' ? '' : item.source}
+                  </span>
+                )}
+              </div>
             </div>
-            <div className="muted bookmark-url">{item.url}</div>
-            {item.description && <p>{item.description}</p>}
-            <div className="row muted">
-              <span>{item.tags.join(' · ')}</span>
-              <span className="spacer" />
-              <time>{new Date(item.createdAt).toLocaleDateString()}</time>
-            </div>
+            <button
+              className="icon-button quiet row-action"
+              aria-label="Edit"
+              title={`Edit ${item.title}`}
+              onClick={() => {
+                openEditor({ ...item, tags: item.tags.join(', ') });
+              }}
+            >
+              <Icon name="edit" size={14} />
+            </button>
           </article>
         ))}
       </div>
@@ -97,25 +171,26 @@ export function Bookmarks() {
         <p className="muted">Showing 2,000 matches. Narrow your search to find older items.</p>
       )}
       {editing && (
-        <Dialog
-          title={editing.id ? 'Edit bookmark' : 'Add bookmark'}
-          onClose={() => setEditing(undefined)}
-        >
+        <Dialog title={editing.id ? 'Edit bookmark' : 'Add bookmark'} onClose={closeEditor}>
           <form
             onSubmit={async (event) => {
               event.preventDefault();
-              try {
-                await invoke('bookmarks', editing.id ? 'update' : 'add', {
-                  ...editing,
-                  tags: editing.tags
-                    .split(',')
-                    .map((tag: string) => tag.trim())
-                    .filter(Boolean),
-                });
-                setEditing(undefined);
-              } catch (failure: any) {
-                setError(failure.message);
-              }
+              const submittedGeneration = editGeneration.current;
+              await submission.run(async () => {
+                setError('');
+                try {
+                  await invoke('bookmarks', editing.id ? 'update' : 'add', {
+                    ...editing,
+                    tags: editing.tags
+                      .split(',')
+                      .map((tag: string) => tag.trim())
+                      .filter(Boolean),
+                  });
+                  if (submittedGeneration === editGeneration.current) closeEditor();
+                } catch (failure: any) {
+                  if (submittedGeneration === editGeneration.current) setError(failure.message);
+                }
+              });
             }}
           >
             <Field label="Title">
@@ -137,7 +212,9 @@ export function Bookmarks() {
             <Field label="Description">
               <textarea
                 value={editing.description}
-                onChange={(event) => setEditing({ ...editing, description: event.target.value })}
+                onChange={(event) =>
+                  setEditing({ ...editing, description: event.target.value })
+                }
               />
             </Field>
             <Field label="Tags (comma separated)">
@@ -149,25 +226,25 @@ export function Bookmarks() {
             <ErrorText>{error}</ErrorText>
             <div className="form-actions">
               {editing.id && (
-                <button
-                  type="button"
-                  onClick={() =>
-                    void invoke('bookmarks', 'remove', {
+                <DeleteButton
+                  name={editing.title || editing.description || 'this item'}
+                  onDelete={async () => {
+                    const deletedGeneration = editGeneration.current;
+                    await invoke('bookmarks', 'remove', {
                       id: editing.id,
                       revision: editing.revision,
-                    })
-                      .then(() => setEditing(undefined))
-                      .catch(app.error)
-                  }
-                >
-                  Delete
-                </button>
+                    });
+                    if (deletedGeneration === editGeneration.current) closeEditor();
+                  }}
+                />
               )}
               <span className="spacer" />
-              <button type="button" onClick={() => setEditing(undefined)}>
+              <button type="button" onClick={closeEditor}>
                 Cancel
               </button>
-              <button className="primary">Save</button>
+              <button className="primary" disabled={submission.busy}>
+                {submission.busy ? 'Saving…' : 'Save'}
+              </button>
             </div>
           </form>
         </Dialog>

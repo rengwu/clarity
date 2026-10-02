@@ -1,16 +1,32 @@
-import React, { useState } from 'react';
-import { call, invoke, useApp, useResource, Dialog, Field, ErrorText, labels } from '../api';
+import { useSubmission } from '../state';
+import { ActionCard } from '../action-card';
+import React, { useEffect, useState } from 'react';
+import { Icon } from '../icons';
+import {
+  call,
+  invoke,
+  useApp,
+  useResource,
+  Dialog,
+  Field,
+  ErrorText,
+  labels,
+  listAll,
+  DeleteButton,
+  ListState,
+  useItemFocus,
+} from '../api';
 import { Markdown } from '../markdown';
 
 export function Board() {
   const app = useApp();
+  const submission = useSubmission();
   const [query, setQuery] = useState('');
-  const list = useResource<any>(
-    () => invoke('board', 'list', { query, limit: 2000 }),
-    [query],
-    'board',
-  );
+  const list = useResource<any>(() => listAll('board', { query, threads: true }), [query], 'board');
   const [selected, setSelected] = useState('');
+  useEffect(() => {
+    if (app.target?.module === 'board') setSelected(app.target.id || '');
+  }, [app.target]);
   const thread = useResource<any>(
     () => (selected ? invoke('board', 'read', { id: selected }) : Promise.resolve(null)),
     [selected],
@@ -19,16 +35,28 @@ export function Board() {
   const [compose, setCompose] = useState(false);
   const [topic, setTopic] = useState('');
   const [text, setText] = useState('');
-  const [reply, setReply] = useState('');
-  const [error, setError] = useState('');
+  const [replies, setReplies] = useState<Record<string, string>>({});
+  const reply = replies[selected] || '';
+  const setReply = (value: string) => setReplies((current) => ({ ...current, [selected]: value }));
+  const [replyErrors, setReplyErrors] = useState<Record<string, string>>({});
+  const [composeError, setComposeError] = useState('');
   return (
     <section className="page">
       <div className="toolbar">
         <h1>Agent board</h1>
-        <button onClick={() => setCompose(true)}>New thread</button>
-        {selected && <button onClick={() => setSelected('')}>All threads</button>}
+        <button
+          className="primary"
+          onClick={() => {
+            setComposeError('');
+            setCompose(true);
+          }}
+        >
+          <Icon name="plus" size={14} />
+          New thread
+        </button>
+        {selected && <button onClick={() => app.navigate('board', {})}>All threads</button>}
       </div>
-      <ErrorText>{list.error || thread.error || error}</ErrorText>
+      <ErrorText>{list.error || thread.error}</ErrorText>
       {selected && thread.data?.thread ? (
         <div className="board-thread">
           <h2>{thread.data.thread.topic}</h2>
@@ -42,7 +70,12 @@ export function Board() {
                   ) : link?.module && labels[link.module] ? (
                     <button
                       className="link"
-                      onClick={() => app.navigate(link.module, { id: link.id, path: link.path })}
+                      onClick={() =>
+                        app.navigate(link.module, {
+                          id: link.id,
+                          path: link.path,
+                        })
+                      }
                     >
                       {link.label || link.path || labels[link.module]}
                     </button>
@@ -57,47 +90,76 @@ export function Board() {
           <form
             onSubmit={async (event) => {
               event.preventDefault();
-              try {
-                await invoke('board', 'post', {
-                  topic: thread.data.thread.topic,
-                  text: reply,
-                  threadId: selected,
-                });
-                setReply('');
-              } catch (failure: any) {
-                setError(failure.message);
-              }
+              const submittedThread = selected;
+              const submittedReply = reply;
+              await submission.run(async () => {
+                setReplyErrors((current) => ({
+                  ...current,
+                  [submittedThread]: '',
+                }));
+                try {
+                  await invoke('board', 'post', {
+                    topic: thread.data.thread.topic,
+                    text: reply,
+                    threadId: thread.data.thread.id,
+                  });
+                  setReplies((current) => ({
+                    ...current,
+                    [submittedThread]:
+                      current[submittedThread] === submittedReply ? '' : current[submittedThread],
+                  }));
+                } catch (failure: any) {
+                  setReplyErrors((current) => ({
+                    ...current,
+                    [submittedThread]: failure.message,
+                  }));
+                }
+              });
             }}
           >
             <Field label="Reply">
               <textarea required value={reply} onChange={(event) => setReply(event.target.value)} />
             </Field>
-            <button className="primary">Post</button>
+            <ErrorText>{replyErrors[selected]}</ErrorText>
+            <button className="primary" disabled={submission.busy}>
+              Post
+            </button>
           </form>
         </div>
       ) : (
         <>
-          <input
-            type="search"
-            className="search"
-            aria-label="Search board"
-            placeholder="Search board"
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
+          <label className="module-search">
+            <Icon name="search" size={14} />
+            <input
+              type="search"
+              aria-label="Search board"
+              placeholder="Search board"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+            />
+          </label>
+          <ListState
+            loading={list.loading}
+            count={list.data?.items.length || 0}
+            query={query}
+            error={list.error}
+            empty="No posts. Agents use this board only when instructed."
           />
           <div className="thread-list">
-            {list.data?.items
-              .filter((post: any) => !post.threadId)
-              .map((post: any) => (
-                <button key={post.id} onClick={() => setSelected(post.id)}>
-                  <strong>{post.topic}</strong>
-                  <span>{post.text.slice(0, 180)}</span>
-                  <time className="muted">{new Date(post.createdAt).toLocaleString()}</time>
-                </button>
-              ))}
+            {list.data?.items.map((post: any) => (
+              <button key={post.id} onClick={() => app.navigate('board', { id: post.id })}>
+                <strong>{post.topic}</strong>
+                <span>
+                  {post.match
+                    ? `Matching reply: ${post.match.slice(0, 180)}`
+                    : post.text.slice(0, 180)}
+                </span>
+                <time className="muted">{new Date(post.createdAt).toLocaleString()}</time>
+              </button>
+            ))}
           </div>
-          {!list.loading && !list.data?.items.length && (
-            <p className="muted">No posts. Agents use this board only when instructed.</p>
+          {selected && !thread.loading && !thread.data?.thread && (
+            <ErrorText>This thread is no longer available.</ErrorText>
           )}
         </>
       )}
@@ -106,15 +168,18 @@ export function Board() {
           <form
             onSubmit={async (event) => {
               event.preventDefault();
-              try {
-                const item = await invoke('board', 'post', { topic, text });
-                setSelected(item.id);
-                setCompose(false);
-                setTopic('');
-                setText('');
-              } catch (failure) {
-                app.error(failure);
-              }
+              await submission.run(async () => {
+                setComposeError('');
+                try {
+                  const item = await invoke('board', 'post', { topic, text });
+                  app.navigate('board', { id: item.id });
+                  setCompose(false);
+                  setTopic('');
+                  setText('');
+                } catch (failure: any) {
+                  setComposeError(failure.message);
+                }
+              });
             }}
           >
             <Field label="Topic">
@@ -128,7 +193,10 @@ export function Board() {
             <Field label="Post">
               <textarea required value={text} onChange={(event) => setText(event.target.value)} />
             </Field>
-            <button className="primary">Post</button>
+            <ErrorText>{composeError}</ErrorText>
+            <button className="primary" disabled={submission.busy}>
+              Post
+            </button>
           </form>
         </Dialog>
       )}
@@ -138,14 +206,15 @@ export function Board() {
 
 export function Automations() {
   const app = useApp();
-  const list = useResource<any>(() => invoke('automations', 'list'), [], 'automations');
+  const submission = useSubmission();
+  const list = useResource<any>(() => listAll('automations'), [], 'automations');
   const topics = useResource<any[]>(() => invoke('wiki', 'list'), [], 'wiki');
   const [editing, setEditing] = useState<any>();
   const [error, setError] = useState('');
   const [busy, setBusy] = useState('');
   const review = useResource<any[]>(
     async () => {
-      const items = await invoke('automations', 'list');
+      const items = await listAll('automations');
       return (
         await Promise.all(
           items.items.map((item: any) =>
@@ -154,9 +223,10 @@ export function Automations() {
         )
       ).flat();
     },
-    [],
+    [list.data],
     'actions',
   );
+  const focus = useItemFocus('automations', list.data?.items, list.loading);
   return (
     <section className="page">
       <div className="toolbar">
@@ -177,63 +247,88 @@ export function Automations() {
             });
           }}
         >
+          <Icon name="plus" size={14} />
           New automation
         </button>
       </div>
-      <ErrorText>{list.error || error}</ErrorText>
+      <ErrorText>{list.error || review.error || focus.error || error}</ErrorText>
+      <ListState
+        loading={list.loading}
+        count={list.data?.items.length || 0}
+        error={list.error}
+        empty="No automations yet. Create a schedule for a wiki topic."
+      />
       <div className="automation-list">
         {list.data?.items.map((item: any) => (
-          <article key={item.id}>
-            <div className="row">
-              <h2>{item.title}</h2>
-              <span className="spacer" />
-              <label className="toggle">
-                <input
-                  type="checkbox"
-                  checked={item.enabled}
-                  onChange={(event) =>
-                    void invoke('automations', 'update', {
-                      id: item.id,
-                      revision: item.revision,
-                      enabled: event.target.checked,
-                    }).catch(app.error)
-                  }
-                />
-                Enabled
-              </label>
-              <button
-                onClick={() => {
-                  setError('');
-                  setEditing({ ...item });
-                }}
-              >
-                Edit
-              </button>
-              <button
-                disabled={busy === item.id || item.status === 'running'}
-                onClick={async () => {
-                  setBusy(item.id);
-                  try {
-                    await call('automations.run', { id: item.id });
-                  } catch (failure: any) {
-                    setError(failure.message);
-                  } finally {
-                    setBusy('');
-                  }
-                }}
-              >
-                Run now
-              </button>
+          <article
+            key={item.id}
+            data-item-id={item.id}
+            tabIndex={-1}
+            data-focused={focus.id === item.id}
+          >
+            <div className="automation-overview">
+              <Icon name="automations" />
+              <div className="automation-copy">
+                <h2>{item.title}</h2>
+                <p>{item.instruction}</p>
+                <small>
+                  {item.topicPath} ·{' '}
+                  {item.enabled && item.nextRun
+                    ? `Next: ${new Date(item.nextRun).toLocaleString()}`
+                    : 'Paused'}
+                </small>
+              </div>
+              <div className="automation-controls">
+                <label className="toggle">
+                  <input
+                    type="checkbox"
+                    checked={item.enabled}
+                    onChange={(event) =>
+                      void invoke('automations', 'update', {
+                        id: item.id,
+                        revision: item.revision,
+                        enabled: event.target.checked,
+                      }).catch(app.error)
+                    }
+                  />
+                  <span className="sr-only">Enabled</span>
+                </label>
+                <button
+                  className="icon-button quiet"
+                  aria-label="Edit"
+                  title={`Edit ${item.title}`}
+                  onClick={() => {
+                    setError('');
+                    setEditing({ ...item });
+                  }}
+                >
+                  <Icon name="edit" size={14} />
+                </button>
+                <button
+                  disabled={busy === item.id || item.status === 'running'}
+                  onClick={async () => {
+                    setBusy(item.id);
+                    try {
+                      await call('automations.run', { id: item.id });
+                    } catch (failure: any) {
+                      setError(failure.message);
+                    } finally {
+                      setBusy('');
+                    }
+                  }}
+                >
+                  <Icon name="play" size={13} />
+                  Run now
+                </button>
+              </div>
             </div>
-            <p>{item.instruction}</p>
-            <p className="muted">
-              {item.topicPath} ·{' '}
-              {item.enabled && item.nextRun
-                ? `Next: ${new Date(item.nextRun).toLocaleString()}`
-                : 'Paused'}
-            </p>
             {item.status === 'running' && <p role="status">Running…</p>}
             <ErrorText>{item.error}</ErrorText>
+            {review.data
+              ?.filter((action) => action.owner === `automation:${item.id}`)
+              .map((action) => (
+                <ActionCard key={action.id} action={action} />
+              ))}
             {item.result && (
               <details>
                 <summary>Last result · {new Date(item.lastRun).toLocaleString()}</summary>
@@ -243,30 +338,6 @@ export function Automations() {
           </article>
         ))}
       </div>
-      {review.data
-        ?.filter((action) => action.status === 'pending')
-        .map((action) => (
-          <article className="action-review" key={action.id}>
-            <strong>{action.description}</strong>
-            <pre>{JSON.stringify(action.args, null, 2)}</pre>
-            <div className="row">
-              <button
-                onClick={() =>
-                  void call('actions.review', { id: action.id, apply: true }).catch(app.error)
-                }
-              >
-                Apply
-              </button>
-              <button
-                onClick={() =>
-                  void call('actions.review', { id: action.id, apply: false }).catch(app.error)
-                }
-              >
-                Dismiss
-              </button>
-            </div>
-          </article>
-        ))}
       {editing && (
         <Dialog
           title={editing.id ? 'Edit automation' : 'New automation'}
@@ -275,12 +346,14 @@ export function Automations() {
           <form
             onSubmit={async (event) => {
               event.preventDefault();
-              try {
-                await invoke('automations', editing.id ? 'update' : 'add', editing);
-                setEditing(undefined);
-              } catch (failure: any) {
-                setError(failure.message);
-              }
+              await submission.run(async () => {
+                try {
+                  await invoke('automations', editing.id ? 'update' : 'add', editing);
+                  setEditing(undefined);
+                } catch (failure: any) {
+                  setError(failure.message);
+                }
+              });
             }}
           >
             <Field label="Name">
@@ -312,14 +385,18 @@ export function Automations() {
                 required
                 placeholder="What to keep up to date, and which new app information to use"
                 value={editing.instruction}
-                onChange={(event) => setEditing({ ...editing, instruction: event.target.value })}
+                onChange={(event) =>
+                  setEditing({ ...editing, instruction: event.target.value })
+                }
               />
             </Field>
             <div className="row">
               <Field label="Schedule">
                 <select
                   value={editing.frequency}
-                  onChange={(event) => setEditing({ ...editing, frequency: event.target.value })}
+                  onChange={(event) =>
+                    setEditing({ ...editing, frequency: event.target.value })
+                  }
                 >
                   <option value="daily">Daily</option>
                   <option value="weekly">Weekly</option>
@@ -329,7 +406,9 @@ export function Automations() {
                 <Field label="Day">
                   <select
                     value={editing.weekdays?.[0] || 'MO'}
-                    onChange={(event) => setEditing({ ...editing, weekdays: [event.target.value] })}
+                    onChange={(event) =>
+                      setEditing({ ...editing, weekdays: [event.target.value] })
+                    }
                   >
                     {['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'].map((day, index) => (
                       <option key={day} value={day}>
@@ -362,31 +441,30 @@ export function Automations() {
               </Field>
             </div>
             <p className="muted">
-              Runs while Clarity is open. Missed runs are skipped. Saving authorizes edits to this
-              topic using new information from now on.
+              Runs while Clarity is open. Missed runs are skipped. Saving authorizes edits to
+              this topic using new information from now on.
             </p>
             <ErrorText>{error}</ErrorText>
             <div className="form-actions">
               {editing.id && (
-                <button
-                  type="button"
-                  onClick={() =>
-                    void invoke('automations', 'remove', {
+                <DeleteButton
+                  name={editing.title}
+                  onDelete={async () => {
+                    await invoke('automations', 'remove', {
                       id: editing.id,
                       revision: editing.revision,
-                    })
-                      .then(() => setEditing(undefined))
-                      .catch(app.error)
-                  }
-                >
-                  Delete
-                </button>
+                    });
+                    setEditing(undefined);
+                  }}
+                />
               )}
               <span className="spacer" />
               <button type="button" onClick={() => setEditing(undefined)}>
                 Cancel
               </button>
-              <button className="primary">Save</button>
+              <button className="primary" disabled={submission.busy}>
+                Save
+              </button>
             </div>
           </form>
         </Dialog>

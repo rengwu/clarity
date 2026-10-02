@@ -5,7 +5,8 @@ import { tmpdir, homedir } from 'node:os';
 import { join } from 'node:path';
 import { createRequire } from 'node:module';
 
-const cache = process.env.CLARITY_BUILD_CACHE || join(homedir(), 'Library/Caches/Clarity/build');
+const cache =
+  process.env.CLARITY_BUILD_CACHE || join(homedir(), 'Library/Caches/Clarity/build');
 const require = createRequire(join(cache, 'loader.cjs'));
 const { _electron: electron } = require('playwright-core');
 const output = join(cache, 'output');
@@ -35,7 +36,10 @@ test(
       join(root, 'Wiki', 'Research.md'),
       '# Research\n\nA local wiki.\n\n[Details](#details) · [Other topic](Other.md#section)\n\n## Details\n\n| Topic | State |\n| --- | --- |\n| Storage | Local |\n',
     );
-    await writeFile(join(root, 'Wiki', 'Other.md'), '# Other\n\n## Section\n\nLinked topic.\n');
+    await writeFile(
+      join(root, 'Wiki', 'Other.md'),
+      '# Other\n\n## Section\n\nLinked topic.\n',
+    );
     let application;
     const errors = [];
     try {
@@ -57,7 +61,10 @@ test(
       await page.locator('.ProseMirror').waitFor();
       await page.locator('.ProseMirror').fill('A saved note');
       await eventually(async () =>
-        assert.match(await readFile(join(root, 'Notes', 'Untitled.md'), 'utf8'), /A saved note/),
+        assert.match(
+          await readFile(join(root, 'Notes', 'Untitled.md'), 'utf8'),
+          /A saved note/,
+        ),
       );
       await page.getByRole('button', { name: 'Markdown', exact: true }).click();
       await page
@@ -66,7 +73,10 @@ test(
           '# Notes\n\n- [ ] Task\n- [x] Done\n\n3. Third\n4. Fourth\n\n- Bullet\n  - Nested\n\n| One | Two |\n| --- | --- |\n| A | B |\n\n~~Deleted~~ and **bold**.\n\n[Link](https://example.com) and `code`.\n',
         );
       await eventually(async () =>
-        assert.match(await readFile(join(root, 'Notes', 'Untitled.md'), 'utf8'), /\| A \| B \|/),
+        assert.match(
+          await readFile(join(root, 'Notes', 'Untitled.md'), 'utf8'),
+          /\| A \| B \|/,
+        ),
       );
       await page.getByRole('button', { name: 'Editor', exact: true }).click();
       await page.locator('.ProseMirror table.children').waitFor();
@@ -75,7 +85,9 @@ test(
       assert.equal(await page.locator('.ProseMirror ol').getAttribute('start'), '3');
       await page.locator('.ProseMirror .label.unchecked').click();
       await page.getByRole('button', { name: 'Markdown', exact: true }).click();
-      const roundtrip = await page.getByRole('textbox', { name: 'Markdown source' }).inputValue();
+      const roundtrip = await page
+        .getByRole('textbox', { name: 'Markdown source' })
+        .inputValue();
       for (const pattern of [
         /\[x\] Task/,
         /\[x\] Done/,
@@ -93,11 +105,18 @@ test(
       await page.getByRole('button', { name: 'Editor', exact: true }).click();
       await page.locator('.ProseMirror table.children').waitFor();
       await page.getByRole('button', { name: 'Todos', exact: true }).click();
-      await page.getByRole('textbox', { name: 'New task' }).fill('Verify local persistence');
+      await page.getByRole('button', { name: 'New task', exact: true }).click();
+      await page
+        .getByRole('textbox', { name: 'New task', exact: true })
+        .fill('Verify local persistence');
       await page.getByRole('button', { name: 'Add', exact: true }).click();
       await page.getByRole('checkbox', { name: 'Complete Verify local persistence' }).check();
       await page.waitForFunction(() => document.querySelector('.tasks .done'));
       await page.getByRole('button', { name: 'Settings', exact: true }).click();
+      await page
+        .getByRole('navigation', { name: 'Settings sections' })
+        .getByRole('button', { name: 'Modules', exact: true })
+        .click();
       for (const name of [
         'Calendar',
         'Expenses',
@@ -109,7 +128,7 @@ test(
       ])
         await page.getByRole('checkbox', { name, exact: true }).check();
       await page.getByRole('button', { name: 'Calendar', exact: true }).first().click();
-      await page.getByRole('button', { name: '+ Event', exact: true }).click();
+      await page.getByRole('button', { name: 'Event', exact: true }).click();
       await page.getByLabel('Title', { exact: true }).fill('Design review');
       await page.getByRole('button', { name: 'Save', exact: true }).click();
       await page.getByRole('button', { name: /Design review/ }).waitFor();
@@ -124,8 +143,10 @@ test(
         'Continuous month scrolling must not repeat dates',
       );
       await page.getByRole('button', { name: 'Expenses', exact: true }).click();
-      await page.getByRole('button', { name: '+ New expense' }).click();
-      await page.getByRole('textbox', { name: 'Amount', exact: true }).pressSequentially('12370');
+      await page.getByRole('button', { name: 'New expense' }).click();
+      await page
+        .getByRole('textbox', { name: 'Amount', exact: true })
+        .pressSequentially('12370');
       assert.equal(
         await page.getByRole('textbox', { name: 'Amount', exact: true }).inputValue(),
         '123.70',
@@ -139,7 +160,9 @@ test(
       await page.getByLabel('Title', { exact: true }).fill('Example bookmark');
       await page.getByLabel('URL', { exact: true }).fill('https://example.com/');
       await page.getByLabel('Description', { exact: true }).fill('A saved reference');
-      await page.getByLabel('Tags (comma separated)', { exact: true }).fill('research, reference');
+      await page
+        .getByLabel('Tags (comma separated)', { exact: true })
+        .fill('research, reference');
       await page.getByRole('button', { name: 'Save', exact: true }).click();
       await page.getByText('Example bookmark', { exact: true }).waitFor();
       await page.getByRole('button', { name: 'News', exact: true }).click();
@@ -187,7 +210,9 @@ test(
       await reader.getByRole('heading', { name: 'Section', exact: true }).waitFor();
       await reader.getByRole('link', { name: 'Research', exact: true }).click();
       await page.screenshot({ path: join(cache, 'wiki-test.png') });
-      await application.evaluate(({ BrowserWindow }) => BrowserWindow.getAllWindows()[0].close());
+      await application.evaluate(({ BrowserWindow }) =>
+        BrowserWindow.getAllWindows()[0].close(),
+      );
       assert.equal(
         await application.evaluate(({ BrowserWindow }) =>
           BrowserWindow.getAllWindows()[0].isVisible(),

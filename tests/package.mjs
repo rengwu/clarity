@@ -17,7 +17,10 @@ test(
   async () => {
     const directory = await mkdtemp(join(tmpdir(), 'clarity-package-test-'));
     const bundle = join(directory, 'Clarity.app');
-    await cp(join(cache, 'Clarity.app'), bundle, { recursive: true, verbatimSymlinks: true });
+    await cp(join(cache, 'Clarity.app'), bundle, {
+      recursive: true,
+      verbatimSymlinks: true,
+    });
     const root = await realpath(bundle);
     async function inspect(folder) {
       for (const entry of await readdir(folder, { withFileTypes: true })) {
@@ -32,6 +35,27 @@ test(
     }
     await inspect(bundle);
     await promisify(execFile)('/usr/bin/codesign', ['--verify', '--deep', '--strict', bundle]);
+    for (const key of ['NSLocationUsageDescription', 'NSLocationWhenInUseUsageDescription']) {
+      const { stdout } = await promisify(execFile)('/usr/libexec/PlistBuddy', [
+        '-c',
+        `Print :${key}`,
+        join(bundle, 'Contents/Info.plist'),
+      ]);
+      assert.match(stdout, /approximate location/);
+      assert.match(stdout, /AI provider/);
+    }
+    const { stdout: localNetwork } = await promisify(execFile)('/usr/libexec/PlistBuddy', [
+      '-c',
+      'Print :NSLocalNetworkUsageDescription',
+      join(bundle, 'Contents/Info.plist'),
+    ]);
+    assert.match(localNetwork, /Navidrome and Linkding servers you choose on your local network/);
+    const { stdout: scheme } = await promisify(execFile)('/usr/libexec/PlistBuddy', [
+      '-c',
+      'Print :CFBundleURLTypes:0:CFBundleURLSchemes:0',
+      join(bundle, 'Contents/Info.plist'),
+    ]);
+    assert.equal(scheme.trim(), 'clarity');
     const environment = {
       ...process.env,
       PATH: '/usr/bin:/bin:/usr/sbin:/sbin',
@@ -57,8 +81,15 @@ test(
     try {
       application = await launch();
       let page = await application.firstWindow();
+      await page
+        .getByRole('textbox', { name: 'Message', exact: true })
+        .fill('Packaged unsent draft');
       await page.getByRole('button', { name: 'Todos', exact: true }).click();
-      await page.getByRole('textbox', { name: 'New task' }).fill('Packaged persistence');
+      await page.getByRole('button', { name: 'New task', exact: true }).click();
+      await page
+        .getByRole('textbox', { name: 'New task', exact: true })
+        .fill('Packaged persistence');
+      await page.getByLabel('New task date (optional)', { exact: true }).fill('2030-12-31');
       await page.getByRole('button', { name: 'Add', exact: true }).click();
       await page.getByRole('checkbox', { name: 'Complete Packaged persistence' }).check();
       await page.getByRole('button', { name: 'Notes', exact: true }).first().click();
@@ -72,12 +103,18 @@ test(
       );
       application = await launch();
       page = await application.firstWindow();
+      await page.getByRole('textbox', { name: 'Message', exact: true }).waitFor();
+      assert.equal(
+        await page.getByRole('textbox', { name: 'Message', exact: true }).inputValue(),
+        'Packaged unsent draft',
+      );
       await page.getByRole('button', { name: 'Todos', exact: true }).click();
       assert.equal(
         await page.getByRole('checkbox', { name: 'Complete Packaged persistence' }).isChecked(),
         true,
       );
       console.log(`Relocated bundle verified: ${bundle}`);
+      assert.equal(await page.locator('.tasks time').getAttribute('datetime'), '2030-12-31');
     } finally {
       await application?.close();
     }

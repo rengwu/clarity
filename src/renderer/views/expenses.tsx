@@ -1,22 +1,45 @@
-import React, { useState } from 'react';
-import { invoke, useApp, useResource, Field, ErrorText } from '../api';
+import { useSubmission, useRememberedState } from '../state';
+import React, { useEffect, useState } from 'react';
+import { Icon } from '../icons';
+import {
+  invoke,
+  useApp,
+  useResource,
+  Field,
+  ErrorText,
+  listAll,
+  DeleteButton,
+  ListState,
+  useItemFocus,
+} from '../api';
 
 export function localDate(date = new Date()) {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 }
 export function Expenses() {
   const app = useApp();
-  const list = useResource<any>(() => invoke('expenses', 'list', { limit: 2000 }), [], 'expenses');
-  const [editing, setEditing] = useState<any>();
-  const [amount, setAmount] = useState('');
-  const [category, setCategory] = useState('');
-  const [description, setDescription] = useState('');
-  const [date, setDate] = useState(localDate());
+  const submission = useSubmission();
+  const list = useResource<any>(() => listAll('expenses'), [], 'expenses');
+  const [editing, setEditing] = useRememberedState<any>('expenses:editing', null, true);
+  const [amount, setAmount] = useRememberedState('expenses:amount', '', true);
+  const [category, setCategory] = useRememberedState('expenses:category', '', true);
+  const [description, setDescription] = useRememberedState('expenses:description', '', true);
+  const [date, setDate] = useRememberedState('expenses:date', localDate(), true);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const [days, setDays] = useState(30);
   const entries: any[] = list.data?.items || [];
+  const [showDraft, setShowDraft] = useState(true);
+  useEffect(() => {
+    if (app.target?.module === 'expenses' && app.target.id) setShowDraft(false);
+  }, [app.target]);
+  const focus = useItemFocus(
+    'expenses',
+    list.data?.items,
+    list.loading || (!!editing && showDraft),
+  );
   function open(item?: any, selectedDate = localDate()) {
+    setShowDraft(true);
     setEditing(item || {});
     setAmount(item ? String(item.amountCents) : '');
     setCategory(item?.category || '');
@@ -27,28 +50,29 @@ export function Expenses() {
   const money = (cents: number) =>
     `${app.bootstrap.settings.currency}${(cents / 100).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
   async function save(another: boolean) {
-    if (busy) return;
-    setBusy(true);
-    setError('');
-    try {
-      await invoke('expenses', editing.id ? 'update' : 'add', {
-        ...editing,
-        amountCents: Number(amount),
-        category,
-        description,
-        date,
-      });
-      if (another) {
-        setEditing({});
-        setAmount('');
-        setDescription('');
-        document.querySelector<HTMLInputElement>('[aria-label="Amount"]')?.focus();
-      } else setEditing(undefined);
-    } catch (failure: any) {
-      setError(failure.message);
-    } finally {
-      setBusy(false);
-    }
+    await submission.run(async () => {
+      setBusy(true);
+      setError('');
+      try {
+        await invoke('expenses', editing.id ? 'update' : 'add', {
+          ...editing,
+          amountCents: Number(amount),
+          category,
+          description,
+          date,
+        });
+        if (another) {
+          setEditing({});
+          setAmount('');
+          setDescription('');
+          document.querySelector<HTMLInputElement>('[aria-label="Amount"]')?.focus();
+        } else setEditing(null);
+      } catch (failure: any) {
+        setError(failure.message);
+      } finally {
+        setBusy(false);
+      }
+    });
   }
   const dates = new Set(entries.map((entry) => entry.date));
   for (let day = 0; day < days; day++) {
@@ -62,7 +86,9 @@ export function Expenses() {
   const descriptions = [
     ...new Set(
       entries
-        .filter((entry) => !category || entry.category.toLowerCase() === category.toLowerCase())
+        .filter(
+          (entry) => !category || entry.category.toLowerCase() === category.toLowerCase(),
+        )
         .map((entry) => entry.description),
     ),
   ]
@@ -71,14 +97,20 @@ export function Expenses() {
   return (
     <section className="page">
       <div className="toolbar">
-        <h1>{editing ? (editing.id ? 'Edit expense' : 'New expense') : 'Expenses'}</h1>
+        <h1>
+          {editing && showDraft ? (editing.id ? 'Edit expense' : 'New expense') : 'Expenses'}
+        </h1>
+        {editing && !showDraft && (
+          <button onClick={() => setShowDraft(true)}>Resume expense draft</button>
+        )}
         {!editing && (
           <button className="primary" onClick={() => open()}>
-            + New expense
+            <Icon name="plus" size={14} />
+            New expense
           </button>
         )}
       </div>
-      {editing ? (
+      {editing && showDraft ? (
         <form
           className="expense-form"
           onSubmit={(event) => {
@@ -95,7 +127,9 @@ export function Expenses() {
               placeholder="0.00"
               value={amount ? (Number(amount) / 100).toFixed(2) : ''}
               onChange={(event) =>
-                setAmount(event.target.value.replace(/\D/g, '').replace(/^0+/, '').slice(0, 11))
+                setAmount(
+                  event.target.value.replace(/\D/g, '').replace(/^0+/, '').slice(0, 11),
+                )
               }
             />
           </Field>
@@ -139,20 +173,20 @@ export function Expenses() {
           </Field>
           <ErrorText>{error}</ErrorText>
           <div className="form-actions">
-            <button type="button" onClick={() => setEditing(undefined)}>
+            <button type="button" onClick={() => setEditing(null)}>
               Cancel
             </button>
             {editing.id && (
-              <button
-                type="button"
-                onClick={() =>
-                  void invoke('expenses', 'remove', { id: editing.id, revision: editing.revision })
-                    .then(() => setEditing(undefined))
-                    .catch(app.error)
-                }
-              >
-                Delete
-              </button>
+              <DeleteButton
+                name={editing.title || editing.description || 'this item'}
+                onDelete={async () => {
+                  await invoke('expenses', 'remove', {
+                    id: editing.id,
+                    revision: editing.revision,
+                  });
+                  setEditing(null);
+                }}
+              />
             )}
             <button className="primary" disabled={busy}>
               {editing.id ? 'Save' : 'Create'}
@@ -172,7 +206,8 @@ export function Expenses() {
         </form>
       ) : (
         <>
-          <ErrorText>{list.error}</ErrorText>
+          <ErrorText>{list.error || focus.error}</ErrorText>
+          {list.loading && <p role="status">Loading expenses…</p>}
           <div className="daily-expenses">
             {[...dates]
               .sort()
@@ -180,29 +215,41 @@ export function Expenses() {
               .map((day) => {
                 const items = entries.filter((entry) => entry.date === day);
                 return (
-                  <div className="expense-day" key={day}>
+                  <div className="expense-day" key={day} data-empty={!items.length}>
                     <time dateTime={day}>
                       {new Date(day + 'T12:00').toLocaleDateString(undefined, {
                         month: 'short',
                         day: 'numeric',
                         weekday: 'short',
                       })}
+                      <button
+                        className="add-expense icon-button quiet"
+                        disabled={!!editing}
+                        aria-label={`Add expense on ${day}`}
+                        title="Add expense"
+                        onClick={() => open(undefined, day)}
+                      >
+                        <Icon name="plus" size={14} />
+                      </button>
                     </time>
                     <div>
                       {items.map((item) => (
-                        <button className="expense-entry" key={item.id} onClick={() => open(item)}>
-                          <span>{item.description}</span>
-                          <span className="muted">{item.category}</span>
+                        <button
+                          className="expense-entry"
+                          key={item.id}
+                          data-item-id={item.id}
+                          data-focused={focus.id === item.id}
+                          disabled={!!editing}
+                          onClick={() => open(item)}
+                        >
+                          <Icon name="expenses" size={15} />
+                          <span className="expense-copy">
+                            <strong>{item.description}</strong>
+                            <small>{item.category}</small>
+                          </span>
                           <span>{money(item.amountCents)}</span>
                         </button>
                       ))}
-                      <button
-                        className="add-expense"
-                        aria-label={`Add expense on ${day}`}
-                        onClick={() => open(undefined, day)}
-                      >
-                        +
-                      </button>
                     </div>
                     <strong>
                       {items.length
@@ -214,7 +261,9 @@ export function Expenses() {
               })}
           </div>
           <button onClick={() => setDays((value) => value + 30)}>Show earlier days</button>
-          {list.data?.truncated && <p className="muted">Showing the most recent 2,000 expenses.</p>}
+          {list.data?.truncated && (
+            <p className="muted">Showing the most recent 2,000 expenses.</p>
+          )}
         </>
       )}
     </section>

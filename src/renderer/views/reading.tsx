@@ -1,20 +1,55 @@
-import React, { useState } from 'react';
-import { call, invoke, useApp, useResource, Dialog, Field, ErrorText } from '../api';
+import { useRememberedState, useSubmission } from '../state';
+import React, { useEffect, useState } from 'react';
+import { Icon } from '../icons';
+import {
+  call,
+  invoke,
+  useApp,
+  useResource,
+  Dialog,
+  Field,
+  ErrorText,
+  listAll,
+  DeleteButton,
+  ListState,
+  useItemFocus,
+} from '../api';
 
 export function News() {
   const app = useApp();
-  const list = useResource<any>(() => invoke('news', 'list', { limit: 2000 }), [], 'news');
+  const list = useResource<any>(() => listAll('news'), [], 'news');
+  const focus = useItemFocus('news', list.data?.items, list.loading);
+  const submission = useSubmission();
+  const [error, setError] = useState('');
   const sources = useResource<any[]>(() => invoke('news', 'sources'), [], 'news');
   const [source, setSource] = useState('');
+  const [query, setQuery] = useState('');
+  useEffect(() => {
+    if (app.target?.module === 'news' && app.target.id) {
+      setSource('');
+      setQuery('');
+    }
+  }, [app.target]);
   const [manage, setManage] = useState(false);
   const [title, setTitle] = useState('');
   const [url, setUrl] = useState('');
   const [status, setStatus] = useState('');
   const [busy, setBusy] = useState(false);
+  const items = (list.data?.items || [])
+    .filter(
+      (item: any) =>
+        (!source || item.sourceId === source) &&
+        `${item.title} ${item.source}`.toLowerCase().includes(query.toLowerCase()),
+    )
+    .sort((a: any, b: any) => b.published - a.published);
   return (
-    <section className="page">
+    <section className="page news-view">
       <div className="toolbar">
         <h1>News</h1>
+        <button onClick={() => setManage(true)}>
+          <Icon name="news" size={14} />
+          Sources
+        </button>
         <button
           disabled={busy}
           onClick={async () => {
@@ -30,44 +65,71 @@ export function News() {
             }
           }}
         >
+          <Icon name="refresh" size={14} />
           Refresh
         </button>
-        <button onClick={() => setManage(true)}>Sources</button>
-        <select
-          aria-label="News source"
-          value={source}
-          onChange={(event) => setSource(event.target.value)}
-        >
-          <option value="">All sources</option>
-          {sources.data?.map((item) => (
-            <option key={item.id} value={item.id}>
-              {item.title}
-            </option>
-          ))}
-        </select>
       </div>
-      <ErrorText>{list.error}</ErrorText>
+      <div className="news-toolbar">
+        <label className="module-search">
+          <Icon name="search" size={14} />
+          <input
+            type="search"
+            aria-label="Search headlines"
+            placeholder="Search headlines"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+          />
+        </label>
+        <div className="list-filters" aria-label="News source">
+          {[{ id: '', title: 'All sources' }, ...(sources.data || [])].map((item) => (
+            <button
+              key={item.id}
+              className={source === item.id ? 'selected' : ''}
+              aria-pressed={source === item.id}
+              onClick={() => setSource(item.id)}
+            >
+              {item.title}
+            </button>
+          ))}
+        </div>
+      </div>
+      <ErrorText>{list.error || focus.error}</ErrorText>
+      <ListState
+        loading={list.loading}
+        count={items.length}
+        query={query}
+        empty="No articles yet. Add a feed in Sources, then refresh."
+        error={list.error}
+      />
       <p className="muted" role="status">
         {status}
       </p>
-      {!sources.data?.length && <p>Add an RSS or Atom feed in Sources.</p>}
       <div className="news-list">
-        {[...(list.data?.items || [])]
-          .filter((item) => !source || item.sourceId === source)
-          .sort((a, b) => b.published - a.published)
-          .map((item) => (
-            <article key={item.id}>
-              <button
-                className="link"
-                onClick={() => void call('external.open', { url: item.url }).catch(app.error)}
-              >
-                {item.title}
-              </button>
-              <div className="muted">
-                {item.source} · {new Date(item.published).toLocaleString()}
-              </div>
-            </article>
-          ))}
+        {items.map((item: any) => (
+          <article
+            key={item.id}
+            data-item-id={item.id}
+            tabIndex={-1}
+            data-focused={focus.id === item.id}
+          >
+            <button
+              className="news-item"
+              title={item.title}
+              onClick={() => void call('external.open', { url: item.url }).catch(app.error)}
+            >
+              <Icon name="news" size={12} />
+              <span className="news-headline">{item.title}</span>
+              <span className="news-source">{item.source}</span>
+              <time className="news-date" dateTime={new Date(item.published).toISOString()}>
+                {new Date(item.published).toLocaleDateString(undefined, {
+                  month: 'short',
+                  day: 'numeric',
+                })}
+              </time>
+              <Icon name="external" size={12} />
+            </button>
+          </article>
+        ))}
       </div>
       {manage && (
         <Dialog title="News sources" onClose={() => setManage(false)}>
@@ -76,30 +138,40 @@ export function News() {
               <li className="row" key={item.id}>
                 <span>{item.title}</span>
                 <span className="spacer" />
-                <button
-                  onClick={() =>
-                    void invoke('news', 'removeSource', { id: item.id }).catch(app.error)
-                  }
-                >
-                  Remove
-                </button>
+                <DeleteButton
+                  name={item.title}
+                  label="Remove"
+                  onDelete={async () => {
+                    await invoke('news', 'removeSource', {
+                      id: item.id,
+                      revision: item.revision,
+                    });
+                  }}
+                />
               </li>
             ))}
           </ul>
           <form
             onSubmit={async (event) => {
               event.preventDefault();
-              try {
-                await invoke('news', 'addSource', { title, url });
-                setTitle('');
-                setUrl('');
-              } catch (error) {
-                app.error(error);
-              }
+              await submission.run(async () => {
+                setError('');
+                try {
+                  await invoke('news', 'addSource', { title, url });
+                  setTitle('');
+                  setUrl('');
+                } catch (failure: any) {
+                  setError(failure.message);
+                }
+              });
             }}
           >
             <Field label="Name">
-              <input required value={title} onChange={(event) => setTitle(event.target.value)} />
+              <input
+                required
+                value={title}
+                onChange={(event) => setTitle(event.target.value)}
+              />
             </Field>
             <Field label="Feed URL">
               <input
@@ -109,7 +181,10 @@ export function News() {
                 onChange={(event) => setUrl(event.target.value)}
               />
             </Field>
-            <button className="primary">Add source</button>
+            <ErrorText>{error || sources.error}</ErrorText>
+            <button className="primary" disabled={submission.busy}>
+              Add source
+            </button>
           </form>
         </Dialog>
       )}
@@ -119,10 +194,26 @@ export function News() {
 
 export function Mail() {
   const app = useApp();
-  const [page, setPage] = useState('');
-  const [query, setQuery] = useState('');
-  const [search, setSearch] = useState('');
-  const [selected, setSelected] = useState('');
+  const [page, setPage] = useRememberedState('mail:page', '');
+  const [query, setQuery] = useRememberedState('mail:query', '');
+  const [search, setSearch] = useRememberedState('mail:search', '');
+  const [selected, setSelected] = useRememberedState('mail:selected', '');
+  const [history, setHistory] = useRememberedState<string[]>('mail:history', []);
+  useEffect(() => {
+    if (app.target?.module === 'mail') setSelected(app.target.id || '');
+  }, [app.target]);
+  useEffect(
+    () =>
+      window.clarity.subscribe((event) => {
+        if (event.type !== 'auth' || event.data?.provider !== 'google') return;
+        setSelected('');
+        setPage('');
+        setQuery('');
+        setSearch('');
+        setHistory([]);
+      }),
+    [],
+  );
   const inbox = useResource<any>(
     () =>
       app.bootstrap.auth.google
@@ -132,8 +223,11 @@ export function Mail() {
     'mail',
   );
   const message = useResource<any>(
-    () => (selected ? invoke('mail', 'read', { id: selected }) : Promise.resolve(null)),
-    [selected],
+    () =>
+      app.bootstrap.auth.google && selected
+        ? invoke('mail', 'read', { id: selected })
+        : Promise.resolve(null),
+    [selected, app.bootstrap.auth.google],
     'mail',
   );
   if (!app.bootstrap.auth.google)
@@ -141,7 +235,9 @@ export function Mail() {
       <section className="page">
         <h1>Mail</h1>
         <p>Connect Google to read your inbox.</p>
-        <button onClick={() => app.navigate('settings')}>Connect Google</button>
+        <button onClick={() => app.navigate('settings', { section: 'google' })}>
+          Connect Google
+        </button>
       </section>
     );
   return (
@@ -149,15 +245,27 @@ export function Mail() {
       <aside className="mail-list">
         <div className="toolbar">
           <h1>Inbox</h1>
-          <button onClick={() => void inbox.reload()}>Refresh</button>
+          <button
+            className="icon-button quiet"
+            aria-label="Refresh"
+            title="Refresh inbox"
+            onClick={() => void inbox.reload()}
+          >
+            <Icon name="refresh" size={14} />
+          </button>
         </div>
         <form
+          className="module-search"
           onSubmit={(event) => {
             event.preventDefault();
             setPage('');
+            setHistory([]);
+            setSelected('');
+            app.rememberLocation?.({ module: 'mail' });
             setQuery(search);
           }}
         >
+          <Icon name="search" size={14} />
           <input
             aria-label="Search mail"
             type="search"
@@ -167,13 +275,19 @@ export function Mail() {
           />
         </form>
         <ErrorText>{inbox.error}</ErrorText>
-        {inbox.loading && <p role="status">Loading inbox…</p>}
+        <ListState
+          loading={inbox.loading}
+          count={inbox.data?.messages.length || 0}
+          query={query}
+          empty="Your inbox is empty."
+          error={inbox.error}
+        />
         <nav aria-label="Messages">
           {inbox.data?.messages.map((item: any) => (
             <button
               key={item.id}
               className={`${selected === item.id ? 'selected' : ''} ${item.unread ? 'unread' : ''}`}
-              onClick={() => setSelected(item.id)}
+              onClick={() => app.navigate('mail', { id: item.id })}
             >
               <strong>{item.subject}</strong>
               <span>{item.from}</span>
@@ -182,9 +296,38 @@ export function Mail() {
           ))}
         </nav>
         <div className="row">
-          {page && <button onClick={() => setPage('')}>First page</button>}
+          {history.length > 0 && (
+            <button
+              disabled={inbox.loading}
+              onClick={() => {
+                setPage(history.at(-1)!);
+                setHistory(history.slice(0, -1));
+              }}
+            >
+              Previous page
+            </button>
+          )}
+          {page && (
+            <button
+              disabled={inbox.loading}
+              onClick={() => {
+                setPage('');
+                setHistory([]);
+              }}
+            >
+              First page
+            </button>
+          )}
           {inbox.data?.nextPage && (
-            <button onClick={() => setPage(inbox.data.nextPage)}>Older messages</button>
+            <button
+              disabled={inbox.loading}
+              onClick={() => {
+                setHistory([...history, page]);
+                setPage(inbox.data.nextPage);
+              }}
+            >
+              Older messages
+            </button>
           )}
         </div>
       </aside>
@@ -194,8 +337,15 @@ export function Mail() {
         {message.data && (
           <>
             <h1>{message.data.subject}</h1>
-            <p>{message.data.from}</p>
-            <p className="muted">{message.data.date}</p>
+            <div className="mail-meta">
+              <span>{message.data.from}</span>
+              <time>
+                {message.data.date &&
+                  (Number.isNaN(new Date(message.data.date).getTime())
+                    ? message.data.date
+                    : new Date(message.data.date).toLocaleString())}
+              </time>
+            </div>
             <div className="mail-body">{message.data.text}</div>
           </>
         )}
