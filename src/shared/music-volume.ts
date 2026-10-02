@@ -22,10 +22,7 @@ export function readReplayGain(value: any): ReplayGain | undefined {
 
 export function volumeGain(volume: number): number {
   if (!Number.isFinite(volume) || volume <= 0) return 0;
-  // Match librespot's 16-bit control and explicit 60 dB logarithmic curve.
-  const position = Math.floor((Math.min(volume, 100) / 100) * 65535) / 65535;
-  if (position === 0) return 0;
-  return 10 ** (3 * (position - 1));
+  return Math.min(volume, 100) / 100;
 }
 
 export function normalizationGain(data: ReplayGain | undefined, album: boolean): number {

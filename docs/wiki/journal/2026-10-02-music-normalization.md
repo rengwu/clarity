@@ -8,7 +8,7 @@ summary: Apply the accepted shared volume curve, optional fixed normalization an
 ---
 # 2 October 2026 — Music volume consistency and normalization
 
-The user accepted all three recommendations from the source-volume investigation: fix the slider mismatch, add optional metadata normalization and preserve album dynamics with automatic album/track selection. [D124](../decisions/index.md#d124-music-volume-consistency-and-normalization-2-october-2026) records acceptance separately from delegated choices. The [Music topic](../features/music.md#source-volume-and-normalization-2-october-2026) owns the rebuild contract.
+The user accepted all three recommendations from the source-volume investigation: fix the slider mismatch, add optional metadata normalization and preserve album dynamics with automatic album/track selection. [D124](../decisions/index.md#d124-music-volume-consistency-and-normalization-2-october-2026) records acceptance separately from delegated choices. The current [Music topic](../features/music.md#source-volume-and-normalization-3-october-2026) owns the rebuild contract.
 
 Navidrome now shares Spotify's explicit 60 dB logarithmic volume curve. Native load applies the current volume before starting audio. A saved Settings → Music → Normalize volume checkbox defaults on, changes at the next track, and controls conservative fixed attenuation in both engines. Album contexts use album gain while shuffle/playlists/single songs use track gain. Navidrome retains validated ReplayGain metadata and accounts for its conventional reference level; Spotify uses the existing engine's Basic normalization. Quiet/untagged tracks remain unadjusted. No continuous compressor, audio-file rewrite, provider setting or new runtime dependency is added.
 

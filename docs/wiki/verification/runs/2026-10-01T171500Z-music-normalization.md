@@ -11,7 +11,7 @@ summary: Match both volume curves, apply fixed metadata gain and automatic album
 
 ## Scope
 
-Implement the three steps accepted in **D124** under **FEAT-music**: one volume curve across Spotify/Navidrome, optional fixed normalization, and album gain for albums versus track gain for playlists/shuffle. [Music](../../features/music.md#source-volume-and-normalization-2-october-2026) owns behavior, setting defaults/timing, metadata assumptions and failure boundaries. Settings navigation also follows **FEAT-settings** on [connections](../../foundations/integrations.md#redesign-settings-navigation).
+Implement the three steps accepted in **D124** under **FEAT-music**: one volume curve across Spotify/Navidrome, optional fixed normalization, and album gain for albums versus track gain for playlists/shuffle. The current [Music](../../features/music.md#source-volume-and-normalization-3-october-2026) contract owns behavior, setting defaults/timing, metadata assumptions and failure boundaries. Settings navigation also follows **FEAT-settings** on [connections](../../foundations/integrations.md#redesign-settings-navigation).
 
 Selected checks cover the actual native volume mixer/decoded samples, the pinned Spotify metadata reader/gain calculation, main-to-helper commands, Navidrome HTTP/native UI playback, checkbox persistence, existing Music/connection/cache behavior and package delivery. These are the implementation author's checks, not independent review or listener confirmation.
 

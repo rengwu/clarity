@@ -10,6 +10,7 @@ summary: Build-specific reports and reproducible product checks.
 
 Use [setup and maintenance](setup.md) to choose and run checks, capture build identity and preserve evidence. [Stable feature IDs](../features/index.md#verification-map) point to expected behavior and executed recipes. Reports describe a selected build and scope, never permanent feature certification.
 
+- [Linear Music volume scaling](runs/2026-10-02T165716Z-linear-volume.md): direct shared gain at 0/25/50/70/100, retained normalization/drag response, native PCM and packaged delivery.
 - [Search and list spacing](runs/2026-10-02T163455Z-list-spacing.md): Board and Notes feedback, all-module theme/window sweep, loading/error recovery and populated-list controls.
 - [Live volume response](runs/2026-10-02T142157Z-volume-response.md): volume during held drag/key input, latest feedback, queued PCM gain, regressions and packaged delivery.
 - [Music search categories](runs/2026-10-02T141800Z-music-search.md): grouped previews, result kinds, keyboard Show all, retained cache/layout behavior and packaged delivery.

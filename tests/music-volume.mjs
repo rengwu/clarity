@@ -29,11 +29,11 @@ const near = (actual, expected) =>
   assert.ok(Math.abs(actual - expected) < 0.00001, `${actual} != ${expected}`);
 
 test('gain metadata handles absent, invalid, quiet and peak-limited recordings', () => {
-  near(volumeGain(70), 0.125885906);
-  near(volumeGain(50), 0.03162111);
+  near(volumeGain(70), 0.7);
+  near(volumeGain(50), 0.5);
   assert.equal(volumeGain(0), 0);
   assert.equal(volumeGain(-10), 0);
-  assert.equal(volumeGain(0.0001), 0);
+  near(volumeGain(0.0001), 0.000001);
   assert.equal(volumeGain(100), 1);
   assert.equal(volumeGain(500), 1);
   assert.equal(volumeGain(NaN), 0);

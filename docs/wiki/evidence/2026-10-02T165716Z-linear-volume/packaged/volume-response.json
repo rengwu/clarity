@@ -1,0 +1,27 @@
+{
+  "duringDrag": [
+    67,
+    61,
+    56,
+    50,
+    44,
+    39,
+    33,
+    28,
+    22,
+    16,
+    11,
+    5,
+    25,
+    44,
+    64,
+    84
+  ],
+  "dragValue": 84,
+  "duringKey": 83,
+  "keyValue": 83,
+  "staleEchoIgnored": true,
+  "externalVolumeAccepted": true,
+  "muteAndMaximum": true,
+  "failureVisible": true
+}

@@ -8,8 +8,8 @@ use librespot_core::{
     session::Session,
 };
 use librespot_playback::{
-    config::{NormalisationMethod, NormalisationType, PlayerConfig, VolumeCtrl},
-    mixer::{NoOpVolume, mappings::MappedCtrl},
+    config::{NormalisationMethod, NormalisationType, PlayerConfig},
+    mixer::NoOpVolume,
     player::{Player, PlayerEvent},
 };
 use serde_json::{Value, json};
@@ -162,8 +162,7 @@ fn player_config(normalization: bool) -> PlayerConfig {
 }
 
 fn volume_gain(command: &Value) -> f32 {
-    let value = (command["volume"].as_f64().unwrap_or(70.0).clamp(0.0, 100.0) / 100.0 * u16::MAX as f64) as u16;
-    VolumeCtrl::Log(60.0).to_mapped(value) as f32
+    (command["volume"].as_f64().unwrap_or(70.0).clamp(0.0, 100.0) / 100.0) as f32
 }
 
 #[cfg(test)]

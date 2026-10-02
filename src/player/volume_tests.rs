@@ -141,12 +141,7 @@ async fn decoded_pcm_uses_matching_volume_and_preserves_untagged_audio() {
     assert!(baseline.iter().any(|sample| sample.abs() > 0.4));
     let mut scenarios = vec![];
     for volume in [0.0, 25.0, 50.0, 70.0, 100.0] {
-        let position = (volume / 100.0 * 65535.0_f64).floor() / 65535.0;
-        let expected = if volume == 0.0 {
-            0.0
-        } else {
-            10.0_f64.powf(3.0 * (position - 1.0))
-        };
+        let expected = volume / 100.0;
         scenarios.push((false, false, volume, expected));
         scenarios.push((true, false, volume, expected));
     }

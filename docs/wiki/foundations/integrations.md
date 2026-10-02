@@ -38,7 +38,7 @@ Spotify sign-in must persist through restarts and normal access-token expiry und
 
 ### Redesign Settings navigation
 
-Settings → Music contains **Normalize volume**, a saved boolean enabled by default when the field is absent. Show the section only when Music is enabled; retain the saved preference when the module is disabled. Checkbox changes take effect on the next track and do not change connection grants or agent approvals. [Music](../features/music.md#source-volume-and-normalization-2-october-2026) owns gain, album/track selection and missing-metadata behavior.
+Settings → Music contains **Normalize volume**, a saved boolean enabled by default when the field is absent. Show the section only when Music is enabled; retain the saved preference when the module is disabled. Checkbox changes take effect on the next track and do not change connection grants or agent approvals. [Music](../features/music.md#source-volume-and-normalization-3-october-2026) owns gain, album/track selection and missing-metadata behavior.
 
 **Accepted direction ([D120](../decisions/index.md#d120-section-based-settings-in-the-redesign-1-october-2026)), implemented:** adopt the spike's section navigation with one selected Settings section visible at a time. This replaces the former long page/Go to layout. Carry all current data-folder, module, appearance, account, Permissions and Agent approvals controls into the appropriate sections; the screenshot-sized sample Settings is not a reduced feature contract.
 

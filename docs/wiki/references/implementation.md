@@ -257,7 +257,7 @@ Tests live in the repository's `tests/` directory, use external disposable data 
 
 ## Connections and limits
 
-Music now uses one gain curve across Spotify/Navidrome and optional fixed normalization with automatic album/track selection. [The contract](../features/music.md#source-volume-and-normalization-2-october-2026) records the enabled-by-default setting, next-track timing, conservative attenuation and metadata assumptions. Real-account tag coverage and measured loudness parity remain separate validation limits.
+Music now uses one direct gain curve across Spotify/Navidrome and optional fixed normalization with automatic album/track selection. [The contract](../features/music.md#source-volume-and-normalization-3-october-2026) records the enabled-by-default setting, next-track timing, conservative attenuation and metadata assumptions. Real-account tag coverage and measured loudness parity remain separate validation limits.
 
 **Remaining validation limits:** the previously missing Linkding schedule/reconciliation (D41), affected-item navigation (D18), and cross-module Wiki citations (D85) are implemented. Full GFM is required but representative round trips are not exhaustive conformance. Trash recovery is manual without an original-folder restore manifest. Live-provider and platform limits remain in [current follow-up](../discussions/open-questions.md).
 
