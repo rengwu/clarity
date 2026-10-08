@@ -1,0 +1,12 @@
+{
+  "applicationSha256": {
+    "before": "55d9be6cc94194222de4257d4dc543b82fa645c941912ceee681fdf83a0ba475",
+    "after": "55d9be6cc94194222de4257d4dc543b82fa645c941912ceee681fdf83a0ba475",
+    "matches": true
+  },
+  "verificationSha256": {
+    "before": "8d980edf1e66cfcb4f3dd2f93963ddcb913b4ec01a54d8ad08f645f57ca9ef0d",
+    "after": "8d980edf1e66cfcb4f3dd2f93963ddcb913b4ec01a54d8ad08f645f57ca9ef0d",
+    "matches": true
+  }
+}

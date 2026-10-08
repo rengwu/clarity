@@ -2,7 +2,7 @@
 title: Verification
 section: Verification
 status: Current
-updated: 2026-10-03
+updated: 2026-10-08
 order: 0
 summary: Build-specific reports and reproducible product checks.
 ---
@@ -10,6 +10,7 @@ summary: Build-specific reports and reproducible product checks.
 
 Use [setup and maintenance](setup.md) to choose and run checks, capture build identity and preserve evidence. [Stable feature IDs](../features/index.md#verification-map) point to expected behavior and executed recipes. Reports describe a selected build and scope, never permanent feature certification.
 
+- [Recent chats require a sent turn](runs/2026-10-08T074400Z-recent-chats.md): empty-entry filtering, first text/attachment-only sends, failure behavior, draft and turn persistence in development Electron.
 - [Shared feedback with Radix Toast](runs/2026-10-02T173355Z-global-feedback.md): contextual errors, queue/timing/keyboard behavior, native-modal/window suspension, shared UI regressions and packaged delivery.
 - [Linear Music volume scaling](runs/2026-10-02T165716Z-linear-volume.md): direct shared gain at 0/25/50/70/100, retained normalization/drag response, native PCM and packaged delivery.
 - [Search and list spacing](runs/2026-10-02T163455Z-list-spacing.md): Board and Notes feedback, all-module theme/window sweep, loading/error recovery and populated-list controls.

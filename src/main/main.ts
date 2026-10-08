@@ -474,7 +474,8 @@ async function call(method: string, args: any = {}): Promise<any> {
   if (method === 'launcher.interpret') return chats.interpretCommand(args.query);
   if (method === 'launcher.cancel') return chats.cancelInterpretation();
   if (method === 'chats.list')
-    return (await store.list('chats'))
+    return (await store.list<Chat>('chats'))
+      .filter((chat) => chat.messages.some((message) => message.role === 'user'))
       .sort((a, b) => b.updatedAt - a.updatedAt)
       .map(({ messages, ...chat }) => chat);
   if (method === 'chats.get') {

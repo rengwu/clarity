@@ -1,0 +1,15 @@
+{
+  "emptyClicks": 4,
+  "hiddenAfterPreparationFailure": true,
+  "draftPreservedAfterRestart": true,
+  "firstTurnListedWhileRunning": true,
+  "responseFailureRemainsListed": true,
+  "attachmentOnlyTurnListed": true,
+  "finalRecentTitles": [
+    "Fixture.txt",
+    "First sent turn",
+    "New chat"
+  ],
+  "turnsPreservedAfterRestart": true,
+  "rendererErrors": []
+}

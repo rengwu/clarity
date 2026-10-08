@@ -47,7 +47,8 @@ async function fixture(name, emptyChat = false) {
     for (const id of emptyChat ? [] : ['chat-a', 'chat-b'])
       await store.put('chats', id, {
         title: id === 'chat-a' ? 'First conversation' : 'Second conversation',
-        messages: [], grants: [], attachments: [], status: 'idle',
+        messages: [{ role: 'user', content: [{ type: 'text', text: 'Earlier request' }], timestamp: 1 }],
+        grants: [], attachments: [], status: 'idle',
       });
   } finally { await store.close(); }
   let application;

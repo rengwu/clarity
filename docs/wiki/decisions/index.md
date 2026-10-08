@@ -2,7 +2,7 @@
 title: Decision register
 section: Decisions
 status: Accepted
-updated: 2026-10-03
+updated: 2026-10-08
 order: 0
 summary: User decisions, delegated implementation defaults, and their replacements.
 ---
@@ -895,3 +895,7 @@ The 2 October [large-collection correction](../features/music.md#large-spotify-c
 ## D130 — Shared feedback with Radix Toast · 3 October 2026
 
 **Accepted from the user:** choose Radix Toast after the requested comparison of global error and information-message methods. **Delegated implementation:** use one shared provider and presentation system, keeping field/form/module failures in context, ongoing workspace failures in a persistent recovery banner, and cross-module action feedback in queued Radix toasts. Timings, placement, deduplication, focus behavior and native-modal/window suspension are implementation defaults. This resolves the earlier pending proposal; it does not add an OS notification service or stored notification history. The [desktop contract](../foundations/desktop-stack.md#global-feedback-standard-3-october-2026) owns the specification and [the journal](../journal/2026-10-03-global-feedback.md) records delivery and limits.
+
+## D131 — Recent chats require a sent turn · 8 October 2026
+
+**User requirement:** opening New chat repeatedly without a turn must not create Recent chats entries. **Delegated interpretation:** a turn starts when the first user message is accepted and persisted, including an attachment-only send; completion of an assistant response is not required. Existing empty records become hidden, with drafts and records retained. This refines the D78 opening/navigation contract without changing shared history or account behavior. [Chat](../foundations/chat.md#recent-chats-require-a-sent-turn-8-october-2026) owns eligibility, persistence and verification.

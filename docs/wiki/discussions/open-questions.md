@@ -2,13 +2,15 @@
 title: Open questions
 section: Discussion
 status: Open
-updated: 2026-10-03
+updated: 2026-10-08
 order: 0
 summary: Remaining design choices and a record of resolved or deferred questions.
 ---
 # Open questions
 
-## Current follow-up · 3 October 2026
+## Current follow-up · 8 October 2026
+
+**Empty Recent chats resolved:** [D131](../decisions/index.md#d131-recent-chats-require-a-sent-turn-8-october-2026) requires a saved user turn before listing a chat. The [Chat contract](../foundations/chat.md#recent-chats-require-a-sent-turn-8-october-2026) preserves unsent drafts and hides existing empty records. The [development run](../verification/runs/2026-10-08T074400Z-recent-chats.md) covers creation, send, failures and restart; no installed package was replaced.
 
 D102 authorizes implementation with safe, lean defaults. The stack, one data root, subscription, file-backed notes/wiki, and app lifecycle are settled. The local build has passed installed-Codex and relocated macOS package checks. Historical question rounds below are not a fresh preference questionnaire.
 

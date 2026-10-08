@@ -2,7 +2,7 @@
 title: Chat and module actions
 section: Foundations
 status: Current
-updated: 2026-10-02
+updated: 2026-10-08
 order: 40
 summary: Chat can read information and perform actions across all Clarity modules.
 ---
@@ -19,6 +19,12 @@ Stable ID: **FEAT-chat**.
 Chat is the opening screen. Resume the last thread, show recent chats in the main sidebar, and provide New chat. All conversations access shared enabled modules. Stay in chat after actions; opening another module is explicit. D18's affected-item links resolve the record or file through the common navigation target.
 
 Use Pi with the existing Codex subscription. Model/effort changes apply to the next message in the same thread, preserving history. Persist streaming progress and tool results locally. A restart marks unfinished runs interrupted, with no automatic replay. Earlier conversations are retrieved only when requested or referenced; there is no automatic cross-chat memory. `chats.find` currently returns up to five matching threads with up to eight matching messages each.
+
+### Recent chats require a sent turn · 8 October 2026
+
+**User requirement ([D131](../decisions/index.md#d131-recent-chats-require-a-sent-turn-8-october-2026)):** repeatedly opening New chat without sending anything must not add entries to Recent chats. A conversation becomes recent when its first user message is accepted and saved, including an attachment-only message. It appears while the response is running; a later response error or interruption does not remove it. Typing a draft, choosing attachments, and a failure before saving the user message do not qualify.
+
+**Implementation:** `chats.list` includes only records with at least one message whose role is `user`, then retains the existing descending `updatedAt` order and message-free summary shape. Titles and status are not eligibility signals: a real conversation titled New chat remains listed. Existing empty records are hidden automatically without deleting records, drafts, attachments or grants. New chat still saves a draft record and updates `lastChat`; the active unsent composer and its draft remain available through navigation history and reopening. This changes Recent chats eligibility without a storage migration or a new draft lifecycle.
 
 ### Redesign agent and effort picker
 
@@ -136,6 +142,8 @@ Malformed relative Markdown links/images are contained in the source preview ins
 
 ### Verification recipe and coverage
 
+**Recent-chat recipe:** build, then run `node --test --test-concurrency=1 tests/recent-chats.mjs tests/adversarial-renderer.mjs`. The development Electron driver uses disposable records and a controlled agent prompt while exercising the real create/send/list IPC, storage and renderer. Check legacy empty/non-user records, four New chat clicks, unsent drafts through Notes/Back/reload/restart, failed send preparation, first-send visibility during a response, response failure, a second turn without duplication, attachment-only sends, and final ordering after restart. Existing QA12 checks retain draft-generation protections. Set `CLARITY_QA_EVIDENCE` to retain observations and screenshots. The focused driver controls the external development runtime; it does not certify a packaged build or live provider.
+
 **Adversarial recipe:** Run `tests/adversarial-renderer.mjs` with controlled delayed create/send replies: replace text/context/attachments, edit away and back to identical text, navigate, reload, and check saved drafts plus the actual submitted payload. Cover preparation failure after creation. Run `tests/adversarial-services.mjs` for direct, queued and automatic revisionless/stale actions and verify target records as well as action outcomes. No live model is needed for these boundary checks. Build with an external cache and use a fresh evidence directory as described in [Verification setup](../verification/setup.md#adversarial-regression-suite).
 
 **Entry points and prerequisites:** Chat → type unsent draft → reload; review card; attachment chip. Use the isolated fixtures and build/readiness steps in [Verification setup](../verification/setup.md). Intent and expected outcomes are the current specification above, linked to its accepted decisions and delegated defaults; code observations alone do not replace those requirements.
@@ -143,6 +151,8 @@ Malformed relative Markdown links/images are contained in the source preview ins
 **Executed recipe:** after building, run `node --test --test-name-pattern='UI audit regressions' tests/usability.mjs`. Check persistent draft, readable before/after and collapsed technical details, file inspection/reveal, exact-item handoff and no renderer errors. Attachments are fixture originals; provider execution is not mocked as proof of a real model response. Package checks additionally reopen an unsent draft after full process exit. Inspect visible outcomes and the underlying persisted effect together. The run owns and closes its temporary app/server; retained screenshots are safe fixtures. Real-account and exhaustive accessibility/conformance limits remain explicitly listed in the run.
 
 ### Verification history
+
+- [8 October 2026: Recent chats require a sent turn](../verification/runs/2026-10-08T074400Z-recent-chats.md) — empty-entry filtering, real create/send/list flows, controlled response failure and restart persistence.
 
 - [2 October 2026: adversarial fixes](../verification/runs/2026-10-02T101600Z-adversarial-fixes.md) — remediation, negative controls, retained Settings guard and combined-build checks.
 

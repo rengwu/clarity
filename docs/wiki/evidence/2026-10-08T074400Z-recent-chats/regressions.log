@@ -1,0 +1,64 @@
+TAP version 13
+# Subtest: QA01 malformed Markdown source links stay local and valid links remain navigable
+ok 1 - QA01 malformed Markdown source links stay local and valid links remain navigable
+  ---
+  duration_ms: 4356.851625
+  type: 'test'
+  ...
+# Subtest: QA02 native modals retain their draft and focus when global shortcuts are pressed
+ok 2 - QA02 native modals retain their draft and focus when global shortcuts are pressed
+  ---
+  duration_ms: 4162.445625
+  type: 'test'
+  ...
+# Subtest: QA03 rich-editor Bold remains local and sidebar shortcut works outside editors
+ok 3 - QA03 rich-editor Bold remains local and sidebar shortcut works outside editors
+  ---
+  duration_ms: 4166.778875
+  type: 'test'
+  ...
+# Subtest: QA06 Wiki cross-page heading survives parent synchronization and history return
+ok 4 - QA06 Wiki cross-page heading survives parent synchronization and history return
+  ---
+  duration_ms: 4131.757167
+  type: 'test'
+  ...
+# Subtest: QA12 send acknowledgement preserves newer text attachments context and other conversation drafts
+ok 5 - QA12 send acknowledgement preserves newer text attachments context and other conversation drafts
+  ---
+  duration_ms: 4197.881417
+  type: 'test'
+  ...
+# Subtest: QA12 newer identical text stays unsent and unchanged submissions clear after success
+ok 6 - QA12 newer identical text stays unsent and unchanged submissions clear after success
+  ---
+  duration_ms: 2159.23525
+  type: 'test'
+  ...
+# Subtest: QA12 edits made while creating a conversation follow the created chat without changing outgoing text
+ok 7 - QA12 edits made while creating a conversation follow the created chat without changing outgoing text
+  ---
+  duration_ms: 4172.684417
+  type: 'test'
+  ...
+# Subtest: QA12 new-conversation send failure remains visible and preserves its latest draft
+ok 8 - QA12 new-conversation send failure remains visible and preserves its latest draft
+  ---
+  duration_ms: 4150.635459
+  type: 'test'
+  ...
+# Subtest: Recent chats require a sent user turn and preserve drafts across reload and restart
+ok 9 - Recent chats require a sent user turn and preserve drafts across reload and restart
+  ---
+  duration_ms: 10536.742625
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 42962.817583

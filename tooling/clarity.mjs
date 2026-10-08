@@ -363,6 +363,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
             'adversarial-renderer',
             'adversarial-state',
             'feedback',
+            'recent-chats',
             'live-chat',
           ].map((name) => join(repository, `tests/${name}.mjs`)),
         ],

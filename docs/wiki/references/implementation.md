@@ -2,11 +2,13 @@
 title: Implementation and validation
 section: References
 status: Current
-updated: 2026-10-03
+updated: 2026-10-08
 order: 100
 summary: Rebuild contracts, local runtime, data schemas, dependencies, checks, and known gaps.
 ---
 # Implementation and validation
+
+Recent chats now includes a conversation only after its first user message is saved. Empty New chat records are hidden, existing drafts remain intact, and text/attachment-only turns remain listed through response failures and restart. The [Chat contract](../foundations/chat.md#recent-chats-require-a-sent-turn-8-october-2026) and [focused development run](../verification/runs/2026-10-08T074400Z-recent-chats.md) record D131 and its evidence. The installed application was not replaced by this change.
 
 The user authorized building the complete agreed Clarity app under [D102](../decisions/index.md#d102-build-clarity-with-lean-defaults-28-september-2026). A first local build covers all agreed modules, with missing accepted behavior and unverified integrations identified below. This page is the engineering portion of the [rebuild specification](../index.md#rebuild-reading-order); module behavior belongs on the linked topic pages. Source paths identify the current implementation, but the contracts below stand on their own.
 
