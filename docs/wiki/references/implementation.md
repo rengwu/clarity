@@ -2,11 +2,13 @@
 title: Implementation and validation
 section: References
 status: Current
-updated: 2026-10-08
+updated: 2026-10-12
 order: 100
 summary: Rebuild contracts, local runtime, data schemas, dependencies, checks, and known gaps.
 ---
 # Implementation and validation
+
+The repeated quiet-volume midpoint was traced to the older installed logarithmic build. The existing direct-gain fix is now installed at `~/Applications/Clarity.app`, with its predecessor backed up and all seven runtime hashes matching the verified package. [The 12 October delivery run](../verification/runs/2026-10-11T182500Z-installed-volume.md) records native PCM, packaged Music, types and relocation checks, including earlier test timeouts. Normal startup awaits the user’s macOS Keychain step; perceived loudness remains unmeasured.
 
 Recent chats now includes a conversation only after its first user message is saved. Empty New chat records are hidden, existing drafts remain intact, and text/attachment-only turns remain listed through response failures and restart. The [Chat contract](../foundations/chat.md#recent-chats-require-a-sent-turn-8-october-2026) and [focused development run](../verification/runs/2026-10-08T074400Z-recent-chats.md) record D131 and its evidence. The installed application was not replaced by this change.
 

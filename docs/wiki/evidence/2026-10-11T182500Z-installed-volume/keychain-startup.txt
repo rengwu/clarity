@@ -1,0 +1,8 @@
+Installed Clarity process sampled during normal startup; Keychain read pending.
++                                                                                                         876 SecItemCopyMatching  (in Security) + 344  [0x189574644]
++                                                                                                           876 SecItemCopyMatching_osx(__CFDictionary const*, void const**)  (in Security) + 2140  [0x1895737e4]
++                                                                                                               876 SecKeychainItemCopyContent  (in Security) + 316  [0x1895963d8]
++                                                                                                                 876 Security::KeychainCore::ItemImpl::getContent(SecItemClass*, SecKeychainAttributeList*, unsigned int*, void**)  (in Security) + 744  [0x18955116c]
++                                                                                                                   876 Security::KeychainCore::ItemImpl::getContent(Security::CssmClient::DbAttributes*, Security::CssmDataContainer*)  (in Security) + 572  [0x18954aca0]
++                                                                                                                                 876 Security::SecurityServer::ClientSession::decrypt(Security::Context const&, unsigned int, Security::CssmData const&, Security::CssmData&, Security::Allocator&)  (in Security) + 764  [0x1895fc624]
+Computer Use could not inspect SecurityAgent: access blocked for safety reasons. User asked to complete the OS dialog.

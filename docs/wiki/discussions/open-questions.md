@@ -2,13 +2,15 @@
 title: Open questions
 section: Discussion
 status: Open
-updated: 2026-10-08
+updated: 2026-10-12
 order: 0
 summary: Remaining design choices and a record of resolved or deferred questions.
 ---
 # Open questions
 
-## Current follow-up · 8 October 2026
+## Current follow-up · 12 October 2026
+
+**Installed linear volume — Keychain step pending:** the repeated quiet-midpoint report came from an older installed logarithmic bundle. The existing D129 fix has now been installed with a backup and verified runtime hashes. [The delivery run](../verification/runs/2026-10-11T182500Z-installed-volume.md) records passing fixture/package checks and the startup wait inside Keychain; the user needs to complete the OS dialog before normal startup can be confirmed.
 
 **Empty Recent chats resolved:** [D131](../decisions/index.md#d131-recent-chats-require-a-sent-turn-8-october-2026) requires a saved user turn before listing a chat. The [Chat contract](../foundations/chat.md#recent-chats-require-a-sent-turn-8-october-2026) preserves unsent drafts and hides existing empty records. The [development run](../verification/runs/2026-10-08T074400Z-recent-chats.md) covers creation, send, failures and restart; no installed package was replaced.
 

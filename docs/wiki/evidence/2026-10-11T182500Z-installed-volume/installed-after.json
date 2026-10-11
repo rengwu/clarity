@@ -1,0 +1,14 @@
+{
+  "installed": "/Users/rengwu/Applications/Clarity.app",
+  "backup": "/Users/rengwu/Library/Caches/Clarity/build/Clarity-before-volume-20261011T182500Z.app",
+  "allSevenRuntimeFilesMatchTestedPackage": true,
+  "files": {
+    "main.mjs": "9543891a8266c0049bed874d34b98268092f43fec775d19660821e56d3a13229",
+    "preload.cjs": "8f51417738610391aa9ae5cd4bca18cfb43f19998a351244404972880890264a",
+    "worker.mjs": "ff1dd08710e3df237c3e640e7ebb2bc7a4764617f59f4918c5a2db50668f44a4",
+    "app.js": "978abb80e91527874dc84eff66c69034ab4cf55ea3ba133890322e406b933c0b",
+    "app.css": "2c02b6402839b02791c0979189569cc5cd7f8777e416b2602cf7b4cf4c187d7f",
+    "index.html": "bcd785e95fb0ab58fd806a26ac1c8ce7d5cd692c274ad1b014c3f681ae02293b",
+    "clarity-player": "82856cb4faca5674d09f34bdeed4cfa40513e930ac2a737f2a47b48210d8e95b"
+  }
+}

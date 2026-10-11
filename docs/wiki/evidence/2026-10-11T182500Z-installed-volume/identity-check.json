@@ -1,0 +1,17 @@
+{
+  "applicationSha256": {
+    "before": "a93daf97cbfb8e93876108ac6cf1644483213784df60688cc93c2b6925cb8840",
+    "after": "a93daf97cbfb8e93876108ac6cf1644483213784df60688cc93c2b6925cb8840",
+    "matches": true
+  },
+  "verificationSha256": {
+    "before": "8d980edf1e66cfcb4f3dd2f93963ddcb913b4ec01a54d8ad08f645f57ca9ef0d",
+    "after": "8d980edf1e66cfcb4f3dd2f93963ddcb913b4ec01a54d8ad08f645f57ca9ef0d",
+    "matches": true
+  },
+  "packageRuntimeSha256": {
+    "before": "b310923d23c519104da7d83355f487713f4584ecaf0cf2be1fb615c742a8a515",
+    "after": "b310923d23c519104da7d83355f487713f4584ecaf0cf2be1fb615c742a8a515",
+    "matches": true
+  }
+}

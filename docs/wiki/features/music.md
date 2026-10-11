@@ -2,7 +2,7 @@
 title: Music
 section: Features
 status: Current
-updated: 2026-10-03
+updated: 2026-10-12
 order: 90
 summary: One lean Spotify and Navidrome client with source-labelled browsing and playback.
 ---
@@ -57,6 +57,8 @@ Spotify library OAuth and native-playback OAuth are separate. Library access use
 **Accepted under [D124](../decisions/index.md#d124-music-volume-consistency-and-normalization-2-october-2026):** align the slider across Spotify and Navidrome, add optional metadata-based normalization, and automatically preserve album dynamics using album gain for albums and track gain for playlists/shuffle. The user accepted all three recommendations after the source-volume investigation. No audio-file rewriting or continuous compressor is introduced.
 
 **Shared control:** both engines use direct, linear amplitude control: clamp finite volume values to 0–100 and divide by 100. Zero is complete mute and maximum is unity, so 50% applies 0.50 gain and 70% applies 0.70 gain. This replaces the earlier 60 dB logarithmic curve after the user reported that its midpoint was much too quiet. Native load applies the current volume before starting a track, including mute, so a restarted helper cannot briefly play at its initial 70%.
+
+**Installed delivery · 12 October 2026:** a repeated quiet-midpoint report was traced to the old logarithmic bundle still running in `~/Applications/Clarity.app`; the 3 October linear package had remained in the cache. The [delivery run](../verification/runs/2026-10-11T182500Z-installed-volume.md) verifies the rebuilt package and matching installed runtime files. The previous app is backed up; normal reopening currently awaits the user’s macOS Keychain step. No gain formula or normalization rule changed, and perceived speaker/Bluetooth loudness remains unmeasured.
 
 **Delegated setting and timing:** Settings → Music appears when Music is enabled and contains one **Normalize volume** checkbox. Store the boolean `musicNormalization` with data-folder settings; default true also fills older records without the field. The setting is independent of connections and agent approvals. Save validation rejects non-booleans. Changing normalization or shuffle affects the next loaded track; keep the current track's gain constant through pause/resume and seeking. This avoids a mid-song level change. A normalization change restarts Spotify's helper only at its next load; an album/track mode change uses the same helper. The UI states the timing and that quiet/untagged tracks stay unchanged.
 
@@ -195,6 +197,8 @@ Browse and player errors now use the [shared Notice component](../foundations/de
 The [feedback verification run](../verification/runs/2026-10-02T173355Z-global-feedback.md) records the selected native controls, error/recovery checks and limits.
 
 ### Verification recipe and coverage
+
+**Volume delivery recipe:** first identify whether the user is running the installed app or development output and compare its runtime hashes/renderer mapping with the tested build. Run `tests/music-volume.mjs` against the candidate package using `CLARITY_VOLUME_EXECUTABLE`, plus the native PCM tests and `tests/package.mjs`. Keep combined-run timeouts distinct from isolated passes. For installation, stage and verify the package, quit the app normally, preserve the old bundle, compare all seven installed runtime files and reopen the actual installed path. Record any Keychain/user step separately from fixture success. Never treat a package in the build cache as an installed fix.
 
 **Search-category recipe:** after building, run `node --test tests/music-cache.mjs`. The native driver searches eight songs plus artist/album/playlist fixtures, including a song and album with the same title. Check section order, six-item preview, explicit kind/source labels, keyboard Show all into the complete Songs list, both layouts, source filtering, collection/Back, no extra search request, Songs reset after leaving Music, empty categories and no results. Capture both themes at 1200×800 and 850×600 with `CLARITY_MUSIC_EVIDENCE`; inspect screenshots and overflow measurements. Repeat with `CLARITY_MUSIC_EXECUTABLE`/`CLARITY_MUSIC_MAIN` pointing at the signed package. Existing cache/retry/account scenarios remain in the same driver; fake credentials use Chromium’s mock keychain in an isolated data root. Run the Spotify playlist and Mail/Music navigation recipes below for adjacent entry points. These controlled responses verify presentation/navigation, not live catalogue completeness or provider ranking.
 
