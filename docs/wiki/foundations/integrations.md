@@ -2,7 +2,7 @@
 title: Modules and connections
 section: Foundations
 status: Current
-updated: 2026-10-03
+updated: 2026-10-16
 order: 30
 summary: Enable the tools you want and authenticate only the services you choose.
 ---
@@ -52,11 +52,11 @@ The fidelity repair uses shared SVG section icons and selectable System/Light/Da
 
 **User requirement ([D125](../decisions/index.md#d125-settings-desktop-design-correction-2-october-2026)):** improve the production Settings UI using Cursor Desktop and the earlier Cursor-based prototype; Codex Desktop is permitted as another reference. The implementation study used Cursor 3.23.12’s running General and Appearance screens and the external prototype’s Settings source and rendered Modules screen. No new Codex Desktop inspection is claimed.
 
-**Delegated presentation defaults:** retain one selected section below the shared workspace header. Group the section list into Workspace (Appearance, Modules, Data folder, Search and commands), Agent (Permissions, Agent approvals), Connections (Codex and enabled-module providers), and Preferences (enabled Music/Expenses). Hide empty groups. First entry defaults to Appearance; later visits retain the selection, and existing connection targets still select their section. The section rail is 196px wide, or 168px at window widths up to 1050px, and scrolls independently.
+**Delegated presentation defaults:** retain one selected section below the shared workspace header. Group the section list into Workspace (Appearance, Modules, Data folder, Search and commands), Agent (Permissions, Agent approvals), Connections (Codex and enabled-module providers), and Preferences (enabled Music/Expenses). Hide empty groups. First entry defaults to Appearance; later visits retain the selection, and existing connection targets still select their section. Shared geometry, typography, switches, responsive forms and theme-control keyboard behavior are owned by the [Settings design pattern](ui-design-system.md#settings).
 
-Center the content in an 808px outer column with 32px horizontal padding. Use a 20px medium-weight section title, muted 12px group headings, subdued 7px-radius groups and straight internal dividers. Modules use one row per module with an existing module icon and a right-aligned 30 × 18px switch; rows have a 42px minimum height. Boolean preferences and device location use the same switch, retaining native checkbox semantics, explicit accessible names and Space activation. No module descriptions are invented. The one introductory sentence explains that disabled modules retain data.
+Modules use one row per module with its existing icon and the shared right-aligned switch. Boolean preferences and device location use the same native checkbox semantics, explicit accessible names and Space activation. No module descriptions are invented; the introductory sentence explains that disabled modules retain data.
 
-Connection forms align labels left and equally sized controls right (300px maximum). At content widths up to 540px, labels stack above full-width inputs, and the outer padding reduces to 20px; tighter content uses 14px. Submit actions align right, errors remain in their section, and connected providers use matching status/action rows. Spotify’s library and playback remain separate groups with independent controls. System/Light/Dark preview buttons retain one keyboard Tab stop; arrows and Home/End select and focus a theme. Shared reduced-motion rules suppress switch and section transitions.
+Connected providers use matching status/action rows; Spotify library and playback remain separate groups with independent controls. Submit actions and failures follow the shared Settings and feedback patterns. Shared reduced-motion behavior applies to section and switch transitions.
 
 Permissions uses Location and Websites groups, preserving device status, refresh, manual fallback and per-chat revocation. Agent approvals keeps all 37 actions and the native indeterminate Select all checkbox, grouped under module headings with shorter visible action text, full accessible names and a selected-count summary. These are presentation changes to the existing approval contract, not new grants or defaults. Module saves disable the module switches while pending, refresh the saved state, and restore the previous selection with a local error on failure. Form values remain mounted across section changes; credentials are not saved as drafts.
 
@@ -66,7 +66,7 @@ The [focused run](../verification/runs/2026-10-01T184717Z-settings-redesign.md) 
 
 Settings uses a compact left section list and shows one section at a time below the shared stationary workspace header. The content body owns its thin scrollbar. Connection guidance activates its matching section. Section changes focus the heading container without a decorative ring; Tab reaches its controls. All controls remain mounted, preserving in-progress connection forms while switching sections. Labels use explicit accessible names even for prefilled multiline fields.
 
-The current dimensions and grouping are specified in the [Settings visual system](#settings-visual-system-2-october-2026). Action rows wrap as needed. Modules, Permissions and the complete 37-row Agent approvals checklist keep their existing behavior. Appearance adds Reduce motion; Search and commands adds Automatically interpret commands. These two preferences update immediately, persist through settings, and restore the old value if saving fails.
+Current dimensions are specified in the [design-system Settings pattern](ui-design-system.md#settings); product grouping remains in the [Settings visual system](#settings-visual-system-2-october-2026). Action rows wrap as needed. Modules, Permissions and the complete 37-row Agent approvals checklist keep their existing behavior. Appearance adds Reduce motion; Search and commands adds Automatically interpret commands. These two preferences update immediately, persist through settings, and restore the old value if saving fails.
 
 Connection failures appear inside their section rather than at the top of the long page; modal failures stay inside the modal. Connection submissions are guarded while pending. The complete 37-row approval checklist remains present.
 

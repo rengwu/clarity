@@ -2,7 +2,7 @@
 title: Decision register
 section: Decisions
 status: Accepted
-updated: 2026-10-08
+updated: 2026-10-16
 order: 0
 summary: User decisions, delegated implementation defaults, and their replacements.
 ---
@@ -899,3 +899,9 @@ The 2 October [large-collection correction](../features/music.md#large-spotify-c
 ## D131 — Recent chats require a sent turn · 8 October 2026
 
 **User requirement:** opening New chat repeatedly without a turn must not create Recent chats entries. **Delegated interpretation:** a turn starts when the first user message is accepted and persisted, including an attachment-only send; completion of an assistant response is not required. Existing empty records become hidden, with drafts and records retained. This refines the D78 opening/navigation contract without changing shared history or account behavior. [Chat](../foundations/chat.md#recent-chats-require-a-sent-turn-8-october-2026) owns eligibility, persistence and verification.
+
+## D132 — Portable UI design system reference · 16 October 2026
+
+**User requirement:** create a UI design-system wiki topic based on Clarity's current implementation so agents in other projects can readily emulate it. **Documentation approach:** the [UI design system](../foundations/ui-design-system.md) owns shared visual rules, exact theme/density values, component states, layout patterns and feedback presentation, with annotated retained screenshots, source provenance, adaptation guidance and a reproduction checklist. Desktop stack retains runtime/service interfaces and verification recipes; feature topics retain their product behavior. Existing heading links remain as pointers to the consolidated specification.
+
+This authorizes documenting the existing design for reuse. It does not select a new UI style, require Clarity's technology stack in receiving projects, create a component package or certify a new runtime build. [The extraction journal](../journal/2026-10-16-ui-design-system.md) records the evidence and documentation checks.

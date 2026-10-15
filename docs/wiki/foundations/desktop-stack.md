@@ -2,7 +2,7 @@
 title: Desktop stack exploration
 section: Foundations
 status: Current
-updated: 2026-10-03
+updated: 2026-10-16
 order: 60
 summary: Local Cloudflare OS, Electron, actual Markdown files, Pi, stable modules, and upstream approvals.
 ---
@@ -46,28 +46,19 @@ The [production port run](../verification/runs/2026-10-01T142628Z-redesign-port.
 
 ### Compact shared design
 
-The production renderer adopts the studied Cursor spike language across every module, using existing services and user data. No sample records or scripted chat replies are installed into the user's folder. Shell code and shared controls are separate from module behavior; styles live in `style.css` and `workspace.css`, with one SVG icon set and native button/input semantics.
+The [UI design system](ui-design-system.md) now owns the current shared visual specification: themes, type, dimensions, shell and pane geometry, component states, motion, keyboard behavior and portable reproduction guidance. It extracts the production Cursor-inspired language under [D132](../decisions/index.md#d132-portable-ui-design-system-reference-16-october-2026). This heading remains so earlier decisions and evidence links keep resolving.
 
-| Element | Implemented contract |
-| --- | --- |
-| Surfaces | Dark content `#181818`, sidebar `#222222`, tabs `#141414`, line `#ffffff0f`; light content `#fcfcfc`, sidebar `#f3f3f3`, line `#14141412`. System theme follows the OS. |
-| Density | 44px shared header, 28px module navigation, 26px file rows/buttons, 35px flat Notes tabs; 13px controls, 14px reading text, 20px module titles. |
-| Lists | News about 36px, tasks about 36px, expense entries at least 44px, Music track rows 44px plus 2px row spacing. Meaningful descriptions may wrap in reading lists. |
-| Boundaries | Continuous pane dividers. List separators are straight pseudo-elements between rows, omitted after the last row and hidden beside hovered/selected/focused rows. Adjacent surfaces have a 2px gap. |
-| Feedback | Subtle hover/selection backgrounds, 1px keyboard focus, no pointer hover rings. Task-title keyboard focus outlines its containing row. Checkbox marks and select chevrons use centered SVG geometry. |
-| Motion | 120ms hover feedback, 160ms view/dialog/menu appearance, 220ms sidebar resizing and task reordering. OS or Settings reduced motion disables CSS and Web Animations motion, including running animations. |
+The production renderer uses the existing services and user data. No sample records or scripted chat replies are installed into the user's folder. Shell code and shared controls remain separate from module behavior.
 
-The shell keeps visited modules mounted so drafts and editors survive module switches. Back/Forward stores conversation/module/item destinations and reading offsets for this session; preview changes and filters do not create visits. Notes tabs/files, Mail messages, Board threads, Music collections and Wiki pages feed this history. Existing canonical item URLs still open their explicit destination. Shortcuts: ⌘K search/commands, ⌘B sidebar, ⌘[ / ⌘] history, ⌘L composer, ⇧⌘L new chat. Native minimum window remains 850 × 600.
-
-The spike-fidelity repair restores motion with a small shared `motion.ts` helper: view entry fades from 0.45 opacity with a 4px vertical offset, task reordering animates measured positions, and the mounted sidebar changes grid width while collapsed controls become inert. Default sidebar width is 232px (210px below 1150px, 248px above 1550px). Preserve `minmax(0,1fr)` grid rows and minimum height zero so document scrolling stays inside the workspace. Tooltips appear after 450ms, use viewport bounds, and close on input/scroll. Motion is functional feedback, not an added decoration layer. Shared native dialogs use 34px fields, 26px actions and a 6px corner radius; SVG glyphs remain aligned in checked, unchecked and dropdown states.
+Runtime navigation keeps visited modules mounted, preserves drafts/editors, and records conversation/module/item destinations with reading offsets for the session. Item routing remains specified on the feature topics. The design system's [shell](ui-design-system.md#application-shell), [inspection pattern](ui-design-system.md#chat-and-source-inspection) and [keyboard rules](ui-design-system.md#motion-and-keyboard-behavior) describe the presentation contract. The native minimum window remains 850 × 600.
 
 ### Search and list spacing · 3 October 2026
 
-The user reported the Board search touching its empty message and requested a sweep for similar cases. Standalone search fields directly inside a module page leave 12px before content, whether rows or feedback. Search fields inside an existing toolbar keep that toolbar's spacing. Shared loading, empty and no-match paragraphs use 12px vertical margins; adjacent block margins collapse rather than doubling existing 12–16px toolbar gaps. This also separates Notes feedback from its root-folder control. Board feedback precedes its thread list, like the other local lists, so an empty list container cannot add a second gap. These are delegated spacing defaults using existing density, with no new component dependency.
+The current [spacing specification](ui-design-system.md#geometry-and-spacing) owns standalone search separation, list-state margins and toolbar-gap preservation. The [spacing run](../verification/runs/2026-10-02T163455Z-list-spacing.md) records the Board/Notes repair and app-wide sweep. This compatibility heading preserves existing links; the extraction does not alter the implemented spacing.
 
 ### Usability fixes · 1 October 2026
 
-Shared primary hover styles explicitly retain the foreground/background pair in both themes. Named native dialogs use `aria-labelledby` pointing to their visible heading, keep native modal focus handling, and show failures locally. Destructive record deletion uses a reusable confirmation with Cancel initially focused; the action label includes the affected item. Submission guards lock immediately, before awaiting IPC, and expose a busy state. Shared list presentation distinguishes loading, empty, no-match and failed results.
+Shared [control states](ui-design-system.md#buttons-icons-and-focus), [list states](ui-design-system.md#lists-filters-and-tabs), and [dialog behavior](ui-design-system.md#dialogs-popovers-and-tooltips) are maintained in the design-system topic. They retain the existing primary hover pairs, accessible dialog names, guarded submissions, Cancel-first destructive confirmation and local failures.
 
 Structured list reads accept `offset` with bounded pages (default 500, maximum 2,000) and deterministic creation-time/ID ordering. Local collection screens retrieve all pages before treating lists/aggregates as complete. This is a lean in-memory view of local records, not a virtualized large-data architecture; very large libraries can still cost time/memory. Structured `read {id}` resolves item targets. Shared navigation carries IDs, paths, Music source/type, or a Settings section. Canonical external item URLs only navigate, never execute module actions; the packaged macOS app registers the `clarity` scheme. Attachment preview/reveal requests stay behind the context-isolated IPC boundary.
 
@@ -81,27 +72,23 @@ Global navigation shortcuts leave a native modal and its draft in the active mod
 
 ### Global feedback standard · 3 October 2026
 
-**User selection ([D130](../decisions/index.md#d130-shared-feedback-with-radix-toast-3-october-2026)):** use Radix Toast for the global error/information standard. The implementation follows the researched approach of shared contextual notices plus a global toast host. Timing, placement, queue rules and migration details below are delegated implementation defaults, not separately answered preference questions.
+**User selection ([D130](../decisions/index.md#d130-shared-feedback-with-radix-toast-3-october-2026)):** use Radix Toast for the global error/information standard. The implementation follows the researched approach of shared contextual notices plus a global toast host. Timing, placement and queue rules in the linked design system, and integration details below, are delegated implementation defaults, not separately answered preference questions.
 
 #### Placement and presentation
 
-`Notice` is the shared local component for error, warning, info and success. Existing `ErrorText` uses it throughout forms, Settings, lists, Chat, approvals and attachments. Field-specific errors use `Field.error`, with `aria-invalid` and `aria-describedby`; Board reply validation is the first migrated field. Native form validation remains available. Music browse notices retain their source, safe retry, partial results and 16px artwork gap; player errors retain their single persistent presentation and connection action. Do not also toast a locally presented failure.
-
-Form errors stay inside their dialog and preserve the draft. Module failures stay beside affected content; retry does not discard valid same-account results. An action without a suitable visible local error owner uses a toast, with the operation/source in its title when available. Ongoing workspace-refresh failure uses a persistent banner with Try again. That banner is placed below shell navigation, or inside the active native modal while it is open, so recovery remains reachable. Initial bootstrap failure offers a local retry; existing native startup failure handling remains in main.
-
-Toasts sit at the upper right, 12px from the edge and below the 44px shell header. The host is at most 380px wide and shows three messages at a time, retaining excess messages in order. Repeated identical operation IDs coalesce; changed content replaces that operation's message. Legacy global errors without IDs deduplicate by severity/title/description. Error and warning toasts, and any toast with an action, remain until dismissed, replaced or explicitly resolved. Info and success toasts have six seconds of visible, unpaused reading time. A toast's optional action must be safe to ignore; important required work belongs in a persistent contextual flow.
-
-Timers pause while hovering or focusing the notification region and while the app is inactive. A hidden/minimized window or open modal suspends the toast host, preserving remaining time. Queued messages start their reading time when displayed. Closing a modal resumes its deferred notifications. The native window bridge below is necessary because the inspected Electron fixture kept `document.visibilityState` and `document.hasFocus()` unchanged after the native window hid.
-
-The shared components use the app's theme, SVG icons, text wrapping and reduced-motion setting. Long toast descriptions have a bounded scrollable area so the close control remains visible. Info/success/warning announcements are polite; error toasts use Radix's foreground announcement. F8 focuses the notification region, Tab reaches its controls, and Escape dismisses a focused toast; Escape elsewhere does not consume notifications. Dismissing the final focused toast restores the previous connected focus target. Toasts do not focus themselves on arrival. Native-modal errors stay inside their modal; unrelated toasts remain queued outside it.
+The [design-system feedback contract](ui-design-system.md#feedback-and-recovery) owns placement, geometry, severity treatment, deduplication, reading-time rules, native-modal/window suspension and keyboard/focus behavior. This heading remains a compatibility link for earlier reports. The implementation still has one local owner per failure and one global toast host.
 
 #### Interfaces and ownership
+
+`Notice` supplies shared local error, warning, info and success presentation. `ErrorText` uses it throughout forms, Settings, lists, Chat, approvals and attachments. `Field.error` wires field errors through `aria-invalid` and `aria-describedby`; Board reply validation was the first migration. Native form validation remains. Initial bootstrap failure offers a local retry; native startup failure handling remains in main.
 
 Pin `@radix-ui/react-toast` 1.2.23 alongside React 19.2.0 in `tooling/dependencies.mjs`; install/build only through the external cache. `feedback.tsx` owns the provider, queue, shared notices and countdown; `feedback.css` owns appearance. Radix supplies the toast anatomy, announcements, keyboard region, dismissal and swipe behavior. Clarity owns the reading-time clock to preserve it across native window/modal suspension, using `duration={Infinity}` on Radix roots so only one timer controls dismissal. Hover/focus handlers live on the shared React parent of toast roots and viewport: portaled toast events bypass handlers attached only to the viewport. An empty viewport must not intercept clicks on the underlying app.
 
 `useFeedback().notify({id?, severity, title, description?, action?, placement?})` returns the message ID. `dismiss(id)` removes one message, and `clear()` resets the in-memory queue. `error(failure, options?)` formats a failure, defaulting to a persistent error toast; `AppContext.error` delegates to it for existing call sites. `placement: 'banner'` selects ongoing app-wide feedback. The renderer keeps only display state; existing main/preload error codes/details and module-owned persisted action results remain authoritative. Do not include secrets, authenticated URLs or raw credential diagnostics in message text.
 
 Main exposes read-only `window.status` returning `{visible, focused}` and emits `window` events with that same data on native show/hide/focus/blur/minimize/restore. The provider combines these events with document visibility, rejecting an obsolete initial status reply after a newer event. No Node APIs or account access are added to the renderer. Messages survive module navigation, clear on renderer reload, and clear on auth events. Bookmark refresh additionally rejects late completion after connection changes or unmount.
+
+The native bridge is necessary because the inspected Electron fixture kept `document.visibilityState` and `document.hasFocus()` unchanged after the native window hid; document signals alone did not establish the real window state.
 
 News refresh completion produces an informational toast; source errors remain local. Bookmark refresh completion produces a success toast and retains its result summary; partial refresh produces a persistent warning, and a failed manual refresh produces a local source-labelled retry notice. These are completion signals for explicit refreshes. Routine autosaves, ordinary task toggles and changes already obvious in the UI do not produce success toasts.
 
@@ -117,7 +104,7 @@ The [focused run](../verification/runs/2026-10-02T173355Z-global-feedback.md) re
 
 **Adversarial recipe:** Run `tests/adversarial-renderer.mjs`: open New task, press navigation shortcuts, verify the modal stays visible and usable, then Cancel and verify navigation works. Select real rich-editor text and press ⌘B; require bold saved content and an unchanged sidebar, then check sidebar toggling outside the editor. `tests/adversarial-state.mjs` measures nested Bookmark overflow and retained Settings labels at the minimum window. Build with an external cache and use a fresh evidence directory as described in [Verification setup](../verification/setup.md#adversarial-regression-suite).
 
-**Fidelity/motion recipe:** run `node --test tests/redesign.mjs`. The spike-parity case observes real 220ms sidebar/task animations, persistence after task reordering, 36px rows/2px gaps, connected Notes dividers and scroll, straight neighbour-aware separators, keyboard controls/tooltips, and zero animation under reduced motion. Inspect populated native screens against the external spike at normal and 850×600 sizes in both themes; wait for finite animations before recording settled screenshots.
+**Fidelity/motion recipe:** expected presentation is now consolidated in the [UI design system](ui-design-system.md), with annotated historical screenshots and a receiving-project checklist. Run `node --test tests/redesign.mjs`. The spike-parity case observes real 220ms sidebar/task animations, persistence after task reordering, 36px rows/2px gaps, connected Notes dividers and scroll, straight neighbour-aware separators, keyboard controls/tooltips, and zero animation under reduced motion. Inspect populated native screens against the external spike at normal and 850×600 sizes in both themes; wait for finite animations before recording settled screenshots.
 
 **Experimental browser redesign:** the separately authorized [Cursor Desktop spike](../references/technical-spikes.md#cursor-desktop-design-spike-1-october-2026) owns its visual choices, source location, local-storage boundary, reproduction steps and browser recipe. Its [compactness and controls run](../verification/runs/2026-10-01T083600Z-cursor-density.md) verifies selected disposable UI scenarios, not this production stack. D118–D122 are now implemented in the production port below; the earlier browser evidence remains specific to its external build.
 

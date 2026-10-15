@@ -2,7 +2,7 @@
 title: Feature map
 section: Features
 status: Current
-updated: 2026-10-01
+updated: 2026-10-16
 order: 0
 summary: Current module behavior, shared agent access, and scope boundaries.
 ---
@@ -53,5 +53,5 @@ Stable IDs live on the existing topic pages, with entry points, expected outcome
 | FEAT-wiki | [Wiki](wiki.md) |
 | FEAT-chat | [Chat](../foundations/chat.md) |
 | FEAT-settings | [Settings](../foundations/integrations.md) |
-| FEAT-shared-ui | [Shared Ui](../foundations/desktop-stack.md) |
+| FEAT-shared-ui | [UI design system](../foundations/ui-design-system.md) for shared presentation; [Desktop stack](../foundations/desktop-stack.md) for runtime contracts and verification recipes. |
 | FEAT-verification-workflow | [Verification and wiki maintenance](verification-workflow.md) |

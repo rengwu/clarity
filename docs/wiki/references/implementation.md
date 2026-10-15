@@ -2,11 +2,13 @@
 title: Implementation and validation
 section: References
 status: Current
-updated: 2026-10-12
+updated: 2026-10-16
 order: 100
 summary: Rebuild contracts, local runtime, data schemas, dependencies, checks, and known gaps.
 ---
 # Implementation and validation
+
+The [UI design system](../foundations/ui-design-system.md) now consolidates the current shared visual and interaction specification for reuse by agents in other projects. It includes exact values, component/layout rules, annotated historical screenshots, implementation provenance and a reproduction checklist. [The 16 October extraction journal](../journal/2026-10-16-ui-design-system.md) records this documentation-only change and its validation; application and installed-package behavior are unchanged.
 
 The repeated quiet-volume midpoint was traced to the older installed logarithmic build. The existing direct-gain fix is now installed at `~/Applications/Clarity.app`, with its predecessor backed up and all seven runtime hashes matching the verified package. [The 12 October delivery run](../verification/runs/2026-10-11T182500Z-installed-volume.md) records native PCM, packaged Music, types and relocation checks, including earlier test timeouts. Normal startup awaits the user’s macOS Keychain step; perceived loudness remains unmeasured.
 
