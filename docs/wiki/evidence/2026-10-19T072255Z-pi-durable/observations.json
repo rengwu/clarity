@@ -1,0 +1,2705 @@
+{
+  "run": "2026-10-19T072255Z",
+  "results": [
+    {
+      "id": "B01",
+      "title": "Current Clarity queues review and does not continue after Apply",
+      "observation": {
+        "callsBeforeApply": 2,
+        "callsAfterApply": 2,
+        "actionStatus": "applied"
+      },
+      "result": "Passed",
+      "durationMs": 323,
+      "stats": {
+        "requests": 0,
+        "effects": 0
+      },
+      "processes": []
+    },
+    {
+      "id": "D01",
+      "title": "Crash recovery waits for Resume; approval continues once; other isolated chat stays independent",
+      "observation": {
+        "manualGate": "paused after open, watch, context reads and another isolated chat",
+        "duplicateApprovals": [
+          "fulfilled",
+          "rejected"
+        ],
+        "approvalToFinalMs": 22,
+        "todoCount": 1
+      },
+      "result": "Passed",
+      "durationMs": 945,
+      "stats": {
+        "requests": 3,
+        "effects": 0
+      },
+      "processes": [
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "model-start",
+              "name": "main"
+            },
+            {
+              "event": "tool-start",
+              "name": "main",
+              "key": "main:1:12"
+            },
+            {
+              "event": "approval-queued",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "efc65bb5-a51a-46ac-95e3-d9dd5cb21516"
+            }
+          ],
+          "stderr": "(node:39310) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        },
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "model-start",
+              "name": "other"
+            },
+            {
+              "event": "tool-start",
+              "name": "other",
+              "key": "other:1:12"
+            },
+            {
+              "event": "approval-queued",
+              "name": "other",
+              "key": "other:1:12",
+              "actionId": "f8ac6f02-5026-4b37-afe8-3c4827ba8378"
+            },
+            {
+              "event": "result-ready",
+              "name": "other",
+              "key": "other:1:12",
+              "actionId": "f8ac6f02-5026-4b37-afe8-3c4827ba8378",
+              "status": "rejected"
+            },
+            {
+              "event": "model-call",
+              "name": "other",
+              "stage": "followup",
+              "messages": [
+                {
+                  "role": "system",
+                  "content": "",
+                  "toolsAdded": [
+                    {
+                      "name": "module",
+                      "description": "Use a Clarity module, waiting for its persisted review outcome.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "module",
+                          "method",
+                          "args"
+                        ],
+                        "properties": {
+                          "module": {
+                            "type": "string"
+                          },
+                          "method": {
+                            "type": "string"
+                          },
+                          "args": {
+                            "type": "object",
+                            "patternProperties": {
+                              "^.*$": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "direct",
+                      "description": "Fixture mutation with explicit replay policy.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "title"
+                        ],
+                        "properties": {
+                          "title": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "inspect_todos",
+                      "description": "Read the synthetic task list after approval.",
+                      "parameters": {
+                        "type": "object",
+                        "properties": {}
+                      }
+                    }
+                  ],
+                  "timestamp": 1792394576481
+                },
+                {
+                  "role": "user",
+                  "content": "Run the synthetic fixture.",
+                  "timestamp": 1792394576477
+                },
+                {
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "toolCall",
+                      "id": "tool:1792394576484:d1fovj0b54l",
+                      "name": "module",
+                      "arguments": {
+                        "module": "todos",
+                        "method": "add",
+                        "args": {
+                          "title": "Durable fixture task"
+                        }
+                      }
+                    }
+                  ],
+                  "api": "faux:1792394576470:vcm7980ueh",
+                  "provider": "spike",
+                  "model": "scripted",
+                  "usage": {
+                    "input": 164,
+                    "output": 20,
+                    "cacheRead": 0,
+                    "cacheWrite": 164,
+                    "totalTokens": 348,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "stopReason": "toolUse",
+                  "timestamp": 1792394576484,
+                  "durationMs": 1
+                },
+                {
+                  "role": "toolResult",
+                  "toolCallId": "tool:1792394576484:d1fovj0b54l",
+                  "toolName": "module",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "{\"actionId\":\"f8ac6f02-5026-4b37-afe8-3c4827ba8378\",\"status\":\"rejected\"}"
+                    }
+                  ],
+                  "details": {
+                    "actionId": "f8ac6f02-5026-4b37-afe8-3c4827ba8378",
+                    "status": "pending"
+                  },
+                  "isError": true,
+                  "durationMs": 48,
+                  "timestamp": 1792394576540
+                }
+              ]
+            },
+            {
+              "event": "tool-start",
+              "name": "main",
+              "key": "main:1:12"
+            },
+            {
+              "event": "approval-queued",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "efc65bb5-a51a-46ac-95e3-d9dd5cb21516"
+            },
+            {
+              "event": "result-ready",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "efc65bb5-a51a-46ac-95e3-d9dd5cb21516",
+              "status": "applied"
+            },
+            {
+              "event": "model-call",
+              "name": "main",
+              "stage": "followup",
+              "messages": [
+                {
+                  "role": "system",
+                  "content": "",
+                  "toolsAdded": [
+                    {
+                      "name": "module",
+                      "description": "Use a Clarity module, waiting for its persisted review outcome.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "module",
+                          "method",
+                          "args"
+                        ],
+                        "properties": {
+                          "module": {
+                            "type": "string"
+                          },
+                          "method": {
+                            "type": "string"
+                          },
+                          "args": {
+                            "type": "object",
+                            "patternProperties": {
+                              "^.*$": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "direct",
+                      "description": "Fixture mutation with explicit replay policy.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "title"
+                        ],
+                        "properties": {
+                          "title": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "inspect_todos",
+                      "description": "Read the synthetic task list after approval.",
+                      "parameters": {
+                        "type": "object",
+                        "properties": {}
+                      }
+                    }
+                  ],
+                  "timestamp": 1792394576111
+                },
+                {
+                  "role": "user",
+                  "content": "Run the synthetic fixture.",
+                  "timestamp": 1792394576106
+                },
+                {
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "toolCall",
+                      "id": "tool:1792394576114:nakyqok68gj",
+                      "name": "module",
+                      "arguments": {
+                        "module": "todos",
+                        "method": "add",
+                        "args": {
+                          "title": "Durable fixture task"
+                        }
+                      }
+                    }
+                  ],
+                  "api": "faux:1792394576084:6s71lv7fo6y",
+                  "provider": "spike",
+                  "model": "scripted",
+                  "usage": {
+                    "input": 164,
+                    "output": 20,
+                    "cacheRead": 0,
+                    "cacheWrite": 164,
+                    "totalTokens": 348,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "stopReason": "toolUse",
+                  "timestamp": 1792394576114,
+                  "durationMs": 1
+                },
+                {
+                  "role": "toolResult",
+                  "toolCallId": "tool:1792394576114:nakyqok68gj",
+                  "toolName": "module",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "{\"actionId\":\"efc65bb5-a51a-46ac-95e3-d9dd5cb21516\",\"status\":\"applied\",\"result\":{\"title\":\"Durable fixture task\",\"done\":false,\"date\":null,\"id\":\"7f4b7247-296f-4219-9007-96e607c60be6\",\"createdAt\":1792394576558,\"updatedAt\":1792394576558,\"revision\":1}}"
+                    }
+                  ],
+                  "details": {
+                    "actionId": "efc65bb5-a51a-46ac-95e3-d9dd5cb21516",
+                    "status": "pending"
+                  },
+                  "isError": false,
+                  "durationMs": 16,
+                  "timestamp": 1792394576565
+                }
+              ]
+            }
+          ],
+          "stderr": "(node:39313) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        }
+      ]
+    },
+    {
+      "id": "D02",
+      "title": "Dismissal survives restart and returns rejection without a mutation",
+      "observation": {
+        "status": "rejected",
+        "todoCount": 0,
+        "followupCalls": 1
+      },
+      "result": "Passed",
+      "durationMs": 664,
+      "stats": {
+        "requests": 2,
+        "effects": 0
+      },
+      "processes": [
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "model-start",
+              "name": "main"
+            },
+            {
+              "event": "tool-start",
+              "name": "main",
+              "key": "main:1:12"
+            },
+            {
+              "event": "approval-queued",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "233a6ebf-88bf-4e72-ae30-fec4f9d6b82d"
+            }
+          ],
+          "stderr": "(node:39316) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        },
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "tool-start",
+              "name": "main",
+              "key": "main:1:12"
+            },
+            {
+              "event": "approval-queued",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "233a6ebf-88bf-4e72-ae30-fec4f9d6b82d"
+            },
+            {
+              "event": "result-ready",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "233a6ebf-88bf-4e72-ae30-fec4f9d6b82d",
+              "status": "rejected"
+            },
+            {
+              "event": "model-call",
+              "name": "main",
+              "stage": "followup",
+              "messages": [
+                {
+                  "role": "system",
+                  "content": "",
+                  "toolsAdded": [
+                    {
+                      "name": "module",
+                      "description": "Use a Clarity module, waiting for its persisted review outcome.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "module",
+                          "method",
+                          "args"
+                        ],
+                        "properties": {
+                          "module": {
+                            "type": "string"
+                          },
+                          "method": {
+                            "type": "string"
+                          },
+                          "args": {
+                            "type": "object",
+                            "patternProperties": {
+                              "^.*$": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "direct",
+                      "description": "Fixture mutation with explicit replay policy.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "title"
+                        ],
+                        "properties": {
+                          "title": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "inspect_todos",
+                      "description": "Read the synthetic task list after approval.",
+                      "parameters": {
+                        "type": "object",
+                        "properties": {}
+                      }
+                    }
+                  ],
+                  "timestamp": 1792394576888
+                },
+                {
+                  "role": "user",
+                  "content": "Run the synthetic fixture.",
+                  "timestamp": 1792394576883
+                },
+                {
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "toolCall",
+                      "id": "tool:1792394576892:tdzr6johxk8",
+                      "name": "module",
+                      "arguments": {
+                        "module": "todos",
+                        "method": "add",
+                        "args": {
+                          "title": "Durable fixture task"
+                        }
+                      }
+                    }
+                  ],
+                  "api": "faux:1792394576868:t93nzobff9",
+                  "provider": "spike",
+                  "model": "scripted",
+                  "usage": {
+                    "input": 164,
+                    "output": 20,
+                    "cacheRead": 0,
+                    "cacheWrite": 164,
+                    "totalTokens": 348,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "stopReason": "toolUse",
+                  "timestamp": 1792394576892,
+                  "durationMs": 1
+                },
+                {
+                  "role": "toolResult",
+                  "toolCallId": "tool:1792394576892:tdzr6johxk8",
+                  "toolName": "module",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "{\"actionId\":\"233a6ebf-88bf-4e72-ae30-fec4f9d6b82d\",\"status\":\"rejected\"}"
+                    }
+                  ],
+                  "details": {
+                    "actionId": "233a6ebf-88bf-4e72-ae30-fec4f9d6b82d",
+                    "status": "rejected"
+                  },
+                  "isError": true,
+                  "durationMs": 24,
+                  "timestamp": 1792394577249
+                }
+              ]
+            }
+          ],
+          "stderr": "(node:39318) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        }
+      ]
+    },
+    {
+      "id": "D03",
+      "title": "Stale revision fails after review and the agent receives the failure",
+      "observation": {
+        "actionStatus": "failed",
+        "title": "New human edit"
+      },
+      "result": "Passed",
+      "durationMs": 393,
+      "stats": {
+        "requests": 1,
+        "effects": 0
+      },
+      "processes": [
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "model-start",
+              "name": "main"
+            },
+            {
+              "event": "tool-start",
+              "name": "main",
+              "key": "main:1:12"
+            },
+            {
+              "event": "approval-queued",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "7d06d129-84d7-4462-a9e2-a457cbdab452"
+            },
+            {
+              "event": "result-ready",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "7d06d129-84d7-4462-a9e2-a457cbdab452",
+              "status": "failed"
+            },
+            {
+              "event": "model-call",
+              "name": "main",
+              "stage": "followup",
+              "messages": [
+                {
+                  "role": "system",
+                  "content": "",
+                  "toolsAdded": [
+                    {
+                      "name": "module",
+                      "description": "Use a Clarity module, waiting for its persisted review outcome.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "module",
+                          "method",
+                          "args"
+                        ],
+                        "properties": {
+                          "module": {
+                            "type": "string"
+                          },
+                          "method": {
+                            "type": "string"
+                          },
+                          "args": {
+                            "type": "object",
+                            "patternProperties": {
+                              "^.*$": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "direct",
+                      "description": "Fixture mutation with explicit replay policy.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "title"
+                        ],
+                        "properties": {
+                          "title": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "inspect_todos",
+                      "description": "Read the synthetic task list after approval.",
+                      "parameters": {
+                        "type": "object",
+                        "properties": {}
+                      }
+                    }
+                  ],
+                  "timestamp": 1792394577579
+                },
+                {
+                  "role": "user",
+                  "content": "Run the synthetic fixture.",
+                  "timestamp": 1792394577574
+                },
+                {
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "toolCall",
+                      "id": "tool:1792394577582:7xzhgq0qv8r",
+                      "name": "module",
+                      "arguments": {
+                        "module": "todos",
+                        "method": "update",
+                        "args": {
+                          "id": "6a4aa632-83b0-4cb2-afc3-864c3a9ce92d",
+                          "title": "Agent edit",
+                          "revision": 1
+                        }
+                      }
+                    }
+                  ],
+                  "api": "faux:1792394577542:c2rf0y7cpp",
+                  "provider": "spike",
+                  "model": "scripted",
+                  "usage": {
+                    "input": 164,
+                    "output": 33,
+                    "cacheRead": 0,
+                    "cacheWrite": 164,
+                    "totalTokens": 361,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "stopReason": "toolUse",
+                  "timestamp": 1792394577582,
+                  "durationMs": 1
+                },
+                {
+                  "role": "toolResult",
+                  "toolCallId": "tool:1792394577582:7xzhgq0qv8r",
+                  "toolName": "module",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "{\"actionId\":\"7d06d129-84d7-4462-a9e2-a457cbdab452\",\"status\":\"failed\",\"error\":\"This item changed. Refresh before saving.\"}"
+                    }
+                  ],
+                  "details": {
+                    "actionId": "7d06d129-84d7-4462-a9e2-a457cbdab452",
+                    "status": "pending"
+                  },
+                  "isError": true,
+                  "durationMs": 54,
+                  "timestamp": 1792394577644
+                }
+              ]
+            }
+          ],
+          "stderr": "(node:39320) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        }
+      ]
+    },
+    {
+      "id": "D04",
+      "title": "Crash after effect but before durable tool result does not apply the approved action twice",
+      "observation": {
+        "todoCount": 1,
+        "actionCount": 1,
+        "requestAttempts": 2
+      },
+      "result": "Passed",
+      "durationMs": 716,
+      "stats": {
+        "requests": 2,
+        "effects": 0
+      },
+      "processes": [
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "model-start",
+              "name": "main"
+            },
+            {
+              "event": "tool-start",
+              "name": "main",
+              "key": "main:1:12"
+            },
+            {
+              "event": "approval-queued",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "94fdf982-e0d5-4eaf-b1b0-9997e924cd9e"
+            },
+            {
+              "event": "result-ready",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "94fdf982-e0d5-4eaf-b1b0-9997e924cd9e",
+              "status": "applied"
+            }
+          ],
+          "stderr": "(node:39322) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        },
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "tool-start",
+              "name": "main",
+              "key": "main:1:12"
+            },
+            {
+              "event": "approval-queued",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "94fdf982-e0d5-4eaf-b1b0-9997e924cd9e"
+            },
+            {
+              "event": "result-ready",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "94fdf982-e0d5-4eaf-b1b0-9997e924cd9e",
+              "status": "applied"
+            },
+            {
+              "event": "model-call",
+              "name": "main",
+              "stage": "followup",
+              "messages": [
+                {
+                  "role": "system",
+                  "content": "",
+                  "toolsAdded": [
+                    {
+                      "name": "module",
+                      "description": "Use a Clarity module, waiting for its persisted review outcome.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "module",
+                          "method",
+                          "args"
+                        ],
+                        "properties": {
+                          "module": {
+                            "type": "string"
+                          },
+                          "method": {
+                            "type": "string"
+                          },
+                          "args": {
+                            "type": "object",
+                            "patternProperties": {
+                              "^.*$": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "direct",
+                      "description": "Fixture mutation with explicit replay policy.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "title"
+                        ],
+                        "properties": {
+                          "title": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "inspect_todos",
+                      "description": "Read the synthetic task list after approval.",
+                      "parameters": {
+                        "type": "object",
+                        "properties": {}
+                      }
+                    }
+                  ],
+                  "timestamp": 1792394577970
+                },
+                {
+                  "role": "user",
+                  "content": "Run the synthetic fixture.",
+                  "timestamp": 1792394577965
+                },
+                {
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "toolCall",
+                      "id": "tool:1792394577974:xsj830u7knq",
+                      "name": "module",
+                      "arguments": {
+                        "module": "todos",
+                        "method": "add",
+                        "args": {
+                          "title": "Durable fixture task"
+                        }
+                      }
+                    }
+                  ],
+                  "api": "faux:1792394577949:n9rj9ft34o",
+                  "provider": "spike",
+                  "model": "scripted",
+                  "usage": {
+                    "input": 164,
+                    "output": 20,
+                    "cacheRead": 0,
+                    "cacheWrite": 164,
+                    "totalTokens": 348,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "stopReason": "toolUse",
+                  "timestamp": 1792394577974,
+                  "durationMs": 1
+                },
+                {
+                  "role": "toolResult",
+                  "toolCallId": "tool:1792394577974:xsj830u7knq",
+                  "toolName": "module",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "{\"actionId\":\"94fdf982-e0d5-4eaf-b1b0-9997e924cd9e\",\"status\":\"applied\",\"result\":{\"title\":\"Durable fixture task\",\"done\":false,\"date\":null,\"id\":\"cbf4fed6-066d-445b-838d-de53f8288177\",\"createdAt\":1792394578025,\"updatedAt\":1792394578025,\"revision\":1}}"
+                    }
+                  ],
+                  "details": {
+                    "actionId": "94fdf982-e0d5-4eaf-b1b0-9997e924cd9e",
+                    "status": "applied"
+                  },
+                  "isError": false,
+                  "durationMs": 23,
+                  "timestamp": 1792394578361
+                }
+              ]
+            }
+          ],
+          "stderr": "(node:39324) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        }
+      ]
+    },
+    {
+      "id": "D05",
+      "title": "Stop aborts continuation while preserving the current pending review record",
+      "observation": {
+        "followupCalls": 0,
+        "approvalRemainsIndependent": true
+      },
+      "result": "Passed",
+      "durationMs": 360,
+      "stats": {
+        "requests": 1,
+        "effects": 0
+      },
+      "processes": [
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "model-start",
+              "name": "main"
+            },
+            {
+              "event": "tool-start",
+              "name": "main",
+              "key": "main:1:12"
+            },
+            {
+              "event": "approval-queued",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "a13fbafe-aeb6-4ae9-b2d1-671533ac2a16"
+            }
+          ],
+          "stderr": "(node:39326) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        }
+      ]
+    },
+    {
+      "id": "D06",
+      "title": "Graceful close preserves waiting work and reopening stays paused",
+      "observation": {
+        "todoCount": 1,
+        "closeIsResumable": true
+      },
+      "result": "Passed",
+      "durationMs": 685,
+      "stats": {
+        "requests": 2,
+        "effects": 0
+      },
+      "processes": [
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "model-start",
+              "name": "main"
+            },
+            {
+              "event": "tool-start",
+              "name": "main",
+              "key": "main:1:12"
+            },
+            {
+              "event": "approval-queued",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "86e3e614-2559-4777-9aa1-68c7b4db557d"
+            }
+          ],
+          "stderr": "(node:39328) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        },
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "tool-start",
+              "name": "main",
+              "key": "main:1:12"
+            },
+            {
+              "event": "approval-queued",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "86e3e614-2559-4777-9aa1-68c7b4db557d"
+            },
+            {
+              "event": "result-ready",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "86e3e614-2559-4777-9aa1-68c7b4db557d",
+              "status": "applied"
+            },
+            {
+              "event": "model-call",
+              "name": "main",
+              "stage": "followup",
+              "messages": [
+                {
+                  "role": "system",
+                  "content": "",
+                  "toolsAdded": [
+                    {
+                      "name": "module",
+                      "description": "Use a Clarity module, waiting for its persisted review outcome.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "module",
+                          "method",
+                          "args"
+                        ],
+                        "properties": {
+                          "module": {
+                            "type": "string"
+                          },
+                          "method": {
+                            "type": "string"
+                          },
+                          "args": {
+                            "type": "object",
+                            "patternProperties": {
+                              "^.*$": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "direct",
+                      "description": "Fixture mutation with explicit replay policy.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "title"
+                        ],
+                        "properties": {
+                          "title": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "inspect_todos",
+                      "description": "Read the synthetic task list after approval.",
+                      "parameters": {
+                        "type": "object",
+                        "properties": {}
+                      }
+                    }
+                  ],
+                  "timestamp": 1792394579029
+                },
+                {
+                  "role": "user",
+                  "content": "Run the synthetic fixture.",
+                  "timestamp": 1792394579024
+                },
+                {
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "toolCall",
+                      "id": "tool:1792394579032:fqict7qm299",
+                      "name": "module",
+                      "arguments": {
+                        "module": "todos",
+                        "method": "add",
+                        "args": {
+                          "title": "Durable fixture task"
+                        }
+                      }
+                    }
+                  ],
+                  "api": "faux:1792394579012:t09nn58sdck",
+                  "provider": "spike",
+                  "model": "scripted",
+                  "usage": {
+                    "input": 164,
+                    "output": 20,
+                    "cacheRead": 0,
+                    "cacheWrite": 164,
+                    "totalTokens": 348,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "stopReason": "toolUse",
+                  "timestamp": 1792394579032,
+                  "durationMs": 1
+                },
+                {
+                  "role": "toolResult",
+                  "toolCallId": "tool:1792394579032:fqict7qm299",
+                  "toolName": "module",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "{\"actionId\":\"86e3e614-2559-4777-9aa1-68c7b4db557d\",\"status\":\"applied\",\"result\":{\"title\":\"Durable fixture task\",\"done\":false,\"date\":null,\"id\":\"09f536ba-270e-4840-b4a0-2b48d82f8566\",\"createdAt\":1792394579410,\"updatedAt\":1792394579410,\"revision\":1}}"
+                    }
+                  ],
+                  "details": {
+                    "actionId": "86e3e614-2559-4777-9aa1-68c7b4db557d",
+                    "status": "pending"
+                  },
+                  "isError": false,
+                  "durationMs": 47,
+                  "timestamp": 1792394579416
+                }
+              ]
+            }
+          ],
+          "stderr": "(node:39330) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        }
+      ]
+    },
+    {
+      "id": "D07",
+      "title": "Unsafe interrupted tool is not replayed (direct-before)",
+      "observation": {
+        "effectCount": 0,
+        "toolError": [
+          {
+            "type": "text",
+            "text": "<harness>\n[error] Tool direct was interrupted and may have partially run\n</harness>"
+          }
+        ]
+      },
+      "result": "Passed",
+      "durationMs": 600,
+      "stats": {
+        "requests": 0,
+        "effects": 0
+      },
+      "processes": [
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "model-start",
+              "name": "main"
+            },
+            {
+              "event": "direct-before",
+              "name": "main",
+              "key": "main:12"
+            }
+          ],
+          "stderr": "(node:39332) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        },
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "model-call",
+              "name": "main",
+              "stage": "followup",
+              "messages": [
+                {
+                  "role": "system",
+                  "content": "",
+                  "toolsAdded": [
+                    {
+                      "name": "module",
+                      "description": "Use a Clarity module, waiting for its persisted review outcome.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "module",
+                          "method",
+                          "args"
+                        ],
+                        "properties": {
+                          "module": {
+                            "type": "string"
+                          },
+                          "method": {
+                            "type": "string"
+                          },
+                          "args": {
+                            "type": "object",
+                            "patternProperties": {
+                              "^.*$": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "direct",
+                      "description": "Fixture mutation with explicit replay policy.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "title"
+                        ],
+                        "properties": {
+                          "title": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "inspect_todos",
+                      "description": "Read the synthetic task list after approval.",
+                      "parameters": {
+                        "type": "object",
+                        "properties": {}
+                      }
+                    }
+                  ],
+                  "timestamp": 1792394579720
+                },
+                {
+                  "role": "user",
+                  "content": "Run the synthetic fixture.",
+                  "timestamp": 1792394579714
+                },
+                {
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "toolCall",
+                      "id": "tool:1792394579723:l5higij98l",
+                      "name": "direct",
+                      "arguments": {
+                        "title": "D07"
+                      }
+                    }
+                  ],
+                  "api": "faux:1792394579698:e0wniljvmk9",
+                  "provider": "spike",
+                  "model": "scripted",
+                  "usage": {
+                    "input": 164,
+                    "output": 6,
+                    "cacheRead": 0,
+                    "cacheWrite": 164,
+                    "totalTokens": 334,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "stopReason": "toolUse",
+                  "timestamp": 1792394579723,
+                  "durationMs": 1
+                },
+                {
+                  "role": "toolResult",
+                  "toolCallId": "tool:1792394579723:l5higij98l",
+                  "toolName": "direct",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "<harness>\n[error] Tool direct was interrupted and may have partially run\n</harness>"
+                    }
+                  ],
+                  "isError": true,
+                  "timestamp": 1792394580014
+                }
+              ]
+            }
+          ],
+          "stderr": "(node:39334) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        }
+      ]
+    },
+    {
+      "id": "D08",
+      "title": "Unsafe interrupted tool is not replayed (direct-after)",
+      "observation": {
+        "effectCount": 1,
+        "toolError": [
+          {
+            "type": "text",
+            "text": "<harness>\n[error] Tool direct was interrupted and may have partially run\n</harness>"
+          }
+        ]
+      },
+      "result": "Passed",
+      "durationMs": 637,
+      "stats": {
+        "requests": 0,
+        "effects": 1
+      },
+      "processes": [
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "model-start",
+              "name": "main"
+            },
+            {
+              "event": "direct-before",
+              "name": "main",
+              "key": "main:12"
+            },
+            {
+              "event": "direct-after",
+              "name": "main",
+              "key": "main:12",
+              "result": {
+                "title": "D08",
+                "done": false,
+                "date": null,
+                "id": "b785280d-beac-44fb-91d2-e4473aef3c02",
+                "createdAt": 1792394580349,
+                "updatedAt": 1792394580349,
+                "revision": 1
+              }
+            }
+          ],
+          "stderr": "(node:39336) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        },
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "model-call",
+              "name": "main",
+              "stage": "followup",
+              "messages": [
+                {
+                  "role": "system",
+                  "content": "",
+                  "toolsAdded": [
+                    {
+                      "name": "module",
+                      "description": "Use a Clarity module, waiting for its persisted review outcome.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "module",
+                          "method",
+                          "args"
+                        ],
+                        "properties": {
+                          "module": {
+                            "type": "string"
+                          },
+                          "method": {
+                            "type": "string"
+                          },
+                          "args": {
+                            "type": "object",
+                            "patternProperties": {
+                              "^.*$": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "direct",
+                      "description": "Fixture mutation with explicit replay policy.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "title"
+                        ],
+                        "properties": {
+                          "title": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "inspect_todos",
+                      "description": "Read the synthetic task list after approval.",
+                      "parameters": {
+                        "type": "object",
+                        "properties": {}
+                      }
+                    }
+                  ],
+                  "timestamp": 1792394580320
+                },
+                {
+                  "role": "user",
+                  "content": "Run the synthetic fixture.",
+                  "timestamp": 1792394580315
+                },
+                {
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "toolCall",
+                      "id": "tool:1792394580323:edlmdg4ax3i",
+                      "name": "direct",
+                      "arguments": {
+                        "title": "D08"
+                      }
+                    }
+                  ],
+                  "api": "faux:1792394580298:4necwkdkst7",
+                  "provider": "spike",
+                  "model": "scripted",
+                  "usage": {
+                    "input": 164,
+                    "output": 6,
+                    "cacheRead": 0,
+                    "cacheWrite": 164,
+                    "totalTokens": 334,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "stopReason": "toolUse",
+                  "timestamp": 1792394580323,
+                  "durationMs": 1
+                },
+                {
+                  "role": "toolResult",
+                  "toolCallId": "tool:1792394580323:edlmdg4ax3i",
+                  "toolName": "direct",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "<harness>\n[error] Tool direct was interrupted and may have partially run\n</harness>"
+                    }
+                  ],
+                  "isError": true,
+                  "timestamp": 1792394580653
+                }
+              ]
+            }
+          ],
+          "stderr": "(node:39338) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        }
+      ]
+    },
+    {
+      "id": "D09",
+      "title": "Replay-safe fixture with an idempotent effect recovers without duplication",
+      "observation": {
+        "effectCount": 1
+      },
+      "result": "Passed",
+      "durationMs": 656,
+      "stats": {
+        "requests": 0,
+        "effects": 1
+      },
+      "processes": [
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "model-start",
+              "name": "main"
+            },
+            {
+              "event": "direct-before",
+              "name": "main",
+              "key": "main:12"
+            },
+            {
+              "event": "direct-after",
+              "name": "main",
+              "key": "main:12",
+              "result": {
+                "title": "Idempotent fixture",
+                "done": false,
+                "date": null,
+                "id": "effect:main:12",
+                "createdAt": 1792394580988,
+                "updatedAt": 1792394580988,
+                "revision": 1
+              }
+            }
+          ],
+          "stderr": "(node:39340) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        },
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "direct-before",
+              "name": "main",
+              "key": "main:12"
+            },
+            {
+              "event": "direct-after",
+              "name": "main",
+              "key": "main:12",
+              "result": {
+                "title": "Idempotent fixture",
+                "done": false,
+                "date": null,
+                "id": "effect:main:12",
+                "createdAt": 1792394580988,
+                "updatedAt": 1792394580988,
+                "revision": 1
+              }
+            },
+            {
+              "event": "model-call",
+              "name": "main",
+              "stage": "followup",
+              "messages": [
+                {
+                  "role": "system",
+                  "content": "",
+                  "toolsAdded": [
+                    {
+                      "name": "module",
+                      "description": "Use a Clarity module, waiting for its persisted review outcome.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "module",
+                          "method",
+                          "args"
+                        ],
+                        "properties": {
+                          "module": {
+                            "type": "string"
+                          },
+                          "method": {
+                            "type": "string"
+                          },
+                          "args": {
+                            "type": "object",
+                            "patternProperties": {
+                              "^.*$": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "direct",
+                      "description": "Fixture mutation with explicit replay policy.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "title"
+                        ],
+                        "properties": {
+                          "title": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "inspect_todos",
+                      "description": "Read the synthetic task list after approval.",
+                      "parameters": {
+                        "type": "object",
+                        "properties": {}
+                      }
+                    }
+                  ],
+                  "timestamp": 1792394580958
+                },
+                {
+                  "role": "user",
+                  "content": "Run the synthetic fixture.",
+                  "timestamp": 1792394580953
+                },
+                {
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "toolCall",
+                      "id": "tool:1792394580961:bxv5om8hnbv",
+                      "name": "direct",
+                      "arguments": {
+                        "title": "Idempotent fixture"
+                      }
+                    }
+                  ],
+                  "api": "faux:1792394580943:ro0xkcyg18g",
+                  "provider": "spike",
+                  "model": "scripted",
+                  "usage": {
+                    "input": 164,
+                    "output": 10,
+                    "cacheRead": 0,
+                    "cacheWrite": 164,
+                    "totalTokens": 338,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "stopReason": "toolUse",
+                  "timestamp": 1792394580961,
+                  "durationMs": 1
+                },
+                {
+                  "role": "toolResult",
+                  "toolCallId": "tool:1792394580961:bxv5om8hnbv",
+                  "toolName": "direct",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "{\"title\":\"Idempotent fixture\",\"done\":false,\"date\":null,\"id\":\"effect:main:12\",\"createdAt\":1792394580988,\"updatedAt\":1792394580988,\"revision\":1}"
+                    }
+                  ],
+                  "isError": false,
+                  "durationMs": 24,
+                  "timestamp": 1792394581312
+                }
+              ]
+            }
+          ],
+          "stderr": "(node:39342) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        }
+      ]
+    },
+    {
+      "id": "N01",
+      "title": "Negative control: declaring a non-idempotent mutation replay-safe duplicates its effect",
+      "observation": {
+        "expectedNegativeControl": true,
+        "effectCount": 2
+      },
+      "result": "Passed",
+      "durationMs": 623,
+      "stats": {
+        "requests": 0,
+        "effects": 2
+      },
+      "processes": [
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "model-start",
+              "name": "main"
+            },
+            {
+              "event": "direct-before",
+              "name": "main",
+              "key": "main:12"
+            },
+            {
+              "event": "direct-after",
+              "name": "main",
+              "key": "main:12",
+              "result": {
+                "title": "Unsafe declaration",
+                "done": false,
+                "date": null,
+                "id": "2ca00afd-7e85-4032-9793-164e261cfb68",
+                "createdAt": 1792394581676,
+                "updatedAt": 1792394581676,
+                "revision": 1
+              }
+            }
+          ],
+          "stderr": "(node:39344) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        },
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "direct-before",
+              "name": "main",
+              "key": "main:12"
+            },
+            {
+              "event": "direct-after",
+              "name": "main",
+              "key": "main:12",
+              "result": {
+                "title": "Unsafe declaration",
+                "done": false,
+                "date": null,
+                "id": "5c45b7fb-b292-46cb-86cd-e597de3fbaf8",
+                "createdAt": 1792394581933,
+                "updatedAt": 1792394581933,
+                "revision": 1
+              }
+            },
+            {
+              "event": "model-call",
+              "name": "main",
+              "stage": "followup",
+              "messages": [
+                {
+                  "role": "system",
+                  "content": "",
+                  "toolsAdded": [
+                    {
+                      "name": "module",
+                      "description": "Use a Clarity module, waiting for its persisted review outcome.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "module",
+                          "method",
+                          "args"
+                        ],
+                        "properties": {
+                          "module": {
+                            "type": "string"
+                          },
+                          "method": {
+                            "type": "string"
+                          },
+                          "args": {
+                            "type": "object",
+                            "patternProperties": {
+                              "^.*$": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "direct",
+                      "description": "Fixture mutation with explicit replay policy.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "title"
+                        ],
+                        "properties": {
+                          "title": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "inspect_todos",
+                      "description": "Read the synthetic task list after approval.",
+                      "parameters": {
+                        "type": "object",
+                        "properties": {}
+                      }
+                    }
+                  ],
+                  "timestamp": 1792394581645
+                },
+                {
+                  "role": "user",
+                  "content": "Run the synthetic fixture.",
+                  "timestamp": 1792394581640
+                },
+                {
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "toolCall",
+                      "id": "tool:1792394581649:ndf5rhpxpjo",
+                      "name": "direct",
+                      "arguments": {
+                        "title": "Unsafe declaration"
+                      }
+                    }
+                  ],
+                  "api": "faux:1792394581608:ionuky06cen",
+                  "provider": "spike",
+                  "model": "scripted",
+                  "usage": {
+                    "input": 164,
+                    "output": 10,
+                    "cacheRead": 0,
+                    "cacheWrite": 164,
+                    "totalTokens": 338,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "stopReason": "toolUse",
+                  "timestamp": 1792394581649,
+                  "durationMs": 1
+                },
+                {
+                  "role": "toolResult",
+                  "toolCallId": "tool:1792394581649:ndf5rhpxpjo",
+                  "toolName": "direct",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "{\"title\":\"Unsafe declaration\",\"done\":false,\"date\":null,\"id\":\"5c45b7fb-b292-46cb-86cd-e597de3fbaf8\",\"createdAt\":1792394581933,\"updatedAt\":1792394581933,\"revision\":1}"
+                    }
+                  ],
+                  "isError": false,
+                  "durationMs": 26,
+                  "timestamp": 1792394581938
+                }
+              ]
+            }
+          ],
+          "stderr": "(node:39345) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        }
+      ]
+    },
+    {
+      "id": "N02",
+      "title": "Negative control: new input in a shared session also resumes its interrupted conversation",
+      "observation": {
+        "expectedNegativeControl": true,
+        "interruptedToolResumedWithoutExplicitResume": true
+      },
+      "result": "Passed",
+      "durationMs": 611,
+      "stats": {
+        "requests": 2,
+        "effects": 0
+      },
+      "processes": [
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "model-start",
+              "name": "main"
+            },
+            {
+              "event": "tool-start",
+              "name": "main",
+              "key": "main:1:12"
+            },
+            {
+              "event": "approval-queued",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "106c6fc5-f198-4840-942f-c01889a77e65"
+            }
+          ],
+          "stderr": "(node:39347) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        },
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "tool-start",
+              "name": "main",
+              "key": "main:1:12"
+            },
+            {
+              "event": "model-call",
+              "name": "main",
+              "stage": "followup",
+              "messages": [
+                {
+                  "role": "system",
+                  "content": "",
+                  "toolsAdded": [
+                    {
+                      "name": "module",
+                      "description": "Use a Clarity module, waiting for its persisted review outcome.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "module",
+                          "method",
+                          "args"
+                        ],
+                        "properties": {
+                          "module": {
+                            "type": "string"
+                          },
+                          "method": {
+                            "type": "string"
+                          },
+                          "args": {
+                            "type": "object",
+                            "patternProperties": {
+                              "^.*$": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "direct",
+                      "description": "Fixture mutation with explicit replay policy.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "title"
+                        ],
+                        "properties": {
+                          "title": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "inspect_todos",
+                      "description": "Read the synthetic task list after approval.",
+                      "parameters": {
+                        "type": "object",
+                        "properties": {}
+                      }
+                    }
+                  ],
+                  "timestamp": 1792394582547
+                },
+                {
+                  "role": "user",
+                  "content": "Another conversation.",
+                  "timestamp": 1792394582528
+                }
+              ]
+            },
+            {
+              "event": "approval-queued",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "106c6fc5-f198-4840-942f-c01889a77e65"
+            }
+          ],
+          "stderr": "(node:39348) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        }
+      ]
+    },
+    {
+      "id": "D10",
+      "title": "Interrupted model request retries only after explicit Resume",
+      "observation": {
+        "todoCount": 1,
+        "retriedModelAfterResume": true
+      },
+      "result": "Passed",
+      "durationMs": 617,
+      "stats": {
+        "requests": 1,
+        "effects": 0
+      },
+      "processes": [
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "model-start",
+              "name": "main"
+            }
+          ],
+          "stderr": "(node:39350) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        },
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "model-start",
+              "name": "main"
+            },
+            {
+              "event": "tool-start",
+              "name": "main",
+              "key": "main:1:12"
+            },
+            {
+              "event": "approval-queued",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "cf775e35-bece-4686-a377-4908f1fdca0a"
+            },
+            {
+              "event": "result-ready",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "cf775e35-bece-4686-a377-4908f1fdca0a",
+              "status": "applied"
+            },
+            {
+              "event": "model-call",
+              "name": "main",
+              "stage": "followup",
+              "messages": [
+                {
+                  "role": "system",
+                  "content": "",
+                  "toolsAdded": [
+                    {
+                      "name": "module",
+                      "description": "Use a Clarity module, waiting for its persisted review outcome.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "module",
+                          "method",
+                          "args"
+                        ],
+                        "properties": {
+                          "module": {
+                            "type": "string"
+                          },
+                          "method": {
+                            "type": "string"
+                          },
+                          "args": {
+                            "type": "object",
+                            "patternProperties": {
+                              "^.*$": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "direct",
+                      "description": "Fixture mutation with explicit replay policy.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "title"
+                        ],
+                        "properties": {
+                          "title": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "inspect_todos",
+                      "description": "Read the synthetic task list after approval.",
+                      "parameters": {
+                        "type": "object",
+                        "properties": {}
+                      }
+                    }
+                  ],
+                  "timestamp": 1792394582883
+                },
+                {
+                  "role": "user",
+                  "content": "Run the synthetic fixture.",
+                  "timestamp": 1792394582877
+                },
+                {
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "toolCall",
+                      "id": "tool:1792394583107:2811eo4i1ir",
+                      "name": "module",
+                      "arguments": {
+                        "module": "todos",
+                        "method": "add",
+                        "args": {
+                          "title": "Durable fixture task"
+                        }
+                      }
+                    }
+                  ],
+                  "api": "faux:1792394583085:ar5uhpj1755",
+                  "provider": "spike",
+                  "model": "scripted",
+                  "usage": {
+                    "input": 164,
+                    "output": 20,
+                    "cacheRead": 0,
+                    "cacheWrite": 164,
+                    "totalTokens": 348,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "stopReason": "toolUse",
+                  "timestamp": 1792394583108,
+                  "durationMs": 1
+                },
+                {
+                  "role": "toolResult",
+                  "toolCallId": "tool:1792394583107:2811eo4i1ir",
+                  "toolName": "module",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "{\"actionId\":\"cf775e35-bece-4686-a377-4908f1fdca0a\",\"status\":\"applied\",\"result\":{\"title\":\"Durable fixture task\",\"done\":false,\"date\":null,\"id\":\"067087fa-ed8c-42ee-8c6b-0770c4ff6d57\",\"createdAt\":1792394583171,\"updatedAt\":1792394583171,\"revision\":1}}"
+                    }
+                  ],
+                  "details": {
+                    "actionId": "cf775e35-bece-4686-a377-4908f1fdca0a",
+                    "status": "pending"
+                  },
+                  "isError": false,
+                  "durationMs": 61,
+                  "timestamp": 1792394583178
+                }
+              ]
+            }
+          ],
+          "stderr": "(node:39351) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        }
+      ]
+    },
+    {
+      "id": "D11",
+      "title": "Existing Clarity recovery marks uncertain applying actions failed and the bridge does not replay them",
+      "observation": {
+        "injectedWindow": "effect committed; action completion not saved",
+        "effectCount": 1,
+        "actionStatus": "failed"
+      },
+      "result": "Passed",
+      "durationMs": 726,
+      "stats": {
+        "requests": 2,
+        "effects": 0
+      },
+      "processes": [
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "model-start",
+              "name": "main"
+            },
+            {
+              "event": "tool-start",
+              "name": "main",
+              "key": "main:1:12"
+            },
+            {
+              "event": "approval-queued",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "c93ec296-93d0-4f1d-a765-af23cae5a87c"
+            }
+          ],
+          "stderr": "(node:39354) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        },
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "tool-start",
+              "name": "main",
+              "key": "main:1:12"
+            },
+            {
+              "event": "approval-queued",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "c93ec296-93d0-4f1d-a765-af23cae5a87c"
+            },
+            {
+              "event": "result-ready",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "c93ec296-93d0-4f1d-a765-af23cae5a87c",
+              "status": "failed"
+            },
+            {
+              "event": "model-call",
+              "name": "main",
+              "stage": "followup",
+              "messages": [
+                {
+                  "role": "system",
+                  "content": "",
+                  "toolsAdded": [
+                    {
+                      "name": "module",
+                      "description": "Use a Clarity module, waiting for its persisted review outcome.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "module",
+                          "method",
+                          "args"
+                        ],
+                        "properties": {
+                          "module": {
+                            "type": "string"
+                          },
+                          "method": {
+                            "type": "string"
+                          },
+                          "args": {
+                            "type": "object",
+                            "patternProperties": {
+                              "^.*$": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "direct",
+                      "description": "Fixture mutation with explicit replay policy.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "title"
+                        ],
+                        "properties": {
+                          "title": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "inspect_todos",
+                      "description": "Read the synthetic task list after approval.",
+                      "parameters": {
+                        "type": "object",
+                        "properties": {}
+                      }
+                    }
+                  ],
+                  "timestamp": 1792394583505
+                },
+                {
+                  "role": "user",
+                  "content": "Run the synthetic fixture.",
+                  "timestamp": 1792394583499
+                },
+                {
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "toolCall",
+                      "id": "tool:1792394583508:q03387t7ddc",
+                      "name": "module",
+                      "arguments": {
+                        "module": "todos",
+                        "method": "add",
+                        "args": {
+                          "title": "Durable fixture task"
+                        }
+                      }
+                    }
+                  ],
+                  "api": "faux:1792394583475:vyleavmc2o",
+                  "provider": "spike",
+                  "model": "scripted",
+                  "usage": {
+                    "input": 164,
+                    "output": 20,
+                    "cacheRead": 0,
+                    "cacheWrite": 164,
+                    "totalTokens": 348,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "stopReason": "toolUse",
+                  "timestamp": 1792394583508,
+                  "durationMs": 1
+                },
+                {
+                  "role": "toolResult",
+                  "toolCallId": "tool:1792394583508:q03387t7ddc",
+                  "toolName": "module",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "{\"actionId\":\"c93ec296-93d0-4f1d-a765-af23cae5a87c\",\"status\":\"failed\",\"error\":\"Clarity quit while applying this action. Check its result before submitting it again.\"}"
+                    }
+                  ],
+                  "details": {
+                    "actionId": "c93ec296-93d0-4f1d-a765-af23cae5a87c",
+                    "status": "failed"
+                  },
+                  "isError": true,
+                  "durationMs": 28,
+                  "timestamp": 1792394583900
+                }
+              ]
+            }
+          ],
+          "stderr": "(node:39356) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        }
+      ]
+    },
+    {
+      "id": "D12",
+      "title": "After approval the recovered task can execute a dependent read without another user input",
+      "observation": {
+        "userInputs": 1,
+        "dependentReadSawCreatedTask": true,
+        "todoCount": 1
+      },
+      "result": "Passed",
+      "durationMs": 690,
+      "stats": {
+        "requests": 2,
+        "effects": 0
+      },
+      "processes": [
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "model-start",
+              "name": "main"
+            },
+            {
+              "event": "tool-start",
+              "name": "main",
+              "key": "main:1:12"
+            },
+            {
+              "event": "approval-queued",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "68a596ce-3499-4545-a192-b581ac33ec65"
+            }
+          ],
+          "stderr": "(node:39359) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        },
+        {
+          "events": [
+            {
+              "event": "ready"
+            },
+            {
+              "event": "tool-start",
+              "name": "main",
+              "key": "main:1:12"
+            },
+            {
+              "event": "approval-queued",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "68a596ce-3499-4545-a192-b581ac33ec65"
+            },
+            {
+              "event": "result-ready",
+              "name": "main",
+              "key": "main:1:12",
+              "actionId": "68a596ce-3499-4545-a192-b581ac33ec65",
+              "status": "applied"
+            },
+            {
+              "event": "model-call",
+              "name": "main",
+              "stage": "followup",
+              "messages": [
+                {
+                  "role": "system",
+                  "content": "",
+                  "toolsAdded": [
+                    {
+                      "name": "module",
+                      "description": "Use a Clarity module, waiting for its persisted review outcome.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "module",
+                          "method",
+                          "args"
+                        ],
+                        "properties": {
+                          "module": {
+                            "type": "string"
+                          },
+                          "method": {
+                            "type": "string"
+                          },
+                          "args": {
+                            "type": "object",
+                            "patternProperties": {
+                              "^.*$": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "direct",
+                      "description": "Fixture mutation with explicit replay policy.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "title"
+                        ],
+                        "properties": {
+                          "title": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "inspect_todos",
+                      "description": "Read the synthetic task list after approval.",
+                      "parameters": {
+                        "type": "object",
+                        "properties": {}
+                      }
+                    }
+                  ],
+                  "timestamp": 1792394584230
+                },
+                {
+                  "role": "user",
+                  "content": "Run the synthetic fixture.",
+                  "timestamp": 1792394584225
+                },
+                {
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "toolCall",
+                      "id": "tool:1792394584233:n18c04rzwoq",
+                      "name": "module",
+                      "arguments": {
+                        "module": "todos",
+                        "method": "add",
+                        "args": {
+                          "title": "Durable fixture task"
+                        }
+                      }
+                    }
+                  ],
+                  "api": "faux:1792394584201:jdybjkj4os",
+                  "provider": "spike",
+                  "model": "scripted",
+                  "usage": {
+                    "input": 164,
+                    "output": 20,
+                    "cacheRead": 0,
+                    "cacheWrite": 164,
+                    "totalTokens": 348,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "stopReason": "toolUse",
+                  "timestamp": 1792394584233,
+                  "durationMs": 1
+                },
+                {
+                  "role": "toolResult",
+                  "toolCallId": "tool:1792394584233:n18c04rzwoq",
+                  "toolName": "module",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "{\"actionId\":\"68a596ce-3499-4545-a192-b581ac33ec65\",\"status\":\"applied\",\"result\":{\"title\":\"Durable fixture task\",\"done\":false,\"date\":null,\"id\":\"7cee7bc5-8dd6-47f4-b8b0-e1a73f021479\",\"createdAt\":1792394584542,\"updatedAt\":1792394584542,\"revision\":1}}"
+                    }
+                  ],
+                  "details": {
+                    "actionId": "68a596ce-3499-4545-a192-b581ac33ec65",
+                    "status": "pending"
+                  },
+                  "isError": false,
+                  "durationMs": 48,
+                  "timestamp": 1792394584548
+                }
+              ]
+            },
+            {
+              "event": "dependent-result",
+              "name": "main",
+              "messages": [
+                {
+                  "role": "system",
+                  "content": "",
+                  "toolsAdded": [
+                    {
+                      "name": "module",
+                      "description": "Use a Clarity module, waiting for its persisted review outcome.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "module",
+                          "method",
+                          "args"
+                        ],
+                        "properties": {
+                          "module": {
+                            "type": "string"
+                          },
+                          "method": {
+                            "type": "string"
+                          },
+                          "args": {
+                            "type": "object",
+                            "patternProperties": {
+                              "^.*$": {}
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "direct",
+                      "description": "Fixture mutation with explicit replay policy.",
+                      "parameters": {
+                        "type": "object",
+                        "required": [
+                          "title"
+                        ],
+                        "properties": {
+                          "title": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "name": "inspect_todos",
+                      "description": "Read the synthetic task list after approval.",
+                      "parameters": {
+                        "type": "object",
+                        "properties": {}
+                      }
+                    }
+                  ],
+                  "timestamp": 1792394584230
+                },
+                {
+                  "role": "user",
+                  "content": "Run the synthetic fixture.",
+                  "timestamp": 1792394584225
+                },
+                {
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "toolCall",
+                      "id": "tool:1792394584233:n18c04rzwoq",
+                      "name": "module",
+                      "arguments": {
+                        "module": "todos",
+                        "method": "add",
+                        "args": {
+                          "title": "Durable fixture task"
+                        }
+                      }
+                    }
+                  ],
+                  "api": "faux:1792394584201:jdybjkj4os",
+                  "provider": "spike",
+                  "model": "scripted",
+                  "usage": {
+                    "input": 164,
+                    "output": 20,
+                    "cacheRead": 0,
+                    "cacheWrite": 164,
+                    "totalTokens": 348,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "stopReason": "toolUse",
+                  "timestamp": 1792394584233,
+                  "durationMs": 1
+                },
+                {
+                  "role": "toolResult",
+                  "toolCallId": "tool:1792394584233:n18c04rzwoq",
+                  "toolName": "module",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "{\"actionId\":\"68a596ce-3499-4545-a192-b581ac33ec65\",\"status\":\"applied\",\"result\":{\"title\":\"Durable fixture task\",\"done\":false,\"date\":null,\"id\":\"7cee7bc5-8dd6-47f4-b8b0-e1a73f021479\",\"createdAt\":1792394584542,\"updatedAt\":1792394584542,\"revision\":1}}"
+                    }
+                  ],
+                  "details": {
+                    "actionId": "68a596ce-3499-4545-a192-b581ac33ec65",
+                    "status": "pending"
+                  },
+                  "isError": false,
+                  "durationMs": 48,
+                  "timestamp": 1792394584548
+                },
+                {
+                  "role": "assistant",
+                  "content": [
+                    {
+                      "type": "toolCall",
+                      "id": "tool:1792394584557:7r4kvc7u3qx",
+                      "name": "inspect_todos",
+                      "arguments": {}
+                    }
+                  ],
+                  "api": "faux:1792394584488:nt5nwezrbu",
+                  "provider": "spike",
+                  "model": "scripted",
+                  "usage": {
+                    "input": 254,
+                    "output": 4,
+                    "cacheRead": 0,
+                    "cacheWrite": 254,
+                    "totalTokens": 512,
+                    "cost": {
+                      "input": 0,
+                      "output": 0,
+                      "cacheRead": 0,
+                      "cacheWrite": 0,
+                      "total": 0
+                    }
+                  },
+                  "stopReason": "toolUse",
+                  "timestamp": 1792394584557,
+                  "durationMs": 1
+                },
+                {
+                  "role": "toolResult",
+                  "toolCallId": "tool:1792394584557:7r4kvc7u3qx",
+                  "toolName": "inspect_todos",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "{\"items\":[{\"title\":\"Durable fixture task\",\"done\":false,\"date\":null,\"id\":\"7cee7bc5-8dd6-47f4-b8b0-e1a73f021479\",\"createdAt\":1792394584542,\"updatedAt\":1792394584542,\"revision\":1}],\"truncated\":false,\"total\":1}"
+                    }
+                  ],
+                  "isError": false,
+                  "durationMs": 5,
+                  "timestamp": 1792394584569
+                }
+              ]
+            }
+          ],
+          "stderr": "(node:39360) ExperimentalWarning: SQLite is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+        }
+      ]
+    }
+  ]
+}

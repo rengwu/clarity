@@ -1,0 +1,64 @@
+Clarity Pi Durable recovery and approval spike — 19 October 2026
+
+This external workspace is a disposable experiment, not production Clarity.
+The user selected explicit Resume after restart, continuation after approval,
+and deferred conversation summaries. No live account or user data is used.
+
+Reproduce on Node 22.19.0 or newer from this directory:
+  npm ci
+  node build.mjs
+  node verify.mjs > verification.log 2>&1
+
+The external Clarity build cache must already contain the application's pinned
+dependencies. build.mjs reads unchanged Clarity source from
+/Users/rengwu/Desktop/Projects/clarity and resolves its dependencies from
+/Users/rengwu/Library/Caches/Clarity/build. Pi Durable, Pi AI and Chord are pinned
+to 1.3.0 in this spike. Never install these dependencies in the Clarity repository.
+
+build.mjs bundles real Modules, Store, Files and Chats services and the Worker.
+An Electron nativeImage stub permits importing Chats in Node; image and UI paths
+are not exercised. The baseline uses real Chats.send and Pi agent-core 0.87.1,
+with a scripted stream replacing only the model request. The other scenarios
+use the actual Pi Durable runtime, its shipped faux model provider and its Node
+SQLite adapter. Compaction is disabled.
+
+verify.mjs owns a real local workerd/SQLite service with a synthetic data root.
+Its loopback fixture endpoint connects child processes to the real Clarity
+module and approval methods. Each child runs agent.mjs with independent Pi
+SQLite storage. The driver sends Resume/Stop/Close commands over process IPC,
+observes events, and uses SIGKILL at explicit cut points. The service is closed
+and reopened where specified. All owned children, HTTP sockets and workerd
+instances close in cleanup. There is no browser UI in this spike.
+
+Approval bridge: the replay-safe module wrapper proposes or reattaches to an
+action, then waits for its saved outcome. The fixture serializes requests and
+uses a task-specific action owner to recover the same action when the child
+dies before recording a link. Human approval uses unchanged Modules.approve,
+including revision claims. Only the waiting wrapper is safe to replay; it never
+performs the mutation itself. This owner-field workaround is not a production
+schema design: real integration needs a stable operation identifier while
+preserving chat ownership, origin grants and action-card routing.
+
+One harness and database per independent conversation protects explicit Resume
+in this prototype. N02 deliberately shares a harness: sending another input
+resumes the interrupted conversation too. D01 verifies separate harnesses avoid
+that behavior. Opening/viewing does not start the scheduler; submit/wait do.
+
+D09 uses a special synthetic effect with a deterministic task-keyed Todo record
+ID through the real Store. That is an idempotent fixture, not a new ability of
+the production todos.add method. N01 calls the real, non-idempotent todos.add
+while falsely declaring its wrapper replay-safe, and correctly observes two
+effects after recovery. D11 reconstructs the crash window between a committed
+effect and an unsaved action completion, then invokes real Chats.initialize;
+it is fault injection rather than a hard kill of the app during that window.
+
+Results: runs/<UTC-run-id>/observations.json and latest-run.json. Capture source
+and package hashes before sharing. Evidence copied into Clarity is synthetic
+observations and logs only; configuration files contain fixture-only loopback
+tokens and must not be copied. Disposable source and dependencies stay here.
+
+Limits: no live Codex/OAuth, model intelligence, Electron packaging/UI, history
+migration, Cloudflare Pi storage adapter, browser tools, all-module coverage,
+multiple storage writers, power-loss recovery or summaries are certified.
+The fixed follow-up model responses verify control/data flow, not reasoning.
+SQLite NORMAL mode is tested for process death, not hardware power failure.

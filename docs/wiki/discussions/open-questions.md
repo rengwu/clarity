@@ -2,13 +2,15 @@
 title: Open questions
 section: Discussion
 status: Open
-updated: 2026-10-12
+updated: 2026-10-19
 order: 0
 summary: Remaining design choices and a record of resolved or deferred questions.
 ---
 # Open questions
 
-## Current follow-up · 12 October 2026
+## Current follow-up · 19 October 2026
+
+**Pi Durable experiment complete; production adoption not selected:** the user chose manual Resume, task continuation after approval, and deferred summaries. [D133](../decisions/index.md#d133-pi-durable-recovery-and-approval-spike-19-october-2026) limits those choices to the isolated spike. [Fifteen selected checks passed](../verification/runs/2026-10-19T072255Z-pi-durable.md), including two negative controls exposing shared-harness activation and duplicate effects from unsafe replay declarations. The [execution topic](../foundations/harnesses.md#pi-durable-experiment-19-october-2026) and [technical assessment](../references/technical-spikes.md#assessment-and-remaining-work) describe the next integration requirements. No new product regression is claimed. Codex access on the new version, Electron UI/package behavior, migration and complete action coverage remain outside this experiment.
 
 **Installed linear volume — Keychain step pending:** the repeated quiet-midpoint report came from an older installed logarithmic bundle. The existing D129 fix has now been installed with a backup and verified runtime hashes. [The delivery run](../verification/runs/2026-10-11T182500Z-installed-volume.md) records passing fixture/package checks and the startup wait inside Keychain; the user needs to complete the OS dialog before normal startup can be confirmed.
 

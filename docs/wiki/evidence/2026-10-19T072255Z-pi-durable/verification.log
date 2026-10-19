@@ -1,0 +1,16 @@
+PASS B01: Current Clarity queues review and does not continue after Apply
+PASS D01: Crash recovery waits for Resume; approval continues once; other isolated chat stays independent
+PASS D02: Dismissal survives restart and returns rejection without a mutation
+PASS D03: Stale revision fails after review and the agent receives the failure
+PASS D04: Crash after effect but before durable tool result does not apply the approved action twice
+PASS D05: Stop aborts continuation while preserving the current pending review record
+PASS D06: Graceful close preserves waiting work and reopening stays paused
+PASS D07: Unsafe interrupted tool is not replayed (direct-before)
+PASS D08: Unsafe interrupted tool is not replayed (direct-after)
+PASS D09: Replay-safe fixture with an idempotent effect recovers without duplication
+PASS N01: Negative control: declaring a non-idempotent mutation replay-safe duplicates its effect
+PASS N02: Negative control: new input in a shared session also resumes its interrupted conversation
+PASS D10: Interrupted model request retries only after explicit Resume
+PASS D11: Existing Clarity recovery marks uncertain applying actions failed and the bridge does not replay them
+PASS D12: After approval the recovered task can execute a dependent read without another user input
+{"directory":"/Users/rengwu/Library/Caches/Clarity/spikes/2026-10-19-pi-durable/runs/2026-10-19T072255Z","passed":15,"failed":0}

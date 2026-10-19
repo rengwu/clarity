@@ -2,7 +2,7 @@
 title: Chat and module actions
 section: Foundations
 status: Current
-updated: 2026-10-08
+updated: 2026-10-19
 order: 40
 summary: Chat can read information and perform actions across all Clarity modules.
 ---
@@ -165,6 +165,10 @@ Malformed relative Markdown links/images are contained in the source preview ins
 - [1 October 2026: production redesign port](../verification/runs/2026-10-01T142628Z-redesign-port.md) — real Chat/source navigation, resized preview, drafts/history and picker; model proposal transport checked with controlled responses.
 
 - [1 October 2026: UI fixes and jstack adoption](../verification/runs/2026-09-30T165735Z-ui-fixes-jstack.md) — dirty-build fingerprint, selected scenarios and evidence. This dated pass does not certify later revisions.
+
+## Pi Durable experiment · 19 October 2026
+
+[D133](../decisions/index.md#d133-pi-durable-recovery-and-approval-spike-19-october-2026) authorizes an external experiment in explicit Resume after restart and task continuation after approval; summaries are deferred. The [assistant execution topic](harnesses.md#pi-durable-experiment-19-october-2026) owns its integration contract and [verification](../verification/runs/2026-10-19T072255Z-pi-durable.md). The current Chat UI, approval queue, stored history and interruption rules above remain the production specification.
 
 ## Earlier discussion and research
 

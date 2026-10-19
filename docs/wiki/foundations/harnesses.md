@@ -2,7 +2,7 @@
 title: Assistant execution
 section: Foundations
 status: Current
-updated: 2026-09-29
+updated: 2026-10-19
 order: 50
 summary: Retain Cloudflare OS’s Pi agent and explain its behavior as we build.
 ---
@@ -19,6 +19,21 @@ Pi receives the current thread, fresh environment context, and a `module` tool w
 Saved chats contain Pi messages/tool results and survive restart. The model receives a bounded set of recent complete turns (currently a 400,000-character budget); the full saved transcript remains local. Older chats are searched only on request/reference. Standing instructions can be read from `AGENTS.md` at the selected data root, capped at 30,000 characters. The app does not discover every project's instructions or impose board use globally.
 
 Live tests in the actual app verify installed-subscription tool use, approval, restart continuity, and same-thread model/effort changes. Fresh live OAuth and real account expiry are still unverified. Those are validation gaps, not unresolved billing/provider preferences.
+
+## Pi Durable experiment · 19 October 2026
+
+**Authorized experiment, not a production runtime change ([D133](../decisions/index.md#d133-pi-durable-recovery-and-approval-spike-19-october-2026)).** The user selected explicit Resume after restart and continuation of the task after approving an action, and deferred long-conversation summaries. Current Clarity still uses `pi-ai` and `pi-agent-core` 0.87.1 with the existing queue and interruption behavior above. LangChain/LangGraph were compared but not selected.
+
+The external Pi Durable 1.3.0 spike passed [15 selected scenarios](../verification/runs/2026-10-19T072255Z-pi-durable.md), including the current-app baseline and two deliberate negative controls. Scripted model responses exercised the real Pi Durable runtime and Clarity's unchanged `Chats`, `Modules`, `Files`, and local workerd/SQLite services. After a real child-process kill, the prototype stayed paused until Resume, reattached to the same pending action, and continued after Apply without another user message. A subsequent tool read saw the created Todo. Dismissal, stale revisions, duplicate Apply, interrupted tool/model calls, Stop and graceful close were checked separately.
+
+### Experimental integration contract and limits
+
+- Opening a harness, inspecting history, and watching state do not start execution. `resume()`, `submit()`, and progress-waiting APIs start the **whole harness** scheduler. A negative control confirmed that sending a new message in another conversation resumes existing interrupted work when both share one harness. The spike uses a separate harness/SQLite file per independent conversation; that arrangement passed isolation checks but is not yet selected as the production storage layout.
+- The replay-safe wrapper only creates or finds a review record and waits for its saved outcome. Human approval uses the existing `Modules.approve` revision claim and effect executor. The fixture serializes action creation and identifies the action through a task-specific owner. Production needs a stable operation identifier while retaining the real conversation owner, browser grants, and chronological action cards. The fixture owner convention is not an approved schema migration.
+- Unsafe tool calls interrupted during execution return an uncertain-result error instead of rerunning. Declaring a non-idempotent write replay-safe produced two effects in the negative control. A separate deterministic-ID fixture recovered with one effect; this does not make the current `todos.add` or arbitrary browser actions replay-safe. A model issuing a new tool call after an uncertain result remains a separate reconciliation problem.
+- Use `close()` to preserve unfinished work for later explicit Resume; use `abort()` for a deliberate Stop. The spike preserves existing pending review cards after Stop but does not continue the stopped task when one is applied later. Production shutdown currently aborts its Pi agents and would need a deliberate integration change.
+
+The [technical spike record](../references/technical-spikes.md#pi-durable-recovery-and-approval-spike-19-october-2026) owns reproduction and the decision assessment. No live Codex provider, fresh OAuth, UI, packaged Electron, saved-history migration, complete approval catalogue, or summaries were tested. The library remains experimental. These are limits of this experiment, not new defects or requirements in production Clarity.
 
 ## Earlier discussion and research
 

@@ -2,13 +2,17 @@
 title: Reference register
 section: References
 status: Reference
-updated: 2026-10-03
+updated: 2026-10-19
 order: 0
 summary: Inspiration, inspected sources, and references still to investigate.
 ---
 # Reference register
 
 **Dated research, not the current rebuild contract.** The observations below describe the inspected revisions and experiments at their stated dates. Later implementation choices and app validation are in [Implementation and validation](implementation.md); unresolved work is in [Current follow-up](../discussions/open-questions.md). Historical statements that integration, storage, or packaging were undecided do not reopen those choices.
+
+## Pi Durable comparison and experiment · 19 October 2026
+
+Source inspection confirmed existing pi-ai/pi-agent-core 0.87.1 use. The user authorized an external Pi Durable 1.3.0 test and selected manual Resume plus continuation after approval, deferring summaries. [Technical spikes](technical-spikes.md#pi-durable-recovery-and-approval-spike-19-october-2026) records the 15-scenario fixture result, versioned upstream documentation, comparison with the current queue, and integration hazards. LangChain/LangGraph were researched but not selected.
 
 ## Global feedback research · 2 October 2026
 

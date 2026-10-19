@@ -2,11 +2,43 @@
 title: Disposable technical spikes
 section: References
 status: Reference
-updated: 2026-10-01
+updated: 2026-10-19
 order: 90
 summary: Runtime evidence for subscription access, local persistence, real files, Electron packaging, and browser limits.
 ---
 # Disposable technical spikes
+
+## Pi Durable recovery and approval spike · 19 October 2026
+
+**User-authorized under [D133](../decisions/index.md#d133-pi-durable-recovery-and-approval-spike-19-october-2026).** The [interview](../journal/2026-10-19-grill-abb54c06-04d6-4fca-9873-7072407fca23.md) selected manual Resume after restart, task continuation after approval, and deferral of summaries. This tests a possible successor to the existing Pi loop without changing application dependencies, installed Clarity, or user data. The [assistant execution topic](../foundations/harnesses.md#pi-durable-experiment-19-october-2026) distinguishes the experimental integration from current behavior.
+
+### Method and results
+
+Pin `@earendil-works/pi-durable`, `@earendil-works/pi-ai`, and `@earendil-works/chord` to **1.3.0**, on Node **22.19.0**, macOS arm64. The published [versioned README](https://github.com/earendil-works/pi/blob/v1.3.0/packages/durable/README.md) identifies experimental API stability, replay rules, scheduler activation, and SQLite storage. Its Node SQLite adapter uses WAL with synchronous NORMAL: process-crash results are not power-loss guarantees.
+
+The [final run](../verification/runs/2026-10-19T072255Z-pi-durable.md) passes **15 scenarios**, including two negative controls. The current Clarity baseline executes real `Chats.send` with only the model stream substituted: it returns a pending action, and Apply adds the Todo without another model call. The durable prototype executes a real agent loop against Pi's shipped scripted provider, not a simulated runtime. Its tools call the unchanged Clarity module/approval services through an isolated loopback fixture. Pi state uses Node SQLite; Clarity records use the real local workerd/SQLite Worker. Agent children are killed with SIGKILL at named cut points; module storage is also closed/reopened in selected scenarios.
+
+The main benefit is verified control flow: a recovered task waits for Resume, then waits for the retained review; Apply causes the real module mutation and automatically delivers its result to the next model request. A dependent Todo read succeeds without a second user message. The two negative controls show why integration is required: a new conversation can activate interrupted work in a shared harness, and replay-safe declarations alone do not prevent duplicate writes.
+
+### Reproduction
+
+All executable spike source, dependency manifests, lockfiles, fixtures and generated bundles stay outside the repository at `~/Library/Caches/Clarity/spikes/2026-10-19-pi-durable/`. From that directory:
+
+```sh
+npm ci
+node build.mjs
+node verify.mjs > verification.log 2>&1
+```
+
+The existing external Clarity build cache must contain its pinned application dependencies. `build.mjs` bundles unchanged source services and the Worker; the old Pi imports resolve to the existing 0.87.1 cache, while the child uses the spike's 1.3.0 packages. An Electron `nativeImage` import stub permits loading `Chats` in Node, without executing image or UI paths. `agent.mjs` supplies the experimental review wrapper, SQLite harness, scripted provider, observation and Resume/Stop/Close entry points. `verify.mjs` drives those entry points and the real approval service, checks persisted effects, and closes owned children, sockets and Worker instances. `SPIKE_CASE` selects an individual scenario by ID.
+
+The retained [reproduction notes](../evidence/2026-10-19T072255Z-pi-durable/reproduction.txt), [identity manifest](../evidence/2026-10-19T072255Z-pi-durable/identity.json), [observations](../evidence/2026-10-19T072255Z-pi-durable/observations.json), and [log](../evidence/2026-10-19T072255Z-pi-durable/verification.log) preserve source hashes and synthetic results. The external lockfile is hashed, not copied into this workspace. External source is required to rerun; retained evidence does not contain the executable spike or user credentials.
+
+### Assessment and remaining work
+
+**Assistant assessment:** Pi Durable demonstrated a useful improvement for the selected recovery/approval behavior. This supports a later isolated application integration, not an immediate production dependency swap. It does not establish reduced maintenance cost, model quality, or faster live responses. Ordinary modules, permissions, scheduling, Markdown ownership and uncertain-effect handling remain application responsibilities.
+
+Before production adoption, design the per-conversation Resume gate and stable tool-to-action identity, preserve original chat ownership, map saved transcripts and streaming events, distinguish Close from Stop, verify the existing Codex subscription route on Pi 1.3.0, and exercise Electron UI/package and shared approvals against disposable data. The Cloudflare Pi storage adapter was inspected but not tested; existing workerd records and Pi storage were separate in this run. Live accounts, all 37 mutations, provider/browser behavior, migrations, power failure and concurrent storage writers were not selected. Summaries remain explicitly deferred. No production migration is authorized by the experiment result alone.
 
 ## Cursor Desktop design spike · 1 October 2026
 

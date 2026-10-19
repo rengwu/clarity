@@ -2,11 +2,13 @@
 title: Implementation and validation
 section: References
 status: Current
-updated: 2026-10-16
+updated: 2026-10-19
 order: 100
 summary: Rebuild contracts, local runtime, data schemas, dependencies, checks, and known gaps.
 ---
 # Implementation and validation
+
+An external Pi Durable 1.3.0 spike tested manual recovery and task continuation after approval under D133; summaries were deferred. The [19 October spike run](../verification/runs/2026-10-19T072255Z-pi-durable.md) records 15 passing scenarios, including the current-app baseline and two deliberate negative controls. This is scripted-model evidence with real module/approval/storage services, not a production migration or live Codex/Electron certification. Application source, dependency pins and the installed bundle are unchanged.
 
 The [UI design system](../foundations/ui-design-system.md) now consolidates the current shared visual and interaction specification for reuse by agents in other projects. It includes exact values, component/layout rules, annotated historical screenshots, implementation provenance and a reproduction checklist. [The 16 October extraction journal](../journal/2026-10-16-ui-design-system.md) records this documentation-only change and its validation; application and installed-package behavior are unchanged.
 

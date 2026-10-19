@@ -2,7 +2,7 @@
 title: Decision register
 section: Decisions
 status: Accepted
-updated: 2026-10-16
+updated: 2026-10-19
 order: 0
 summary: User decisions, delegated implementation defaults, and their replacements.
 ---
@@ -905,3 +905,11 @@ The 2 October [large-collection correction](../features/music.md#large-spotify-c
 **User requirement:** create a UI design-system wiki topic based on Clarity's current implementation so agents in other projects can readily emulate it. **Documentation approach:** the [UI design system](../foundations/ui-design-system.md) owns shared visual rules, exact theme/density values, component states, layout patterns and feedback presentation, with annotated retained screenshots, source provenance, adaptation guidance and a reproduction checklist. Desktop stack retains runtime/service interfaces and verification recipes; feature topics retain their product behavior. Existing heading links remain as pointers to the consolidated specification.
 
 This authorizes documenting the existing design for reuse. It does not select a new UI style, require Clarity's technology stack in receiving projects, create a component package or certify a new runtime build. [The extraction journal](../journal/2026-10-16-ui-design-system.md) records the evidence and documentation checks.
+
+## D133 — Pi Durable recovery and approval spike · 19 October 2026
+
+**User authorization:** test Pi Durable after comparing it with Clarity's existing Pi stack and LangChain/LangGraph. In the [submitted interview](../journal/2026-10-19-grill-abb54c06-04d6-4fca-9873-7072407fca23.md), the user chose explicit Resume after restart, automatic continuation of the task after approval, and deferral of conversation summaries. These choices apply to the isolated experiment. Explicit Quit stops the app, uncertain effects must not be blindly repeated, and missed schedules remain skipped.
+
+**Delegated experimental choices:** pin Pi Durable/Pi AI/Chord 1.3.0 outside the repository, use synthetic data and scripted model responses with real Clarity services, and test recovery using actual process kills. Separate harnesses protect independent conversations in the prototype; task-specific action ownership supplies a disposable deduplication mechanism. Neither convention is a selected production schema.
+
+The [execution topic](../foundations/harnesses.md#pi-durable-experiment-19-october-2026), [technical record](../references/technical-spikes.md#pi-durable-recovery-and-approval-spike-19-october-2026), and [verification run](../verification/runs/2026-10-19T072255Z-pi-durable.md) own the result and limits. D58/D103 remain the production runtime decisions; this experiment does not adopt Pi Durable, LangChain, automatic restart replay, or summarization in installed Clarity.
